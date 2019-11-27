@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class BankDetailsTest {
 
     @Test
-    public void expectsNoteWithTitleAndDescriptionAfterSerialization() throws IOException {
+    public void expectsBankDetailsAfterSerialization() throws IOException {
         BankDetails details = new BankDetails(1, "user1", 12345, "HDFC1234");
         ObjectMapper objectMapper = new ObjectMapper();
 

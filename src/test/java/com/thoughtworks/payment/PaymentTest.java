@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PaymentTest {
     @Test
-    public void expectsNoteWithTitleAndDescriptionAfterSerialization() throws IOException {
+    public void expectsPaymentAfterSerialization() throws IOException {
         BankDetails beneficiary = new BankDetails(1, "user1", 12345, "HDFC1234");
         BankDetails payee = new BankDetails(1, "user2", 12346, "HDFC1234");
 
