@@ -43,8 +43,4 @@ public class Payment {
     public BankDetails getPayee() {
         return payee;
     }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
 }

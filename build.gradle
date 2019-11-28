@@ -25,4 +25,3 @@ dependencies {
 	runtime 'org.postgresql:postgresql:42.2.5'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
-
