@@ -11,7 +11,7 @@ public class BankDetailsTest {
 
     @Test
     public void expectsBankDetailsAfterSerialization() throws IOException {
-        BankDetails details = new BankDetails(1, "user1", 12345, "HDFC1234");
+        BankDetails details = new BankDetails("user1", 12345, "HDFC1234");
         ObjectMapper objectMapper = new ObjectMapper();
 
         String detailsString = objectMapper.writeValueAsString(details);

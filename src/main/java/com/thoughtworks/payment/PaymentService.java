@@ -8,8 +8,13 @@ public class PaymentService {
     @Autowired
     PaymentRepository paymentRepository;
 
-    public Payment create(Payment note) {
-        return paymentRepository.save(note);
+    @Autowired
+    BankDetailsRepository bankDetailsRepository;
+
+    public Payment create(Payment payment) {
+        bankDetailsRepository.save(payment.getBeneficiary());
+        bankDetailsRepository.save(payment.getPayee());
+        return paymentRepository.save(payment);
     }
 
 }

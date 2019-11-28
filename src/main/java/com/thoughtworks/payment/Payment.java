@@ -5,29 +5,26 @@ import javax.persistence.*;
 @Entity
 public class Payment {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private int amount;
 
-    private String beneficiary_name;
-    private long beneficiary_accountNumber;
-    private String beneficiary_ifscCode;
+    @OneToOne
+    @JoinColumn(name = "Beneficiary_Id")
+    private BankDetails beneficiary;
 
-    private String payee_name;
-    private long payee_accountNumber;
-    private String payee_ifscCode;
+    @OneToOne
+    @JoinColumn(name = "Payee_Id")
+    private BankDetails payee;
 
     public Payment() {
     }
 
-    public Payment(int id, int amount, BankDetails beneficiary, BankDetails payee) {
-        this.id = id;
+    public Payment(int amount, BankDetails beneficiary, BankDetails payee) {
         this.amount = amount;
-        this.beneficiary_name = beneficiary.getName();
-        this.beneficiary_accountNumber = beneficiary.getAccountNumber();
-        this.beneficiary_ifscCode = beneficiary.getIfscCode();
-        this.payee_name = payee.getName();
-        this.payee_accountNumber = payee.getAccountNumber();
-        this.payee_ifscCode = payee.getIfscCode();
+        this.beneficiary = beneficiary;
+        this.payee = payee;
     }
 
 
@@ -39,27 +36,15 @@ public class Payment {
         return amount;
     }
 
-    public String getBeneficiary_name() {
-        return beneficiary_name;
+    public BankDetails getBeneficiary() {
+        return beneficiary;
     }
 
-    public long getBeneficiary_accountNumber() {
-        return beneficiary_accountNumber;
+    public BankDetails getPayee() {
+        return payee;
     }
 
-    public String getBeneficiary_ifscCode() {
-        return beneficiary_ifscCode;
-    }
-
-    public String getPayee_name() {
-        return payee_name;
-    }
-
-    public long getPayee_accountNumber() {
-        return payee_accountNumber;
-    }
-
-    public String getPayee_ifscCode() {
-        return payee_ifscCode;
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 }

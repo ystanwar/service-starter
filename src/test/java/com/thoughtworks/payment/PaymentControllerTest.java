@@ -1,5 +1,6 @@
 package com.thoughtworks.payment;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -11,6 +12,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(PaymentController.class)
@@ -26,17 +28,22 @@ public class PaymentControllerTest {
 
     @Test
     public void createPayment() throws Exception {
-        BankDetails beneficiary = new BankDetails(2, "user1", 12345, "HDFC1234");
-        BankDetails payee = new BankDetails(1, "user2", 12346, "HDFC1234");
+        BankDetails beneficiary = new BankDetails("user1", 12345, "HDFC1234");
+        BankDetails payee = new BankDetails("user2", 12346, "HDFC1234");
 
-        Payment payment = new Payment(1, 100, beneficiary, payee);
+        Payment payment = new Payment(500, beneficiary, payee);
+
+        ObjectMapper objectMapper = new ObjectMapper();
         when(paymentService.create(any(Payment.class))).thenReturn(payment);
 
         mockMvc.perform(post("/payments")
-                .content("{\"id\":1,\"amount\":100,\"beneficiary_name\":\"user1\",\"beneficiary_accountNumber\":12345,\"beneficiary_ifscCode\":\"HDFC1234\"," +
-                        "\"payee_name\":\"user2\",\"payee_accountNumber\":12346,\"payee_ifscCode\":\"HDFC1234\"}")
+                .content("{\"amount\":500," +
+                        "\"beneficiary\":{\"name\":\"user1\",\"accountNumber\":12345,\"ifscCode\":\"HDFC1234\"}" +
+                        ",\"payee\":{\"name\":\"user2\",\"accountNumber\":12346,\"ifscCode\":\"HDFC1234\"}" +
+                        "}")
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated());
+                .andExpect(status().isCreated())
+                .andExpect(content().string(objectMapper.writeValueAsString(payment)));
 
         verify(paymentService).create(any(Payment.class));
     }
