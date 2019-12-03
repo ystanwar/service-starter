@@ -20,6 +20,9 @@ public class PaymentTest {
         assertTrue(detailsString.contains("\"id\":0"));
         assertTrue(detailsString.contains("\"amount\":100"));
         assertTrue(detailsString.contains("\"beneficiary\":{\"name\":\"user1\",\"accountNumber\":12345,\"ifscCode\":\"HDFC1234\"}"));
+
         assertTrue(detailsString.contains("\"payee\":{\"name\":\"user2\",\"accountNumber\":12346,\"ifscCode\":\"HDFC1234\"}"));
     }
+
+
 }
