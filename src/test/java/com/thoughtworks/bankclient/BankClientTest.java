@@ -18,8 +18,11 @@ public class BankClientTest {
 
     @Test
     public void checkBankDetails() throws Exception {
-        BankDetails bankDetails = new BankDetails("user1", 12345, "HDFC1234");
-        assertEquals(200, bankClient.checkBankDetails(bankDetails));
+        assertEquals(200, bankClient.checkBankDetails(12345,"HDFC1234"));
+    }
 
+    @Test
+    public void failsToCheckBankDetails() throws Exception {
+        assertEquals(404, bankClient.checkBankDetails(0000,"HDFC1234"));
     }
 }

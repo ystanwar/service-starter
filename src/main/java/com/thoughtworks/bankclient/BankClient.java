@@ -14,13 +14,12 @@ import java.net.URLEncoder;
 public class BankClient {
     private String baseUrl = "http://localhost:8082";
 
-    public int checkBankDetails(BankDetails bankDetails) throws Exception {
+    public int checkBankDetails(long accountNumber,String ifscCode) throws Exception {
         String url = baseUrl + "/checkDetails";
         String charset = "UTF-8";
-        String accountNumber = String.valueOf(bankDetails.getAccountNumber());
-        String ifscCode = bankDetails.getIfscCode();
+        String accountNumberQueryParameter = String.valueOf(accountNumber);
         String query = String.format("accountNumber=%s&&ifscCode=%s",
-                URLEncoder.encode(accountNumber, charset),
+                URLEncoder.encode(accountNumberQueryParameter, charset),
                 URLEncoder.encode(ifscCode, charset));
         URL connection = new URL(url + "?" + query);
         HttpURLConnection httpURLConnection = (HttpURLConnection) connection.openConnection();
