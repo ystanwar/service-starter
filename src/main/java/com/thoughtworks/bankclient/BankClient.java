@@ -31,4 +31,13 @@ public class BankClient {
         return responseCode;
     }
 
+
+    public int checkBeneficiary(BankDetails beneficiary ) throws Exception {
+        return checkBankDetails(beneficiary.getAccountNumber(),beneficiary.getIfscCode());
+    }
+
+    public int checkPayee(BankDetails payee ) throws Exception {
+        return checkBankDetails(payee.getAccountNumber(),payee.getIfscCode());
+    }
+
 }

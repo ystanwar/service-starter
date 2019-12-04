@@ -15,7 +15,7 @@ public class PaymentController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    Payment create(@RequestBody Payment payment) {
+    Payment create(@RequestBody Payment payment) throws Exception {
         return paymentService.create(payment);
     }
 
