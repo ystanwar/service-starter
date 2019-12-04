@@ -17,15 +17,11 @@ public class BankClient {
     public int checkBankDetails(BankDetails bankDetails) throws Exception {
         String url = baseUrl + "/checkDetails";
         String charset = "UTF-8";
-
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("accountHolderName", bankDetails.getName());
-        jsonObject.addProperty("accountNumber", bankDetails.getAccountNumber());
-        jsonObject.addProperty("ifscCode", bankDetails.getIfscCode());
-
-        String bankDetail = jsonObject.toString();
-        String query = String.format("account=%s",
-                URLEncoder.encode(bankDetail, charset));
+        String accountNumber = String.valueOf(bankDetails.getAccountNumber());
+        String ifscCode = bankDetails.getIfscCode();
+        String query = String.format("accountNumber=%s&&ifscCode=%s",
+                URLEncoder.encode(accountNumber, charset),
+                URLEncoder.encode(ifscCode, charset));
         URL connection = new URL(url + "?" + query);
         HttpURLConnection httpURLConnection = (HttpURLConnection) connection.openConnection();
         httpURLConnection.setRequestProperty("Content-Type", "application/json");
