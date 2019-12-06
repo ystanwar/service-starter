@@ -23,6 +23,4 @@ public class PaymentTest {
 
         assertTrue(detailsString.contains("\"payee\":{\"name\":\"user2\",\"accountNumber\":12346,\"ifscCode\":\"HDFC1234\"}"));
     }
-
-
 }

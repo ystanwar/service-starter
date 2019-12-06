@@ -18,5 +18,4 @@ public class PaymentController {
     Payment create(@RequestBody Payment payment) throws Exception {
         return paymentService.create(payment);
     }
-
 }

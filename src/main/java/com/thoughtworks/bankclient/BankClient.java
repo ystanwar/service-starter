@@ -1,6 +1,5 @@
 package com.thoughtworks.bankclient;
 
-import com.google.gson.JsonObject;
 import com.thoughtworks.payment.BankDetails;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +13,7 @@ import java.net.URLEncoder;
 public class BankClient {
     private String baseUrl = "http://localhost:8082";
 
-    public int checkBankDetails(long accountNumber,String ifscCode) throws Exception {
+    public int checkBankDetails(long accountNumber, String ifscCode) throws Exception {
         String url = baseUrl + "/checkDetails";
         String charset = "UTF-8";
         String accountNumberQueryParameter = String.valueOf(accountNumber);
@@ -31,13 +30,11 @@ public class BankClient {
         return responseCode;
     }
 
-
-    public int checkBeneficiary(BankDetails beneficiary ) throws Exception {
-        return checkBankDetails(beneficiary.getAccountNumber(),beneficiary.getIfscCode());
+    public int checkBeneficiary(BankDetails beneficiary) throws Exception {
+        return checkBankDetails(beneficiary.getAccountNumber(), beneficiary.getIfscCode());
     }
 
-    public int checkPayee(BankDetails payee ) throws Exception {
-        return checkBankDetails(payee.getAccountNumber(),payee.getIfscCode());
+    public int checkPayee(BankDetails payee) throws Exception {
+        return checkBankDetails(payee.getAccountNumber(), payee.getIfscCode());
     }
-
 }

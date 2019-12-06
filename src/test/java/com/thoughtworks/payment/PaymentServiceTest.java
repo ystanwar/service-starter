@@ -26,7 +26,7 @@ public class PaymentServiceTest {
         BankDetails payee = new BankDetails("user2", 67890, "HDFC1234");
 
         Payment payment = new Payment(100, beneficiary, payee);
-        when(bankClient.checkBankDetails(anyLong(),anyString())).thenReturn(200);
+        when(bankClient.checkBankDetails(anyLong(), anyString())).thenReturn(200);
 
         Payment savedPayment = paymentService.create(payment);
         assertEquals(100, savedPayment.getAmount());
@@ -43,9 +43,9 @@ public class PaymentServiceTest {
 
         when(bankClient.checkBeneficiary(any(BankDetails.class))).thenReturn(404);
 
-        Exception exception= assertThrows(BeneficiaryAccountDetailsNotFound.class, () -> paymentService.create(payment));
+        Exception exception = assertThrows(BeneficiaryAccountDetailsNotFound.class, () -> paymentService.create(payment));
 
-        assertEquals("Beneficiary AccountDetails Not Found",exception.getMessage());
+        assertEquals("Beneficiary AccountDetails Not Found", exception.getMessage());
     }
 
     @Test
@@ -57,8 +57,8 @@ public class PaymentServiceTest {
 
         Payment payment = new Payment(100, beneficiary, payee);
 
-        Exception exception= assertThrows(PayeeAccountDetailsNotFound.class, () -> paymentService.create(payment));
+        Exception exception = assertThrows(PayeeAccountDetailsNotFound.class, () -> paymentService.create(payment));
 
-        assertEquals("Payee AccountDetails Not Found",exception.getMessage());
+        assertEquals("Payee AccountDetails Not Found", exception.getMessage());
     }
 }

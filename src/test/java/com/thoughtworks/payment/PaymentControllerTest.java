@@ -48,6 +48,4 @@ public class PaymentControllerTest {
 
         verify(paymentService).create(any(Payment.class));
     }
-
-
 }
