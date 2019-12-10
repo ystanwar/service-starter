@@ -16,13 +16,11 @@ public class PaymentService {
     BankClient bankClient;
 
     public Payment create(Payment payment) throws Exception {
-
         BankDetails beneficiary = payment.getBeneficiary();
         int responseStatusCode = bankClient.checkBeneficiary(beneficiary);
         if (responseStatusCode == 404) {
             throw new BeneficiaryAccountDetailsNotFound("Beneficiary AccountDetails Not Found");
         }
-
         BankDetails payee = payment.getPayee();
         int payeeResponseCode = bankClient.checkPayee(payee);
         if (payeeResponseCode == 404) {

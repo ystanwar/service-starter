@@ -16,6 +16,7 @@ public class PaymentController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     Payment create(@RequestBody Payment payment) throws Exception {
+        System.out.println("iam in controller");
         return paymentService.create(payment);
     }
 }

@@ -1,12 +1,15 @@
 package com.thoughtworks.payment;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.thoughtworks.bankclient.BankClient;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+
+import javax.security.auth.login.AccountNotFoundException;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
@@ -29,7 +32,7 @@ public class PaymentControllerTest {
 
     @Test
     public void createPayment() throws Exception {
-        BankDetails beneficiary = new BankDetails("user1", 12345, "HDFC1234");
+        BankDetails beneficiary = new BankDetails("user1", 12, "HDFC1");
         BankDetails payee = new BankDetails("user2", 12346, "HDFC1234");
 
         Payment payment = new Payment(500, beneficiary, payee);
@@ -46,6 +49,20 @@ public class PaymentControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(content().string(objectMapper.writeValueAsString(payment)));
 
+        verify(paymentService).create(any(Payment.class));
+    }
+
+    @Test
+    public void createPaymentWithBeneficiaryDetailsNotExists() throws Exception {
+        when(paymentService.create(any(Payment.class))).thenThrow(new BeneficiaryAccountDetailsNotFound("Beneficiary AccountDetails Not Found"));
+
+        mockMvc.perform(post("/payments")
+                .content("{\"amount\":500," +
+                        "\"beneficiary\":{\"name\":\"user1\",\"accountNumber\":12,\"ifscCode\":\"HDFC1\"}" +
+                        ",\"payee\":{\"name\":\"user2\",\"accountNumber\":12346,\"ifscCode\":\"HDFC1234\"}" +
+                        "}")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
         verify(paymentService).create(any(Payment.class));
     }
 }
