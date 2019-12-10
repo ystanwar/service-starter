@@ -65,4 +65,18 @@ public class PaymentControllerTest {
                 .andExpect(status().isNotFound());
         verify(paymentService).create(any(Payment.class));
     }
+
+    @Test
+    public void createPaymentWithPayeeDetailsNotExists() throws Exception {
+        when(paymentService.create(any(Payment.class))).thenThrow(new PayeeAccountDetailsNotFound("Payee AccountDetails Not Found"));
+
+        mockMvc.perform(post("/payments")
+                .content("{\"amount\":500," +
+                        "\"beneficiary\":{\"name\":\"user1\",\"accountNumber\":12345,\"ifscCode\":\"HDFC1234\"}" +
+                        ",\"payee\":{\"name\":\"user2\",\"accountNumber\":12,\"ifscCode\":\"HDFC1\"}" +
+                        "}")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+        verify(paymentService).create(any(Payment.class));
+    }
 }
