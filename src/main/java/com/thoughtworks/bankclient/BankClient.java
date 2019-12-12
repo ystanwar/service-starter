@@ -14,9 +14,8 @@ public class BankClient {
     public int checkBankDetails(long accountNumber, String ifscCode) throws Exception {
         String url = baseUrl + "/checkDetails";
         String charset = "UTF-8";
-        String accountNumberQueryParameter = String.valueOf(accountNumber);
         String query = String.format("accountNumber=%s&&ifscCode=%s",
-                URLEncoder.encode(accountNumberQueryParameter, charset),
+                URLEncoder.encode(String.valueOf(accountNumber), charset),
                 URLEncoder.encode(ifscCode, charset));
         URL connection = new URL(url + "?" + query);
         return getResponseCode(connection);
