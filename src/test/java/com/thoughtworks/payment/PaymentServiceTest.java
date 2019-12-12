@@ -41,7 +41,7 @@ public class PaymentServiceTest {
 
         Payment payment = new Payment(100, beneficiary, payee);
 
-        when(bankClient.checkBeneficiary(any(BankDetails.class))).thenReturn(404);
+        when(bankClient.checkBankDetails(anyLong(),anyString())).thenReturn(404);
 
         Exception exception = assertThrows(BeneficiaryAccountDetailsNotFound.class, () -> paymentService.create(payment));
 
@@ -53,7 +53,7 @@ public class PaymentServiceTest {
         BankDetails beneficiary = new BankDetails("user1", 12345, "HDFC1234");
         BankDetails payee = new BankDetails("user2", 00000, "0000000");
 
-        when(bankClient.checkPayee(any(BankDetails.class))).thenReturn(404);
+        when(bankClient.checkBankDetails(anyLong(),anyString())).thenReturn(200,404);
 
         Payment payment = new Payment(100, beneficiary, payee);
 

@@ -1,10 +1,8 @@
 package com.thoughtworks.bankclient;
 
-import com.thoughtworks.payment.BankDetails;
 import org.springframework.stereotype.Service;
 
 import java.net.HttpURLConnection;
-
 import java.net.URL;
 import java.net.URLEncoder;
 
@@ -28,13 +26,5 @@ public class BankClient {
         int responseCode = httpURLConnection.getResponseCode();
         httpURLConnection.disconnect();
         return responseCode;
-    }
-
-    public int checkBeneficiary(BankDetails beneficiary) throws Exception {
-        return checkBankDetails(beneficiary.getAccountNumber(), beneficiary.getIfscCode());
-    }
-
-    public int checkPayee(BankDetails payee) throws Exception {
-        return checkBankDetails(payee.getAccountNumber(), payee.getIfscCode());
     }
 }
