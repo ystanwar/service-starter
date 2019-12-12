@@ -1,20 +1,18 @@
 package com.thoughtworks.payment;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.thoughtworks.bankclient.BankClient;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
-import javax.security.auth.login.AccountNotFoundException;
-
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -56,27 +54,32 @@ public class PaymentControllerTest {
     public void createPaymentWithBeneficiaryDetailsNotExists() throws Exception {
         when(paymentService.create(any(Payment.class))).thenThrow(new BeneficiaryAccountDetailsNotFound("Beneficiary AccountDetails Not Found"));
 
-        mockMvc.perform(post("/payments")
+        MvcResult response = mockMvc.perform(post("/payments")
                 .content("{\"amount\":500," +
                         "\"beneficiary\":{\"name\":\"user1\",\"accountNumber\":12,\"ifscCode\":\"HDFC1\"}" +
                         ",\"payee\":{\"name\":\"user2\",\"accountNumber\":12346,\"ifscCode\":\"HDFC1234\"}" +
                         "}")
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNotFound());
+                .andExpect(status().isNotFound())
+                .andReturn();
+
+        assertEquals(response.getResolvedException().getMessage(), "Beneficiary AccountDetails Not Found");
         verify(paymentService).create(any(Payment.class));
     }
-
     @Test
     public void createPaymentWithPayeeDetailsNotExists() throws Exception {
         when(paymentService.create(any(Payment.class))).thenThrow(new PayeeAccountDetailsNotFound("Payee AccountDetails Not Found"));
 
-        mockMvc.perform(post("/payments")
+        MvcResult response = mockMvc.perform(post("/payments")
                 .content("{\"amount\":500," +
                         "\"beneficiary\":{\"name\":\"user1\",\"accountNumber\":12345,\"ifscCode\":\"HDFC1234\"}" +
                         ",\"payee\":{\"name\":\"user2\",\"accountNumber\":12,\"ifscCode\":\"HDFC1\"}" +
                         "}")
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNotFound());
+                .andExpect(status().isNotFound())
+                .andReturn();
+
+        assertEquals(response.getResolvedException().getMessage(), "Payee AccountDetails Not Found");
         verify(paymentService).create(any(Payment.class));
     }
 }
