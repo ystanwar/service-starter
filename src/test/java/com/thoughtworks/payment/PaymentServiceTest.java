@@ -41,11 +41,11 @@ public class PaymentServiceTest {
 
         Payment payment = new Payment(100, beneficiary, payee);
 
-        when(bankClient.checkBankDetails(anyLong(),anyString())).thenReturn(404);
+        when(bankClient.checkBankDetails(anyLong(), anyString())).thenReturn(404);
 
         Exception exception = assertThrows(BeneficiaryAccountDetailsNotFound.class, () -> paymentService.create(payment));
 
-        assertEquals("Beneficiary AccountDetails Not Found", exception.getMessage());
+        assertEquals("user1's AccountDetails Not Found", exception.getMessage());
     }
 
     @Test
@@ -53,12 +53,12 @@ public class PaymentServiceTest {
         BankDetails beneficiary = new BankDetails("user1", 12345, "HDFC1234");
         BankDetails payee = new BankDetails("user2", 00000, "0000000");
 
-        when(bankClient.checkBankDetails(anyLong(),anyString())).thenReturn(200,404);
+        when(bankClient.checkBankDetails(anyLong(), anyString())).thenReturn(200, 404);
 
         Payment payment = new Payment(100, beneficiary, payee);
 
         Exception exception = assertThrows(PayeeAccountDetailsNotFound.class, () -> paymentService.create(payment));
 
-        assertEquals("Payee AccountDetails Not Found", exception.getMessage());
+        assertEquals("user2's AccountDetails Not Found", exception.getMessage());
     }
 }
