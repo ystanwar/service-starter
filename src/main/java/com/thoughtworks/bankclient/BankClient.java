@@ -1,5 +1,7 @@
 package com.thoughtworks.bankclient;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -9,7 +11,13 @@ import java.net.URLEncoder;
 
 @Service
 public class BankClient {
-    private String baseUrl = "http://localhost:8082";
+
+    private String baseUrl;
+
+    @Autowired
+    private BankClient(Environment env) {
+        this.baseUrl = env.getProperty("url.bankService");
+    }
 
     public int checkBankDetails(long accountNumber, String ifscCode) throws Exception {
         String url = baseUrl + "/checkDetails";

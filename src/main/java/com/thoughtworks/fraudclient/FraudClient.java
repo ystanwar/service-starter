@@ -2,6 +2,8 @@ package com.thoughtworks.fraudclient;
 
 import com.google.gson.Gson;
 import com.thoughtworks.payment.Payment;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -11,7 +13,12 @@ import java.net.URL;
 
 @Service
 public class FraudClient {
-    private String baseUrl = "http://localhost:8083";
+    private String baseUrl;
+
+    @Autowired
+    FraudClient(Environment env) {
+        this.baseUrl = env.getProperty("url.fraudService");
+    }
 
     public int checkFraud(Payment payment) throws Exception {
         String url = baseUrl + "/checkFraud";
