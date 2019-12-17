@@ -1,0 +1,2 @@
+url.bankService: http://localhost:8082
+url.fraudService: http://localhost:8083
