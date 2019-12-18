@@ -19,12 +19,12 @@ public class PaymentService {
         BankDetails beneficiary = payment.getBeneficiary();
         int beneficiaryResponseCode = bankClient.checkBankDetails(beneficiary.getAccountNumber(), beneficiary.getIfscCode());
         if (beneficiaryResponseCode == 404) {
-            throw new BeneficiaryAccountDetailsNotFound(beneficiary.getName() + "'s AccountDetails Not Found");
+            throw new BeneficiaryAccountDetailsNotFound("message",beneficiary.getName() + "'s AccountDetails Not Found");
         }
         BankDetails payee = payment.getPayee();
         int payeeResponseCode = bankClient.checkBankDetails(payee.getAccountNumber(), payee.getIfscCode());
         if (payeeResponseCode == 404) {
-            throw new PayeeAccountDetailsNotFound(payee.getName() + "'s AccountDetails Not Found");
+            throw new PayeeAccountDetailsNotFound("message",payee.getName() + "'s AccountDetails Not Found");
         }
         bankDetailsRepository.save(payment.getBeneficiary());
         bankDetailsRepository.save(payment.getPayee());

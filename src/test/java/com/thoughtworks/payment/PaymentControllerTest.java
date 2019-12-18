@@ -1,6 +1,7 @@
 package com.thoughtworks.payment;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.thoughtworks.error.PaymentErrorResponse;
 import com.thoughtworks.response.PaymentResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +9,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -59,35 +61,41 @@ public class PaymentControllerTest {
 
     @Test
     public void createPaymentWithBeneficiaryDetailsNotExists() throws Exception {
-        when(paymentService.create(any(Payment.class))).thenThrow(new BeneficiaryAccountDetailsNotFound("Beneficiary AccountDetails Not Found"));
+        when(paymentService.create(any(Payment.class))).thenThrow(new BeneficiaryAccountDetailsNotFound("message", "Beneficiary AccountDetails Not Found"));
+        Map<String, String> errors = new HashMap<>();
+        errors.put("message", "Beneficiary AccountDetails Not Found");
+        ObjectMapper objectMapper = new ObjectMapper();
 
-        MvcResult response = mockMvc.perform(post("/payments")
+        mockMvc.perform(post("/payments")
                 .content("{\"amount\":500," +
                         "\"beneficiary\":{\"name\":\"user1\",\"accountNumber\":12,\"ifscCode\":\"HDFC1\"}" +
                         ",\"payee\":{\"name\":\"user2\",\"accountNumber\":12346,\"ifscCode\":\"HDFC1234\"}" +
                         "}")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound())
-                .andReturn();
+                .andExpect(content().string(objectMapper.writeValueAsString(new PaymentErrorResponse("PAYMENT_FAILED", errors))));
 
-        assertEquals(response.getResolvedException().getMessage(), "Beneficiary AccountDetails Not Found");
         verify(paymentService).create(any(Payment.class));
     }
 
     @Test
     public void createPaymentWithPayeeDetailsNotExists() throws Exception {
-        when(paymentService.create(any(Payment.class))).thenThrow(new PayeeAccountDetailsNotFound("Payee AccountDetails Not Found"));
+        Map<String, String> errors = new HashMap<>();
+        errors.put("message", "Payee AccountDetails Not Found");
+        ObjectMapper objectMapper = new ObjectMapper();
 
-        MvcResult response = mockMvc.perform(post("/payments")
+
+        when(paymentService.create(any(Payment.class))).thenThrow(new PayeeAccountDetailsNotFound("message", "Payee AccountDetails Not Found"));
+
+        mockMvc.perform(post("/payments")
                 .content("{\"amount\":500," +
                         "\"beneficiary\":{\"name\":\"user1\",\"accountNumber\":12345,\"ifscCode\":\"HDFC1234\"}" +
                         ",\"payee\":{\"name\":\"user2\",\"accountNumber\":12,\"ifscCode\":\"HDFC1\"}" +
                         "}")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound())
-                .andReturn();
+                .andExpect(content().string(objectMapper.writeValueAsString(new PaymentErrorResponse("PAYMENT_FAILED", errors))));
 
-        assertEquals(response.getResolvedException().getMessage(), "Payee AccountDetails Not Found");
         verify(paymentService).create(any(Payment.class));
     }
 }
