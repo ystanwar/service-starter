@@ -43,4 +43,8 @@ public class Payment {
     public BankDetails getPayee() {
         return payee;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

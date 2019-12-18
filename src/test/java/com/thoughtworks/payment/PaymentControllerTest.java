@@ -1,6 +1,7 @@
 package com.thoughtworks.payment;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.thoughtworks.response.PaymentResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -9,7 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -34,8 +35,14 @@ public class PaymentControllerTest {
         BankDetails payee = new BankDetails("user2", 12346, "HDFC1234");
 
         Payment payment = new Payment(500, beneficiary, payee);
+        payment.setId(1);
 
         ObjectMapper objectMapper = new ObjectMapper();
+
+        PaymentResponse response = new PaymentResponse();
+        response.setStatusMessage("Payment done successfully");
+        response.setPaymentId(payment.getId());
+
         when(paymentService.create(any(Payment.class))).thenReturn(payment);
 
         mockMvc.perform(post("/payments")
@@ -45,7 +52,7 @@ public class PaymentControllerTest {
                         "}")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
-                .andExpect(content().string(objectMapper.writeValueAsString(payment)));
+                .andExpect(content().string(objectMapper.writeValueAsString(response)));
 
         verify(paymentService).create(any(Payment.class));
     }
@@ -66,6 +73,7 @@ public class PaymentControllerTest {
         assertEquals(response.getResolvedException().getMessage(), "Beneficiary AccountDetails Not Found");
         verify(paymentService).create(any(Payment.class));
     }
+
     @Test
     public void createPaymentWithPayeeDetailsNotExists() throws Exception {
         when(paymentService.create(any(Payment.class))).thenThrow(new PayeeAccountDetailsNotFound("Payee AccountDetails Not Found"));
