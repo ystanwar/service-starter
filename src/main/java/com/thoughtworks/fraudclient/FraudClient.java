@@ -17,7 +17,7 @@ public class FraudClient {
 
     @Autowired
     FraudClient(Environment env) {
-        this.baseUrl = env.getProperty("url.fraudService");
+        this.baseUrl = env.getProperty("fraudService");
     }
 
     public int checkFraud(Payment payment) throws Exception {

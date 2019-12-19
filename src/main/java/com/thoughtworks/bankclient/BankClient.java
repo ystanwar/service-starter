@@ -16,7 +16,7 @@ public class BankClient {
 
     @Autowired
     private BankClient(Environment env) {
-        this.baseUrl = env.getProperty("url.bankService");
+        this.baseUrl = env.getProperty("bankService");
     }
 
     public int checkBankDetails(long accountNumber, String ifscCode) throws Exception {
