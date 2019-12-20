@@ -24,21 +24,18 @@ public class BankClient {
     }
 
     public int checkBankDetails(long accountNumber, String ifscCode) throws IOException, URISyntaxException {
-        System.out.println(accountNumber+ifscCode);
-        URIBuilder uriBuilder = new URIBuilder();
-        uriBuilder.setScheme("http")
-                .setHost("localhost")
-                .setPort(8082)
-                .setPath("/checkDetails")
-                .addParameter("accountNumber",String.valueOf(accountNumber))
-                .addParameter("ifscCode",ifscCode);
-
-        URI uri = uriBuilder.build();
-        HttpGet get = new HttpGet(uri);
+        String url = baseUrl + "/checkDetails";
+        HttpGet get = new HttpGet(url);
+        URI uri = new URIBuilder(get.getURI())
+                .addParameter("accountNumber", String.valueOf(accountNumber))
+                .addParameter("ifscCode", ifscCode)
+                .build();
+        get.setURI(uri);
 
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        CloseableHttpResponse response=httpclient.execute(get);
-        return response.getStatusLine().getStatusCode();
-
+        CloseableHttpResponse response = httpclient.execute(get);
+        int statusCode = response.getStatusLine().getStatusCode();
+        response.close();
+        return statusCode;
     }
 }

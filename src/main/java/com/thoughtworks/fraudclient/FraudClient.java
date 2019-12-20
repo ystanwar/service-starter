@@ -1,15 +1,19 @@
 package com.thoughtworks.fraudclient;
 
-import com.google.gson.Gson;
 import com.thoughtworks.payment.Payment;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicNameValuePair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class FraudClient {
@@ -22,21 +26,16 @@ public class FraudClient {
 
     public int checkFraud(Payment payment) throws Exception {
         String url = baseUrl + "/checkFraud";
-        Gson gson = new Gson();
-        String paymentData = gson.toJson(payment);
-        URL connection = new URL(url);
-        return getResponseCode(connection, paymentData);
-    }
+        CloseableHttpClient client = HttpClients.createDefault();
+        HttpPost httpPost = new HttpPost(url);
 
-    private int getResponseCode(URL connection, String paymentData) throws IOException {
-        HttpURLConnection httpURLConnection = (HttpURLConnection) connection.openConnection();
-        httpURLConnection.setRequestProperty("Content-Type", "application/json");
-        httpURLConnection.setRequestProperty("Accept", "application/json");
-        httpURLConnection.setRequestMethod("POST");
-        httpURLConnection.setDoOutput(true);
-        OutputStreamWriter out = new OutputStreamWriter(httpURLConnection.getOutputStream());
-        out.write(paymentData);
-        out.close();
-        return httpURLConnection.getResponseCode();
+        List<NameValuePair> params = new ArrayList<>();
+        params.add(new BasicNameValuePair("payment", String.valueOf(payment)));
+        httpPost.setEntity(new UrlEncodedFormEntity(params));
+
+        CloseableHttpResponse response = client.execute(httpPost);
+        int responseCode = response.getStatusLine().getStatusCode();
+        client.close();
+        return responseCode;
     }
 }
