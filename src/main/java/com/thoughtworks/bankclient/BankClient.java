@@ -23,40 +23,17 @@ public class BankClient {
         this.baseUrl = env.getProperty("bankService");
     }
 
-//    public int checkBankDetails(long accountNumber, String ifscCode) throws Exception {
-//        String url = baseUrl + "/checkDetails";
-//        String charset = "UTF-8";
-//        String query = String.format("accountNumber=%s&&ifscCode=%s",
-//                URLEncoder.encode(String.valueOf(accountNumber), charset),
-//                URLEncoder.encode(ifscCode, charset));
-//        URL connection = new URL(url + "?" + query);
-//        return getResponseCode(connection);
-//    }
-//
-//    private int getResponseCode(URL connection) throws IOException {
-//        HttpURLConnection httpURLConnection = (HttpURLConnection) connection.openConnection();
-//        httpURLConnection.setRequestProperty("Content-Type", "application/json");
-//        httpURLConnection.setRequestProperty("Accept", "application/json");
-//        httpURLConnection.setRequestMethod("GET");
-//        int responseCode = httpURLConnection.getResponseCode();
-//        httpURLConnection.disconnect();
-//        return responseCode;
-//    }
     public int checkBankDetails(long accountNumber, String ifscCode) throws IOException, URISyntaxException {
         System.out.println(accountNumber+ifscCode);
-       // String url = baseUrl + "/checkDetails";
         URIBuilder uriBuilder = new URIBuilder();
         uriBuilder.setScheme("http")
                 .setHost("localhost")
                 .setPort(8082)
                 .setPath("/checkDetails")
-//                .setParameter("accountNumber",String.valueOf(accountNumber))
-//                .setParameter("ifscCode",ifscCode);
                 .addParameter("accountNumber",String.valueOf(accountNumber))
                 .addParameter("ifscCode",ifscCode);
 
         URI uri = uriBuilder.build();
-        System.out.println(uri);
         HttpGet get = new HttpGet(uri);
 
         CloseableHttpClient httpclient = HttpClients.createDefault();
