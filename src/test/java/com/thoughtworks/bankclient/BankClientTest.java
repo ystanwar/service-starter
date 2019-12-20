@@ -1,6 +1,7 @@
 package com.thoughtworks.bankclient;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
+import com.github.tomakehurst.wiremock.stubbing.StubMapping;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,7 +21,8 @@ public class BankClientTest {
         wireMockServer.start();
         configureFor("localhost", 8082);
 
-        stubFor(get(urlEqualTo("/checkDetails?accountNumber=12345&&ifscCode=HDFC1234")).willReturn(aResponse().withStatus(200)));
+        StubMapping string=stubFor(get(urlEqualTo("/checkDetails?accountNumber=12345&ifscCode=HDFC1234")).willReturn(aResponse().withStatus(200)));
+
         assertEquals(200, bankClient.checkBankDetails(12345, "HDFC1234"));
         wireMockServer.stop();
     }
@@ -31,7 +33,7 @@ public class BankClientTest {
         wireMockServer.start();
         configureFor("localhost", 8082);
 
-        stubFor(get(urlEqualTo("/checkDetails?accountNumber=0000&&ifscCode=HDFC1234")).willReturn(aResponse().withStatus(404)));
+        stubFor(get(urlEqualTo("/checkDetails?accountNumber=0000&ifscCode=HDFC1234")).willReturn(aResponse().withStatus(404)));
         assertEquals(404, bankClient.checkBankDetails(0000, "HDFC1234"));
         wireMockServer.stop();
     }

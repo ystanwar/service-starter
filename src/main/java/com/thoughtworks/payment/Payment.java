@@ -27,7 +27,6 @@ public class Payment {
         this.payee = payee;
     }
 
-
     public int getId() {
         return id;
     }

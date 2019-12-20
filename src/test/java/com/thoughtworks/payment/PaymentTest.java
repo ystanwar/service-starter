@@ -16,8 +16,6 @@ public class PaymentTest {
         Payment payment = new Payment(100, beneficiary, payee);
         ObjectMapper objectMapper = new ObjectMapper();
         String detailsString = objectMapper.writeValueAsString(payment);
-        System.out.println(detailsString);
-
         assertTrue(detailsString.contains("\"id\":0"));
         assertTrue(detailsString.contains("\"amount\":100"));
         assertTrue(detailsString.contains("\"beneficiary\":{\"name\":\"user1\",\"accountNumber\":12345,\"ifscCode\":\"HDFC1234\"}"));
