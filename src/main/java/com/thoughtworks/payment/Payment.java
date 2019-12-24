@@ -1,10 +1,13 @@
 package com.thoughtworks.payment;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.*;
 
 @Entity
 public class Payment {
     @Id
+    @ApiModelProperty(hidden = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
