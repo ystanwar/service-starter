@@ -18,8 +18,32 @@ public class PaymentTest {
         String detailsString = objectMapper.writeValueAsString(payment);
         assertTrue(detailsString.contains("\"id\":0"));
         assertTrue(detailsString.contains("\"amount\":100"));
-        assertTrue(detailsString.contains("\"beneficiary\":{\"name\":\"user1\",\"accountNumber\":12345,\"ifscCode\":\"HDFC1234\"}"));
+        assertTrue(detailsString.contains("\"beneficiaryName\":\"user1\""));
+        assertTrue(detailsString.contains("\"beneficiaryAccountNumber\":12345"));
+        assertTrue(detailsString.contains("\"beneficiaryIfscCode\":\"HDFC1234\""));
 
-        assertTrue(detailsString.contains("\"payee\":{\"name\":\"user2\",\"accountNumber\":12346,\"ifscCode\":\"HDFC1234\"}"));
+        assertTrue(detailsString.contains("\"payeeName\":\"user2\""));
+        assertTrue(detailsString.contains("\"payeeAccountNumber\":12346"));
+        assertTrue(detailsString.contains("\"payeeIfscCode\":\"HDFC1234\""));
+    }
+
+
+    @Test
+    void expectsWalletWithNameAndBalanceAfterDeSerialization() throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String paymentString = "{\"amount\":500," +
+                "\"beneficiary\":{\"name\":\"user1\",\"accountNumber\":12345,\"ifscCode\":\"HDFC1234\"}" +
+                ",\"payee\":{\"name\":\"user2\",\"accountNumber\":12346,\"ifscCode\":\"HDFC1234\"}" +
+                "}";
+
+        Payment payment = objectMapper.readValue(paymentString, Payment.class);
+
+        assertEquals(500, payment.getAmount());
+        assertEquals("user1", payment.getBeneficiaryName());
+        assertEquals(12345, payment.getBeneficiaryAccountNumber());
+        assertEquals("HDFC1234", payment.getBeneficiaryIfscCode());
+        assertEquals("user2", payment.getPayeeName());
+        assertEquals(12346, payment.getPayeeAccountNumber());
+        assertEquals("HDFC1234", payment.getPayeeIfscCode());
     }
 }

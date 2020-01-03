@@ -10,24 +10,18 @@ public class PaymentService {
     PaymentRepository paymentRepository;
 
     @Autowired
-    BankDetailsRepository bankDetailsRepository;
-
-    @Autowired
     BankClient bankClient;
 
     public Payment create(Payment payment) throws Exception {
-        BankDetails beneficiary = payment.getBeneficiary();
-        int beneficiaryResponseCode = bankClient.checkBankDetails(beneficiary.getAccountNumber(), beneficiary.getIfscCode());
+        int beneficiaryResponseCode = bankClient.checkBankDetails(payment.getBeneficiaryAccountNumber(), payment.getBeneficiaryIfscCode());
         if (beneficiaryResponseCode == 404) {
-            throw new BeneficiaryAccountDetailsNotFound("message",beneficiary.getName() + "'s AccountDetails Not Found");
+            throw new BeneficiaryAccountDetailsNotFound("message", payment.getBeneficiaryName() + "'s AccountDetails Not Found");
         }
-        BankDetails payee = payment.getPayee();
-        int payeeResponseCode = bankClient.checkBankDetails(payee.getAccountNumber(), payee.getIfscCode());
+        int payeeResponseCode = bankClient.checkBankDetails(payment.getPayeeAccountNumber(), payment.getPayeeIfscCode());
         if (payeeResponseCode == 404) {
-            throw new PayeeAccountDetailsNotFound("message",payee.getName() + "'s AccountDetails Not Found");
+            throw new PayeeAccountDetailsNotFound("message", payment.getPayeeName() + "'s AccountDetails Not Found");
         }
-        bankDetailsRepository.save(payment.getBeneficiary());
-        bankDetailsRepository.save(payment.getPayee());
+
         return paymentRepository.save(payment);
     }
 

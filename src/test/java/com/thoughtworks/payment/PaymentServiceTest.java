@@ -16,7 +16,6 @@ public class PaymentServiceTest {
     @Autowired
     PaymentService paymentService;
 
-
     @MockBean
     BankClient bankClient;
 
@@ -30,8 +29,14 @@ public class PaymentServiceTest {
 
         Payment savedPayment = paymentService.create(payment);
         assertEquals(100, savedPayment.getAmount());
-        assertEquals(beneficiary, savedPayment.getBeneficiary());
-        assertEquals(payee, savedPayment.getPayee());
+        assertEquals(beneficiary.getName(), savedPayment.getBeneficiaryName());
+        assertEquals(beneficiary.getAccountNumber(), savedPayment.getBeneficiaryAccountNumber());
+        assertEquals(beneficiary.getIfscCode(), savedPayment.getBeneficiaryIfscCode());
+
+        assertEquals(payee.getName(), savedPayment.getPayeeName());
+        assertEquals(payee.getAccountNumber(), savedPayment.getPayeeAccountNumber());
+        assertEquals(payee.getIfscCode(), savedPayment.getPayeeIfscCode());
+
     }
 
     @Test
@@ -57,7 +62,7 @@ public class PaymentServiceTest {
 
         Payment payment = new Payment(100, beneficiary, payee);
 
-        PayeeAccountDetailsNotFound exception = assertThrows(PayeeAccountDetailsNotFound.class,() -> paymentService.create(payment));
+        PayeeAccountDetailsNotFound exception = assertThrows(PayeeAccountDetailsNotFound.class, () -> paymentService.create(payment));
 
         assertEquals("user2's AccountDetails Not Found", exception.getValue());
     }

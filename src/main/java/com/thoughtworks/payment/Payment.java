@@ -1,9 +1,11 @@
 package com.thoughtworks.payment;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 
+@JsonDeserialize(using = PaymentDeSerializer.class)
 @Entity
 public class Payment {
     @Id
@@ -13,21 +15,35 @@ public class Payment {
 
     private int amount;
 
-    @OneToOne
-    @JoinColumn(name = "Beneficiary_Id")
-    private BankDetails beneficiary;
+    @JoinColumn(name = "bene_name")
+    private String beneficiaryName;
 
-    @OneToOne
-    @JoinColumn(name = "Payee_Id")
-    private BankDetails payee;
+    @JoinColumn(name = "bene_acc_num")
+    private long beneficiaryAccountNumber;
+
+    @JoinColumn(name = "bene_ifsc")
+    private String beneficiaryIfscCode;
+
+    @JoinColumn(name = "payee_name")
+    private String payeeName;
+
+    @JoinColumn(name = "payee_acc_num")
+    private long payeeAccountNumber;
+
+    @JoinColumn(name = "payee_ifsc")
+    private String payeeIfscCode;
 
     public Payment() {
     }
 
     public Payment(int amount, BankDetails beneficiary, BankDetails payee) {
         this.amount = amount;
-        this.beneficiary = beneficiary;
-        this.payee = payee;
+        this.beneficiaryName = beneficiary.getName();
+        this.beneficiaryAccountNumber = beneficiary.getAccountNumber();
+        this.beneficiaryIfscCode = beneficiary.getIfscCode();
+        this.payeeName = payee.getName();
+        this.payeeAccountNumber = payee.getAccountNumber();
+        this.payeeIfscCode = payee.getIfscCode();
     }
 
     public int getId() {
@@ -38,12 +54,28 @@ public class Payment {
         return amount;
     }
 
-    public BankDetails getBeneficiary() {
-        return beneficiary;
+    public String getBeneficiaryName() {
+        return beneficiaryName;
     }
 
-    public BankDetails getPayee() {
-        return payee;
+    public long getBeneficiaryAccountNumber() {
+        return beneficiaryAccountNumber;
+    }
+
+    public String getBeneficiaryIfscCode() {
+        return beneficiaryIfscCode;
+    }
+
+    public String getPayeeName() {
+        return payeeName;
+    }
+
+    public long getPayeeAccountNumber() {
+        return payeeAccountNumber;
+    }
+
+    public String getPayeeIfscCode() {
+        return payeeIfscCode;
     }
 
     public void setId(int id) {
