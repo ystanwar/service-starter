@@ -21,7 +21,8 @@ public class PaymentController {
     })
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<PaymentResponse> create(@RequestBody Payment payment) throws Exception {
+    public ResponseEntity<PaymentResponse> create(@RequestBody PaymentRequest paymentRequest) throws Exception {
+        Payment payment=new Payment(paymentRequest.getAmount(),paymentRequest.getBeneficiary(),paymentRequest.getPayee());
         Payment savedPayment = paymentService.create(payment);
         PaymentResponse response = new PaymentResponse();
         response.setStatusMessage("Payment done successfully");

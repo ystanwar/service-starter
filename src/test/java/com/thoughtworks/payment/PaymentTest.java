@@ -8,6 +8,7 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PaymentTest {
+
     @Test
     public void expectsPaymentAfterSerialization() throws IOException {
         BankDetails beneficiary = new BankDetails("user1", 12345, "HDFC1234");
@@ -17,16 +18,15 @@ public class PaymentTest {
         ObjectMapper objectMapper = new ObjectMapper();
         String detailsString = objectMapper.writeValueAsString(payment);
         assertTrue(detailsString.contains("\"id\":0"));
-        assertTrue(detailsString.contains("\"amount\":100"));
+        assertTrue(detailsString.contains("\"amount\":1"));
         assertTrue(detailsString.contains("\"beneficiaryName\":\"user1\""));
         assertTrue(detailsString.contains("\"beneficiaryAccountNumber\":12345"));
         assertTrue(detailsString.contains("\"beneficiaryIfscCode\":\"HDFC1234\""));
-
         assertTrue(detailsString.contains("\"payeeName\":\"user2\""));
         assertTrue(detailsString.contains("\"payeeAccountNumber\":12346"));
         assertTrue(detailsString.contains("\"payeeIfscCode\":\"HDFC1234\""));
-    }
 
+    }
 
     @Test
     void expectsWalletWithNameAndBalanceAfterDeSerialization() throws IOException {
