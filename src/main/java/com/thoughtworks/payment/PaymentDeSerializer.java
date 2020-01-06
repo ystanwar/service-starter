@@ -24,9 +24,9 @@ public class PaymentDeSerializer extends StdDeserializer<Payment> {
 
         int amount = (Integer) ((IntNode) node.get("amount")).numberValue();
         String beneficiaryName = node.get("beneficiary").get("name").asText();
-        long beneficiaryAcoountNumber = node.get("beneficiary").get("accountNumber").asLong();
+        long beneficiaryAccountNumber = node.get("beneficiary").get("accountNumber").asLong();
         String beneficiaryIfscCode = node.get("beneficiary").get("ifscCode").asText();
-        BankDetails beneficiary = new BankDetails(beneficiaryName, beneficiaryAcoountNumber, beneficiaryIfscCode);
+        BankDetails beneficiary = new BankDetails(beneficiaryName, beneficiaryAccountNumber, beneficiaryIfscCode);
 
         String payeeName = node.get("payee").get("name").asText();
         long payeeAccountNumber = node.get("payee").get("accountNumber").asLong();

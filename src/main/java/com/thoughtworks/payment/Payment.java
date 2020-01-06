@@ -15,22 +15,22 @@ public class Payment {
 
     private int amount;
 
-    @JoinColumn(name = "bene_name")
+    @Column(name = "bene_name")
     private String beneficiaryName;
 
-    @JoinColumn(name = "bene_acc_num")
+    @Column(name = "bene_acc_num")
     private long beneficiaryAccountNumber;
 
-    @JoinColumn(name = "bene_ifsc")
+    @Column(name = "bene_ifsc")
     private String beneficiaryIfscCode;
 
-    @JoinColumn(name = "payee_name")
+    @Column(name = "payee_name")
     private String payeeName;
 
-    @JoinColumn(name = "payee_acc_num")
+    @Column(name = "payee_acc_num")
     private long payeeAccountNumber;
 
-    @JoinColumn(name = "payee_ifsc")
+    @Column(name = "payee_ifsc")
     private String payeeIfscCode;
 
     public Payment() {
