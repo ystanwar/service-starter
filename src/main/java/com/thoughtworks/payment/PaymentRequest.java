@@ -4,20 +4,23 @@ public class PaymentRequest {
     private int amount;
     private BankDetails beneficiary;
     private BankDetails payee;
+    public PaymentRequest(){
 
-    int getAmount() {
+    }
+
+    public int getAmount() {
         return amount;
     }
 
-    BankDetails getBeneficiary() {
+    public BankDetails getBeneficiary() {
         return beneficiary;
     }
 
-    BankDetails getPayee() {
+    public BankDetails getPayee() {
         return payee;
     }
 
-    PaymentRequest(int amount, BankDetails beneficiary, BankDetails payee) {
+    public PaymentRequest(int amount, BankDetails beneficiary, BankDetails payee) {
         this.amount = amount;
         this.beneficiary = beneficiary;
         this.payee = payee;
