@@ -21,4 +21,12 @@ public class BankServiceTest {
         assertEquals(bank.getUrl(), savedBank.getUrl());
     }
 
+    @Test
+    void fetchABankByBankCodeTest() {
+        Bank bank = new Bank("HDFC", "http://localhost:8082");
+        Bank savedBank = bankService.create(bank);
+        Bank fetchedBank = bankService.fetchBankByBankCode("HDFC");
+        assertEquals(savedBank.getBankCode(), fetchedBank.getBankCode());
+        assertEquals(savedBank.getUrl(), fetchedBank.getUrl());
+    }
 }

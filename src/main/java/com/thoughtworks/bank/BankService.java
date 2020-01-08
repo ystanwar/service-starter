@@ -12,4 +12,8 @@ public class BankService {
     public Bank create(Bank bank) {
         return bankRepository.save(bank);
     }
+
+    public Bank fetchBankByBankCode(String bankCode) {
+        return bankRepository.findByBankCode(bankCode);
+    }
 }
