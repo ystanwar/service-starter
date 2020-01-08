@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/payments")
 public class PaymentController {
+
     @Autowired
     PaymentService paymentService;
 
@@ -22,11 +23,12 @@ public class PaymentController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<PaymentResponse> create(@RequestBody PaymentRequest paymentRequest) throws Exception {
-        Payment payment=new Payment(paymentRequest.getAmount(),paymentRequest.getBeneficiary(),paymentRequest.getPayee());
+        Payment payment = new Payment(paymentRequest.getAmount(), paymentRequest.getBeneficiary(), paymentRequest.getPayee());
         Payment savedPayment = paymentService.create(payment);
         PaymentResponse response = new PaymentResponse();
         response.setStatusMessage("Payment done successfully");
         response.setPaymentId(savedPayment.getId());
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
+
 }
