@@ -17,6 +17,7 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 public class BankClientTest {
 
+
     @Autowired
     BankClient bankClient;
 
@@ -46,6 +47,19 @@ public class BankClientTest {
         stubFor(get(urlEqualTo("/checkDetails?accountNumber=0000&ifscCode=HDFC1234")).willReturn(aResponse().withStatus(404)));
 
         assertEquals(404, bankClient.checkBankDetails(0000, "HDFC1234"));
+        wireMockServer.stop();
+    }
+
+    @Test
+    public void checkBankDetailsOfInAnotherBank() throws Exception {
+        WireMockServer wireMockServer = new WireMockServer(8084);
+        wireMockServer.start();
+        configureFor("localhost", 8084);
+
+        when(bankService.fetchBankByBankCode(anyString())).thenReturn(new Bank("AXIS", "http://localhost:8084"));
+        StubMapping string = stubFor(get(urlEqualTo("/checkDetails?accountNumber=12345&ifscCode=AXIS1234")).willReturn(aResponse().withStatus(200)));
+
+        assertEquals(200, bankClient.checkBankDetails(12345, "AXIS1234"));
         wireMockServer.stop();
     }
 }

@@ -1,3 +1,2 @@
 url:
-    bankService: http://localhost:8082
     fraudService: http://localhost:8083
