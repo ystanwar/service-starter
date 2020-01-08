@@ -1,12 +1,12 @@
 package com.thoughtworks.bankclient;
 
+import com.thoughtworks.bank.BankService;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -19,11 +19,10 @@ public class BankClient {
     private String baseUrl;
 
     @Autowired
-    private BankClient(Environment env) {
-        this.baseUrl = env.getProperty("bankService");
-    }
+    BankService bankService;
 
     public int checkBankDetails(long accountNumber, String ifscCode) throws IOException, URISyntaxException {
+        baseUrl = bankService.fetchBankByBankCode(ifscCode.substring(0, 4)).getUrl();
         String url = baseUrl + "/checkDetails";
         HttpGet get = new HttpGet(url);
         URI uri = new URIBuilder(get.getURI())
