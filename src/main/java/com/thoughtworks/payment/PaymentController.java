@@ -1,6 +1,7 @@
 package com.thoughtworks.payment;
 
-import com.thoughtworks.response.PaymentResponse;
+import com.thoughtworks.payment.message.PaymentResponse;
+import com.thoughtworks.payment.model.Payment;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;

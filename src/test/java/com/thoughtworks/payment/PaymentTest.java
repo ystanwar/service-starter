@@ -1,6 +1,8 @@
 package com.thoughtworks.payment;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.thoughtworks.payment.model.BankDetails;
+import com.thoughtworks.payment.model.Payment;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;

@@ -1,11 +1,11 @@
-package com.thoughtworks.bank;
+package com.thoughtworks.bankInfo;
 
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 
 @Entity
-public class Bank {
+public class BankInfo {
     @Id
     @ApiModelProperty(hidden = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,11 +29,11 @@ public class Bank {
         return url;
     }
 
-    public Bank(String bankCode, String url) {
+    public BankInfo(String bankCode, String url) {
         this.bankCode = bankCode;
         this.url = url;
     }
 
-    public Bank() {
+    public BankInfo() {
     }
 }

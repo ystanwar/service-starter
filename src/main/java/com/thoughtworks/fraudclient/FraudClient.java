@@ -1,6 +1,6 @@
 package com.thoughtworks.fraudclient;
 
-import com.thoughtworks.payment.Payment;
+import com.thoughtworks.payment.model.Payment;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;

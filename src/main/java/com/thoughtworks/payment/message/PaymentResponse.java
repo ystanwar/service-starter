@@ -1,4 +1,4 @@
-package com.thoughtworks.response;
+package com.thoughtworks.payment.message;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -1,5 +1,7 @@
 package com.thoughtworks.payment;
 
+import com.thoughtworks.payment.model.BankDetails;
+
 public class PaymentRequest {
     private int amount;
     private BankDetails beneficiary;

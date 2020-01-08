@@ -1,4 +1,4 @@
-package com.thoughtworks.bank;
+package com.thoughtworks.bankInfo;
 
 
 import org.junit.jupiter.api.BeforeEach;
@@ -9,33 +9,33 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-public class BankServiceTest {
+public class BankInfoServiceTest {
 
     @Autowired
-    BankService bankService;
+    BankInfoService bankInfoService;
 
     @Autowired
-    BankRepository bankRepository;
+    BankInfoRepository bankInfoRepository;
 
     @BeforeEach
     void tearDown() {
         System.out.println("teardown running...");
-        bankRepository.deleteAll();
+        bankInfoRepository.deleteAll();
     }
 
     @Test
     void createBankTest() {
-        Bank bank = new Bank("HDFC", "http://localhost:8082");
-        Bank savedBank = bankService.create(bank);
+        BankInfo bank = new BankInfo("HDFC", "http://localhost:8082");
+        BankInfo savedBank = bankInfoService.create(bank);
         assertEquals(bank.getBankCode(), savedBank.getBankCode());
         assertEquals(bank.getUrl(), savedBank.getUrl());
     }
 
     @Test
     void fetchABankByBankCodeTest() {
-        Bank bank = new Bank("HDFC", "http://localhost:8082");
-        Bank savedBank = bankService.create(bank);
-        Bank fetchedBank = bankService.fetchBankByBankCode("HDFC");
+        BankInfo bank = new BankInfo("HDFC", "http://localhost:8082");
+        BankInfo savedBank = bankInfoService.create(bank);
+        BankInfo fetchedBank = bankInfoService.fetchBankByBankCode("HDFC");
         assertEquals(savedBank.getBankCode(), fetchedBank.getBankCode());
         assertEquals(savedBank.getUrl(), fetchedBank.getUrl());
     }

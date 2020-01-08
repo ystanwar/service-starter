@@ -1,6 +1,7 @@
-package com.thoughtworks.payment;
+package com.thoughtworks.payment.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.thoughtworks.payment.PaymentDeSerializer;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import javax.persistence.*;
 @JsonDeserialize(using = PaymentDeSerializer.class)
 @Entity
 public class Payment {
+
     @Id
     @ApiModelProperty(hidden = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)

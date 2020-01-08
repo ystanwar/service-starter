@@ -1,6 +1,7 @@
 package com.thoughtworks.payment;
 
 import com.thoughtworks.bankclient.BankClient;
+import com.thoughtworks.payment.model.Payment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,6 @@ public class PaymentService {
         if (payeeResponseCode == 404) {
             throw new PayeeAccountDetailsNotFound("message", payment.getPayeeName() + "'s AccountDetails Not Found");
         }
-
         return paymentRepository.save(payment);
     }
 

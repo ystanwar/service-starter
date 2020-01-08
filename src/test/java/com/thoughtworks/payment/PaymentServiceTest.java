@@ -1,6 +1,8 @@
 package com.thoughtworks.payment;
 
 import com.thoughtworks.bankclient.BankClient;
+import com.thoughtworks.payment.model.BankDetails;
+import com.thoughtworks.payment.model.Payment;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

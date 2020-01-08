@@ -1,4 +1,4 @@
-package com.thoughtworks.payment;
+package com.thoughtworks.payment.model;
 
 public class BankDetails {
     private String name;
