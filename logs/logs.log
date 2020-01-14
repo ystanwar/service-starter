@@ -1,0 +1,443 @@
+{"timestamp": 2020-01-14 16:09:42,734 "level": INFO "event": Starting PaymentApplication on Dipalis-MacBook-Pro.local with PID 41725 (/Users/dipaliprakashkelkar/Desktop/payment/build/classes/java/main started by dipaliprakashkelkar in /Users/dipaliprakashkelkar/Desktop/payment)}
+{"timestamp": 2020-01-14 16:09:42,736 "level": DEBUG "event": Running with Spring Boot v2.2.1.RELEASE, Spring v5.2.1.RELEASE}
+{"timestamp": 2020-01-14 16:09:42,737 "level": INFO "event": No active profile set, falling back to default profiles: default}
+{"timestamp": 2020-01-14 16:09:43,415 "level": INFO "event": Bootstrapping Spring Data repositories in DEFAULT mode.}
+{"timestamp": 2020-01-14 16:09:43,478 "level": INFO "event": Finished Spring Data repository scanning in 54ms. Found 2 repository interfaces.}
+{"timestamp": 2020-01-14 16:09:43,711 "level": INFO "event": Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)}
+{"timestamp": 2020-01-14 16:09:43,896 "level": INFO "event": Tomcat initialized with port(s): 8080 (http)}
+{"timestamp": 2020-01-14 16:09:43,908 "level": INFO "event": Initializing ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-01-14 16:09:43,908 "level": INFO "event": Starting service [Tomcat]}
+{"timestamp": 2020-01-14 16:09:43,909 "level": INFO "event": Starting Servlet engine: [Apache Tomcat/9.0.27]}
+{"timestamp": 2020-01-14 16:09:43,994 "level": INFO "event": Initializing Spring embedded WebApplicationContext}
+{"timestamp": 2020-01-14 16:09:43,995 "level": INFO "event": Root WebApplicationContext: initialization completed in 1216 ms}
+{"timestamp": 2020-01-14 16:09:44,155 "level": INFO "event": HHH000204: Processing PersistenceUnitInfo [name: default]}
+{"timestamp": 2020-01-14 16:09:44,209 "level": INFO "event": HHH000412: Hibernate Core {5.4.8.Final}}
+{"timestamp": 2020-01-14 16:09:44,319 "level": INFO "event": HCANN000001: Hibernate Commons Annotations {5.1.0.Final}}
+{"timestamp": 2020-01-14 16:09:44,387 "level": INFO "event": HikariPool-1 - Starting...}
+{"timestamp": 2020-01-14 16:09:44,467 "level": INFO "event": HikariPool-1 - Start completed.}
+{"timestamp": 2020-01-14 16:09:44,485 "level": INFO "event": HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect}
+{"timestamp": 2020-01-14 16:09:45,255 "level": INFO "event": HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]}
+{"timestamp": 2020-01-14 16:09:45,260 "level": INFO "event": Initialized JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-01-14 16:09:45,673 "level": WARN "event": spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning}
+{"timestamp": 2020-01-14 16:09:45,780 "level": INFO "event": Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]}
+{"timestamp": 2020-01-14 16:09:45,883 "level": INFO "event": Initializing ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-14 16:09:46,034 "level": INFO "event": Context refreshed}
+{"timestamp": 2020-01-14 16:09:46,051 "level": INFO "event": Found 1 custom documentation plugin(s)}
+{"timestamp": 2020-01-14 16:09:46,071 "level": INFO "event": Scanning for api listing references}
+{"timestamp": 2020-01-14 16:09:46,201 "level": INFO "event": Starting ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-01-14 16:09:46,222 "level": INFO "event": Tomcat started on port(s): 8080 (http) with context path ''}
+{"timestamp": 2020-01-14 16:09:46,225 "level": INFO "event": Started PaymentApplication in 8.875 seconds (JVM running for 9.199)}
+{"timestamp": 2020-01-14 16:14:17,408 "level": INFO "event": Initializing Spring DispatcherServlet 'dispatcherServlet'}
+{"timestamp": 2020-01-14 16:14:17,408 "level": INFO "event": Initializing Servlet 'dispatcherServlet'}
+{"timestamp": 2020-01-14 16:14:17,415 "level": INFO "event": Completed initialization in 6 ms}
+{"timestamp": 2020-01-14 16:14:18,092 "level": INFO "event": {name:PAYMENT SUCCESSFUL,description:Payment successful,details:payment{id:1, amount:100, beneficiaryName:'user1', beneficiaryAccountNumber:12345, beneficiaryIfscCode:'HDFC1234', payeeName:'user2', payeeAccountNumber:67890, payeeIfscCode:'HDFC1234'}}}
+{"timestamp": 2020-01-14 16:34:55,981 "level": INFO "event": Shutting down ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-14 16:34:55,991 "level": INFO "event": Closing JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-01-14 16:34:56,011 "level": INFO "event": HikariPool-1 - Shutdown initiated...}
+{"timestamp": 2020-01-14 16:34:56,025 "level": INFO "event": HikariPool-1 - Shutdown completed.}
+{"timestamp": 2020-01-14 16:35:05,722 "level": INFO "event": Starting PaymentApplication on Dipalis-MacBook-Pro.local with PID 41808 (/Users/dipaliprakashkelkar/Desktop/payment/build/classes/java/main started by dipaliprakashkelkar in /Users/dipaliprakashkelkar/Desktop/payment)}
+{"timestamp": 2020-01-14 16:35:05,725 "level": DEBUG "event": Running with Spring Boot v2.2.1.RELEASE, Spring v5.2.1.RELEASE}
+{"timestamp": 2020-01-14 16:35:05,725 "level": INFO "event": No active profile set, falling back to default profiles: default}
+{"timestamp": 2020-01-14 16:35:06,450 "level": INFO "event": Bootstrapping Spring Data repositories in DEFAULT mode.}
+{"timestamp": 2020-01-14 16:35:06,512 "level": INFO "event": Finished Spring Data repository scanning in 52ms. Found 2 repository interfaces.}
+{"timestamp": 2020-01-14 16:35:06,746 "level": INFO "event": Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)}
+{"timestamp": 2020-01-14 16:35:06,946 "level": INFO "event": Tomcat initialized with port(s): 8080 (http)}
+{"timestamp": 2020-01-14 16:35:06,955 "level": INFO "event": Initializing ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-01-14 16:35:06,956 "level": INFO "event": Starting service [Tomcat]}
+{"timestamp": 2020-01-14 16:35:06,956 "level": INFO "event": Starting Servlet engine: [Apache Tomcat/9.0.27]}
+{"timestamp": 2020-01-14 16:35:07,072 "level": INFO "event": Initializing Spring embedded WebApplicationContext}
+{"timestamp": 2020-01-14 16:35:07,073 "level": INFO "event": Root WebApplicationContext: initialization completed in 1313 ms}
+{"timestamp": 2020-01-14 16:35:07,248 "level": INFO "event": HHH000204: Processing PersistenceUnitInfo [name: default]}
+{"timestamp": 2020-01-14 16:35:07,298 "level": INFO "event": HHH000412: Hibernate Core {5.4.8.Final}}
+{"timestamp": 2020-01-14 16:35:07,413 "level": INFO "event": HCANN000001: Hibernate Commons Annotations {5.1.0.Final}}
+{"timestamp": 2020-01-14 16:35:07,485 "level": INFO "event": HikariPool-1 - Starting...}
+{"timestamp": 2020-01-14 16:35:07,562 "level": INFO "event": HikariPool-1 - Start completed.}
+{"timestamp": 2020-01-14 16:35:07,578 "level": INFO "event": HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect}
+{"timestamp": 2020-01-14 16:35:08,353 "level": INFO "event": HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]}
+{"timestamp": 2020-01-14 16:35:08,358 "level": INFO "event": Initialized JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-01-14 16:35:08,822 "level": WARN "event": spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning}
+{"timestamp": 2020-01-14 16:35:08,937 "level": INFO "event": Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]}
+{"timestamp": 2020-01-14 16:35:09,040 "level": INFO "event": Initializing ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-14 16:35:09,228 "level": INFO "event": Context refreshed}
+{"timestamp": 2020-01-14 16:35:09,245 "level": INFO "event": Found 1 custom documentation plugin(s)}
+{"timestamp": 2020-01-14 16:35:09,274 "level": INFO "event": Scanning for api listing references}
+{"timestamp": 2020-01-14 16:35:09,480 "level": INFO "event": Starting ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-01-14 16:35:09,512 "level": INFO "event": Tomcat started on port(s): 8080 (http) with context path ''}
+{"timestamp": 2020-01-14 16:35:09,515 "level": INFO "event": Started PaymentApplication in 9.185 seconds (JVM running for 9.538)}
+{"timestamp": 2020-01-14 16:35:13,022 "level": INFO "event": Initializing Spring DispatcherServlet 'dispatcherServlet'}
+{"timestamp": 2020-01-14 16:35:13,023 "level": INFO "event": Initializing Servlet 'dispatcherServlet'}
+{"timestamp": 2020-01-14 16:35:13,030 "level": INFO "event": Completed initialization in 7 ms}
+{"timestamp": 2020-01-14 16:35:13,610 "level": INFO "event": {name:PAYMENT SUCCESSFUL,description:Payment successful,details:1}}
+{"timestamp": 2020-01-14 16:39:14,222 "level": INFO "event": Shutting down ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-14 16:39:14,224 "level": INFO "event": Closing JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-01-14 16:39:14,228 "level": INFO "event": HikariPool-1 - Shutdown initiated...}
+{"timestamp": 2020-01-14 16:39:14,234 "level": INFO "event": HikariPool-1 - Shutdown completed.}
+{"timestamp": 2020-01-14 16:39:17,221 "level": INFO "event": Starting PaymentApplication on Dipalis-MacBook-Pro.local with PID 41847 (/Users/dipaliprakashkelkar/Desktop/payment/build/classes/java/main started by dipaliprakashkelkar in /Users/dipaliprakashkelkar/Desktop/payment)}
+{"timestamp": 2020-01-14 16:39:17,223 "level": DEBUG "event": Running with Spring Boot v2.2.1.RELEASE, Spring v5.2.1.RELEASE}
+{"timestamp": 2020-01-14 16:39:17,224 "level": INFO "event": No active profile set, falling back to default profiles: default}
+{"timestamp": 2020-01-14 16:39:17,873 "level": INFO "event": Bootstrapping Spring Data repositories in DEFAULT mode.}
+{"timestamp": 2020-01-14 16:39:17,934 "level": INFO "event": Finished Spring Data repository scanning in 51ms. Found 2 repository interfaces.}
+{"timestamp": 2020-01-14 16:39:18,148 "level": INFO "event": Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)}
+{"timestamp": 2020-01-14 16:39:18,326 "level": INFO "event": Tomcat initialized with port(s): 8080 (http)}
+{"timestamp": 2020-01-14 16:39:18,335 "level": INFO "event": Initializing ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-01-14 16:39:18,335 "level": INFO "event": Starting service [Tomcat]}
+{"timestamp": 2020-01-14 16:39:18,336 "level": INFO "event": Starting Servlet engine: [Apache Tomcat/9.0.27]}
+{"timestamp": 2020-01-14 16:39:18,422 "level": INFO "event": Initializing Spring embedded WebApplicationContext}
+{"timestamp": 2020-01-14 16:39:18,422 "level": INFO "event": Root WebApplicationContext: initialization completed in 1164 ms}
+{"timestamp": 2020-01-14 16:39:18,580 "level": INFO "event": HHH000204: Processing PersistenceUnitInfo [name: default]}
+{"timestamp": 2020-01-14 16:39:18,640 "level": INFO "event": HHH000412: Hibernate Core {5.4.8.Final}}
+{"timestamp": 2020-01-14 16:39:18,761 "level": INFO "event": HCANN000001: Hibernate Commons Annotations {5.1.0.Final}}
+{"timestamp": 2020-01-14 16:39:18,836 "level": INFO "event": HikariPool-1 - Starting...}
+{"timestamp": 2020-01-14 16:39:18,916 "level": INFO "event": HikariPool-1 - Start completed.}
+{"timestamp": 2020-01-14 16:39:18,931 "level": INFO "event": HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect}
+{"timestamp": 2020-01-14 16:39:19,683 "level": INFO "event": HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]}
+{"timestamp": 2020-01-14 16:39:19,687 "level": INFO "event": Initialized JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-01-14 16:39:20,085 "level": WARN "event": spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning}
+{"timestamp": 2020-01-14 16:39:20,187 "level": INFO "event": Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]}
+{"timestamp": 2020-01-14 16:39:20,271 "level": INFO "event": Initializing ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-14 16:39:20,420 "level": INFO "event": Context refreshed}
+{"timestamp": 2020-01-14 16:39:20,437 "level": INFO "event": Found 1 custom documentation plugin(s)}
+{"timestamp": 2020-01-14 16:39:20,457 "level": INFO "event": Scanning for api listing references}
+{"timestamp": 2020-01-14 16:39:20,589 "level": INFO "event": Starting ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-01-14 16:39:20,613 "level": INFO "event": Tomcat started on port(s): 8080 (http) with context path ''}
+{"timestamp": 2020-01-14 16:39:20,616 "level": INFO "event": Started PaymentApplication in 3.784 seconds (JVM running for 4.071)}
+{"timestamp": 2020-01-14 16:39:26,322 "level": INFO "event": Initializing Spring DispatcherServlet 'dispatcherServlet'}
+{"timestamp": 2020-01-14 16:39:26,323 "level": INFO "event": Initializing Servlet 'dispatcherServlet'}
+{"timestamp": 2020-01-14 16:39:26,329 "level": INFO "event": Completed initialization in 6 ms}
+{"timestamp": 2020-01-14 16:39:26,763 "level": INFO "event": {name:PAYMENT SUCCESSFUL,description:Payment successful,details:IfscCode=HDFC1234,PAYMENT SUCCESSFUL}}
+{"timestamp": 2020-01-14 16:40:59,375 "level": INFO "event": Shutting down ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-14 16:40:59,377 "level": INFO "event": Closing JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-01-14 16:40:59,380 "level": INFO "event": HikariPool-1 - Shutdown initiated...}
+{"timestamp": 2020-01-14 16:40:59,387 "level": INFO "event": HikariPool-1 - Shutdown completed.}
+{"timestamp": 2020-01-14 16:41:17,649 "level": INFO "event": Starting PaymentApplication on Dipalis-MacBook-Pro.local with PID 41930 (/Users/dipaliprakashkelkar/Desktop/payment/build/classes/java/main started by dipaliprakashkelkar in /Users/dipaliprakashkelkar/Desktop/payment)}
+{"timestamp": 2020-01-14 16:41:17,651 "level": DEBUG "event": Running with Spring Boot v2.2.1.RELEASE, Spring v5.2.1.RELEASE}
+{"timestamp": 2020-01-14 16:41:17,651 "level": INFO "event": No active profile set, falling back to default profiles: default}
+{"timestamp": 2020-01-14 16:41:18,319 "level": INFO "event": Bootstrapping Spring Data repositories in DEFAULT mode.}
+{"timestamp": 2020-01-14 16:41:18,378 "level": INFO "event": Finished Spring Data repository scanning in 50ms. Found 2 repository interfaces.}
+{"timestamp": 2020-01-14 16:41:18,645 "level": INFO "event": Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)}
+{"timestamp": 2020-01-14 16:41:18,937 "level": INFO "event": Tomcat initialized with port(s): 8080 (http)}
+{"timestamp": 2020-01-14 16:41:18,946 "level": INFO "event": Initializing ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-01-14 16:41:18,947 "level": INFO "event": Starting service [Tomcat]}
+{"timestamp": 2020-01-14 16:41:18,947 "level": INFO "event": Starting Servlet engine: [Apache Tomcat/9.0.27]}
+{"timestamp": 2020-01-14 16:41:19,019 "level": INFO "event": Initializing Spring embedded WebApplicationContext}
+{"timestamp": 2020-01-14 16:41:19,019 "level": INFO "event": Root WebApplicationContext: initialization completed in 1334 ms}
+{"timestamp": 2020-01-14 16:41:19,181 "level": INFO "event": HHH000204: Processing PersistenceUnitInfo [name: default]}
+{"timestamp": 2020-01-14 16:41:19,240 "level": INFO "event": HHH000412: Hibernate Core {5.4.8.Final}}
+{"timestamp": 2020-01-14 16:41:19,365 "level": INFO "event": HCANN000001: Hibernate Commons Annotations {5.1.0.Final}}
+{"timestamp": 2020-01-14 16:41:19,440 "level": INFO "event": HikariPool-1 - Starting...}
+{"timestamp": 2020-01-14 16:41:19,521 "level": INFO "event": HikariPool-1 - Start completed.}
+{"timestamp": 2020-01-14 16:41:19,538 "level": INFO "event": HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect}
+{"timestamp": 2020-01-14 16:41:20,345 "level": INFO "event": HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]}
+{"timestamp": 2020-01-14 16:41:20,350 "level": INFO "event": Initialized JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-01-14 16:41:20,846 "level": WARN "event": spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning}
+{"timestamp": 2020-01-14 16:41:20,955 "level": INFO "event": Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]}
+{"timestamp": 2020-01-14 16:41:21,118 "level": INFO "event": Initializing ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-14 16:41:21,370 "level": INFO "event": Context refreshed}
+{"timestamp": 2020-01-14 16:41:21,389 "level": INFO "event": Found 1 custom documentation plugin(s)}
+{"timestamp": 2020-01-14 16:41:21,412 "level": INFO "event": Scanning for api listing references}
+{"timestamp": 2020-01-14 16:41:21,560 "level": INFO "event": Starting ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-01-14 16:41:21,593 "level": INFO "event": Tomcat started on port(s): 8080 (http) with context path ''}
+{"timestamp": 2020-01-14 16:41:21,598 "level": INFO "event": Started PaymentApplication in 4.352 seconds (JVM running for 4.671)}
+{"timestamp": 2020-01-14 16:41:24,867 "level": INFO "event": Initializing Spring DispatcherServlet 'dispatcherServlet'}
+{"timestamp": 2020-01-14 16:41:24,868 "level": INFO "event": Initializing Servlet 'dispatcherServlet'}
+{"timestamp": 2020-01-14 16:41:24,877 "level": INFO "event": Completed initialization in 8 ms}
+{"timestamp": 2020-01-14 16:41:25,287 "level": INFO "event": {name:PAYMENT SUCCESSFUL,description:Payment successful,details:IfscCode=HDFC1234,PAYMENT SUCCESSFUL}}
+{"timestamp": 2020-01-14 16:42:40,700 "level": INFO "event": Shutting down ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-14 16:42:40,703 "level": INFO "event": Closing JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-01-14 16:42:40,708 "level": INFO "event": HikariPool-1 - Shutdown initiated...}
+{"timestamp": 2020-01-14 16:42:40,715 "level": INFO "event": HikariPool-1 - Shutdown completed.}
+{"timestamp": 2020-01-14 16:42:44,028 "level": INFO "event": Starting PaymentApplication on Dipalis-MacBook-Pro.local with PID 41964 (/Users/dipaliprakashkelkar/Desktop/payment/build/classes/java/main started by dipaliprakashkelkar in /Users/dipaliprakashkelkar/Desktop/payment)}
+{"timestamp": 2020-01-14 16:42:44,030 "level": DEBUG "event": Running with Spring Boot v2.2.1.RELEASE, Spring v5.2.1.RELEASE}
+{"timestamp": 2020-01-14 16:42:44,031 "level": INFO "event": No active profile set, falling back to default profiles: default}
+{"timestamp": 2020-01-14 16:42:44,673 "level": INFO "event": Bootstrapping Spring Data repositories in DEFAULT mode.}
+{"timestamp": 2020-01-14 16:42:44,736 "level": INFO "event": Finished Spring Data repository scanning in 54ms. Found 2 repository interfaces.}
+{"timestamp": 2020-01-14 16:42:44,963 "level": INFO "event": Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)}
+{"timestamp": 2020-01-14 16:42:45,155 "level": INFO "event": Tomcat initialized with port(s): 8080 (http)}
+{"timestamp": 2020-01-14 16:42:45,164 "level": INFO "event": Initializing ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-01-14 16:42:45,164 "level": INFO "event": Starting service [Tomcat]}
+{"timestamp": 2020-01-14 16:42:45,165 "level": INFO "event": Starting Servlet engine: [Apache Tomcat/9.0.27]}
+{"timestamp": 2020-01-14 16:42:45,234 "level": INFO "event": Initializing Spring embedded WebApplicationContext}
+{"timestamp": 2020-01-14 16:42:45,234 "level": INFO "event": Root WebApplicationContext: initialization completed in 1171 ms}
+{"timestamp": 2020-01-14 16:42:45,389 "level": INFO "event": HHH000204: Processing PersistenceUnitInfo [name: default]}
+{"timestamp": 2020-01-14 16:42:45,443 "level": INFO "event": HHH000412: Hibernate Core {5.4.8.Final}}
+{"timestamp": 2020-01-14 16:42:45,566 "level": INFO "event": HCANN000001: Hibernate Commons Annotations {5.1.0.Final}}
+{"timestamp": 2020-01-14 16:42:45,643 "level": INFO "event": HikariPool-1 - Starting...}
+{"timestamp": 2020-01-14 16:42:45,726 "level": INFO "event": HikariPool-1 - Start completed.}
+{"timestamp": 2020-01-14 16:42:45,742 "level": INFO "event": HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect}
+{"timestamp": 2020-01-14 16:42:46,527 "level": INFO "event": HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]}
+{"timestamp": 2020-01-14 16:42:46,531 "level": INFO "event": Initialized JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-01-14 16:42:46,928 "level": WARN "event": spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning}
+{"timestamp": 2020-01-14 16:42:47,031 "level": INFO "event": Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]}
+{"timestamp": 2020-01-14 16:42:47,121 "level": INFO "event": Initializing ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-14 16:42:47,331 "level": INFO "event": Context refreshed}
+{"timestamp": 2020-01-14 16:42:47,349 "level": INFO "event": Found 1 custom documentation plugin(s)}
+{"timestamp": 2020-01-14 16:42:47,373 "level": INFO "event": Scanning for api listing references}
+{"timestamp": 2020-01-14 16:42:47,515 "level": INFO "event": Starting ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-01-14 16:42:47,551 "level": INFO "event": Tomcat started on port(s): 8080 (http) with context path ''}
+{"timestamp": 2020-01-14 16:42:47,556 "level": INFO "event": Started PaymentApplication in 3.939 seconds (JVM running for 4.257)}
+{"timestamp": 2020-01-14 16:42:51,375 "level": INFO "event": Initializing Spring DispatcherServlet 'dispatcherServlet'}
+{"timestamp": 2020-01-14 16:42:51,376 "level": INFO "event": Initializing Servlet 'dispatcherServlet'}
+{"timestamp": 2020-01-14 16:42:51,386 "level": INFO "event": Completed initialization in 9 ms}
+{"timestamp": 2020-01-14 16:42:51,804 "level": INFO "event": {name:PAYMENT SUCCESSFUL,description:Payment successful,details:PaymentId=1}}
+{"timestamp": 2020-01-14 16:45:41,936 "level": INFO "event": Shutting down ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-14 16:45:41,939 "level": INFO "event": Closing JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-01-14 16:45:41,943 "level": INFO "event": HikariPool-1 - Shutdown initiated...}
+{"timestamp": 2020-01-14 16:45:41,957 "level": INFO "event": HikariPool-1 - Shutdown completed.}
+{"timestamp": 2020-01-14 16:45:45,422 "level": INFO "event": Starting PaymentApplication on Dipalis-MacBook-Pro.local with PID 42002 (/Users/dipaliprakashkelkar/Desktop/payment/build/classes/java/main started by dipaliprakashkelkar in /Users/dipaliprakashkelkar/Desktop/payment)}
+{"timestamp": 2020-01-14 16:45:45,424 "level": DEBUG "event": Running with Spring Boot v2.2.1.RELEASE, Spring v5.2.1.RELEASE}
+{"timestamp": 2020-01-14 16:45:45,424 "level": INFO "event": No active profile set, falling back to default profiles: default}
+{"timestamp": 2020-01-14 16:45:46,109 "level": INFO "event": Bootstrapping Spring Data repositories in DEFAULT mode.}
+{"timestamp": 2020-01-14 16:45:46,185 "level": INFO "event": Finished Spring Data repository scanning in 66ms. Found 2 repository interfaces.}
+{"timestamp": 2020-01-14 16:45:46,492 "level": INFO "event": Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)}
+{"timestamp": 2020-01-14 16:45:46,879 "level": INFO "event": Tomcat initialized with port(s): 8080 (http)}
+{"timestamp": 2020-01-14 16:45:46,888 "level": INFO "event": Initializing ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-01-14 16:45:46,889 "level": INFO "event": Starting service [Tomcat]}
+{"timestamp": 2020-01-14 16:45:46,889 "level": INFO "event": Starting Servlet engine: [Apache Tomcat/9.0.27]}
+{"timestamp": 2020-01-14 16:45:46,977 "level": INFO "event": Initializing Spring embedded WebApplicationContext}
+{"timestamp": 2020-01-14 16:45:46,977 "level": INFO "event": Root WebApplicationContext: initialization completed in 1518 ms}
+{"timestamp": 2020-01-14 16:45:47,161 "level": INFO "event": HHH000204: Processing PersistenceUnitInfo [name: default]}
+{"timestamp": 2020-01-14 16:45:47,226 "level": INFO "event": HHH000412: Hibernate Core {5.4.8.Final}}
+{"timestamp": 2020-01-14 16:45:47,365 "level": INFO "event": HCANN000001: Hibernate Commons Annotations {5.1.0.Final}}
+{"timestamp": 2020-01-14 16:45:47,454 "level": INFO "event": HikariPool-1 - Starting...}
+{"timestamp": 2020-01-14 16:45:47,541 "level": INFO "event": HikariPool-1 - Start completed.}
+{"timestamp": 2020-01-14 16:45:47,564 "level": INFO "event": HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect}
+{"timestamp": 2020-01-14 16:45:48,585 "level": INFO "event": HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]}
+{"timestamp": 2020-01-14 16:45:48,590 "level": INFO "event": Initialized JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-01-14 16:45:49,051 "level": WARN "event": spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning}
+{"timestamp": 2020-01-14 16:45:49,315 "level": INFO "event": Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]}
+{"timestamp": 2020-01-14 16:45:49,425 "level": INFO "event": Initializing ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-14 16:45:49,588 "level": INFO "event": Context refreshed}
+{"timestamp": 2020-01-14 16:45:49,608 "level": INFO "event": Found 1 custom documentation plugin(s)}
+{"timestamp": 2020-01-14 16:45:49,635 "level": INFO "event": Scanning for api listing references}
+{"timestamp": 2020-01-14 16:45:49,795 "level": INFO "event": Starting ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-01-14 16:45:49,831 "level": INFO "event": Tomcat started on port(s): 8080 (http) with context path ''}
+{"timestamp": 2020-01-14 16:45:49,835 "level": INFO "event": Started PaymentApplication in 4.824 seconds (JVM running for 5.133)}
+{"timestamp": 2020-01-14 16:45:54,463 "level": INFO "event": Initializing Spring DispatcherServlet 'dispatcherServlet'}
+{"timestamp": 2020-01-14 16:45:54,464 "level": INFO "event": Initializing Servlet 'dispatcherServlet'}
+{"timestamp": 2020-01-14 16:45:54,470 "level": INFO "event": Completed initialization in 6 ms}
+{"timestamp": 2020-01-14 16:45:54,946 "level": INFO "event": {name:PAYMENTSUCCESSFUL,details:PaymentId={"paymentId":1,"IfscCode":"HDFC1234"}}}
+{"timestamp": 2020-01-14 16:47:17,572 "level": INFO "event": Shutting down ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-14 16:47:17,574 "level": INFO "event": Closing JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-01-14 16:47:17,576 "level": INFO "event": HikariPool-1 - Shutdown initiated...}
+{"timestamp": 2020-01-14 16:47:17,584 "level": INFO "event": HikariPool-1 - Shutdown completed.}
+{"timestamp": 2020-01-14 16:47:20,217 "level": INFO "event": Starting PaymentApplication on Dipalis-MacBook-Pro.local with PID 42047 (/Users/dipaliprakashkelkar/Desktop/payment/build/classes/java/main started by dipaliprakashkelkar in /Users/dipaliprakashkelkar/Desktop/payment)}
+{"timestamp": 2020-01-14 16:47:20,218 "level": DEBUG "event": Running with Spring Boot v2.2.1.RELEASE, Spring v5.2.1.RELEASE}
+{"timestamp": 2020-01-14 16:47:20,219 "level": INFO "event": No active profile set, falling back to default profiles: default}
+{"timestamp": 2020-01-14 16:47:20,790 "level": INFO "event": Bootstrapping Spring Data repositories in DEFAULT mode.}
+{"timestamp": 2020-01-14 16:47:20,834 "level": INFO "event": Finished Spring Data repository scanning in 38ms. Found 2 repository interfaces.}
+{"timestamp": 2020-01-14 16:47:21,029 "level": INFO "event": Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)}
+{"timestamp": 2020-01-14 16:47:21,198 "level": INFO "event": Tomcat initialized with port(s): 8080 (http)}
+{"timestamp": 2020-01-14 16:47:21,206 "level": INFO "event": Initializing ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-01-14 16:47:21,206 "level": INFO "event": Starting service [Tomcat]}
+{"timestamp": 2020-01-14 16:47:21,207 "level": INFO "event": Starting Servlet engine: [Apache Tomcat/9.0.27]}
+{"timestamp": 2020-01-14 16:47:21,275 "level": INFO "event": Initializing Spring embedded WebApplicationContext}
+{"timestamp": 2020-01-14 16:47:21,276 "level": INFO "event": Root WebApplicationContext: initialization completed in 1031 ms}
+{"timestamp": 2020-01-14 16:47:21,412 "level": INFO "event": HHH000204: Processing PersistenceUnitInfo [name: default]}
+{"timestamp": 2020-01-14 16:47:21,451 "level": INFO "event": HHH000412: Hibernate Core {5.4.8.Final}}
+{"timestamp": 2020-01-14 16:47:21,528 "level": INFO "event": HCANN000001: Hibernate Commons Annotations {5.1.0.Final}}
+{"timestamp": 2020-01-14 16:47:21,590 "level": INFO "event": HikariPool-1 - Starting...}
+{"timestamp": 2020-01-14 16:47:21,663 "level": INFO "event": HikariPool-1 - Start completed.}
+{"timestamp": 2020-01-14 16:47:21,677 "level": INFO "event": HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect}
+{"timestamp": 2020-01-14 16:47:22,301 "level": INFO "event": HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]}
+{"timestamp": 2020-01-14 16:47:22,305 "level": INFO "event": Initialized JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-01-14 16:47:22,648 "level": WARN "event": spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning}
+{"timestamp": 2020-01-14 16:47:22,740 "level": INFO "event": Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]}
+{"timestamp": 2020-01-14 16:47:22,818 "level": INFO "event": Initializing ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-14 16:47:22,948 "level": INFO "event": Context refreshed}
+{"timestamp": 2020-01-14 16:47:22,959 "level": INFO "event": Found 1 custom documentation plugin(s)}
+{"timestamp": 2020-01-14 16:47:22,975 "level": INFO "event": Scanning for api listing references}
+{"timestamp": 2020-01-14 16:47:23,090 "level": INFO "event": Starting ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-01-14 16:47:23,121 "level": INFO "event": Tomcat started on port(s): 8080 (http) with context path ''}
+{"timestamp": 2020-01-14 16:47:23,124 "level": INFO "event": Started PaymentApplication in 3.247 seconds (JVM running for 3.539)}
+{"timestamp": 2020-01-14 16:47:28,393 "level": INFO "event": Initializing Spring DispatcherServlet 'dispatcherServlet'}
+{"timestamp": 2020-01-14 16:47:28,394 "level": INFO "event": Initializing Servlet 'dispatcherServlet'}
+{"timestamp": 2020-01-14 16:47:28,403 "level": INFO "event": Completed initialization in 9 ms}
+{"timestamp": 2020-01-14 16:47:28,767 "level": INFO "event": {name:PAYMENTSUCCESSFUL,details:{"paymentId":1,"IfscCode":"HDFC1234"}}}
+{"timestamp": 2020-01-14 16:56:31,375 "level": INFO "event": Shutting down ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-14 16:56:31,389 "level": INFO "event": Closing JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-01-14 16:56:31,411 "level": INFO "event": HikariPool-1 - Shutdown initiated...}
+{"timestamp": 2020-01-14 16:56:31,424 "level": INFO "event": HikariPool-1 - Shutdown completed.}
+{"timestamp": 2020-01-14 16:56:41,225 "level": INFO "event": Starting PaymentApplication on Dipalis-MacBook-Pro.local with PID 42108 (/Users/dipaliprakashkelkar/Desktop/payment/build/classes/java/main started by dipaliprakashkelkar in /Users/dipaliprakashkelkar/Desktop/payment)}
+{"timestamp": 2020-01-14 16:56:41,228 "level": DEBUG "event": Running with Spring Boot v2.2.1.RELEASE, Spring v5.2.1.RELEASE}
+{"timestamp": 2020-01-14 16:56:41,228 "level": INFO "event": No active profile set, falling back to default profiles: default}
+{"timestamp": 2020-01-14 16:56:41,883 "level": INFO "event": Bootstrapping Spring Data repositories in DEFAULT mode.}
+{"timestamp": 2020-01-14 16:56:41,945 "level": INFO "event": Finished Spring Data repository scanning in 53ms. Found 2 repository interfaces.}
+{"timestamp": 2020-01-14 16:56:42,178 "level": INFO "event": Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)}
+{"timestamp": 2020-01-14 16:56:42,371 "level": INFO "event": Tomcat initialized with port(s): 8080 (http)}
+{"timestamp": 2020-01-14 16:56:42,380 "level": INFO "event": Initializing ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-01-14 16:56:42,381 "level": INFO "event": Starting service [Tomcat]}
+{"timestamp": 2020-01-14 16:56:42,381 "level": INFO "event": Starting Servlet engine: [Apache Tomcat/9.0.27]}
+{"timestamp": 2020-01-14 16:56:42,461 "level": INFO "event": Initializing Spring embedded WebApplicationContext}
+{"timestamp": 2020-01-14 16:56:42,461 "level": INFO "event": Root WebApplicationContext: initialization completed in 1198 ms}
+{"timestamp": 2020-01-14 16:56:42,633 "level": INFO "event": HHH000204: Processing PersistenceUnitInfo [name: default]}
+{"timestamp": 2020-01-14 16:56:42,683 "level": INFO "event": HHH000412: Hibernate Core {5.4.8.Final}}
+{"timestamp": 2020-01-14 16:56:42,804 "level": INFO "event": HCANN000001: Hibernate Commons Annotations {5.1.0.Final}}
+{"timestamp": 2020-01-14 16:56:42,880 "level": INFO "event": HikariPool-1 - Starting...}
+{"timestamp": 2020-01-14 16:56:42,958 "level": INFO "event": HikariPool-1 - Start completed.}
+{"timestamp": 2020-01-14 16:56:42,975 "level": INFO "event": HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect}
+{"timestamp": 2020-01-14 16:56:43,862 "level": INFO "event": HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]}
+{"timestamp": 2020-01-14 16:56:43,867 "level": INFO "event": Initialized JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-01-14 16:56:44,472 "level": WARN "event": spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning}
+{"timestamp": 2020-01-14 16:56:44,599 "level": INFO "event": Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]}
+{"timestamp": 2020-01-14 16:56:44,685 "level": INFO "event": Initializing ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-14 16:56:44,826 "level": INFO "event": Context refreshed}
+{"timestamp": 2020-01-14 16:56:44,841 "level": INFO "event": Found 1 custom documentation plugin(s)}
+{"timestamp": 2020-01-14 16:56:44,862 "level": INFO "event": Scanning for api listing references}
+{"timestamp": 2020-01-14 16:56:45,001 "level": INFO "event": Starting ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-01-14 16:56:45,022 "level": INFO "event": Tomcat started on port(s): 8080 (http) with context path ''}
+{"timestamp": 2020-01-14 16:56:45,025 "level": INFO "event": Started PaymentApplication in 9.367 seconds (JVM running for 10.269)}
+{"timestamp": 2020-01-14 17:06:02,590 "level": INFO "event": Shutting down ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-14 17:06:02,594 "level": INFO "event": Closing JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-01-14 17:06:02,596 "level": INFO "event": HikariPool-1 - Shutdown initiated...}
+{"timestamp": 2020-01-14 17:06:02,600 "level": INFO "event": HikariPool-1 - Shutdown completed.}
+{"timestamp": 2020-01-14 17:06:10,908 "level": INFO "event": Starting PaymentApplication on Dipalis-MacBook-Pro.local with PID 42157 (/Users/dipaliprakashkelkar/Desktop/payment/build/classes/java/main started by dipaliprakashkelkar in /Users/dipaliprakashkelkar/Desktop/payment)}
+{"timestamp": 2020-01-14 17:06:10,910 "level": DEBUG "event": Running with Spring Boot v2.2.1.RELEASE, Spring v5.2.1.RELEASE}
+{"timestamp": 2020-01-14 17:06:10,910 "level": INFO "event": No active profile set, falling back to default profiles: default}
+{"timestamp": 2020-01-14 17:06:11,551 "level": INFO "event": Bootstrapping Spring Data repositories in DEFAULT mode.}
+{"timestamp": 2020-01-14 17:06:11,607 "level": INFO "event": Finished Spring Data repository scanning in 48ms. Found 2 repository interfaces.}
+{"timestamp": 2020-01-14 17:06:11,835 "level": INFO "event": Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)}
+{"timestamp": 2020-01-14 17:06:12,034 "level": INFO "event": Tomcat initialized with port(s): 8080 (http)}
+{"timestamp": 2020-01-14 17:06:12,043 "level": INFO "event": Initializing ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-01-14 17:06:12,043 "level": INFO "event": Starting service [Tomcat]}
+{"timestamp": 2020-01-14 17:06:12,044 "level": INFO "event": Starting Servlet engine: [Apache Tomcat/9.0.27]}
+{"timestamp": 2020-01-14 17:06:12,120 "level": INFO "event": Initializing Spring embedded WebApplicationContext}
+{"timestamp": 2020-01-14 17:06:12,121 "level": INFO "event": Root WebApplicationContext: initialization completed in 1171 ms}
+{"timestamp": 2020-01-14 17:06:12,284 "level": INFO "event": HHH000204: Processing PersistenceUnitInfo [name: default]}
+{"timestamp": 2020-01-14 17:06:12,335 "level": INFO "event": HHH000412: Hibernate Core {5.4.8.Final}}
+{"timestamp": 2020-01-14 17:06:12,454 "level": INFO "event": HCANN000001: Hibernate Commons Annotations {5.1.0.Final}}
+{"timestamp": 2020-01-14 17:06:12,525 "level": INFO "event": HikariPool-1 - Starting...}
+{"timestamp": 2020-01-14 17:06:12,604 "level": INFO "event": HikariPool-1 - Start completed.}
+{"timestamp": 2020-01-14 17:06:12,621 "level": INFO "event": HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect}
+{"timestamp": 2020-01-14 17:06:13,362 "level": INFO "event": HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]}
+{"timestamp": 2020-01-14 17:06:13,368 "level": INFO "event": Initialized JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-01-14 17:06:13,756 "level": WARN "event": spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning}
+{"timestamp": 2020-01-14 17:06:13,855 "level": INFO "event": Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]}
+{"timestamp": 2020-01-14 17:06:13,957 "level": INFO "event": Initializing ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-14 17:06:14,107 "level": INFO "event": Context refreshed}
+{"timestamp": 2020-01-14 17:06:14,123 "level": INFO "event": Found 1 custom documentation plugin(s)}
+{"timestamp": 2020-01-14 17:06:14,145 "level": INFO "event": Scanning for api listing references}
+{"timestamp": 2020-01-14 17:06:14,270 "level": INFO "event": Starting ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-01-14 17:06:14,292 "level": INFO "event": Tomcat started on port(s): 8080 (http) with context path ''}
+{"timestamp": 2020-01-14 17:06:14,296 "level": INFO "event": Started PaymentApplication in 8.783 seconds (JVM running for 9.11)}
+{"timestamp": 2020-01-14 17:06:20,338 "level": INFO "event": Initializing Spring DispatcherServlet 'dispatcherServlet'}
+{"timestamp": 2020-01-14 17:06:20,339 "level": INFO "event": Initializing Servlet 'dispatcherServlet'}
+{"timestamp": 2020-01-14 17:06:20,347 "level": INFO "event": Completed initialization in 8 ms}
+{"timestamp": 2020-01-14 17:06:20,795 "level": INFO "event": {name:PAYMENTSUCCESSFUL,details:{"PaymentId":1,"IfscCode":"HDFC1234"}}}
+{"timestamp": 2020-01-14 17:06:25,355 "level": INFO "event": {name:PAYMENT FAILED,description:Payee details are incorrect,details:{"PaymentId":0,"IfscCode":"HDFC1234"}}}
+{"timestamp": 2020-01-14 17:09:09,126 "level": INFO "event": Shutting down ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-14 17:09:09,130 "level": INFO "event": Closing JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-01-14 17:09:09,139 "level": INFO "event": HikariPool-1 - Shutdown initiated...}
+{"timestamp": 2020-01-14 17:09:09,146 "level": INFO "event": HikariPool-1 - Shutdown completed.}
+{"timestamp": 2020-01-14 17:15:19,916 "level": INFO "event": Starting PaymentApplication on Dipalis-MacBook-Pro.local with PID 42235 (/Users/dipaliprakashkelkar/Desktop/payment/build/classes/java/main started by dipaliprakashkelkar in /Users/dipaliprakashkelkar/Desktop/payment)}
+{"timestamp": 2020-01-14 17:15:19,918 "level": DEBUG "event": Running with Spring Boot v2.2.1.RELEASE, Spring v5.2.1.RELEASE}
+{"timestamp": 2020-01-14 17:15:19,919 "level": INFO "event": No active profile set, falling back to default profiles: default}
+{"timestamp": 2020-01-14 17:15:20,776 "level": INFO "event": Bootstrapping Spring Data repositories in DEFAULT mode.}
+{"timestamp": 2020-01-14 17:15:20,861 "level": INFO "event": Finished Spring Data repository scanning in 76ms. Found 2 repository interfaces.}
+{"timestamp": 2020-01-14 17:15:21,218 "level": INFO "event": Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)}
+{"timestamp": 2020-01-14 17:15:21,481 "level": INFO "event": Tomcat initialized with port(s): 8080 (http)}
+{"timestamp": 2020-01-14 17:15:21,491 "level": INFO "event": Initializing ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-01-14 17:15:21,492 "level": INFO "event": Starting service [Tomcat]}
+{"timestamp": 2020-01-14 17:15:21,492 "level": INFO "event": Starting Servlet engine: [Apache Tomcat/9.0.27]}
+{"timestamp": 2020-01-14 17:15:21,579 "level": INFO "event": Initializing Spring embedded WebApplicationContext}
+{"timestamp": 2020-01-14 17:15:21,579 "level": INFO "event": Root WebApplicationContext: initialization completed in 1624 ms}
+{"timestamp": 2020-01-14 17:15:21,841 "level": INFO "event": HHH000204: Processing PersistenceUnitInfo [name: default]}
+{"timestamp": 2020-01-14 17:15:21,927 "level": INFO "event": HHH000412: Hibernate Core {5.4.8.Final}}
+{"timestamp": 2020-01-14 17:15:22,043 "level": INFO "event": HCANN000001: Hibernate Commons Annotations {5.1.0.Final}}
+{"timestamp": 2020-01-14 17:15:22,117 "level": INFO "event": HikariPool-1 - Starting...}
+{"timestamp": 2020-01-14 17:15:22,203 "level": INFO "event": HikariPool-1 - Start completed.}
+{"timestamp": 2020-01-14 17:15:22,218 "level": INFO "event": HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect}
+{"timestamp": 2020-01-14 17:15:22,978 "level": INFO "event": HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]}
+{"timestamp": 2020-01-14 17:15:22,983 "level": INFO "event": Initialized JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-01-14 17:15:23,434 "level": WARN "event": spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning}
+{"timestamp": 2020-01-14 17:15:23,595 "level": INFO "event": Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]}
+{"timestamp": 2020-01-14 17:15:23,720 "level": INFO "event": Initializing ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-14 17:15:24,027 "level": INFO "event": Context refreshed}
+{"timestamp": 2020-01-14 17:15:24,048 "level": INFO "event": Found 1 custom documentation plugin(s)}
+{"timestamp": 2020-01-14 17:15:24,076 "level": INFO "event": Scanning for api listing references}
+{"timestamp": 2020-01-14 17:15:24,239 "level": INFO "event": Starting ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-01-14 17:15:24,269 "level": INFO "event": Tomcat started on port(s): 8080 (http) with context path ''}
+{"timestamp": 2020-01-14 17:15:24,273 "level": INFO "event": Started PaymentApplication in 9.743 seconds (JVM running for 10.074)}
+{"timestamp": 2020-01-14 17:15:26,693 "level": INFO "event": Initializing Spring DispatcherServlet 'dispatcherServlet'}
+{"timestamp": 2020-01-14 17:15:26,694 "level": INFO "event": Initializing Servlet 'dispatcherServlet'}
+{"timestamp": 2020-01-14 17:15:26,702 "level": INFO "event": Completed initialization in 8 ms}
+{"timestamp": 2020-01-14 17:15:27,133 "level": INFO "event": {name:PAYMENT FAILED,description:Payee details are incorrect,details:{"PaymentId":0,"BeneficiaryIfscCode":"HDFC1234","PayeeIfscCode":"HDFC1234"}}}
+{"timestamp": 2020-01-14 17:34:25,193 "level": INFO "event": Shutting down ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-14 17:34:25,200 "level": INFO "event": Closing JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-01-14 17:34:25,220 "level": INFO "event": HikariPool-1 - Shutdown initiated...}
+{"timestamp": 2020-01-14 17:34:25,230 "level": INFO "event": HikariPool-1 - Shutdown completed.}
+{"timestamp": 2020-01-14 17:34:28,914 "level": INFO "event": Starting PaymentApplication on Dipalis-MacBook-Pro.local with PID 42293 (/Users/dipaliprakashkelkar/Desktop/payment/build/classes/java/main started by dipaliprakashkelkar in /Users/dipaliprakashkelkar/Desktop/payment)}
+{"timestamp": 2020-01-14 17:34:28,916 "level": DEBUG "event": Running with Spring Boot v2.2.1.RELEASE, Spring v5.2.1.RELEASE}
+{"timestamp": 2020-01-14 17:34:28,917 "level": INFO "event": No active profile set, falling back to default profiles: default}
+{"timestamp": 2020-01-14 17:34:29,547 "level": INFO "event": Bootstrapping Spring Data repositories in DEFAULT mode.}
+{"timestamp": 2020-01-14 17:34:29,609 "level": INFO "event": Finished Spring Data repository scanning in 52ms. Found 2 repository interfaces.}
+{"timestamp": 2020-01-14 17:34:29,845 "level": INFO "event": Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)}
+{"timestamp": 2020-01-14 17:34:30,033 "level": INFO "event": Tomcat initialized with port(s): 8080 (http)}
+{"timestamp": 2020-01-14 17:34:30,042 "level": INFO "event": Initializing ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-01-14 17:34:30,042 "level": INFO "event": Starting service [Tomcat]}
+{"timestamp": 2020-01-14 17:34:30,042 "level": INFO "event": Starting Servlet engine: [Apache Tomcat/9.0.27]}
+{"timestamp": 2020-01-14 17:34:30,110 "level": INFO "event": Initializing Spring embedded WebApplicationContext}
+{"timestamp": 2020-01-14 17:34:30,111 "level": INFO "event": Root WebApplicationContext: initialization completed in 1159 ms}
+{"timestamp": 2020-01-14 17:34:30,261 "level": INFO "event": HHH000204: Processing PersistenceUnitInfo [name: default]}
+{"timestamp": 2020-01-14 17:34:30,316 "level": INFO "event": HHH000412: Hibernate Core {5.4.8.Final}}
+{"timestamp": 2020-01-14 17:34:30,443 "level": INFO "event": HCANN000001: Hibernate Commons Annotations {5.1.0.Final}}
+{"timestamp": 2020-01-14 17:34:30,527 "level": INFO "event": HikariPool-1 - Starting...}
+{"timestamp": 2020-01-14 17:34:30,696 "level": INFO "event": HikariPool-1 - Start completed.}
+{"timestamp": 2020-01-14 17:34:30,716 "level": INFO "event": HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect}
+{"timestamp": 2020-01-14 17:34:31,623 "level": INFO "event": HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]}
+{"timestamp": 2020-01-14 17:34:31,627 "level": INFO "event": Initialized JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-01-14 17:34:32,008 "level": WARN "event": spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning}
+{"timestamp": 2020-01-14 17:34:32,097 "level": INFO "event": Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]}
+{"timestamp": 2020-01-14 17:34:32,184 "level": INFO "event": Initializing ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-14 17:34:32,330 "level": INFO "event": Context refreshed}
+{"timestamp": 2020-01-14 17:34:32,347 "level": INFO "event": Found 1 custom documentation plugin(s)}
+{"timestamp": 2020-01-14 17:34:32,368 "level": INFO "event": Scanning for api listing references}
+{"timestamp": 2020-01-14 17:34:32,504 "level": INFO "event": Starting ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-01-14 17:34:32,542 "level": INFO "event": Tomcat started on port(s): 8080 (http) with context path ''}
+{"timestamp": 2020-01-14 17:34:32,547 "level": INFO "event": Started PaymentApplication in 4.018 seconds (JVM running for 4.349)}
+{"timestamp": 2020-01-14 17:34:38,985 "level": INFO "event": Initializing Spring DispatcherServlet 'dispatcherServlet'}
+{"timestamp": 2020-01-14 17:34:38,987 "level": INFO "event": Initializing Servlet 'dispatcherServlet'}
+{"timestamp": 2020-01-14 17:34:38,999 "level": INFO "event": Completed initialization in 12 ms}
+{"timestamp": 2020-01-14 17:34:39,631 "level": INFO "event": {name:PAYMENT FAILED,description:Payee details are incorrect,details:{"PaymentId":1,"BeneficiaryIfscCode":"HDFC1234","PayeeIfscCode":"HDFC1234"}}}
+{"timestamp": 2020-01-14 17:35:15,757 "level": INFO "event": {name:PAYMENTSUCCESSFUL,details:{"PaymentId":2,"BeneficiaryIfscCode":"HDFC1234","PayeeIfscCode":"HDFC1234"}}}
+{"timestamp": 2020-01-14 17:36:39,521 "level": INFO "event": Shutting down ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-14 17:36:39,524 "level": INFO "event": Closing JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-01-14 17:36:39,540 "level": INFO "event": HikariPool-1 - Shutdown initiated...}
+{"timestamp": 2020-01-14 17:36:39,548 "level": INFO "event": HikariPool-1 - Shutdown completed.}
+{"timestamp": 2020-01-14 17:36:47,793 "level": INFO "event": Starting PaymentApplication on Dipalis-MacBook-Pro.local with PID 42337 (/Users/dipaliprakashkelkar/Desktop/payment/build/classes/java/main started by dipaliprakashkelkar in /Users/dipaliprakashkelkar/Desktop/payment)}
+{"timestamp": 2020-01-14 17:36:47,795 "level": DEBUG "event": Running with Spring Boot v2.2.1.RELEASE, Spring v5.2.1.RELEASE}
+{"timestamp": 2020-01-14 17:36:47,796 "level": INFO "event": No active profile set, falling back to default profiles: default}
+{"timestamp": 2020-01-14 17:36:48,565 "level": INFO "event": Bootstrapping Spring Data repositories in DEFAULT mode.}
+{"timestamp": 2020-01-14 17:36:48,623 "level": INFO "event": Finished Spring Data repository scanning in 51ms. Found 2 repository interfaces.}
+{"timestamp": 2020-01-14 17:36:48,923 "level": INFO "event": Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)}
+{"timestamp": 2020-01-14 17:36:49,173 "level": INFO "event": Tomcat initialized with port(s): 8080 (http)}
+{"timestamp": 2020-01-14 17:36:49,186 "level": INFO "event": Initializing ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-01-14 17:36:49,187 "level": INFO "event": Starting service [Tomcat]}
+{"timestamp": 2020-01-14 17:36:49,188 "level": INFO "event": Starting Servlet engine: [Apache Tomcat/9.0.27]}
+{"timestamp": 2020-01-14 17:36:49,333 "level": INFO "event": Initializing Spring embedded WebApplicationContext}
+{"timestamp": 2020-01-14 17:36:49,333 "level": INFO "event": Root WebApplicationContext: initialization completed in 1497 ms}
+{"timestamp": 2020-01-14 17:36:49,502 "level": INFO "event": HHH000204: Processing PersistenceUnitInfo [name: default]}
+{"timestamp": 2020-01-14 17:36:49,554 "level": INFO "event": HHH000412: Hibernate Core {5.4.8.Final}}
+{"timestamp": 2020-01-14 17:36:49,667 "level": INFO "event": HCANN000001: Hibernate Commons Annotations {5.1.0.Final}}
+{"timestamp": 2020-01-14 17:36:49,743 "level": INFO "event": HikariPool-1 - Starting...}
+{"timestamp": 2020-01-14 17:36:49,824 "level": INFO "event": HikariPool-1 - Start completed.}
+{"timestamp": 2020-01-14 17:36:49,841 "level": INFO "event": HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect}
+{"timestamp": 2020-01-14 17:36:50,841 "level": INFO "event": HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]}
+{"timestamp": 2020-01-14 17:36:50,846 "level": INFO "event": Initialized JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-01-14 17:36:51,439 "level": WARN "event": spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning}
+{"timestamp": 2020-01-14 17:36:51,753 "level": INFO "event": Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]}
+{"timestamp": 2020-01-14 17:36:51,952 "level": INFO "event": Initializing ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-14 17:36:52,491 "level": INFO "event": Context refreshed}
+{"timestamp": 2020-01-14 17:36:52,542 "level": INFO "event": Found 1 custom documentation plugin(s)}
+{"timestamp": 2020-01-14 17:36:52,585 "level": INFO "event": Scanning for api listing references}
+{"timestamp": 2020-01-14 17:36:52,947 "level": INFO "event": Starting ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-01-14 17:36:52,982 "level": INFO "event": Tomcat started on port(s): 8080 (http) with context path ''}
+{"timestamp": 2020-01-14 17:36:52,987 "level": INFO "event": Started PaymentApplication in 10.57 seconds (JVM running for 10.885)}
+{"timestamp": 2020-01-14 17:36:57,665 "level": INFO "event": Initializing Spring DispatcherServlet 'dispatcherServlet'}
+{"timestamp": 2020-01-14 17:36:57,666 "level": INFO "event": Initializing Servlet 'dispatcherServlet'}
+{"timestamp": 2020-01-14 17:36:57,674 "level": INFO "event": Completed initialization in 8 ms}
+{"timestamp": 2020-01-14 17:36:58,080 "level": INFO "event": {name:PAYMENTSUCCESSFUL,details:{"PaymentId":1,"BeneficiaryIfscCode":"HDFC1234","PayeeIfscCode":"HDFC1234"}}}
+{"timestamp": 2020-01-14 17:39:51,071 "level": INFO "event": {name:PAYMENTFAILED,description:Payee details are incorrect,details:{"PaymentId":2,"BeneficiaryIfscCode":"HDFC1234","PayeeIfscCode":"HDFC1234"}}}
+{"timestamp": 2020-01-14 17:42:51,203 "level": INFO "event": Shutting down ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-14 17:42:51,206 "level": INFO "event": Closing JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-01-14 17:42:51,210 "level": INFO "event": HikariPool-1 - Shutdown initiated...}
+{"timestamp": 2020-01-14 17:42:51,215 "level": INFO "event": HikariPool-1 - Shutdown completed.}

@@ -1,17 +1,24 @@
 package com.thoughtworks.payment;
 
+import com.google.gson.JsonObject;
 import com.thoughtworks.payment.message.PaymentResponse;
 import com.thoughtworks.payment.model.Payment;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static net.logstash.logback.argument.StructuredArguments.v;
+
 @RestController
 @RequestMapping("/payments")
 public class PaymentController {
+
+    private static Logger logger = LogManager.getLogger(PaymentController.class);
 
     @Autowired
     PaymentService paymentService;
@@ -26,6 +33,13 @@ public class PaymentController {
     public ResponseEntity<PaymentResponse> create(@RequestBody PaymentRequest paymentRequest) throws Exception {
         Payment payment = new Payment(paymentRequest.getAmount(), paymentRequest.getBeneficiary(), paymentRequest.getPayee());
         Payment savedPayment = paymentService.create(payment);
+
+        JsonObject logDetails = new JsonObject();
+        logDetails.addProperty("PaymentId", savedPayment.getId());
+        logDetails.addProperty("BeneficiaryIfscCode", savedPayment.getBeneficiaryIfscCode());
+        logDetails.addProperty("PayeeIfscCode", savedPayment.getPayeeIfscCode());
+        logger.info("{name:{},details:{}}", v("name", "PAYMENTSUCCESSFUL"), v("details", logDetails));
+
         PaymentResponse response = new PaymentResponse();
         response.setStatusMessage("Payment done successfully");
         response.setPaymentId(savedPayment.getId());

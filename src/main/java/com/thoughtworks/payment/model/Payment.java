@@ -35,6 +35,9 @@ public class Payment {
     @Column(name = "payee_ifsc")
     private String payeeIfscCode;
 
+    @Column(name = "status")
+    private String status;
+
     public Payment() {
     }
 
@@ -46,6 +49,7 @@ public class Payment {
         this.payeeName = payee.getName();
         this.payeeAccountNumber = payee.getAccountNumber();
         this.payeeIfscCode = payee.getIfscCode();
+        this.status = "success";
     }
 
     public int getId() {
@@ -80,7 +84,15 @@ public class Payment {
         return payeeIfscCode;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
