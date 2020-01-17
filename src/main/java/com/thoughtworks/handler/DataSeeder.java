@@ -1,4 +1,4 @@
-package com.thoughtworks.common;
+package com.thoughtworks.handler;
 
 import com.thoughtworks.bankInfo.BankInfo;
 import com.thoughtworks.bankInfo.BankInfoService;
