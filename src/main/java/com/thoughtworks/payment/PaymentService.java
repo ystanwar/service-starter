@@ -29,7 +29,7 @@ public class PaymentService {
             logDetails.addProperty("PaymentId", payment.getId());
             logDetails.addProperty("BeneficiaryIfscCode", payment.getBeneficiaryIfscCode());
             logDetails.addProperty("PayeeIfscCode", payment.getPayeeIfscCode());
-            logger.info("{name:{},description:{},details:{}}", v("name", "PAYMENTFAILED"), v("description", "Beneficiary details are incorrect"), v("details", logDetails));
+            logger.info("{name:{},description:{},details:{}}", v("name", "PAYMENTFAILED"), v("description", payment.getBeneficiaryName() + "details are incorrect"), v("details", logDetails));
 
             throw new BeneficiaryAccountDetailsNotFound("message", payment.getBeneficiaryName() + "'s AccountDetails Not Found");
         }
@@ -42,7 +42,7 @@ public class PaymentService {
             logDetails.addProperty("PaymentId", payment.getId());
             logDetails.addProperty("BeneficiaryIfscCode", payment.getBeneficiaryIfscCode());
             logDetails.addProperty("PayeeIfscCode", payment.getPayeeIfscCode());
-            logger.info("{name:{},description:{},details:{}}", v("name", "PAYMENTFAILED"), v("description", "Payee details are incorrect"), v("details", logDetails));
+            logger.info("{name:{},description:{},details:{}}", v("name", "PAYMENTFAILED"), v("description", payment.getPayeeName() + "details are incorrect"), v("details", logDetails));
 
             throw new PayeeAccountDetailsNotFound("message", payment.getPayeeName() + "'s AccountDetails Not Found");
         }
