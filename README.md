@@ -1,6 +1,7 @@
 # service-starter-dotnetcore
-This is a sample starter services incorporating best practices for writing services in spring-boot.
+This is a sample starter services incorporating [best practices](https://github.com/cd-jump-start/service-starter/blob/master/best-practices) for writing services in spring-boot.
 Uses PostgreSQL database.
+
 
 This repo contains the following:  
 -PaymentApi - the sample service with basic payment flow for demo purposes. It exposes a payment REST API 
