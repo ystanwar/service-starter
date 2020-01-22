@@ -1,0 +1,15 @@
+# Best practices for service development
+- Configuration
+- Structured Logging
+- Instrumentation
+- Monitoring
+- Health checks
+- Resilience
+- Code base structure
+- CI 
+- CD
+- Security in CI/ CD
+- Local env dev env setup support
+- Service Registry
+- Packaging 
+- Packaging with containers
