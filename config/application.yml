@@ -1,5 +1,5 @@
 spring:
   jpa:
-    hibernate.ddl-auto: create
+    hibernate.ddl-auto: validate
 flyway.enabled: true
 flyway.locations: classpath:/db/migration

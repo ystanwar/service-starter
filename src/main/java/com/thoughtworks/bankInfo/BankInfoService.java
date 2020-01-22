@@ -16,4 +16,5 @@ public class BankInfoService {
     public BankInfo fetchBankByBankCode(String bankCode) {
         return bankInfoRepository.findByBankCode(bankCode);
     }
+
 }
