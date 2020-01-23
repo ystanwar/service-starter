@@ -3,6 +3,8 @@ package com.thoughtworks.payment;
 import com.google.gson.JsonObject;
 import com.thoughtworks.payment.message.PaymentResponse;
 import com.thoughtworks.payment.model.Payment;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.apache.logging.log4j.LogManager;
@@ -17,6 +19,10 @@ import static net.logstash.logback.argument.StructuredArguments.v;
 @RestController
 @RequestMapping("/payments")
 public class PaymentController {
+    @Autowired
+    MeterRegistry meterRegistry;
+
+    private Counter counter;
 
     private static Logger logger = LogManager.getLogger(PaymentController.class);
 
@@ -31,6 +37,14 @@ public class PaymentController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<PaymentResponse> create(@RequestBody PaymentRequest paymentRequest) throws Exception {
+
+        counter = Counter
+                .builder("paymentService")
+                .description("a simple counter")
+                .tags("counter", "counter")
+                .register(meterRegistry);
+        counter.increment();
+
         Payment payment = new Payment(paymentRequest.getAmount(), paymentRequest.getBeneficiary(), paymentRequest.getPayee());
         Payment savedPayment = paymentService.create(payment);
 
