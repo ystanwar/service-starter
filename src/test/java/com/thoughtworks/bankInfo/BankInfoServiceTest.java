@@ -33,7 +33,7 @@ public class BankInfoServiceTest {
     }
 
     @Test
-    void canNotCreateBankWhenBankInfoAlreadyExists() throws BankInfoAlreadyExistsException {
+    void cannotCreateBankWhenBankInfoAlreadyExists() throws BankInfoAlreadyExistsException {
         BankInfo bank = new BankInfo("HDFC", "http://localhost:8082");
         bankInfoService.create(bank);
         BankInfoAlreadyExistsException exception = assertThrows(BankInfoAlreadyExistsException.class, () -> bankInfoService.create(bank));
