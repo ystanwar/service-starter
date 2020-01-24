@@ -1,5 +1,5 @@
 # Best practices for service development
-- Configuration
+- [Configuration](https://github.com/cd-jump-start/service-starter/blob/master/best-practices.md#configuration)
 - Structured Logging
 - Instrumentation
 - Monitoring
