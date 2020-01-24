@@ -13,7 +13,7 @@ public class BankInfoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public BankInfo create(@RequestBody BankInfo bankInfo) {
+    public BankInfo create(@RequestBody BankInfo bankInfo) throws BankInfoAlreadyExistsException {
         return bankInfoService.create(bankInfo);
     }
 

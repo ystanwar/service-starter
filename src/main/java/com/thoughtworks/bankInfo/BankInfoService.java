@@ -9,7 +9,12 @@ public class BankInfoService {
     @Autowired
     BankInfoRepository bankInfoRepository;
 
-    public BankInfo create(BankInfo bank) {
+    public BankInfo create(BankInfo bank) throws BankInfoAlreadyExistsException {
+        BankInfo fetchedBankInfo=fetchBankByBankCode(bank.getBankCode());
+        if(fetchedBankInfo!=null) {
+            throw new BankInfoAlreadyExistsException("message","Bank info already exists");
+        }
+
         return bankInfoRepository.save(bank);
     }
 

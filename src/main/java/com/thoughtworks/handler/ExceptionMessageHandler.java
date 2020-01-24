@@ -1,5 +1,7 @@
 package com.thoughtworks.handler;
 
+import com.thoughtworks.bankInfo.BankInfoAlreadyExistsException;
+import com.thoughtworks.error.BankInfoErrorResponse;
 import com.thoughtworks.error.PaymentErrorResponse;
 import com.thoughtworks.payment.BeneficiaryAccountDetailsNotFound;
 import com.thoughtworks.payment.PayeeAccountDetailsNotFound;
@@ -21,7 +23,7 @@ public class ExceptionMessageHandler {
     protected PaymentErrorResponse InvalidBeneficiaryAccount(BeneficiaryAccountDetailsNotFound ex) {
         Map<String, String> errors = new HashMap<>();
         errors.put(ex.getKey(), ex.getValue());
-        return new PaymentErrorResponse("PAYMENT_FAILED",errors);
+        return new PaymentErrorResponse("PAYMENT_FAILED", errors);
     }
 
     @ExceptionHandler(PayeeAccountDetailsNotFound.class)
@@ -30,7 +32,15 @@ public class ExceptionMessageHandler {
     protected PaymentErrorResponse InvalidPayeeAccount(PayeeAccountDetailsNotFound ex) {
         Map<String, String> errors = new HashMap<>();
         errors.put(ex.getKey(), ex.getValue());
-        return new PaymentErrorResponse("PAYMENT_FAILED",errors);
+        return new PaymentErrorResponse("PAYMENT_FAILED", errors);
     }
 
+    @ExceptionHandler(BankInfoAlreadyExistsException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ResponseBody
+    protected BankInfoErrorResponse bankInfoAlreadyExists(BankInfoAlreadyExistsException ex) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put(ex.getKey(), ex.getValue());
+        return new BankInfoErrorResponse("Bank info already exists", errors);
+    }
 }

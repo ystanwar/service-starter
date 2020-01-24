@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 public class BankInfoServiceTest {
@@ -24,7 +25,7 @@ public class BankInfoServiceTest {
     }
 
     @Test
-    void createBankTest() {
+    void createBankTest() throws BankInfoAlreadyExistsException {
         BankInfo bank = new BankInfo("HDFC", "http://localhost:8082");
         BankInfo savedBank = bankInfoService.create(bank);
         assertEquals(bank.getBankCode(), savedBank.getBankCode());
@@ -32,7 +33,16 @@ public class BankInfoServiceTest {
     }
 
     @Test
-    void fetchABankByBankCodeTest() {
+    void canNotCreateBankWhenBankInfoAlreadyExists() throws BankInfoAlreadyExistsException {
+        BankInfo bank = new BankInfo("HDFC", "http://localhost:8082");
+        bankInfoService.create(bank);
+        BankInfoAlreadyExistsException exception = assertThrows(BankInfoAlreadyExistsException.class, () -> bankInfoService.create(bank));
+
+        assertEquals("Bank info already exists", exception.getValue());
+    }
+
+    @Test
+    void fetchABankByBankCodeTest() throws BankInfoAlreadyExistsException {
         BankInfo bank = new BankInfo("HDFC", "http://localhost:8082");
         BankInfo savedBank = bankInfoService.create(bank);
         BankInfo fetchedBank = bankInfoService.fetchBankByBankCode("HDFC");

@@ -4012,3 +4012,473 @@ GET                                                        | GET
 {"timestamp": 2020-01-24 12:32:55,523 "level": INFO "event": HikariPool-1 - Shutdown completed.}
 {"timestamp": 2020-01-24 12:32:55,523 "level": INFO "event": HikariPool-3 - Shutdown completed.}
 {"timestamp": 2020-01-24 12:32:55,523 "level": INFO "event": HikariPool-2 - Shutdown completed.}
+{"timestamp": 2020-01-24 12:41:50,055 "level": INFO "event": Starting BankInfoServiceTest on Dipalis-MacBook-Pro.local with PID 57900 (started by dipaliprakashkelkar in /Users/dipaliprakashkelkar/Desktop/payment)}
+{"timestamp": 2020-01-24 12:41:50,059 "level": DEBUG "event": Running with Spring Boot v2.2.1.RELEASE, Spring v5.2.1.RELEASE}
+{"timestamp": 2020-01-24 12:41:50,061 "level": INFO "event": No active profile set, falling back to default profiles: default}
+{"timestamp": 2020-01-24 12:41:51,110 "level": INFO "event": Bootstrapping Spring Data repositories in DEFAULT mode.}
+{"timestamp": 2020-01-24 12:41:51,182 "level": INFO "event": Finished Spring Data repository scanning in 60ms. Found 2 repository interfaces.}
+{"timestamp": 2020-01-24 12:41:51,629 "level": INFO "event": Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)}
+{"timestamp": 2020-01-24 12:41:51,835 "level": INFO "event": Flyway Community Edition 5.2.3 by Boxfuse}
+{"timestamp": 2020-01-24 12:41:51,845 "level": INFO "event": HikariPool-1 - Starting...}
+{"timestamp": 2020-01-24 12:41:51,940 "level": INFO "event": HikariPool-1 - Start completed.}
+{"timestamp": 2020-01-24 12:41:51,949 "level": INFO "event": Database: jdbc:postgresql://localhost:5432/postgres (PostgreSQL 12.0)}
+{"timestamp": 2020-01-24 12:41:51,958 "level": WARN "event": Flyway upgrade recommended: PostgreSQL 12.0 is newer than this version of Flyway and support has not been tested.}
+{"timestamp": 2020-01-24 12:41:52,005 "level": INFO "event": Successfully validated 2 migrations (execution time 00:00.020s)}
+{"timestamp": 2020-01-24 12:41:52,024 "level": INFO "event": Current version of schema "public": 2}
+{"timestamp": 2020-01-24 12:41:52,026 "level": INFO "event": Schema "public" is up to date. No migration necessary.}
+{"timestamp": 2020-01-24 12:41:52,175 "level": INFO "event": HHH000204: Processing PersistenceUnitInfo [name: default]}
+{"timestamp": 2020-01-24 12:41:52,262 "level": INFO "event": HHH000412: Hibernate Core {5.4.8.Final}}
+{"timestamp": 2020-01-24 12:41:52,443 "level": INFO "event": HCANN000001: Hibernate Commons Annotations {5.1.0.Final}}
+{"timestamp": 2020-01-24 12:41:52,588 "level": INFO "event": HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect}
+{"timestamp": 2020-01-24 12:41:53,453 "level": INFO "event": HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]}
+{"timestamp": 2020-01-24 12:41:53,460 "level": INFO "event": Initialized JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-01-24 12:41:54,261 "level": WARN "event": spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning}
+{"timestamp": 2020-01-24 12:41:54,517 "level": INFO "event": Exposing 3 endpoint(s) beneath base path '/actuator'}
+{"timestamp": 2020-01-24 12:41:54,705 "level": INFO "event": Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]}
+{"timestamp": 2020-01-24 12:41:54,999 "level": INFO "event": Initializing ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-24 12:41:55,358 "level": INFO "event": Context refreshed}
+{"timestamp": 2020-01-24 12:41:55,383 "level": INFO "event": Found 1 custom documentation plugin(s)}
+{"timestamp": 2020-01-24 12:41:55,408 "level": INFO "event": Scanning for api listing references}
+{"timestamp": 2020-01-24 12:41:55,541 "level": INFO "event": Generating unique operation named: handleUsingGET_1}
+{"timestamp": 2020-01-24 12:41:55,546 "level": INFO "event": Generating unique operation named: handleUsingGET_2}
+{"timestamp": 2020-01-24 12:41:55,548 "level": INFO "event": Generating unique operation named: handleUsingGET_3}
+{"timestamp": 2020-01-24 12:41:55,562 "level": INFO "event": Generating unique operation named: createUsingPOST_1}
+{"timestamp": 2020-01-24 12:41:55,597 "level": INFO "event": Started BankInfoServiceTest in 10.932 seconds (JVM running for 11.999)}
+{"timestamp": 2020-01-24 12:41:56,025 "level": INFO "event": Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.thoughtworks.bankclient.BankClientTest], using SpringBootContextLoader}
+{"timestamp": 2020-01-24 12:41:56,027 "level": INFO "event": Could not detect default resource locations for test class [com.thoughtworks.bankclient.BankClientTest]: no resource found for suffixes {-context.xml, Context.groovy}.}
+{"timestamp": 2020-01-24 12:41:56,027 "level": INFO "event": Could not detect default configuration classes for test class [com.thoughtworks.bankclient.BankClientTest]: BankClientTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.}
+{"timestamp": 2020-01-24 12:41:56,034 "level": INFO "event": Found @SpringBootConfiguration com.thoughtworks.PaymentApplication for test class com.thoughtworks.bankclient.BankClientTest}
+{"timestamp": 2020-01-24 12:41:56,036 "level": INFO "event": Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]}
+{"timestamp": 2020-01-24 12:41:56,037 "level": INFO "event": Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@276e735a, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@ff41c3b, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@3684deb8, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@5ee37dc, org.springframework.test.context.support.DirtiesContextTestExecutionListener@51ce7098, org.springframework.test.context.transaction.TransactionalTestExecutionListener@7ef4ab5e, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@6e95cb26, org.springframework.test.context.event.EventPublishingTestExecutionListener@1a3141ff, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@3859a891, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@632c4a9f, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@23207127, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@330ee205, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@4666c9d5]}
+{"timestamp": 2020-01-24 12:42:01,067 "level": INFO "event": Starting BankClientTest on Dipalis-MacBook-Pro.local with PID 57900 (started by dipaliprakashkelkar in /Users/dipaliprakashkelkar/Desktop/payment)}
+{"timestamp": 2020-01-24 12:42:01,068 "level": DEBUG "event": Running with Spring Boot v2.2.1.RELEASE, Spring v5.2.1.RELEASE}
+{"timestamp": 2020-01-24 12:42:01,069 "level": INFO "event": No active profile set, falling back to default profiles: default}
+{"timestamp": 2020-01-24 12:42:01,347 "level": INFO "event": Bootstrapping Spring Data repositories in DEFAULT mode.}
+{"timestamp": 2020-01-24 12:42:01,358 "level": INFO "event": Finished Spring Data repository scanning in 9ms. Found 2 repository interfaces.}
+{"timestamp": 2020-01-24 12:42:01,476 "level": INFO "event": Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)}
+{"timestamp": 2020-01-24 12:42:01,545 "level": INFO "event": HikariPool-2 - Starting...}
+{"timestamp": 2020-01-24 12:42:01,562 "level": INFO "event": HikariPool-2 - Start completed.}
+{"timestamp": 2020-01-24 12:42:01,563 "level": INFO "event": Database: jdbc:postgresql://localhost:5432/postgres (PostgreSQL 12.0)}
+{"timestamp": 2020-01-24 12:42:01,565 "level": WARN "event": Flyway upgrade recommended: PostgreSQL 12.0 is newer than this version of Flyway and support has not been tested.}
+{"timestamp": 2020-01-24 12:42:01,582 "level": INFO "event": Successfully validated 2 migrations (execution time 00:00.007s)}
+{"timestamp": 2020-01-24 12:42:01,595 "level": INFO "event": Current version of schema "public": 2}
+{"timestamp": 2020-01-24 12:42:01,597 "level": INFO "event": Schema "public" is up to date. No migration necessary.}
+{"timestamp": 2020-01-24 12:42:01,630 "level": INFO "event": HHH000204: Processing PersistenceUnitInfo [name: default]}
+{"timestamp": 2020-01-24 12:42:01,635 "level": INFO "event": HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect}
+{"timestamp": 2020-01-24 12:42:01,939 "level": INFO "event": HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]}
+{"timestamp": 2020-01-24 12:42:01,940 "level": INFO "event": Initialized JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-01-24 12:42:02,176 "level": WARN "event": spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning}
+{"timestamp": 2020-01-24 12:42:02,321 "level": INFO "event": Exposing 3 endpoint(s) beneath base path '/actuator'}
+{"timestamp": 2020-01-24 12:42:02,403 "level": INFO "event": Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]}
+{"timestamp": 2020-01-24 12:42:02,530 "level": INFO "event": Initializing ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-24 12:42:02,738 "level": INFO "event": Context refreshed}
+{"timestamp": 2020-01-24 12:42:02,739 "level": INFO "event": Found 1 custom documentation plugin(s)}
+{"timestamp": 2020-01-24 12:42:02,744 "level": INFO "event": Scanning for api listing references}
+{"timestamp": 2020-01-24 12:42:02,773 "level": INFO "event": Generating unique operation named: handleUsingGET_1}
+{"timestamp": 2020-01-24 12:42:02,775 "level": INFO "event": Generating unique operation named: handleUsingGET_2}
+{"timestamp": 2020-01-24 12:42:02,777 "level": INFO "event": Generating unique operation named: handleUsingGET_3}
+{"timestamp": 2020-01-24 12:42:02,786 "level": INFO "event": Generating unique operation named: createUsingPOST_1}
+{"timestamp": 2020-01-24 12:42:02,797 "level": INFO "event": Started BankClientTest in 6.757 seconds (JVM running for 19.199)}
+{"timestamp": 2020-01-24 12:42:03,061 "level": INFO "event": Logging initialized @19463ms to org.eclipse.jetty.util.log.Slf4jLog}
+{"timestamp": 2020-01-24 12:42:03,183 "level": INFO "event": jetty-9.4.22.v20191022; built: 2019-10-22T13:37:13.455Z; git: b1e6b55512e008f7fbdf1cbea4ff8a6446d1073b; jvm 11.0.2+9}
+{"timestamp": 2020-01-24 12:42:03,202 "level": INFO "event": Started o.e.j.s.ServletContextHandler@5713124b{/__admin,null,AVAILABLE}}
+{"timestamp": 2020-01-24 12:42:03,204 "level": INFO "event": Started o.e.j.s.ServletContextHandler@313e897b{/,null,AVAILABLE}}
+{"timestamp": 2020-01-24 12:42:03,215 "level": INFO "event": Started NetworkTrafficServerConnector@6ca6be80{HTTP/1.1,[http/1.1]}{0.0.0.0:8084}}
+{"timestamp": 2020-01-24 12:42:03,216 "level": INFO "event": Started @19618ms}
+{"timestamp": 2020-01-24 12:42:03,366 "level": INFO "event": RequestHandlerClass from context returned com.github.tomakehurst.wiremock.http.AdminRequestHandler. Normalized mapped under returned 'null'}
+{"timestamp": 2020-01-24 12:42:03,460 "level": INFO "event": RequestHandlerClass from context returned com.github.tomakehurst.wiremock.http.StubRequestHandler. Normalized mapped under returned 'null'}
+{"timestamp": 2020-01-24 12:42:03,485 "level": INFO "event": Stopped NetworkTrafficServerConnector@6ca6be80{HTTP/1.1,[http/1.1]}{0.0.0.0:8084}}
+{"timestamp": 2020-01-24 12:42:03,487 "level": INFO "event": Stopped o.e.j.s.ServletContextHandler@313e897b{/,null,UNAVAILABLE}}
+{"timestamp": 2020-01-24 12:42:03,487 "level": INFO "event": Stopped o.e.j.s.ServletContextHandler@5713124b{/__admin,null,UNAVAILABLE}}
+{"timestamp": 2020-01-24 12:42:03,494 "level": INFO "event": jetty-9.4.22.v20191022; built: 2019-10-22T13:37:13.455Z; git: b1e6b55512e008f7fbdf1cbea4ff8a6446d1073b; jvm 11.0.2+9}
+{"timestamp": 2020-01-24 12:42:03,497 "level": INFO "event": Started o.e.j.s.ServletContextHandler@61500d3e{/__admin,null,AVAILABLE}}
+{"timestamp": 2020-01-24 12:42:03,498 "level": INFO "event": Started o.e.j.s.ServletContextHandler@3201d075{/,null,AVAILABLE}}
+{"timestamp": 2020-01-24 12:42:03,499 "level": INFO "event": Started NetworkTrafficServerConnector@745378a7{HTTP/1.1,[http/1.1]}{0.0.0.0:8082}}
+{"timestamp": 2020-01-24 12:42:03,500 "level": INFO "event": Started @19902ms}
+{"timestamp": 2020-01-24 12:42:03,504 "level": INFO "event": RequestHandlerClass from context returned com.github.tomakehurst.wiremock.http.AdminRequestHandler. Normalized mapped under returned 'null'}
+{"timestamp": 2020-01-24 12:42:03,523 "level": INFO "event": RequestHandlerClass from context returned com.github.tomakehurst.wiremock.http.StubRequestHandler. Normalized mapped under returned 'null'}
+{"timestamp": 2020-01-24 12:42:03,529 "level": INFO "event": Stopped NetworkTrafficServerConnector@745378a7{HTTP/1.1,[http/1.1]}{0.0.0.0:8082}}
+{"timestamp": 2020-01-24 12:42:03,530 "level": INFO "event": Stopped o.e.j.s.ServletContextHandler@3201d075{/,null,UNAVAILABLE}}
+{"timestamp": 2020-01-24 12:42:03,531 "level": INFO "event": Stopped o.e.j.s.ServletContextHandler@61500d3e{/__admin,null,UNAVAILABLE}}
+{"timestamp": 2020-01-24 12:42:03,540 "level": INFO "event": jetty-9.4.22.v20191022; built: 2019-10-22T13:37:13.455Z; git: b1e6b55512e008f7fbdf1cbea4ff8a6446d1073b; jvm 11.0.2+9}
+{"timestamp": 2020-01-24 12:42:03,543 "level": INFO "event": Started o.e.j.s.ServletContextHandler@42eeefb2{/__admin,null,AVAILABLE}}
+{"timestamp": 2020-01-24 12:42:03,544 "level": INFO "event": Started o.e.j.s.ServletContextHandler@100178e6{/,null,AVAILABLE}}
+{"timestamp": 2020-01-24 12:42:03,546 "level": INFO "event": Started NetworkTrafficServerConnector@1d258c0{HTTP/1.1,[http/1.1]}{0.0.0.0:8082}}
+{"timestamp": 2020-01-24 12:42:03,546 "level": INFO "event": Started @19948ms}
+{"timestamp": 2020-01-24 12:42:03,551 "level": INFO "event": RequestHandlerClass from context returned com.github.tomakehurst.wiremock.http.AdminRequestHandler. Normalized mapped under returned 'null'}
+{"timestamp": 2020-01-24 12:42:03,578 "level": INFO "event": RequestHandlerClass from context returned com.github.tomakehurst.wiremock.http.StubRequestHandler. Normalized mapped under returned 'null'}
+{"timestamp": 2020-01-24 12:42:03,583 "level": ERROR "event": 
+                                               Request was not matched
+                                               =======================
+
+-----------------------------------------------------------------------------------------------------------------------
+| Closest stub                                             | Request                                                  |
+-----------------------------------------------------------------------------------------------------------------------
+                                                           |
+GET                                                        | GET
+/checkDetails?accountNumber=0000&ifscCode=HDFC1234         | /checkDetails?accountNumber=0&ifscCode=HDFC1234     <<<<< URL does not match
+                                                           |
+                                                           |
+-----------------------------------------------------------------------------------------------------------------------
+}
+{"timestamp": 2020-01-24 12:42:03,606 "level": INFO "event": Stopped NetworkTrafficServerConnector@1d258c0{HTTP/1.1,[http/1.1]}{0.0.0.0:8082}}
+{"timestamp": 2020-01-24 12:42:03,607 "level": INFO "event": Stopped o.e.j.s.ServletContextHandler@100178e6{/,null,UNAVAILABLE}}
+{"timestamp": 2020-01-24 12:42:03,607 "level": INFO "event": Stopped o.e.j.s.ServletContextHandler@42eeefb2{/__admin,null,UNAVAILABLE}}
+{"timestamp": 2020-01-24 12:42:03,611 "level": INFO "event": Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.thoughtworks.fraudclient.FraudClientTest], using SpringBootContextLoader}
+{"timestamp": 2020-01-24 12:42:03,612 "level": INFO "event": Could not detect default resource locations for test class [com.thoughtworks.fraudclient.FraudClientTest]: no resource found for suffixes {-context.xml, Context.groovy}.}
+{"timestamp": 2020-01-24 12:42:03,613 "level": INFO "event": Could not detect default configuration classes for test class [com.thoughtworks.fraudclient.FraudClientTest]: FraudClientTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.}
+{"timestamp": 2020-01-24 12:42:03,620 "level": INFO "event": Found @SpringBootConfiguration com.thoughtworks.PaymentApplication for test class com.thoughtworks.fraudclient.FraudClientTest}
+{"timestamp": 2020-01-24 12:42:03,622 "level": INFO "event": Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]}
+{"timestamp": 2020-01-24 12:42:03,622 "level": INFO "event": Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@39887036, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@7ecd0072, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@3f827192, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@44093f78, org.springframework.test.context.support.DirtiesContextTestExecutionListener@3efaee0f, org.springframework.test.context.transaction.TransactionalTestExecutionListener@2822b732, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@4005d45, org.springframework.test.context.event.EventPublishingTestExecutionListener@97f5042, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@601c5df4, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@5dbaede2, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@5b567965, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@28d8cf0d, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@2aa9c41f]}
+{"timestamp": 2020-01-24 12:42:03,632 "level": INFO "event": jetty-9.4.22.v20191022; built: 2019-10-22T13:37:13.455Z; git: b1e6b55512e008f7fbdf1cbea4ff8a6446d1073b; jvm 11.0.2+9}
+{"timestamp": 2020-01-24 12:42:03,635 "level": INFO "event": Started o.e.j.s.ServletContextHandler@18f49aa5{/__admin,null,AVAILABLE}}
+{"timestamp": 2020-01-24 12:42:03,635 "level": INFO "event": Started o.e.j.s.ServletContextHandler@26fcc908{/,null,AVAILABLE}}
+{"timestamp": 2020-01-24 12:42:03,637 "level": INFO "event": Started NetworkTrafficServerConnector@33a40411{HTTP/1.1,[http/1.1]}{0.0.0.0:8083}}
+{"timestamp": 2020-01-24 12:42:03,637 "level": INFO "event": Started @20039ms}
+{"timestamp": 2020-01-24 12:42:03,642 "level": INFO "event": RequestHandlerClass from context returned com.github.tomakehurst.wiremock.http.AdminRequestHandler. Normalized mapped under returned 'null'}
+{"timestamp": 2020-01-24 12:42:03,669 "level": INFO "event": RequestHandlerClass from context returned com.github.tomakehurst.wiremock.http.StubRequestHandler. Normalized mapped under returned 'null'}
+{"timestamp": 2020-01-24 12:42:03,675 "level": INFO "event": Stopped NetworkTrafficServerConnector@33a40411{HTTP/1.1,[http/1.1]}{0.0.0.0:8083}}
+{"timestamp": 2020-01-24 12:42:03,676 "level": INFO "event": Stopped o.e.j.s.ServletContextHandler@26fcc908{/,null,UNAVAILABLE}}
+{"timestamp": 2020-01-24 12:42:03,676 "level": INFO "event": Stopped o.e.j.s.ServletContextHandler@18f49aa5{/__admin,null,UNAVAILABLE}}
+{"timestamp": 2020-01-24 12:42:03,682 "level": INFO "event": Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.thoughtworks.payment.PaymentControllerTest], using SpringBootContextLoader}
+{"timestamp": 2020-01-24 12:42:03,683 "level": INFO "event": Could not detect default resource locations for test class [com.thoughtworks.payment.PaymentControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.}
+{"timestamp": 2020-01-24 12:42:03,684 "level": INFO "event": Could not detect default configuration classes for test class [com.thoughtworks.payment.PaymentControllerTest]: PaymentControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.}
+{"timestamp": 2020-01-24 12:42:03,700 "level": INFO "event": Found @SpringBootConfiguration com.thoughtworks.PaymentApplication for test class com.thoughtworks.payment.PaymentControllerTest}
+{"timestamp": 2020-01-24 12:42:03,701 "level": INFO "event": Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]}
+{"timestamp": 2020-01-24 12:42:03,701 "level": INFO "event": Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@37383fd7, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@6e05de0, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@6518aa47, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@6398d8f, org.springframework.test.context.support.DirtiesContextTestExecutionListener@7089cc18, org.springframework.test.context.transaction.TransactionalTestExecutionListener@740290b4, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@546856e1, org.springframework.test.context.event.EventPublishingTestExecutionListener@1ef7ec16, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@20200adc, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@4047b95c, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@560e20eb, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@7738e160, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@576e63b1]}
+{"timestamp": 2020-01-24 12:42:03,725 "level": INFO "event": Starting PaymentControllerTest on Dipalis-MacBook-Pro.local with PID 57900 (started by dipaliprakashkelkar in /Users/dipaliprakashkelkar/Desktop/payment)}
+{"timestamp": 2020-01-24 12:42:03,726 "level": DEBUG "event": Running with Spring Boot v2.2.1.RELEASE, Spring v5.2.1.RELEASE}
+{"timestamp": 2020-01-24 12:42:03,727 "level": INFO "event": No active profile set, falling back to default profiles: default}
+{"timestamp": 2020-01-24 12:42:04,033 "level": INFO "event": Initializing ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-24 12:42:04,129 "level": INFO "event": Initializing Spring TestDispatcherServlet ''}
+{"timestamp": 2020-01-24 12:42:04,130 "level": INFO "event": Initializing Servlet ''}
+{"timestamp": 2020-01-24 12:42:04,141 "level": INFO "event": Completed initialization in 11 ms}
+{"timestamp": 2020-01-24 12:42:04,152 "level": INFO "event": Started PaymentControllerTest in 0.447 seconds (JVM running for 20.554)}
+{"timestamp": 2020-01-24 12:42:04,258 "level": INFO "event": {name:PAYMENTSUCCESSFUL,details:{"PaymentId":1,"BeneficiaryIfscCode":"HDFC1","PayeeIfscCode":"HDFC1234"}}}
+{"timestamp": 2020-01-24 12:42:04,280 "level": INFO "event": Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.thoughtworks.payment.PaymentServiceTest], using SpringBootContextLoader}
+{"timestamp": 2020-01-24 12:42:04,281 "level": INFO "event": Could not detect default resource locations for test class [com.thoughtworks.payment.PaymentServiceTest]: no resource found for suffixes {-context.xml, Context.groovy}.}
+{"timestamp": 2020-01-24 12:42:04,281 "level": INFO "event": Could not detect default configuration classes for test class [com.thoughtworks.payment.PaymentServiceTest]: PaymentServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.}
+{"timestamp": 2020-01-24 12:42:04,282 "level": INFO "event": Found @SpringBootConfiguration com.thoughtworks.PaymentApplication for test class com.thoughtworks.payment.PaymentServiceTest}
+{"timestamp": 2020-01-24 12:42:04,284 "level": INFO "event": Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]}
+{"timestamp": 2020-01-24 12:42:04,284 "level": INFO "event": Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@1e0efcde, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@8a964f3, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@779196a5, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@3b239efa, org.springframework.test.context.support.DirtiesContextTestExecutionListener@52227d4c, org.springframework.test.context.transaction.TransactionalTestExecutionListener@11ef1507, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@6a309d21, org.springframework.test.context.event.EventPublishingTestExecutionListener@4dc30ad3, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@ccad63a, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@6564ad89, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@b53ed91, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@5e93fbba, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@4329d54]}
+{"timestamp": 2020-01-24 12:42:04,302 "level": INFO "event": Starting PaymentServiceTest on Dipalis-MacBook-Pro.local with PID 57900 (started by dipaliprakashkelkar in /Users/dipaliprakashkelkar/Desktop/payment)}
+{"timestamp": 2020-01-24 12:42:04,302 "level": DEBUG "event": Running with Spring Boot v2.2.1.RELEASE, Spring v5.2.1.RELEASE}
+{"timestamp": 2020-01-24 12:42:04,303 "level": INFO "event": No active profile set, falling back to default profiles: default}
+{"timestamp": 2020-01-24 12:42:04,599 "level": INFO "event": Bootstrapping Spring Data repositories in DEFAULT mode.}
+{"timestamp": 2020-01-24 12:42:04,609 "level": INFO "event": Finished Spring Data repository scanning in 9ms. Found 2 repository interfaces.}
+{"timestamp": 2020-01-24 12:42:04,686 "level": INFO "event": Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)}
+{"timestamp": 2020-01-24 12:42:04,743 "level": INFO "event": HikariPool-3 - Starting...}
+{"timestamp": 2020-01-24 12:42:04,757 "level": INFO "event": HikariPool-3 - Start completed.}
+{"timestamp": 2020-01-24 12:42:04,757 "level": INFO "event": Database: jdbc:postgresql://localhost:5432/postgres (PostgreSQL 12.0)}
+{"timestamp": 2020-01-24 12:42:04,759 "level": WARN "event": Flyway upgrade recommended: PostgreSQL 12.0 is newer than this version of Flyway and support has not been tested.}
+{"timestamp": 2020-01-24 12:42:04,775 "level": INFO "event": Successfully validated 2 migrations (execution time 00:00.006s)}
+{"timestamp": 2020-01-24 12:42:04,788 "level": INFO "event": Current version of schema "public": 2}
+{"timestamp": 2020-01-24 12:42:04,790 "level": INFO "event": Schema "public" is up to date. No migration necessary.}
+{"timestamp": 2020-01-24 12:42:04,821 "level": INFO "event": HHH000204: Processing PersistenceUnitInfo [name: default]}
+{"timestamp": 2020-01-24 12:42:04,825 "level": INFO "event": HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect}
+{"timestamp": 2020-01-24 12:42:05,178 "level": INFO "event": HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]}
+{"timestamp": 2020-01-24 12:42:05,179 "level": INFO "event": Initialized JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-01-24 12:42:05,402 "level": WARN "event": spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning}
+{"timestamp": 2020-01-24 12:42:05,535 "level": INFO "event": Exposing 3 endpoint(s) beneath base path '/actuator'}
+{"timestamp": 2020-01-24 12:42:05,632 "level": INFO "event": Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]}
+{"timestamp": 2020-01-24 12:42:05,766 "level": INFO "event": Initializing ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-24 12:42:05,931 "level": INFO "event": Context refreshed}
+{"timestamp": 2020-01-24 12:42:05,932 "level": INFO "event": Found 1 custom documentation plugin(s)}
+{"timestamp": 2020-01-24 12:42:05,936 "level": INFO "event": Scanning for api listing references}
+{"timestamp": 2020-01-24 12:42:05,961 "level": INFO "event": Generating unique operation named: handleUsingGET_1}
+{"timestamp": 2020-01-24 12:42:05,963 "level": INFO "event": Generating unique operation named: handleUsingGET_2}
+{"timestamp": 2020-01-24 12:42:05,965 "level": INFO "event": Generating unique operation named: handleUsingGET_3}
+{"timestamp": 2020-01-24 12:42:05,971 "level": INFO "event": Generating unique operation named: createUsingPOST_1}
+{"timestamp": 2020-01-24 12:42:05,981 "level": INFO "event": Started PaymentServiceTest in 1.694 seconds (JVM running for 22.383)}
+{"timestamp": 2020-01-24 12:42:06,008 "level": INFO "event": {name:PAYMENTFAILED,description:user2details are incorrect,details:{"PaymentId":75,"BeneficiaryIfscCode":"HDFC1234","PayeeIfscCode":"0000000"}}}
+{"timestamp": 2020-01-24 12:42:06,019 "level": INFO "event": {name:PAYMENTFAILED,description:user1details are incorrect,details:{"PaymentId":76,"BeneficiaryIfscCode":"OOOOOO","PayeeIfscCode":"HDFC1234"}}}
+{"timestamp": 2020-01-24 12:42:06,022 "level": INFO "event": Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.thoughtworks.payment.PaymentApplicationTests], using SpringBootContextLoader}
+{"timestamp": 2020-01-24 12:42:06,023 "level": INFO "event": Could not detect default resource locations for test class [com.thoughtworks.payment.PaymentApplicationTests]: no resource found for suffixes {-context.xml, Context.groovy}.}
+{"timestamp": 2020-01-24 12:42:06,023 "level": INFO "event": Could not detect default configuration classes for test class [com.thoughtworks.payment.PaymentApplicationTests]: PaymentApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.}
+{"timestamp": 2020-01-24 12:42:06,025 "level": INFO "event": Found @SpringBootConfiguration com.thoughtworks.PaymentApplication for test class com.thoughtworks.payment.PaymentApplicationTests}
+{"timestamp": 2020-01-24 12:42:06,026 "level": INFO "event": Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]}
+{"timestamp": 2020-01-24 12:42:06,027 "level": INFO "event": Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@f01b78, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@74ccc7c1, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@7c17fbe, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@60083797, org.springframework.test.context.support.DirtiesContextTestExecutionListener@6023cb35, org.springframework.test.context.transaction.TransactionalTestExecutionListener@72c3fa3f, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@7e734756, org.springframework.test.context.event.EventPublishingTestExecutionListener@5fe66380, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@21e2612a, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@4c9d652b, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@28b0c219, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@44a64eec, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@76ff9c63]}
+{"timestamp": 2020-01-24 12:42:06,038 "level": INFO "event": Shutting down ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-24 12:42:06,040 "level": INFO "event": Shutting down ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-24 12:42:06,040 "level": INFO "event": Shutting down ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-24 12:42:06,040 "level": INFO "event": Shutting down ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-24 12:42:06,047 "level": INFO "event": Closing JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-01-24 12:42:06,048 "level": INFO "event": Closing JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-01-24 12:42:06,048 "level": INFO "event": Closing JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-01-24 12:42:06,050 "level": INFO "event": HikariPool-3 - Shutdown initiated...}
+{"timestamp": 2020-01-24 12:42:06,050 "level": INFO "event": HikariPool-2 - Shutdown initiated...}
+{"timestamp": 2020-01-24 12:42:06,050 "level": INFO "event": HikariPool-1 - Shutdown initiated...}
+{"timestamp": 2020-01-24 12:42:06,068 "level": INFO "event": HikariPool-3 - Shutdown completed.}
+{"timestamp": 2020-01-24 12:42:06,068 "level": INFO "event": HikariPool-2 - Shutdown completed.}
+{"timestamp": 2020-01-24 12:42:06,068 "level": INFO "event": HikariPool-1 - Shutdown completed.}
+{"timestamp": 2020-01-24 12:56:25,373 "level": INFO "event": Starting BankInfoServiceTest on Dipalis-MacBook-Pro.local with PID 57955 (started by dipaliprakashkelkar in /Users/dipaliprakashkelkar/Desktop/payment)}
+{"timestamp": 2020-01-24 12:56:25,375 "level": DEBUG "event": Running with Spring Boot v2.2.1.RELEASE, Spring v5.2.1.RELEASE}
+{"timestamp": 2020-01-24 12:56:25,376 "level": INFO "event": No active profile set, falling back to default profiles: default}
+{"timestamp": 2020-01-24 12:56:26,429 "level": INFO "event": Bootstrapping Spring Data repositories in DEFAULT mode.}
+{"timestamp": 2020-01-24 12:56:26,495 "level": INFO "event": Finished Spring Data repository scanning in 53ms. Found 2 repository interfaces.}
+{"timestamp": 2020-01-24 12:56:26,887 "level": INFO "event": Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)}
+{"timestamp": 2020-01-24 12:56:27,079 "level": INFO "event": Flyway Community Edition 5.2.3 by Boxfuse}
+{"timestamp": 2020-01-24 12:56:27,088 "level": INFO "event": HikariPool-1 - Starting...}
+{"timestamp": 2020-01-24 12:56:27,198 "level": INFO "event": HikariPool-1 - Start completed.}
+{"timestamp": 2020-01-24 12:56:27,210 "level": INFO "event": Database: jdbc:postgresql://localhost:5432/postgres (PostgreSQL 12.0)}
+{"timestamp": 2020-01-24 12:56:27,220 "level": WARN "event": Flyway upgrade recommended: PostgreSQL 12.0 is newer than this version of Flyway and support has not been tested.}
+{"timestamp": 2020-01-24 12:56:27,268 "level": INFO "event": Successfully validated 2 migrations (execution time 00:00.018s)}
+{"timestamp": 2020-01-24 12:56:27,283 "level": INFO "event": Current version of schema "public": 2}
+{"timestamp": 2020-01-24 12:56:27,285 "level": INFO "event": Schema "public" is up to date. No migration necessary.}
+{"timestamp": 2020-01-24 12:56:27,424 "level": INFO "event": HHH000204: Processing PersistenceUnitInfo [name: default]}
+{"timestamp": 2020-01-24 12:56:27,515 "level": INFO "event": HHH000412: Hibernate Core {5.4.8.Final}}
+{"timestamp": 2020-01-24 12:56:27,715 "level": INFO "event": HCANN000001: Hibernate Commons Annotations {5.1.0.Final}}
+{"timestamp": 2020-01-24 12:56:27,871 "level": INFO "event": HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect}
+{"timestamp": 2020-01-24 12:56:28,844 "level": INFO "event": HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]}
+{"timestamp": 2020-01-24 12:56:28,851 "level": INFO "event": Initialized JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-01-24 12:56:29,638 "level": WARN "event": spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning}
+{"timestamp": 2020-01-24 12:56:29,899 "level": INFO "event": Exposing 3 endpoint(s) beneath base path '/actuator'}
+{"timestamp": 2020-01-24 12:56:30,073 "level": INFO "event": Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]}
+{"timestamp": 2020-01-24 12:56:30,429 "level": INFO "event": Initializing ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-24 12:56:30,748 "level": INFO "event": Context refreshed}
+{"timestamp": 2020-01-24 12:56:30,772 "level": INFO "event": Found 1 custom documentation plugin(s)}
+{"timestamp": 2020-01-24 12:56:30,798 "level": INFO "event": Scanning for api listing references}
+{"timestamp": 2020-01-24 12:56:30,936 "level": INFO "event": Generating unique operation named: handleUsingGET_1}
+{"timestamp": 2020-01-24 12:56:30,939 "level": INFO "event": Generating unique operation named: handleUsingGET_2}
+{"timestamp": 2020-01-24 12:56:30,941 "level": INFO "event": Generating unique operation named: handleUsingGET_3}
+{"timestamp": 2020-01-24 12:56:30,953 "level": INFO "event": Generating unique operation named: createUsingPOST_1}
+{"timestamp": 2020-01-24 12:56:30,983 "level": INFO "event": Started BankInfoServiceTest in 11.047 seconds (JVM running for 12.595)}
+{"timestamp": 2020-01-24 12:56:31,439 "level": INFO "event": Shutting down ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-24 12:56:31,444 "level": INFO "event": Closing JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-01-24 12:56:31,447 "level": INFO "event": HikariPool-1 - Shutdown initiated...}
+{"timestamp": 2020-01-24 12:56:31,456 "level": INFO "event": HikariPool-1 - Shutdown completed.}
+{"timestamp": 2020-01-24 13:00:08,310 "level": INFO "event": Starting BankInfoServiceTest on Dipalis-MacBook-Pro.local with PID 57986 (started by dipaliprakashkelkar in /Users/dipaliprakashkelkar/Desktop/payment)}
+{"timestamp": 2020-01-24 13:00:08,312 "level": DEBUG "event": Running with Spring Boot v2.2.1.RELEASE, Spring v5.2.1.RELEASE}
+{"timestamp": 2020-01-24 13:00:08,313 "level": INFO "event": No active profile set, falling back to default profiles: default}
+{"timestamp": 2020-01-24 13:00:09,324 "level": INFO "event": Bootstrapping Spring Data repositories in DEFAULT mode.}
+{"timestamp": 2020-01-24 13:00:09,386 "level": INFO "event": Finished Spring Data repository scanning in 52ms. Found 2 repository interfaces.}
+{"timestamp": 2020-01-24 13:00:09,809 "level": INFO "event": Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)}
+{"timestamp": 2020-01-24 13:00:10,021 "level": INFO "event": Flyway Community Edition 5.2.3 by Boxfuse}
+{"timestamp": 2020-01-24 13:00:10,029 "level": INFO "event": HikariPool-1 - Starting...}
+{"timestamp": 2020-01-24 13:00:10,123 "level": INFO "event": HikariPool-1 - Start completed.}
+{"timestamp": 2020-01-24 13:00:10,131 "level": INFO "event": Database: jdbc:postgresql://localhost:5432/postgres (PostgreSQL 12.0)}
+{"timestamp": 2020-01-24 13:00:10,140 "level": WARN "event": Flyway upgrade recommended: PostgreSQL 12.0 is newer than this version of Flyway and support has not been tested.}
+{"timestamp": 2020-01-24 13:00:10,181 "level": INFO "event": Successfully validated 2 migrations (execution time 00:00.018s)}
+{"timestamp": 2020-01-24 13:00:10,199 "level": INFO "event": Current version of schema "public": 2}
+{"timestamp": 2020-01-24 13:00:10,201 "level": INFO "event": Schema "public" is up to date. No migration necessary.}
+{"timestamp": 2020-01-24 13:00:10,323 "level": INFO "event": HHH000204: Processing PersistenceUnitInfo [name: default]}
+{"timestamp": 2020-01-24 13:00:10,404 "level": INFO "event": HHH000412: Hibernate Core {5.4.8.Final}}
+{"timestamp": 2020-01-24 13:00:10,583 "level": INFO "event": HCANN000001: Hibernate Commons Annotations {5.1.0.Final}}
+{"timestamp": 2020-01-24 13:00:10,710 "level": INFO "event": HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect}
+{"timestamp": 2020-01-24 13:00:11,591 "level": INFO "event": HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]}
+{"timestamp": 2020-01-24 13:00:11,598 "level": INFO "event": Initialized JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-01-24 13:00:12,289 "level": WARN "event": spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning}
+{"timestamp": 2020-01-24 13:00:12,530 "level": INFO "event": Exposing 3 endpoint(s) beneath base path '/actuator'}
+{"timestamp": 2020-01-24 13:00:12,690 "level": INFO "event": Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]}
+{"timestamp": 2020-01-24 13:00:12,963 "level": INFO "event": Initializing ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-24 13:00:13,314 "level": INFO "event": Context refreshed}
+{"timestamp": 2020-01-24 13:00:13,336 "level": INFO "event": Found 1 custom documentation plugin(s)}
+{"timestamp": 2020-01-24 13:00:13,357 "level": INFO "event": Scanning for api listing references}
+{"timestamp": 2020-01-24 13:00:13,478 "level": INFO "event": Generating unique operation named: handleUsingGET_1}
+{"timestamp": 2020-01-24 13:00:13,480 "level": INFO "event": Generating unique operation named: handleUsingGET_2}
+{"timestamp": 2020-01-24 13:00:13,482 "level": INFO "event": Generating unique operation named: handleUsingGET_3}
+{"timestamp": 2020-01-24 13:00:13,493 "level": INFO "event": Generating unique operation named: createUsingPOST_1}
+{"timestamp": 2020-01-24 13:00:13,521 "level": INFO "event": Started BankInfoServiceTest in 10.586 seconds (JVM running for 11.701)}
+{"timestamp": 2020-01-24 13:00:13,978 "level": INFO "event": Shutting down ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-24 13:00:13,982 "level": INFO "event": Closing JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-01-24 13:00:13,983 "level": INFO "event": HikariPool-1 - Shutdown initiated...}
+{"timestamp": 2020-01-24 13:00:13,990 "level": INFO "event": HikariPool-1 - Shutdown completed.}
+{"timestamp": 2020-01-24 13:00:51,308 "level": INFO "event": Starting BankInfoServiceTest on Dipalis-MacBook-Pro.local with PID 58007 (started by dipaliprakashkelkar in /Users/dipaliprakashkelkar/Desktop/payment)}
+{"timestamp": 2020-01-24 13:00:51,310 "level": DEBUG "event": Running with Spring Boot v2.2.1.RELEASE, Spring v5.2.1.RELEASE}
+{"timestamp": 2020-01-24 13:00:51,311 "level": INFO "event": No active profile set, falling back to default profiles: default}
+{"timestamp": 2020-01-24 13:00:52,200 "level": INFO "event": Bootstrapping Spring Data repositories in DEFAULT mode.}
+{"timestamp": 2020-01-24 13:00:52,269 "level": INFO "event": Finished Spring Data repository scanning in 61ms. Found 2 repository interfaces.}
+{"timestamp": 2020-01-24 13:00:52,701 "level": INFO "event": Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)}
+{"timestamp": 2020-01-24 13:00:52,933 "level": INFO "event": Flyway Community Edition 5.2.3 by Boxfuse}
+{"timestamp": 2020-01-24 13:00:52,941 "level": INFO "event": HikariPool-1 - Starting...}
+{"timestamp": 2020-01-24 13:00:53,033 "level": INFO "event": HikariPool-1 - Start completed.}
+{"timestamp": 2020-01-24 13:00:53,041 "level": INFO "event": Database: jdbc:postgresql://localhost:5432/postgres (PostgreSQL 12.0)}
+{"timestamp": 2020-01-24 13:00:53,050 "level": WARN "event": Flyway upgrade recommended: PostgreSQL 12.0 is newer than this version of Flyway and support has not been tested.}
+{"timestamp": 2020-01-24 13:00:53,092 "level": INFO "event": Successfully validated 2 migrations (execution time 00:00.019s)}
+{"timestamp": 2020-01-24 13:00:53,108 "level": INFO "event": Current version of schema "public": 2}
+{"timestamp": 2020-01-24 13:00:53,110 "level": INFO "event": Schema "public" is up to date. No migration necessary.}
+{"timestamp": 2020-01-24 13:00:53,245 "level": INFO "event": HHH000204: Processing PersistenceUnitInfo [name: default]}
+{"timestamp": 2020-01-24 13:00:53,334 "level": INFO "event": HHH000412: Hibernate Core {5.4.8.Final}}
+{"timestamp": 2020-01-24 13:00:53,510 "level": INFO "event": HCANN000001: Hibernate Commons Annotations {5.1.0.Final}}
+{"timestamp": 2020-01-24 13:00:53,639 "level": INFO "event": HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect}
+{"timestamp": 2020-01-24 13:00:54,541 "level": INFO "event": HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]}
+{"timestamp": 2020-01-24 13:00:54,547 "level": INFO "event": Initialized JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-01-24 13:00:55,290 "level": WARN "event": spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning}
+{"timestamp": 2020-01-24 13:00:55,536 "level": INFO "event": Exposing 3 endpoint(s) beneath base path '/actuator'}
+{"timestamp": 2020-01-24 13:00:55,701 "level": INFO "event": Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]}
+{"timestamp": 2020-01-24 13:00:56,016 "level": INFO "event": Initializing ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-24 13:00:56,383 "level": INFO "event": Context refreshed}
+{"timestamp": 2020-01-24 13:00:56,407 "level": INFO "event": Found 1 custom documentation plugin(s)}
+{"timestamp": 2020-01-24 13:00:56,431 "level": INFO "event": Scanning for api listing references}
+{"timestamp": 2020-01-24 13:00:56,562 "level": INFO "event": Generating unique operation named: handleUsingGET_1}
+{"timestamp": 2020-01-24 13:00:56,564 "level": INFO "event": Generating unique operation named: handleUsingGET_2}
+{"timestamp": 2020-01-24 13:00:56,566 "level": INFO "event": Generating unique operation named: handleUsingGET_3}
+{"timestamp": 2020-01-24 13:00:56,578 "level": INFO "event": Generating unique operation named: createUsingPOST_1}
+{"timestamp": 2020-01-24 13:00:56,606 "level": INFO "event": Started BankInfoServiceTest in 10.658 seconds (JVM running for 11.721)}
+{"timestamp": 2020-01-24 13:00:57,056 "level": INFO "event": Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.thoughtworks.bankclient.BankClientTest], using SpringBootContextLoader}
+{"timestamp": 2020-01-24 13:00:57,058 "level": INFO "event": Could not detect default resource locations for test class [com.thoughtworks.bankclient.BankClientTest]: no resource found for suffixes {-context.xml, Context.groovy}.}
+{"timestamp": 2020-01-24 13:00:57,060 "level": INFO "event": Could not detect default configuration classes for test class [com.thoughtworks.bankclient.BankClientTest]: BankClientTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.}
+{"timestamp": 2020-01-24 13:00:57,071 "level": INFO "event": Found @SpringBootConfiguration com.thoughtworks.PaymentApplication for test class com.thoughtworks.bankclient.BankClientTest}
+{"timestamp": 2020-01-24 13:00:57,074 "level": INFO "event": Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]}
+{"timestamp": 2020-01-24 13:00:57,075 "level": INFO "event": Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@2ff96bca, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@45d22e41, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@2989153f, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@46740514, org.springframework.test.context.support.DirtiesContextTestExecutionListener@2237912b, org.springframework.test.context.transaction.TransactionalTestExecutionListener@76c3030a, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@1782d000, org.springframework.test.context.event.EventPublishingTestExecutionListener@71383b41, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@6f984284, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@1adc72e, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@2e05cb, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@307cd4bc, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@1d5d2c55]}
+{"timestamp": 2020-01-24 13:01:02,102 "level": INFO "event": Starting BankClientTest on Dipalis-MacBook-Pro.local with PID 58007 (started by dipaliprakashkelkar in /Users/dipaliprakashkelkar/Desktop/payment)}
+{"timestamp": 2020-01-24 13:01:02,103 "level": DEBUG "event": Running with Spring Boot v2.2.1.RELEASE, Spring v5.2.1.RELEASE}
+{"timestamp": 2020-01-24 13:01:02,104 "level": INFO "event": No active profile set, falling back to default profiles: default}
+{"timestamp": 2020-01-24 13:01:02,407 "level": INFO "event": Bootstrapping Spring Data repositories in DEFAULT mode.}
+{"timestamp": 2020-01-24 13:01:02,419 "level": INFO "event": Finished Spring Data repository scanning in 10ms. Found 2 repository interfaces.}
+{"timestamp": 2020-01-24 13:01:02,535 "level": INFO "event": Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)}
+{"timestamp": 2020-01-24 13:01:02,599 "level": INFO "event": HikariPool-2 - Starting...}
+{"timestamp": 2020-01-24 13:01:02,611 "level": INFO "event": HikariPool-2 - Start completed.}
+{"timestamp": 2020-01-24 13:01:02,612 "level": INFO "event": Database: jdbc:postgresql://localhost:5432/postgres (PostgreSQL 12.0)}
+{"timestamp": 2020-01-24 13:01:02,614 "level": WARN "event": Flyway upgrade recommended: PostgreSQL 12.0 is newer than this version of Flyway and support has not been tested.}
+{"timestamp": 2020-01-24 13:01:02,633 "level": INFO "event": Successfully validated 2 migrations (execution time 00:00.007s)}
+{"timestamp": 2020-01-24 13:01:02,647 "level": INFO "event": Current version of schema "public": 2}
+{"timestamp": 2020-01-24 13:01:02,649 "level": INFO "event": Schema "public" is up to date. No migration necessary.}
+{"timestamp": 2020-01-24 13:01:02,686 "level": INFO "event": HHH000204: Processing PersistenceUnitInfo [name: default]}
+{"timestamp": 2020-01-24 13:01:02,691 "level": INFO "event": HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect}
+{"timestamp": 2020-01-24 13:01:03,078 "level": INFO "event": HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]}
+{"timestamp": 2020-01-24 13:01:03,079 "level": INFO "event": Initialized JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-01-24 13:01:03,332 "level": WARN "event": spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning}
+{"timestamp": 2020-01-24 13:01:03,475 "level": INFO "event": Exposing 3 endpoint(s) beneath base path '/actuator'}
+{"timestamp": 2020-01-24 13:01:03,559 "level": INFO "event": Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]}
+{"timestamp": 2020-01-24 13:01:03,674 "level": INFO "event": Initializing ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-24 13:01:03,875 "level": INFO "event": Context refreshed}
+{"timestamp": 2020-01-24 13:01:03,876 "level": INFO "event": Found 1 custom documentation plugin(s)}
+{"timestamp": 2020-01-24 13:01:03,881 "level": INFO "event": Scanning for api listing references}
+{"timestamp": 2020-01-24 13:01:03,908 "level": INFO "event": Generating unique operation named: handleUsingGET_1}
+{"timestamp": 2020-01-24 13:01:03,911 "level": INFO "event": Generating unique operation named: handleUsingGET_2}
+{"timestamp": 2020-01-24 13:01:03,913 "level": INFO "event": Generating unique operation named: handleUsingGET_3}
+{"timestamp": 2020-01-24 13:01:03,922 "level": INFO "event": Generating unique operation named: createUsingPOST_1}
+{"timestamp": 2020-01-24 13:01:03,933 "level": INFO "event": Started BankClientTest in 6.856 seconds (JVM running for 19.048)}
+{"timestamp": 2020-01-24 13:01:04,185 "level": INFO "event": Logging initialized @19299ms to org.eclipse.jetty.util.log.Slf4jLog}
+{"timestamp": 2020-01-24 13:01:04,306 "level": INFO "event": jetty-9.4.22.v20191022; built: 2019-10-22T13:37:13.455Z; git: b1e6b55512e008f7fbdf1cbea4ff8a6446d1073b; jvm 11.0.2+9}
+{"timestamp": 2020-01-24 13:01:04,323 "level": INFO "event": Started o.e.j.s.ServletContextHandler@1f9934a7{/__admin,null,AVAILABLE}}
+{"timestamp": 2020-01-24 13:01:04,325 "level": INFO "event": Started o.e.j.s.ServletContextHandler@5b4c5f66{/,null,AVAILABLE}}
+{"timestamp": 2020-01-24 13:01:04,335 "level": INFO "event": Started NetworkTrafficServerConnector@29491df4{HTTP/1.1,[http/1.1]}{0.0.0.0:8084}}
+{"timestamp": 2020-01-24 13:01:04,335 "level": INFO "event": Started @19450ms}
+{"timestamp": 2020-01-24 13:01:04,488 "level": INFO "event": RequestHandlerClass from context returned com.github.tomakehurst.wiremock.http.AdminRequestHandler. Normalized mapped under returned 'null'}
+{"timestamp": 2020-01-24 13:01:04,594 "level": INFO "event": RequestHandlerClass from context returned com.github.tomakehurst.wiremock.http.StubRequestHandler. Normalized mapped under returned 'null'}
+{"timestamp": 2020-01-24 13:01:04,620 "level": INFO "event": Stopped NetworkTrafficServerConnector@29491df4{HTTP/1.1,[http/1.1]}{0.0.0.0:8084}}
+{"timestamp": 2020-01-24 13:01:04,622 "level": INFO "event": Stopped o.e.j.s.ServletContextHandler@5b4c5f66{/,null,UNAVAILABLE}}
+{"timestamp": 2020-01-24 13:01:04,623 "level": INFO "event": Stopped o.e.j.s.ServletContextHandler@1f9934a7{/__admin,null,UNAVAILABLE}}
+{"timestamp": 2020-01-24 13:01:04,631 "level": INFO "event": jetty-9.4.22.v20191022; built: 2019-10-22T13:37:13.455Z; git: b1e6b55512e008f7fbdf1cbea4ff8a6446d1073b; jvm 11.0.2+9}
+{"timestamp": 2020-01-24 13:01:04,634 "level": INFO "event": Started o.e.j.s.ServletContextHandler@1256e7f2{/__admin,null,AVAILABLE}}
+{"timestamp": 2020-01-24 13:01:04,635 "level": INFO "event": Started o.e.j.s.ServletContextHandler@6d4abfb9{/,null,AVAILABLE}}
+{"timestamp": 2020-01-24 13:01:04,636 "level": INFO "event": Started NetworkTrafficServerConnector@679611e0{HTTP/1.1,[http/1.1]}{0.0.0.0:8082}}
+{"timestamp": 2020-01-24 13:01:04,637 "level": INFO "event": Started @19752ms}
+{"timestamp": 2020-01-24 13:01:04,641 "level": INFO "event": RequestHandlerClass from context returned com.github.tomakehurst.wiremock.http.AdminRequestHandler. Normalized mapped under returned 'null'}
+{"timestamp": 2020-01-24 13:01:04,661 "level": INFO "event": RequestHandlerClass from context returned com.github.tomakehurst.wiremock.http.StubRequestHandler. Normalized mapped under returned 'null'}
+{"timestamp": 2020-01-24 13:01:04,667 "level": INFO "event": Stopped NetworkTrafficServerConnector@679611e0{HTTP/1.1,[http/1.1]}{0.0.0.0:8082}}
+{"timestamp": 2020-01-24 13:01:04,668 "level": INFO "event": Stopped o.e.j.s.ServletContextHandler@6d4abfb9{/,null,UNAVAILABLE}}
+{"timestamp": 2020-01-24 13:01:04,668 "level": INFO "event": Stopped o.e.j.s.ServletContextHandler@1256e7f2{/__admin,null,UNAVAILABLE}}
+{"timestamp": 2020-01-24 13:01:04,674 "level": INFO "event": jetty-9.4.22.v20191022; built: 2019-10-22T13:37:13.455Z; git: b1e6b55512e008f7fbdf1cbea4ff8a6446d1073b; jvm 11.0.2+9}
+{"timestamp": 2020-01-24 13:01:04,677 "level": INFO "event": Started o.e.j.s.ServletContextHandler@16ab33dd{/__admin,null,AVAILABLE}}
+{"timestamp": 2020-01-24 13:01:04,677 "level": INFO "event": Started o.e.j.s.ServletContextHandler@1c1bd3b2{/,null,AVAILABLE}}
+{"timestamp": 2020-01-24 13:01:04,679 "level": INFO "event": Started NetworkTrafficServerConnector@59969a70{HTTP/1.1,[http/1.1]}{0.0.0.0:8082}}
+{"timestamp": 2020-01-24 13:01:04,679 "level": INFO "event": Started @19794ms}
+{"timestamp": 2020-01-24 13:01:04,683 "level": INFO "event": RequestHandlerClass from context returned com.github.tomakehurst.wiremock.http.AdminRequestHandler. Normalized mapped under returned 'null'}
+{"timestamp": 2020-01-24 13:01:04,701 "level": INFO "event": RequestHandlerClass from context returned com.github.tomakehurst.wiremock.http.StubRequestHandler. Normalized mapped under returned 'null'}
+{"timestamp": 2020-01-24 13:01:04,706 "level": ERROR "event": 
+                                               Request was not matched
+                                               =======================
+
+-----------------------------------------------------------------------------------------------------------------------
+| Closest stub                                             | Request                                                  |
+-----------------------------------------------------------------------------------------------------------------------
+                                                           |
+GET                                                        | GET
+/checkDetails?accountNumber=0000&ifscCode=HDFC1234         | /checkDetails?accountNumber=0&ifscCode=HDFC1234     <<<<< URL does not match
+                                                           |
+                                                           |
+-----------------------------------------------------------------------------------------------------------------------
+}
+{"timestamp": 2020-01-24 13:01:04,731 "level": INFO "event": Stopped NetworkTrafficServerConnector@59969a70{HTTP/1.1,[http/1.1]}{0.0.0.0:8082}}
+{"timestamp": 2020-01-24 13:01:04,731 "level": INFO "event": Stopped o.e.j.s.ServletContextHandler@1c1bd3b2{/,null,UNAVAILABLE}}
+{"timestamp": 2020-01-24 13:01:04,732 "level": INFO "event": Stopped o.e.j.s.ServletContextHandler@16ab33dd{/__admin,null,UNAVAILABLE}}
+{"timestamp": 2020-01-24 13:01:04,736 "level": INFO "event": Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.thoughtworks.fraudclient.FraudClientTest], using SpringBootContextLoader}
+{"timestamp": 2020-01-24 13:01:04,737 "level": INFO "event": Could not detect default resource locations for test class [com.thoughtworks.fraudclient.FraudClientTest]: no resource found for suffixes {-context.xml, Context.groovy}.}
+{"timestamp": 2020-01-24 13:01:04,738 "level": INFO "event": Could not detect default configuration classes for test class [com.thoughtworks.fraudclient.FraudClientTest]: FraudClientTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.}
+{"timestamp": 2020-01-24 13:01:04,744 "level": INFO "event": Found @SpringBootConfiguration com.thoughtworks.PaymentApplication for test class com.thoughtworks.fraudclient.FraudClientTest}
+{"timestamp": 2020-01-24 13:01:04,746 "level": INFO "event": Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]}
+{"timestamp": 2020-01-24 13:01:04,746 "level": INFO "event": Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@3dd57e47, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@6639610c, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@6a3699ae, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@114221b8, org.springframework.test.context.support.DirtiesContextTestExecutionListener@7735291, org.springframework.test.context.transaction.TransactionalTestExecutionListener@2a6f7272, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@744a7578, org.springframework.test.context.event.EventPublishingTestExecutionListener@7485d5a8, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@697ff673, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@3852f5cc, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@1f94a60b, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@456618c4, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@53bca275]}
+{"timestamp": 2020-01-24 13:01:04,758 "level": INFO "event": jetty-9.4.22.v20191022; built: 2019-10-22T13:37:13.455Z; git: b1e6b55512e008f7fbdf1cbea4ff8a6446d1073b; jvm 11.0.2+9}
+{"timestamp": 2020-01-24 13:01:04,762 "level": INFO "event": Started o.e.j.s.ServletContextHandler@51e9b98f{/__admin,null,AVAILABLE}}
+{"timestamp": 2020-01-24 13:01:04,763 "level": INFO "event": Started o.e.j.s.ServletContextHandler@67778247{/,null,AVAILABLE}}
+{"timestamp": 2020-01-24 13:01:04,766 "level": INFO "event": Started NetworkTrafficServerConnector@5c660c92{HTTP/1.1,[http/1.1]}{0.0.0.0:8083}}
+{"timestamp": 2020-01-24 13:01:04,766 "level": INFO "event": Started @19881ms}
+{"timestamp": 2020-01-24 13:01:04,770 "level": INFO "event": RequestHandlerClass from context returned com.github.tomakehurst.wiremock.http.AdminRequestHandler. Normalized mapped under returned 'null'}
+{"timestamp": 2020-01-24 13:01:04,788 "level": INFO "event": RequestHandlerClass from context returned com.github.tomakehurst.wiremock.http.StubRequestHandler. Normalized mapped under returned 'null'}
+{"timestamp": 2020-01-24 13:01:04,793 "level": INFO "event": Stopped NetworkTrafficServerConnector@5c660c92{HTTP/1.1,[http/1.1]}{0.0.0.0:8083}}
+{"timestamp": 2020-01-24 13:01:04,794 "level": INFO "event": Stopped o.e.j.s.ServletContextHandler@67778247{/,null,UNAVAILABLE}}
+{"timestamp": 2020-01-24 13:01:04,794 "level": INFO "event": Stopped o.e.j.s.ServletContextHandler@51e9b98f{/__admin,null,UNAVAILABLE}}
+{"timestamp": 2020-01-24 13:01:04,800 "level": INFO "event": Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.thoughtworks.payment.PaymentControllerTest], using SpringBootContextLoader}
+{"timestamp": 2020-01-24 13:01:04,801 "level": INFO "event": Could not detect default resource locations for test class [com.thoughtworks.payment.PaymentControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.}
+{"timestamp": 2020-01-24 13:01:04,802 "level": INFO "event": Could not detect default configuration classes for test class [com.thoughtworks.payment.PaymentControllerTest]: PaymentControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.}
+{"timestamp": 2020-01-24 13:01:04,819 "level": INFO "event": Found @SpringBootConfiguration com.thoughtworks.PaymentApplication for test class com.thoughtworks.payment.PaymentControllerTest}
+{"timestamp": 2020-01-24 13:01:04,820 "level": INFO "event": Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]}
+{"timestamp": 2020-01-24 13:01:04,821 "level": INFO "event": Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@295df4ca, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@317a337f, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@2dc237fc, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@615cdb85, org.springframework.test.context.support.DirtiesContextTestExecutionListener@276188c0, org.springframework.test.context.transaction.TransactionalTestExecutionListener@4760b698, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@7ba1145f, org.springframework.test.context.event.EventPublishingTestExecutionListener@7ca6785d, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@572ad881, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@15bc608a, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@664c9d8e, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@2967658a, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@28085ef7]}
+{"timestamp": 2020-01-24 13:01:04,846 "level": INFO "event": Starting PaymentControllerTest on Dipalis-MacBook-Pro.local with PID 58007 (started by dipaliprakashkelkar in /Users/dipaliprakashkelkar/Desktop/payment)}
+{"timestamp": 2020-01-24 13:01:04,846 "level": DEBUG "event": Running with Spring Boot v2.2.1.RELEASE, Spring v5.2.1.RELEASE}
+{"timestamp": 2020-01-24 13:01:04,847 "level": INFO "event": No active profile set, falling back to default profiles: default}
+{"timestamp": 2020-01-24 13:01:05,150 "level": INFO "event": Initializing ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-24 13:01:05,253 "level": INFO "event": Initializing Spring TestDispatcherServlet ''}
+{"timestamp": 2020-01-24 13:01:05,254 "level": INFO "event": Initializing Servlet ''}
+{"timestamp": 2020-01-24 13:01:05,265 "level": INFO "event": Completed initialization in 11 ms}
+{"timestamp": 2020-01-24 13:01:05,275 "level": INFO "event": Started PaymentControllerTest in 0.451 seconds (JVM running for 20.39)}
+{"timestamp": 2020-01-24 13:01:05,385 "level": INFO "event": {name:PAYMENTSUCCESSFUL,details:{"PaymentId":1,"BeneficiaryIfscCode":"HDFC1","PayeeIfscCode":"HDFC1234"}}}
+{"timestamp": 2020-01-24 13:01:05,400 "level": INFO "event": Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.thoughtworks.payment.PaymentServiceTest], using SpringBootContextLoader}
+{"timestamp": 2020-01-24 13:01:05,401 "level": INFO "event": Could not detect default resource locations for test class [com.thoughtworks.payment.PaymentServiceTest]: no resource found for suffixes {-context.xml, Context.groovy}.}
+{"timestamp": 2020-01-24 13:01:05,402 "level": INFO "event": Could not detect default configuration classes for test class [com.thoughtworks.payment.PaymentServiceTest]: PaymentServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.}
+{"timestamp": 2020-01-24 13:01:05,404 "level": INFO "event": Found @SpringBootConfiguration com.thoughtworks.PaymentApplication for test class com.thoughtworks.payment.PaymentServiceTest}
+{"timestamp": 2020-01-24 13:01:05,405 "level": INFO "event": Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]}
+{"timestamp": 2020-01-24 13:01:05,406 "level": INFO "event": Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@15c74f6a, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@9664829, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@1fbb31a4, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@5ffe2e8, org.springframework.test.context.support.DirtiesContextTestExecutionListener@2a6c5122, org.springframework.test.context.transaction.TransactionalTestExecutionListener@11706346, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@570056dd, org.springframework.test.context.event.EventPublishingTestExecutionListener@2d920677, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@65bfb7a6, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@77c78204, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@22a4849f, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@1f388f02, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@7a219c4]}
+{"timestamp": 2020-01-24 13:01:05,422 "level": INFO "event": Starting PaymentServiceTest on Dipalis-MacBook-Pro.local with PID 58007 (started by dipaliprakashkelkar in /Users/dipaliprakashkelkar/Desktop/payment)}
+{"timestamp": 2020-01-24 13:01:05,422 "level": DEBUG "event": Running with Spring Boot v2.2.1.RELEASE, Spring v5.2.1.RELEASE}
+{"timestamp": 2020-01-24 13:01:05,423 "level": INFO "event": No active profile set, falling back to default profiles: default}
+{"timestamp": 2020-01-24 13:01:05,701 "level": INFO "event": Bootstrapping Spring Data repositories in DEFAULT mode.}
+{"timestamp": 2020-01-24 13:01:05,711 "level": INFO "event": Finished Spring Data repository scanning in 9ms. Found 2 repository interfaces.}
+{"timestamp": 2020-01-24 13:01:05,792 "level": INFO "event": Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)}
+{"timestamp": 2020-01-24 13:01:05,849 "level": INFO "event": HikariPool-3 - Starting...}
+{"timestamp": 2020-01-24 13:01:05,862 "level": INFO "event": HikariPool-3 - Start completed.}
+{"timestamp": 2020-01-24 13:01:05,863 "level": INFO "event": Database: jdbc:postgresql://localhost:5432/postgres (PostgreSQL 12.0)}
+{"timestamp": 2020-01-24 13:01:05,865 "level": WARN "event": Flyway upgrade recommended: PostgreSQL 12.0 is newer than this version of Flyway and support has not been tested.}
+{"timestamp": 2020-01-24 13:01:05,883 "level": INFO "event": Successfully validated 2 migrations (execution time 00:00.006s)}
+{"timestamp": 2020-01-24 13:01:05,894 "level": INFO "event": Current version of schema "public": 2}
+{"timestamp": 2020-01-24 13:01:05,896 "level": INFO "event": Schema "public" is up to date. No migration necessary.}
+{"timestamp": 2020-01-24 13:01:05,929 "level": INFO "event": HHH000204: Processing PersistenceUnitInfo [name: default]}
+{"timestamp": 2020-01-24 13:01:05,934 "level": INFO "event": HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect}
+{"timestamp": 2020-01-24 13:01:06,238 "level": INFO "event": HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]}
+{"timestamp": 2020-01-24 13:01:06,239 "level": INFO "event": Initialized JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-01-24 13:01:06,462 "level": WARN "event": spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning}
+{"timestamp": 2020-01-24 13:01:06,590 "level": INFO "event": Exposing 3 endpoint(s) beneath base path '/actuator'}
+{"timestamp": 2020-01-24 13:01:06,672 "level": INFO "event": Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]}
+{"timestamp": 2020-01-24 13:01:06,807 "level": INFO "event": Initializing ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-24 13:01:06,962 "level": INFO "event": Context refreshed}
+{"timestamp": 2020-01-24 13:01:06,963 "level": INFO "event": Found 1 custom documentation plugin(s)}
+{"timestamp": 2020-01-24 13:01:06,967 "level": INFO "event": Scanning for api listing references}
+{"timestamp": 2020-01-24 13:01:06,990 "level": INFO "event": Generating unique operation named: handleUsingGET_1}
+{"timestamp": 2020-01-24 13:01:06,993 "level": INFO "event": Generating unique operation named: handleUsingGET_2}
+{"timestamp": 2020-01-24 13:01:06,995 "level": INFO "event": Generating unique operation named: handleUsingGET_3}
+{"timestamp": 2020-01-24 13:01:07,000 "level": INFO "event": Generating unique operation named: createUsingPOST_1}
+{"timestamp": 2020-01-24 13:01:07,009 "level": INFO "event": Started PaymentServiceTest in 1.601 seconds (JVM running for 22.124)}
+{"timestamp": 2020-01-24 13:01:07,036 "level": INFO "event": {name:PAYMENTFAILED,description:user2details are incorrect,details:{"PaymentId":78,"BeneficiaryIfscCode":"HDFC1234","PayeeIfscCode":"0000000"}}}
+{"timestamp": 2020-01-24 13:01:07,046 "level": INFO "event": {name:PAYMENTFAILED,description:user1details are incorrect,details:{"PaymentId":79,"BeneficiaryIfscCode":"OOOOOO","PayeeIfscCode":"HDFC1234"}}}
+{"timestamp": 2020-01-24 13:01:07,050 "level": INFO "event": Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.thoughtworks.payment.PaymentApplicationTests], using SpringBootContextLoader}
+{"timestamp": 2020-01-24 13:01:07,051 "level": INFO "event": Could not detect default resource locations for test class [com.thoughtworks.payment.PaymentApplicationTests]: no resource found for suffixes {-context.xml, Context.groovy}.}
+{"timestamp": 2020-01-24 13:01:07,051 "level": INFO "event": Could not detect default configuration classes for test class [com.thoughtworks.payment.PaymentApplicationTests]: PaymentApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.}
+{"timestamp": 2020-01-24 13:01:07,052 "level": INFO "event": Found @SpringBootConfiguration com.thoughtworks.PaymentApplication for test class com.thoughtworks.payment.PaymentApplicationTests}
+{"timestamp": 2020-01-24 13:01:07,054 "level": INFO "event": Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]}
+{"timestamp": 2020-01-24 13:01:07,054 "level": INFO "event": Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@1c2c4443, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@664c33c8, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@264b40f3, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@7db3e022, org.springframework.test.context.support.DirtiesContextTestExecutionListener@3c3ad8b, org.springframework.test.context.transaction.TransactionalTestExecutionListener@4961c48, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@78a688f1, org.springframework.test.context.event.EventPublishingTestExecutionListener@1a76c537, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@4479c07, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@3087a49b, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@7c2a437a, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@50d96eb5, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@68c6770d]}
+{"timestamp": 2020-01-24 13:01:07,065 "level": INFO "event": Shutting down ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-24 13:01:07,066 "level": INFO "event": Shutting down ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-24 13:01:07,067 "level": INFO "event": Shutting down ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-24 13:01:07,067 "level": INFO "event": Shutting down ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-24 13:01:07,074 "level": INFO "event": Closing JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-01-24 13:01:07,074 "level": INFO "event": Closing JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-01-24 13:01:07,074 "level": INFO "event": Closing JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-01-24 13:01:07,076 "level": INFO "event": HikariPool-3 - Shutdown initiated...}
+{"timestamp": 2020-01-24 13:01:07,076 "level": INFO "event": HikariPool-1 - Shutdown initiated...}
+{"timestamp": 2020-01-24 13:01:07,076 "level": INFO "event": HikariPool-2 - Shutdown initiated...}
+{"timestamp": 2020-01-24 13:01:07,087 "level": INFO "event": HikariPool-3 - Shutdown completed.}
+{"timestamp": 2020-01-24 13:01:07,088 "level": INFO "event": HikariPool-2 - Shutdown completed.}
+{"timestamp": 2020-01-24 13:01:07,089 "level": INFO "event": HikariPool-1 - Shutdown completed.}
