@@ -3,6 +3,7 @@ package com.thoughtworks.payment;
 import com.google.gson.JsonObject;
 import com.thoughtworks.bankclient.BankClient;
 import com.thoughtworks.payment.model.Payment;
+import com.thoughtworks.prometheus.Prometheus;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 import org.apache.logging.log4j.LogManager;
@@ -24,14 +25,13 @@ public class PaymentService {
     @Autowired
     MeterRegistry meterRegistry;
 
+    @Autowired
+    Prometheus prometheus;
+
     private Counter paymentFailed;
 
     public Payment create(Payment payment) throws Exception {
-        paymentFailed = Counter
-                .builder("paymentService")
-                .description("counter for number of payments")
-                .tags("counter", "number of payments failed")
-                .register(meterRegistry);
+        paymentFailed = prometheus.getPaymentFailedCounter();
 
         int beneficiaryResponseCode = bankClient.checkBankDetails(payment.getBeneficiaryAccountNumber(), payment.getBeneficiaryIfscCode());
         if (beneficiaryResponseCode == 404) {

@@ -3,6 +3,7 @@ package com.thoughtworks.payment;
 import com.google.gson.JsonObject;
 import com.thoughtworks.payment.message.PaymentResponse;
 import com.thoughtworks.payment.model.Payment;
+import com.thoughtworks.prometheus.Prometheus;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.swagger.annotations.ApiResponse;
@@ -25,6 +26,8 @@ public class PaymentController {
     private Counter paymentsCounter;
     private Counter paymentSuccessCounter;
 
+    @Autowired
+    Prometheus prometheus;
 
     private static Logger logger = LogManager.getLogger(PaymentController.class);
 
@@ -40,25 +43,15 @@ public class PaymentController {
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<PaymentResponse> create(@RequestBody PaymentRequest paymentRequest) throws Exception {
 
-        paymentsCounter = Counter
-                .builder("paymentService")
-                .description("counter for number of payments")
-                .tags("counter", "number of payments")
-                .register(meterRegistry);
+        paymentsCounter = prometheus.getPaymentsCounter();
         paymentsCounter.increment();
 
         Payment payment = new Payment(paymentRequest.getAmount(), paymentRequest.getBeneficiary(), paymentRequest.getPayee());
         Payment savedPayment = paymentService.create(payment);
 
         if (savedPayment.getStatus().equals("success")) {
-
-            paymentSuccessCounter = Counter
-                    .builder("paymentService")
-                    .description("counter for successful payments")
-                    .tags("counter", "successful payments")
-                    .register(meterRegistry);
+            paymentSuccessCounter = prometheus.getPaymentSuccessCounter();
             paymentSuccessCounter.increment();
-
         }
         JsonObject logDetails = new JsonObject();
         logDetails.addProperty("PaymentId", savedPayment.getId());

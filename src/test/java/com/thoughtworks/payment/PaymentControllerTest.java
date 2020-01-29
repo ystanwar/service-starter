@@ -5,6 +5,9 @@ import com.thoughtworks.error.PaymentErrorResponse;
 import com.thoughtworks.payment.message.PaymentResponse;
 import com.thoughtworks.payment.model.BankDetails;
 import com.thoughtworks.payment.model.Payment;
+import com.thoughtworks.prometheus.Prometheus;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.autoconfigure.metrics.CompositeMeterRegistryAutoConfiguration;
@@ -32,11 +35,17 @@ public class PaymentControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    MeterRegistry meterRegistry;
+
     @MockBean
     PaymentService paymentService;
 
     @MockBean
     PaymentRepository paymentRepository;
+
+    @MockBean
+    Prometheus prometheus;
 
     @Test
     public void createPayment() throws Exception {
@@ -51,6 +60,18 @@ public class PaymentControllerTest {
         PaymentResponse response = new PaymentResponse();
         response.setStatusMessage("Payment done successfully");
         response.setPaymentId(payment.getId());
+
+        when(prometheus.getPaymentsCounter()).thenReturn(Counter
+                .builder("paymentService")
+                .description("counter for number of payments")
+                .tags("counter", "number of payments")
+                .register(meterRegistry));
+
+        when(prometheus.getPaymentSuccessCounter()).thenReturn(Counter
+                .builder("paymentService")
+                .description("counter for successful payments")
+                .tags("counter", "successful payments")
+                .register(meterRegistry));
 
         when(paymentService.create(any(Payment.class))).thenReturn(payment);
 
@@ -72,6 +93,11 @@ public class PaymentControllerTest {
         Map<String, String> errors = new HashMap<>();
         errors.put("message", "Beneficiary AccountDetails Not Found");
         ObjectMapper objectMapper = new ObjectMapper();
+        when(prometheus.getPaymentsCounter()).thenReturn(Counter
+                .builder("paymentService")
+                .description("counter for number of payments")
+                .tags("counter", "number of payments")
+                .register(meterRegistry));
 
         mockMvc.perform(post("/payments")
                 .content("{\"amount\":500," +
@@ -91,6 +117,11 @@ public class PaymentControllerTest {
         errors.put("message", "Payee AccountDetails Not Found");
         ObjectMapper objectMapper = new ObjectMapper();
 
+        when(prometheus.getPaymentsCounter()).thenReturn(Counter
+                .builder("paymentService")
+                .description("counter for number of payments")
+                .tags("counter", "number of payments")
+                .register(meterRegistry));
 
         when(paymentService.create(any(Payment.class))).thenThrow(new PayeeAccountDetailsNotFound("message", "Payee AccountDetails Not Found"));
 
