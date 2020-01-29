@@ -6,6 +6,7 @@ import com.thoughtworks.payment.model.Payment;
 import com.thoughtworks.prometheus.Prometheus;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
+import io.prometheus.client.Histogram;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.apache.logging.log4j.LogManager;
@@ -23,8 +24,12 @@ public class PaymentController {
     @Autowired
     MeterRegistry meterRegistry;
 
+//    @Autowired
+//    CollectorRegistry collectorRegistry;
+
     private Counter paymentsCounter;
     private Counter paymentSuccessCounter;
+    private Histogram histogram ;
 
     @Autowired
     Prometheus prometheus;
@@ -42,7 +47,9 @@ public class PaymentController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<PaymentResponse> create(@RequestBody PaymentRequest paymentRequest) throws Exception {
+        histogram=prometheus.getHistogram();
 
+        Histogram.Timer requestTimer = histogram.startTimer();
         paymentsCounter = prometheus.getPaymentsCounter();
         paymentsCounter.increment();
 
@@ -53,6 +60,8 @@ public class PaymentController {
             paymentSuccessCounter = prometheus.getPaymentSuccessCounter();
             paymentSuccessCounter.increment();
         }
+        requestTimer.observeDuration();
+
         JsonObject logDetails = new JsonObject();
         logDetails.addProperty("PaymentId", savedPayment.getId());
         logDetails.addProperty("BeneficiaryIfscCode", savedPayment.getBeneficiaryIfscCode());
@@ -64,5 +73,4 @@ public class PaymentController {
         response.setPaymentId(savedPayment.getId());
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
-
 }

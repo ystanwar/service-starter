@@ -2,6 +2,8 @@ package com.thoughtworks.prometheus;
 
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
+import io.prometheus.client.CollectorRegistry;
+import io.prometheus.client.Histogram;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,8 +13,11 @@ public class Prometheus {
     private Counter paymentFailedCounter;
     private Counter paymentsCounter;
     private Counter paymentSuccessCounter;
+    private Histogram histogram;
 
-    Prometheus(@Autowired MeterRegistry meterRegistry) {
+    @Autowired
+    Prometheus(MeterRegistry meterRegistry,
+               CollectorRegistry collectorRegistry) {
         paymentFailedCounter = Counter
                 .builder("paymentService")
                 .description("counter for number of payments")
@@ -30,6 +35,12 @@ public class Prometheus {
                 .description("counter for successful payments")
                 .tags("counter", "successful payments")
                 .register(meterRegistry);
+
+        histogram = Histogram.build()
+                .name("histogram")
+                .help("time for histogram")
+                .register(collectorRegistry);
+
     }
 
     public Counter getPaymentFailedCounter() {
@@ -42,5 +53,9 @@ public class Prometheus {
 
     public Counter getPaymentSuccessCounter() {
         return paymentSuccessCounter;
+    }
+
+    public Histogram getHistogram() {
+        return histogram;
     }
 }
