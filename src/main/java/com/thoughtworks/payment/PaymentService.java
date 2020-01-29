@@ -3,6 +3,8 @@ package com.thoughtworks.payment;
 import com.google.gson.JsonObject;
 import com.thoughtworks.bankclient.BankClient;
 import com.thoughtworks.payment.model.Payment;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +21,25 @@ public class PaymentService {
     @Autowired
     BankClient bankClient;
 
+    @Autowired
+    MeterRegistry meterRegistry;
+
+    private Counter paymentFailed;
+
     public Payment create(Payment payment) throws Exception {
+        paymentFailed = Counter
+                .builder("paymentService")
+                .description("counter for number of payments")
+                .tags("counter", "number of payments failed")
+                .register(meterRegistry);
+
         int beneficiaryResponseCode = bankClient.checkBankDetails(payment.getBeneficiaryAccountNumber(), payment.getBeneficiaryIfscCode());
         if (beneficiaryResponseCode == 404) {
             payment.setStatus("failed");
-            paymentRepository.save(payment);
-
+            Payment savedPayment = paymentRepository.save(payment);
+            if (savedPayment.getStatus().equals("failed")) {
+                paymentFailed.increment();
+            }
             JsonObject logDetails = new JsonObject();
             logDetails.addProperty("PaymentId", payment.getId());
             logDetails.addProperty("BeneficiaryIfscCode", payment.getBeneficiaryIfscCode());
@@ -36,8 +51,10 @@ public class PaymentService {
         int payeeResponseCode = bankClient.checkBankDetails(payment.getPayeeAccountNumber(), payment.getPayeeIfscCode());
         if (payeeResponseCode == 404) {
             payment.setStatus("failed");
-            paymentRepository.save(payment);
-
+            Payment savedPayment = paymentRepository.save(payment);
+            if (savedPayment.getStatus().equals("failed")) {
+                paymentFailed.increment();
+            }
             JsonObject logDetails = new JsonObject();
             logDetails.addProperty("PaymentId", payment.getId());
             logDetails.addProperty("BeneficiaryIfscCode", payment.getBeneficiaryIfscCode());

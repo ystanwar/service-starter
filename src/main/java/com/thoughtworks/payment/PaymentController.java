@@ -22,7 +22,9 @@ public class PaymentController {
     @Autowired
     MeterRegistry meterRegistry;
 
-    private Counter counter;
+    private Counter paymentsCounter;
+    private Counter paymentSuccessCounter;
+
 
     private static Logger logger = LogManager.getLogger(PaymentController.class);
 
@@ -38,16 +40,26 @@ public class PaymentController {
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<PaymentResponse> create(@RequestBody PaymentRequest paymentRequest) throws Exception {
 
-        counter = Counter
+        paymentsCounter = Counter
                 .builder("paymentService")
-                .description("a simple counter")
-                .tags("counter", "counter")
+                .description("counter for number of payments")
+                .tags("counter", "number of payments")
                 .register(meterRegistry);
-        counter.increment();
+        paymentsCounter.increment();
 
         Payment payment = new Payment(paymentRequest.getAmount(), paymentRequest.getBeneficiary(), paymentRequest.getPayee());
         Payment savedPayment = paymentService.create(payment);
 
+        if (savedPayment.getStatus().equals("success")) {
+
+            paymentSuccessCounter = Counter
+                    .builder("paymentService")
+                    .description("counter for successful payments")
+                    .tags("counter", "successful payments")
+                    .register(meterRegistry);
+            paymentSuccessCounter.increment();
+
+        }
         JsonObject logDetails = new JsonObject();
         logDetails.addProperty("PaymentId", savedPayment.getId());
         logDetails.addProperty("BeneficiaryIfscCode", savedPayment.getBeneficiaryIfscCode());

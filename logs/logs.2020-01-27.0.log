@@ -1,0 +1,154 @@
+{"timestamp": 2020-01-27 10:49:38,508 "level": INFO "event": Starting PaymentApplication on Dipalis-MacBook-Pro.local with PID 66998 (/Users/dipaliprakashkelkar/Desktop/payment/build/classes/java/main started by dipaliprakashkelkar in /Users/dipaliprakashkelkar/Desktop/payment)}
+{"timestamp": 2020-01-27 10:49:38,512 "level": DEBUG "event": Running with Spring Boot v2.2.1.RELEASE, Spring v5.2.1.RELEASE}
+{"timestamp": 2020-01-27 10:49:38,512 "level": INFO "event": No active profile set, falling back to default profiles: default}
+{"timestamp": 2020-01-27 10:49:39,528 "level": INFO "event": Bootstrapping Spring Data repositories in DEFAULT mode.}
+{"timestamp": 2020-01-27 10:49:39,597 "level": INFO "event": Finished Spring Data repository scanning in 58ms. Found 2 repository interfaces.}
+{"timestamp": 2020-01-27 10:49:39,853 "level": INFO "event": Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)}
+{"timestamp": 2020-01-27 10:49:40,080 "level": INFO "event": Tomcat initialized with port(s): 8080 (http)}
+{"timestamp": 2020-01-27 10:49:40,090 "level": INFO "event": Initializing ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-01-27 10:49:40,091 "level": INFO "event": Starting service [Tomcat]}
+{"timestamp": 2020-01-27 10:49:40,091 "level": INFO "event": Starting Servlet engine: [Apache Tomcat/9.0.27]}
+{"timestamp": 2020-01-27 10:49:40,161 "level": INFO "event": Initializing Spring embedded WebApplicationContext}
+{"timestamp": 2020-01-27 10:49:40,161 "level": INFO "event": Root WebApplicationContext: initialization completed in 1612 ms}
+{"timestamp": 2020-01-27 10:49:40,415 "level": INFO "event": Flyway Community Edition 5.2.3 by Boxfuse}
+{"timestamp": 2020-01-27 10:49:40,417 "level": INFO "event": HikariPool-1 - Starting...}
+{"timestamp": 2020-01-27 10:49:40,494 "level": INFO "event": HikariPool-1 - Start completed.}
+{"timestamp": 2020-01-27 10:49:40,499 "level": INFO "event": Database: jdbc:postgresql://localhost:5432/postgres (PostgreSQL 12.0)}
+{"timestamp": 2020-01-27 10:49:40,508 "level": WARN "event": Flyway upgrade recommended: PostgreSQL 12.0 is newer than this version of Flyway and support has not been tested.}
+{"timestamp": 2020-01-27 10:49:40,563 "level": INFO "event": Successfully validated 2 migrations (execution time 00:00.020s)}
+{"timestamp": 2020-01-27 10:49:40,588 "level": WARN "event": Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/autoconfigure/flyway/FlywayAutoConfiguration$FlywayConfiguration.class]: Invocation of init method failed; nested exception is org.flywaydb.core.api.FlywayException: Found non-empty schema(s) "public" without schema history table! Use baseline() or set baselineOnMigrate to true to initialize the schema history table.}
+{"timestamp": 2020-01-27 10:49:40,588 "level": INFO "event": HikariPool-1 - Shutdown initiated...}
+{"timestamp": 2020-01-27 10:49:40,591 "level": INFO "event": HikariPool-1 - Shutdown completed.}
+{"timestamp": 2020-01-27 10:49:40,593 "level": INFO "event": Stopping service [Tomcat]}
+{"timestamp": 2020-01-27 10:49:40,609 "level": INFO "event": 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.}
+{"timestamp": 2020-01-27 10:49:40,617 "level": ERROR "event": Application run failed}
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/autoconfigure/flyway/FlywayAutoConfiguration$FlywayConfiguration.class]: Invocation of init method failed; nested exception is org.flywaydb.core.api.FlywayException: Found non-empty schema(s) "public" without schema history table! Use baseline() or set baselineOnMigrate to true to initialize the schema history table.
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1803)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:595)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:310)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1108)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:868)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:550)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:141)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:747)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1226)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1215)
+	at com.thoughtworks.PaymentApplication.main(PaymentApplication.java:11)
+Caused by: org.flywaydb.core.api.FlywayException: Found non-empty schema(s) "public" without schema history table! Use baseline() or set baselineOnMigrate to true to initialize the schema history table.
+	at org.flywaydb.core.Flyway$1.execute(Flyway.java:1383)
+	at org.flywaydb.core.Flyway$1.execute(Flyway.java:1353)
+	at org.flywaydb.core.Flyway.execute(Flyway.java:1708)
+	at org.flywaydb.core.Flyway.migrate(Flyway.java:1353)
+	at org.springframework.boot.autoconfigure.flyway.FlywayMigrationInitializer.afterPropertiesSet(FlywayMigrationInitializer.java:65)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1862)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1799)
+	... 18 common frames omitted
+{"timestamp": 2020-01-27 10:51:19,391 "level": INFO "event": Starting PaymentApplication on Dipalis-MacBook-Pro.local with PID 67089 (/Users/dipaliprakashkelkar/Desktop/payment/build/classes/java/main started by dipaliprakashkelkar in /Users/dipaliprakashkelkar/Desktop/payment)}
+{"timestamp": 2020-01-27 10:51:19,393 "level": DEBUG "event": Running with Spring Boot v2.2.1.RELEASE, Spring v5.2.1.RELEASE}
+{"timestamp": 2020-01-27 10:51:19,394 "level": INFO "event": No active profile set, falling back to default profiles: default}
+{"timestamp": 2020-01-27 10:51:20,190 "level": INFO "event": Bootstrapping Spring Data repositories in DEFAULT mode.}
+{"timestamp": 2020-01-27 10:51:20,248 "level": INFO "event": Finished Spring Data repository scanning in 52ms. Found 2 repository interfaces.}
+{"timestamp": 2020-01-27 10:51:20,491 "level": INFO "event": Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)}
+{"timestamp": 2020-01-27 10:51:20,679 "level": INFO "event": Tomcat initialized with port(s): 8080 (http)}
+{"timestamp": 2020-01-27 10:51:20,687 "level": INFO "event": Initializing ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-01-27 10:51:20,688 "level": INFO "event": Starting service [Tomcat]}
+{"timestamp": 2020-01-27 10:51:20,688 "level": INFO "event": Starting Servlet engine: [Apache Tomcat/9.0.27]}
+{"timestamp": 2020-01-27 10:51:20,782 "level": INFO "event": Initializing Spring embedded WebApplicationContext}
+{"timestamp": 2020-01-27 10:51:20,782 "level": INFO "event": Root WebApplicationContext: initialization completed in 1352 ms}
+{"timestamp": 2020-01-27 10:51:21,034 "level": INFO "event": Flyway Community Edition 5.2.3 by Boxfuse}
+{"timestamp": 2020-01-27 10:51:21,036 "level": INFO "event": HikariPool-1 - Starting...}
+{"timestamp": 2020-01-27 10:51:21,097 "level": INFO "event": HikariPool-1 - Start completed.}
+{"timestamp": 2020-01-27 10:51:21,102 "level": INFO "event": Database: jdbc:postgresql://localhost:5432/postgres (PostgreSQL 12.0)}
+{"timestamp": 2020-01-27 10:51:21,109 "level": WARN "event": Flyway upgrade recommended: PostgreSQL 12.0 is newer than this version of Flyway and support has not been tested.}
+{"timestamp": 2020-01-27 10:51:21,148 "level": INFO "event": Successfully validated 2 migrations (execution time 00:00.013s)}
+{"timestamp": 2020-01-27 10:51:21,162 "level": INFO "event": Creating Schema History table: "public"."flyway_schema_history"}
+{"timestamp": 2020-01-27 10:51:21,199 "level": INFO "event": Current version of schema "public": << Empty Schema >>}
+{"timestamp": 2020-01-27 10:51:21,200 "level": INFO "event": Migrating schema "public" to version 1 - payment Table}
+{"timestamp": 2020-01-27 10:51:21,236 "level": INFO "event": Migrating schema "public" to version 2 - bank info Table}
+{"timestamp": 2020-01-27 10:51:21,261 "level": INFO "event": Successfully applied 2 migrations to schema "public" (execution time 00:00.101s)}
+{"timestamp": 2020-01-27 10:51:21,361 "level": INFO "event": HHH000204: Processing PersistenceUnitInfo [name: default]}
+{"timestamp": 2020-01-27 10:51:21,445 "level": INFO "event": HHH000412: Hibernate Core {5.4.8.Final}}
+{"timestamp": 2020-01-27 10:51:21,549 "level": INFO "event": HCANN000001: Hibernate Commons Annotations {5.1.0.Final}}
+{"timestamp": 2020-01-27 10:51:21,648 "level": INFO "event": HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect}
+{"timestamp": 2020-01-27 10:51:22,419 "level": INFO "event": HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]}
+{"timestamp": 2020-01-27 10:51:22,425 "level": INFO "event": Initialized JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-01-27 10:51:22,909 "level": WARN "event": spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning}
+{"timestamp": 2020-01-27 10:51:23,001 "level": INFO "event": Exposing 3 endpoint(s) beneath base path '/actuator'}
+{"timestamp": 2020-01-27 10:51:23,077 "level": INFO "event": Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]}
+{"timestamp": 2020-01-27 10:51:23,177 "level": INFO "event": Initializing ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-27 10:51:23,399 "level": INFO "event": Context refreshed}
+{"timestamp": 2020-01-27 10:51:23,418 "level": INFO "event": Found 1 custom documentation plugin(s)}
+{"timestamp": 2020-01-27 10:51:23,446 "level": INFO "event": Scanning for api listing references}
+{"timestamp": 2020-01-27 10:51:23,582 "level": INFO "event": Generating unique operation named: handleUsingGET_1}
+{"timestamp": 2020-01-27 10:51:23,583 "level": INFO "event": Generating unique operation named: handleUsingGET_2}
+{"timestamp": 2020-01-27 10:51:23,585 "level": INFO "event": Generating unique operation named: handleUsingGET_3}
+{"timestamp": 2020-01-27 10:51:23,594 "level": INFO "event": Generating unique operation named: createUsingPOST_1}
+{"timestamp": 2020-01-27 10:51:23,617 "level": INFO "event": Starting ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-01-27 10:51:23,643 "level": INFO "event": Tomcat started on port(s): 8080 (http) with context path ''}
+{"timestamp": 2020-01-27 10:51:23,647 "level": INFO "event": Started PaymentApplication in 9.618 seconds (JVM running for 9.951)}
+{"timestamp": 2020-01-27 10:51:31,146 "level": INFO "event": Initializing Spring DispatcherServlet 'dispatcherServlet'}
+{"timestamp": 2020-01-27 10:51:31,149 "level": INFO "event": Initializing Servlet 'dispatcherServlet'}
+{"timestamp": 2020-01-27 10:51:31,176 "level": INFO "event": Completed initialization in 26 ms}
+{"timestamp": 2020-01-27 10:56:55,850 "level": INFO "event": Shutting down ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-27 10:56:55,854 "level": INFO "event": Closing JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-01-27 10:56:55,858 "level": INFO "event": HikariPool-1 - Shutdown initiated...}
+{"timestamp": 2020-01-27 10:56:55,866 "level": INFO "event": HikariPool-1 - Shutdown completed.}
+{"timestamp": 2020-01-27 11:28:32,860 "level": INFO "event": Starting PaymentApplication on Dipalis-MacBook-Pro.local with PID 67340 (/Users/dipaliprakashkelkar/Desktop/payment/build/classes/java/main started by dipaliprakashkelkar in /Users/dipaliprakashkelkar/Desktop/payment)}
+{"timestamp": 2020-01-27 11:28:32,864 "level": DEBUG "event": Running with Spring Boot v2.2.1.RELEASE, Spring v5.2.1.RELEASE}
+{"timestamp": 2020-01-27 11:28:32,864 "level": INFO "event": No active profile set, falling back to default profiles: default}
+{"timestamp": 2020-01-27 11:28:33,808 "level": INFO "event": Bootstrapping Spring Data repositories in DEFAULT mode.}
+{"timestamp": 2020-01-27 11:28:33,863 "level": INFO "event": Finished Spring Data repository scanning in 46ms. Found 2 repository interfaces.}
+{"timestamp": 2020-01-27 11:28:34,131 "level": INFO "event": Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)}
+{"timestamp": 2020-01-27 11:28:34,369 "level": INFO "event": Tomcat initialized with port(s): 8080 (http)}
+{"timestamp": 2020-01-27 11:28:34,381 "level": INFO "event": Initializing ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-01-27 11:28:34,381 "level": INFO "event": Starting service [Tomcat]}
+{"timestamp": 2020-01-27 11:28:34,381 "level": INFO "event": Starting Servlet engine: [Apache Tomcat/9.0.27]}
+{"timestamp": 2020-01-27 11:28:34,451 "level": INFO "event": Initializing Spring embedded WebApplicationContext}
+{"timestamp": 2020-01-27 11:28:34,451 "level": INFO "event": Root WebApplicationContext: initialization completed in 1552 ms}
+{"timestamp": 2020-01-27 11:28:34,722 "level": INFO "event": Flyway Community Edition 5.2.3 by Boxfuse}
+{"timestamp": 2020-01-27 11:28:34,725 "level": INFO "event": HikariPool-1 - Starting...}
+{"timestamp": 2020-01-27 11:28:34,788 "level": INFO "event": HikariPool-1 - Start completed.}
+{"timestamp": 2020-01-27 11:28:34,794 "level": INFO "event": Database: jdbc:postgresql://localhost:5432/postgres (PostgreSQL 12.0)}
+{"timestamp": 2020-01-27 11:28:34,800 "level": WARN "event": Flyway upgrade recommended: PostgreSQL 12.0 is newer than this version of Flyway and support has not been tested.}
+{"timestamp": 2020-01-27 11:28:34,842 "level": INFO "event": Successfully validated 2 migrations (execution time 00:00.021s)}
+{"timestamp": 2020-01-27 11:28:34,858 "level": INFO "event": Current version of schema "public": 2}
+{"timestamp": 2020-01-27 11:28:34,860 "level": INFO "event": Schema "public" is up to date. No migration necessary.}
+{"timestamp": 2020-01-27 11:28:34,948 "level": INFO "event": HHH000204: Processing PersistenceUnitInfo [name: default]}
+{"timestamp": 2020-01-27 11:28:35,025 "level": INFO "event": HHH000412: Hibernate Core {5.4.8.Final}}
+{"timestamp": 2020-01-27 11:28:35,158 "level": INFO "event": HCANN000001: Hibernate Commons Annotations {5.1.0.Final}}
+{"timestamp": 2020-01-27 11:28:35,249 "level": INFO "event": HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect}
+{"timestamp": 2020-01-27 11:28:36,049 "level": INFO "event": HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]}
+{"timestamp": 2020-01-27 11:28:36,055 "level": INFO "event": Initialized JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-01-27 11:28:36,487 "level": WARN "event": spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning}
+{"timestamp": 2020-01-27 11:28:36,588 "level": INFO "event": Exposing 3 endpoint(s) beneath base path '/actuator'}
+{"timestamp": 2020-01-27 11:28:36,658 "level": INFO "event": Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]}
+{"timestamp": 2020-01-27 11:28:36,794 "level": INFO "event": Initializing ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-27 11:28:36,986 "level": INFO "event": Context refreshed}
+{"timestamp": 2020-01-27 11:28:37,003 "level": INFO "event": Found 1 custom documentation plugin(s)}
+{"timestamp": 2020-01-27 11:28:37,031 "level": INFO "event": Scanning for api listing references}
+{"timestamp": 2020-01-27 11:28:37,156 "level": INFO "event": Generating unique operation named: handleUsingGET_1}
+{"timestamp": 2020-01-27 11:28:37,162 "level": INFO "event": Generating unique operation named: handleUsingGET_2}
+{"timestamp": 2020-01-27 11:28:37,164 "level": INFO "event": Generating unique operation named: handleUsingGET_3}
+{"timestamp": 2020-01-27 11:28:37,175 "level": INFO "event": Generating unique operation named: createUsingPOST_1}
+{"timestamp": 2020-01-27 11:28:37,199 "level": INFO "event": Starting ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-01-27 11:28:37,227 "level": INFO "event": Tomcat started on port(s): 8080 (http) with context path ''}
+{"timestamp": 2020-01-27 11:28:37,230 "level": INFO "event": Started PaymentApplication in 9.834 seconds (JVM running for 10.255)}
+{"timestamp": 2020-01-27 11:28:42,556 "level": INFO "event": Initializing Spring DispatcherServlet 'dispatcherServlet'}
+{"timestamp": 2020-01-27 11:28:42,557 "level": INFO "event": Initializing Servlet 'dispatcherServlet'}
+{"timestamp": 2020-01-27 11:28:42,563 "level": INFO "event": Completed initialization in 5 ms}
+{"timestamp": 2020-01-27 11:28:47,951 "level": INFO "event": {name:PAYMENTSUCCESSFUL,details:{"PaymentId":1,"BeneficiaryIfscCode":"HDFC1234","PayeeIfscCode":"HDFC1234"}}}
+{"timestamp": 2020-01-27 11:28:50,278 "level": INFO "event": {name:PAYMENTSUCCESSFUL,details:{"PaymentId":2,"BeneficiaryIfscCode":"HDFC1234","PayeeIfscCode":"HDFC1234"}}}
+{"timestamp": 2020-01-27 11:35:42,266 "level": INFO "event": Shutting down ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-01-27 11:35:42,270 "level": INFO "event": Closing JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-01-27 11:35:42,276 "level": INFO "event": HikariPool-1 - Shutdown initiated...}
+{"timestamp": 2020-01-27 11:35:42,283 "level": INFO "event": HikariPool-1 - Shutdown completed.}
