@@ -1,6 +1,6 @@
 package com.thoughtworks.payment;
 
-import com.google.gson.JsonObject;
+import com.thoughtworks.logger.Event;
 import com.thoughtworks.payment.message.PaymentResponse;
 import com.thoughtworks.payment.model.Payment;
 import com.thoughtworks.prometheus.Prometheus;
@@ -16,8 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import static net.logstash.logback.argument.StructuredArguments.v;
 
 @RestController
 @RequestMapping("/payments")
@@ -61,12 +59,11 @@ public class PaymentController {
             long executeTime = endTime - startTime;
             paymentRequestTime.set(executeTime);
         }
-
-        JsonObject logDetails = new JsonObject();
-        logDetails.addProperty("PaymentId", savedPayment.getId());
-        logDetails.addProperty("BeneficiaryIfscCode", savedPayment.getBeneficiaryIfscCode());
-        logDetails.addProperty("PayeeIfscCode", savedPayment.getPayeeIfscCode());
-        logger.info("{name:{},details:{}}", v("name", "PAYMENTSUCCESSFUL"), v("details", logDetails));
+        Event loggerEvent = new Event("PAYMENTSUCCESSFUL", logger);
+        loggerEvent.addProperty("PaymentId", String.valueOf(savedPayment.getId()));
+        loggerEvent.addProperty("BeneficiaryIfscCode", savedPayment.getBeneficiaryIfscCode());
+        loggerEvent.addProperty("PayeeIfscCode", savedPayment.getPayeeIfscCode());
+        loggerEvent.publish();
 
         PaymentResponse response = new PaymentResponse();
         response.setStatusMessage("Payment done successfully");
