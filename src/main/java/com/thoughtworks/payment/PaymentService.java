@@ -1,7 +1,7 @@
 package com.thoughtworks.payment;
 
-import com.google.gson.JsonObject;
 import com.thoughtworks.bankclient.BankClient;
+import com.thoughtworks.logger.ErrorEvent;
 import com.thoughtworks.payment.model.Payment;
 import com.thoughtworks.prometheus.Prometheus;
 import io.micrometer.core.instrument.Counter;
@@ -10,8 +10,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import static net.logstash.logback.argument.StructuredArguments.v;
 
 @Service
 public class PaymentService {
@@ -40,11 +38,12 @@ public class PaymentService {
             if (savedPayment.getStatus().equals("failed")) {
                 paymentFailed.increment();
             }
-            JsonObject logDetails = new JsonObject();
-            logDetails.addProperty("PaymentId", payment.getId());
-            logDetails.addProperty("BeneficiaryIfscCode", payment.getBeneficiaryIfscCode());
-            logDetails.addProperty("PayeeIfscCode", payment.getPayeeIfscCode());
-            logger.info("{name:{},description:{},details:{}}", v("name", "PAYMENTFAILED"), v("description", payment.getBeneficiaryName() + "details are incorrect"), v("details", logDetails));
+
+            ErrorEvent errorEvent = new ErrorEvent("PAYMENTFAILED", payment.getBeneficiaryName() + "'s details are incorrect", logger);
+            errorEvent.addProperty("PaymentId", String.valueOf(payment.getId()));
+            errorEvent.addProperty("BeneficiaryIfscCode", payment.getBeneficiaryIfscCode());
+            errorEvent.addProperty("PayeeIfscCode", payment.getPayeeIfscCode());
+            errorEvent.publish();
 
             throw new BeneficiaryAccountDetailsNotFound("message", payment.getBeneficiaryName() + "'s AccountDetails Not Found");
         }
@@ -55,11 +54,12 @@ public class PaymentService {
             if (savedPayment.getStatus().equals("failed")) {
                 paymentFailed.increment();
             }
-            JsonObject logDetails = new JsonObject();
-            logDetails.addProperty("PaymentId", payment.getId());
-            logDetails.addProperty("BeneficiaryIfscCode", payment.getBeneficiaryIfscCode());
-            logDetails.addProperty("PayeeIfscCode", payment.getPayeeIfscCode());
-            logger.info("{name:{},description:{},details:{}}", v("name", "PAYMENTFAILED"), v("description", payment.getPayeeName() + "details are incorrect"), v("details", logDetails));
+
+            ErrorEvent errorEvent = new ErrorEvent("PAYMENTFAILED", payment.getPayeeName() + "'s details are incorrect", logger);
+            errorEvent.addProperty("PaymentId", String.valueOf(payment.getId()));
+            errorEvent.addProperty("BeneficiaryIfscCode", payment.getBeneficiaryIfscCode());
+            errorEvent.addProperty("PayeeIfscCode", payment.getPayeeIfscCode());
+            errorEvent.publish();
 
             throw new PayeeAccountDetailsNotFound("message", payment.getPayeeName() + "'s AccountDetails Not Found");
         }

@@ -20256,3 +20256,185 @@ java.lang.NullPointerException: null
 {"timestamp": 2020-02-03 16:18:35,911 "level": INFO "event": HikariPool-2 - Shutdown completed.}
 {"timestamp": 2020-02-03 16:18:35,912 "level": INFO "event": HikariPool-1 - Shutdown completed.}
 {"timestamp": 2020-02-03 16:18:35,911 "level": INFO "event": HikariPool-3 - Shutdown completed.}
+{"timestamp": 2020-02-03 16:29:55,541 "level": INFO "event": Starting PaymentApplication on Dipalis-MacBook-Pro.local with PID 15497 (/Users/dipaliprakashkelkar/Desktop/payment/build/classes/java/main started by dipaliprakashkelkar in /Users/dipaliprakashkelkar/Desktop/payment)}
+{"timestamp": 2020-02-03 16:29:55,544 "level": DEBUG "event": Running with Spring Boot v2.2.1.RELEASE, Spring v5.2.1.RELEASE}
+{"timestamp": 2020-02-03 16:29:55,545 "level": INFO "event": No active profile set, falling back to default profiles: default}
+{"timestamp": 2020-02-03 16:29:56,623 "level": INFO "event": RxJava2 related Aspect extensions are not activated, because RxJava2 is not on the classpath.}
+{"timestamp": 2020-02-03 16:29:56,624 "level": INFO "event": Reactor related Aspect extensions are not activated because Reactor is not on the classpath.}
+{"timestamp": 2020-02-03 16:29:56,633 "level": INFO "event": RxJava2 related Aspect extensions are not activated, because RxJava2 is not on the classpath.}
+{"timestamp": 2020-02-03 16:29:56,634 "level": INFO "event": Reactor related Aspect extensions are not activated because Reactor is not on the classpath.}
+{"timestamp": 2020-02-03 16:29:56,667 "level": INFO "event": RxJava2 related Aspect extensions are not activated, because RxJava2 is not on the classpath.}
+{"timestamp": 2020-02-03 16:29:56,668 "level": INFO "event": Reactor related Aspect extensions are not activated because Reactor is not on the classpath.}
+{"timestamp": 2020-02-03 16:29:56,694 "level": INFO "event": RxJava2 related Aspect extensions are not activated, because RxJava2 is not on the classpath.}
+{"timestamp": 2020-02-03 16:29:56,695 "level": INFO "event": Reactor related Aspect extensions are not activated because Reactor is not on the classpath.}
+{"timestamp": 2020-02-03 16:29:56,718 "level": INFO "event": RxJava2 related Aspect extensions are not activated, because RxJava2 is not on the classpath.}
+{"timestamp": 2020-02-03 16:29:56,718 "level": INFO "event": Reactor related Aspect extensions are not activated because Reactor is not on the classpath.}
+{"timestamp": 2020-02-03 16:29:57,053 "level": INFO "event": Bootstrapping Spring Data repositories in DEFAULT mode.}
+{"timestamp": 2020-02-03 16:29:57,128 "level": INFO "event": Finished Spring Data repository scanning in 66ms. Found 2 repository interfaces.}
+{"timestamp": 2020-02-03 16:29:57,705 "level": INFO "event": Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)}
+{"timestamp": 2020-02-03 16:29:58,234 "level": INFO "event": Tomcat initialized with port(s): 8080 (http)}
+{"timestamp": 2020-02-03 16:29:58,258 "level": INFO "event": Initializing ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-02-03 16:29:58,259 "level": INFO "event": Starting service [Tomcat]}
+{"timestamp": 2020-02-03 16:29:58,259 "level": INFO "event": Starting Servlet engine: [Apache Tomcat/9.0.27]}
+{"timestamp": 2020-02-03 16:29:58,417 "level": INFO "event": Initializing Spring embedded WebApplicationContext}
+{"timestamp": 2020-02-03 16:29:58,418 "level": INFO "event": Root WebApplicationContext: initialization completed in 2838 ms}
+{"timestamp": 2020-02-03 16:29:59,504 "level": INFO "event": Flyway Community Edition 5.2.3 by Boxfuse}
+{"timestamp": 2020-02-03 16:29:59,507 "level": INFO "event": HikariPool-1 - Starting...}
+{"timestamp": 2020-02-03 16:29:59,582 "level": INFO "event": HikariPool-1 - Start completed.}
+{"timestamp": 2020-02-03 16:29:59,591 "level": INFO "event": Database: jdbc:postgresql://localhost:5432/postgres (PostgreSQL 12.0)}
+{"timestamp": 2020-02-03 16:29:59,600 "level": WARN "event": Flyway upgrade recommended: PostgreSQL 12.0 is newer than this version of Flyway and support has not been tested.}
+{"timestamp": 2020-02-03 16:29:59,646 "level": INFO "event": Successfully validated 2 migrations (execution time 00:00.020s)}
+{"timestamp": 2020-02-03 16:29:59,667 "level": INFO "event": Current version of schema "public": 2}
+{"timestamp": 2020-02-03 16:29:59,669 "level": INFO "event": Schema "public" is up to date. No migration necessary.}
+{"timestamp": 2020-02-03 16:29:59,760 "level": INFO "event": HHH000204: Processing PersistenceUnitInfo [name: default]}
+{"timestamp": 2020-02-03 16:29:59,840 "level": INFO "event": HHH000412: Hibernate Core {5.4.8.Final}}
+{"timestamp": 2020-02-03 16:29:59,982 "level": INFO "event": HCANN000001: Hibernate Commons Annotations {5.1.0.Final}}
+{"timestamp": 2020-02-03 16:30:00,077 "level": INFO "event": HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect}
+{"timestamp": 2020-02-03 16:30:01,534 "level": INFO "event": HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]}
+{"timestamp": 2020-02-03 16:30:01,553 "level": INFO "event": Initialized JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-02-03 16:30:03,082 "level": WARN "event": spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning}
+{"timestamp": 2020-02-03 16:30:03,362 "level": INFO "event": Exposing 23 endpoint(s) beneath base path '/actuator'}
+{"timestamp": 2020-02-03 16:30:03,647 "level": INFO "event": Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]}
+{"timestamp": 2020-02-03 16:30:04,024 "level": INFO "event": Initializing ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-02-03 16:30:04,449 "level": INFO "event": Context refreshed}
+{"timestamp": 2020-02-03 16:30:04,472 "level": INFO "event": Found 1 custom documentation plugin(s)}
+{"timestamp": 2020-02-03 16:30:04,527 "level": INFO "event": Scanning for api listing references}
+{"timestamp": 2020-02-03 16:30:04,757 "level": INFO "event": Generating unique operation named: handleUsingGET_1}
+{"timestamp": 2020-02-03 16:30:04,759 "level": INFO "event": Generating unique operation named: handleUsingGET_2}
+{"timestamp": 2020-02-03 16:30:04,764 "level": INFO "event": Generating unique operation named: handleUsingGET_3}
+{"timestamp": 2020-02-03 16:30:04,767 "level": INFO "event": Generating unique operation named: handleUsingGET_4}
+{"timestamp": 2020-02-03 16:30:04,768 "level": INFO "event": Generating unique operation named: handleUsingGET_5}
+{"timestamp": 2020-02-03 16:30:04,771 "level": INFO "event": Generating unique operation named: handleUsingGET_6}
+{"timestamp": 2020-02-03 16:30:04,775 "level": INFO "event": Generating unique operation named: handleUsingDELETE_1}
+{"timestamp": 2020-02-03 16:30:04,777 "level": INFO "event": Generating unique operation named: handleUsingGET_7}
+{"timestamp": 2020-02-03 16:30:04,779 "level": INFO "event": Generating unique operation named: handleUsingGET_8}
+{"timestamp": 2020-02-03 16:30:04,782 "level": INFO "event": Generating unique operation named: handleUsingGET_9}
+{"timestamp": 2020-02-03 16:30:04,784 "level": INFO "event": Generating unique operation named: handleUsingGET_10}
+{"timestamp": 2020-02-03 16:30:04,789 "level": INFO "event": Generating unique operation named: handleUsingGET_11}
+{"timestamp": 2020-02-03 16:30:04,790 "level": INFO "event": Generating unique operation named: handleUsingGET_12}
+{"timestamp": 2020-02-03 16:30:04,792 "level": INFO "event": Generating unique operation named: handleUsingGET_13}
+{"timestamp": 2020-02-03 16:30:04,793 "level": INFO "event": Generating unique operation named: handleUsingGET_14}
+{"timestamp": 2020-02-03 16:30:04,794 "level": INFO "event": Generating unique operation named: handleUsingGET_15}
+{"timestamp": 2020-02-03 16:30:04,796 "level": INFO "event": Generating unique operation named: handleUsingGET_16}
+{"timestamp": 2020-02-03 16:30:04,797 "level": INFO "event": Generating unique operation named: handleUsingGET_17}
+{"timestamp": 2020-02-03 16:30:04,800 "level": INFO "event": Generating unique operation named: handleUsingGET_18}
+{"timestamp": 2020-02-03 16:30:04,801 "level": INFO "event": Generating unique operation named: handleUsingGET_19}
+{"timestamp": 2020-02-03 16:30:04,803 "level": INFO "event": Generating unique operation named: handleUsingGET_20}
+{"timestamp": 2020-02-03 16:30:04,804 "level": INFO "event": Generating unique operation named: handleUsingGET_21}
+{"timestamp": 2020-02-03 16:30:04,806 "level": INFO "event": Generating unique operation named: handleUsingGET_22}
+{"timestamp": 2020-02-03 16:30:04,807 "level": INFO "event": Generating unique operation named: handleUsingGET_23}
+{"timestamp": 2020-02-03 16:30:04,808 "level": INFO "event": Generating unique operation named: handleUsingGET_24}
+{"timestamp": 2020-02-03 16:30:04,810 "level": INFO "event": Generating unique operation named: handleUsingGET_25}
+{"timestamp": 2020-02-03 16:30:04,812 "level": INFO "event": Generating unique operation named: handleUsingGET_26}
+{"timestamp": 2020-02-03 16:30:04,814 "level": INFO "event": Generating unique operation named: handleUsingGET_27}
+{"timestamp": 2020-02-03 16:30:04,815 "level": INFO "event": Generating unique operation named: handleUsingGET_28}
+{"timestamp": 2020-02-03 16:30:04,817 "level": INFO "event": Generating unique operation named: handleUsingGET_29}
+{"timestamp": 2020-02-03 16:30:04,818 "level": INFO "event": Generating unique operation named: handleUsingGET_30}
+{"timestamp": 2020-02-03 16:30:04,819 "level": INFO "event": Generating unique operation named: handleUsingGET_31}
+{"timestamp": 2020-02-03 16:30:04,820 "level": INFO "event": Generating unique operation named: handleUsingGET_32}
+{"timestamp": 2020-02-03 16:30:04,821 "level": INFO "event": Generating unique operation named: handleUsingGET_33}
+{"timestamp": 2020-02-03 16:30:04,822 "level": INFO "event": Generating unique operation named: handleUsingGET_34}
+{"timestamp": 2020-02-03 16:30:04,824 "level": INFO "event": Generating unique operation named: handleUsingGET_35}
+{"timestamp": 2020-02-03 16:30:04,833 "level": INFO "event": Generating unique operation named: createUsingPOST_1}
+{"timestamp": 2020-02-03 16:30:04,858 "level": INFO "event": Starting ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-02-03 16:30:04,880 "level": INFO "event": Tomcat started on port(s): 8080 (http) with context path ''}
+{"timestamp": 2020-02-03 16:30:04,884 "level": INFO "event": Started PaymentApplication in 14.835 seconds (JVM running for 15.333)}
+{"timestamp": 2020-02-03 16:30:07,744 "level": INFO "event": Initializing Spring DispatcherServlet 'dispatcherServlet'}
+{"timestamp": 2020-02-03 16:30:07,745 "level": INFO "event": Initializing Servlet 'dispatcherServlet'}
+{"timestamp": 2020-02-03 16:30:07,779 "level": INFO "event": Completed initialization in 34 ms}
+{"timestamp": 2020-02-03 16:30:20,988 "level": INFO "event": {name:PAYMENTFAILED,description:user1details are incorrect,details:{"PaymentId":"36","BeneficiaryIfscCode":"HDFC1234","PayeeIfscCode":"HDFC1234"}}}
+{"timestamp": 2020-02-03 16:31:23,205 "level": INFO "event": Shutting down ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-02-03 16:31:23,208 "level": INFO "event": Closing JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-02-03 16:31:23,211 "level": INFO "event": HikariPool-1 - Shutdown initiated...}
+{"timestamp": 2020-02-03 16:31:23,217 "level": INFO "event": HikariPool-1 - Shutdown completed.}
+{"timestamp": 2020-02-03 16:31:31,328 "level": INFO "event": Starting PaymentApplication on Dipalis-MacBook-Pro.local with PID 15526 (/Users/dipaliprakashkelkar/Desktop/payment/build/classes/java/main started by dipaliprakashkelkar in /Users/dipaliprakashkelkar/Desktop/payment)}
+{"timestamp": 2020-02-03 16:31:31,330 "level": DEBUG "event": Running with Spring Boot v2.2.1.RELEASE, Spring v5.2.1.RELEASE}
+{"timestamp": 2020-02-03 16:31:31,331 "level": INFO "event": No active profile set, falling back to default profiles: default}
+{"timestamp": 2020-02-03 16:31:32,021 "level": INFO "event": RxJava2 related Aspect extensions are not activated, because RxJava2 is not on the classpath.}
+{"timestamp": 2020-02-03 16:31:32,022 "level": INFO "event": Reactor related Aspect extensions are not activated because Reactor is not on the classpath.}
+{"timestamp": 2020-02-03 16:31:32,028 "level": INFO "event": RxJava2 related Aspect extensions are not activated, because RxJava2 is not on the classpath.}
+{"timestamp": 2020-02-03 16:31:32,029 "level": INFO "event": Reactor related Aspect extensions are not activated because Reactor is not on the classpath.}
+{"timestamp": 2020-02-03 16:31:32,041 "level": INFO "event": RxJava2 related Aspect extensions are not activated, because RxJava2 is not on the classpath.}
+{"timestamp": 2020-02-03 16:31:32,041 "level": INFO "event": Reactor related Aspect extensions are not activated because Reactor is not on the classpath.}
+{"timestamp": 2020-02-03 16:31:32,049 "level": INFO "event": RxJava2 related Aspect extensions are not activated, because RxJava2 is not on the classpath.}
+{"timestamp": 2020-02-03 16:31:32,049 "level": INFO "event": Reactor related Aspect extensions are not activated because Reactor is not on the classpath.}
+{"timestamp": 2020-02-03 16:31:32,056 "level": INFO "event": RxJava2 related Aspect extensions are not activated, because RxJava2 is not on the classpath.}
+{"timestamp": 2020-02-03 16:31:32,057 "level": INFO "event": Reactor related Aspect extensions are not activated because Reactor is not on the classpath.}
+{"timestamp": 2020-02-03 16:31:32,247 "level": INFO "event": Bootstrapping Spring Data repositories in DEFAULT mode.}
+{"timestamp": 2020-02-03 16:31:32,325 "level": INFO "event": Finished Spring Data repository scanning in 69ms. Found 2 repository interfaces.}
+{"timestamp": 2020-02-03 16:31:32,617 "level": INFO "event": Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)}
+{"timestamp": 2020-02-03 16:31:33,016 "level": INFO "event": Tomcat initialized with port(s): 8080 (http)}
+{"timestamp": 2020-02-03 16:31:33,024 "level": INFO "event": Initializing ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-02-03 16:31:33,025 "level": INFO "event": Starting service [Tomcat]}
+{"timestamp": 2020-02-03 16:31:33,025 "level": INFO "event": Starting Servlet engine: [Apache Tomcat/9.0.27]}
+{"timestamp": 2020-02-03 16:31:33,097 "level": INFO "event": Initializing Spring embedded WebApplicationContext}
+{"timestamp": 2020-02-03 16:31:33,097 "level": INFO "event": Root WebApplicationContext: initialization completed in 1732 ms}
+{"timestamp": 2020-02-03 16:31:33,820 "level": INFO "event": Flyway Community Edition 5.2.3 by Boxfuse}
+{"timestamp": 2020-02-03 16:31:33,823 "level": INFO "event": HikariPool-1 - Starting...}
+{"timestamp": 2020-02-03 16:31:33,901 "level": INFO "event": HikariPool-1 - Start completed.}
+{"timestamp": 2020-02-03 16:31:33,907 "level": INFO "event": Database: jdbc:postgresql://localhost:5432/postgres (PostgreSQL 12.0)}
+{"timestamp": 2020-02-03 16:31:33,914 "level": WARN "event": Flyway upgrade recommended: PostgreSQL 12.0 is newer than this version of Flyway and support has not been tested.}
+{"timestamp": 2020-02-03 16:31:33,956 "level": INFO "event": Successfully validated 2 migrations (execution time 00:00.019s)}
+{"timestamp": 2020-02-03 16:31:33,977 "level": INFO "event": Current version of schema "public": 2}
+{"timestamp": 2020-02-03 16:31:33,979 "level": INFO "event": Schema "public" is up to date. No migration necessary.}
+{"timestamp": 2020-02-03 16:31:34,067 "level": INFO "event": HHH000204: Processing PersistenceUnitInfo [name: default]}
+{"timestamp": 2020-02-03 16:31:34,139 "level": INFO "event": HHH000412: Hibernate Core {5.4.8.Final}}
+{"timestamp": 2020-02-03 16:31:34,286 "level": INFO "event": HCANN000001: Hibernate Commons Annotations {5.1.0.Final}}
+{"timestamp": 2020-02-03 16:31:34,381 "level": INFO "event": HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect}
+{"timestamp": 2020-02-03 16:31:35,254 "level": INFO "event": HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]}
+{"timestamp": 2020-02-03 16:31:35,260 "level": INFO "event": Initialized JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-02-03 16:31:35,822 "level": WARN "event": spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning}
+{"timestamp": 2020-02-03 16:31:35,986 "level": INFO "event": Exposing 23 endpoint(s) beneath base path '/actuator'}
+{"timestamp": 2020-02-03 16:31:36,093 "level": INFO "event": Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]}
+{"timestamp": 2020-02-03 16:31:36,261 "level": INFO "event": Initializing ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-02-03 16:31:36,564 "level": INFO "event": Context refreshed}
+{"timestamp": 2020-02-03 16:31:36,574 "level": INFO "event": Found 1 custom documentation plugin(s)}
+{"timestamp": 2020-02-03 16:31:36,599 "level": INFO "event": Scanning for api listing references}
+{"timestamp": 2020-02-03 16:31:36,698 "level": INFO "event": Generating unique operation named: handleUsingGET_1}
+{"timestamp": 2020-02-03 16:31:36,700 "level": INFO "event": Generating unique operation named: handleUsingGET_2}
+{"timestamp": 2020-02-03 16:31:36,702 "level": INFO "event": Generating unique operation named: handleUsingGET_3}
+{"timestamp": 2020-02-03 16:31:36,704 "level": INFO "event": Generating unique operation named: handleUsingGET_4}
+{"timestamp": 2020-02-03 16:31:36,705 "level": INFO "event": Generating unique operation named: handleUsingGET_5}
+{"timestamp": 2020-02-03 16:31:36,707 "level": INFO "event": Generating unique operation named: handleUsingGET_6}
+{"timestamp": 2020-02-03 16:31:36,709 "level": INFO "event": Generating unique operation named: handleUsingDELETE_1}
+{"timestamp": 2020-02-03 16:31:36,710 "level": INFO "event": Generating unique operation named: handleUsingGET_7}
+{"timestamp": 2020-02-03 16:31:36,711 "level": INFO "event": Generating unique operation named: handleUsingGET_8}
+{"timestamp": 2020-02-03 16:31:36,713 "level": INFO "event": Generating unique operation named: handleUsingGET_9}
+{"timestamp": 2020-02-03 16:31:36,714 "level": INFO "event": Generating unique operation named: handleUsingGET_10}
+{"timestamp": 2020-02-03 16:31:36,715 "level": INFO "event": Generating unique operation named: handleUsingGET_11}
+{"timestamp": 2020-02-03 16:31:36,717 "level": INFO "event": Generating unique operation named: handleUsingGET_12}
+{"timestamp": 2020-02-03 16:31:36,718 "level": INFO "event": Generating unique operation named: handleUsingGET_13}
+{"timestamp": 2020-02-03 16:31:36,719 "level": INFO "event": Generating unique operation named: handleUsingGET_14}
+{"timestamp": 2020-02-03 16:31:36,720 "level": INFO "event": Generating unique operation named: handleUsingGET_15}
+{"timestamp": 2020-02-03 16:31:36,721 "level": INFO "event": Generating unique operation named: handleUsingGET_16}
+{"timestamp": 2020-02-03 16:31:36,722 "level": INFO "event": Generating unique operation named: handleUsingGET_17}
+{"timestamp": 2020-02-03 16:31:36,723 "level": INFO "event": Generating unique operation named: handleUsingGET_18}
+{"timestamp": 2020-02-03 16:31:36,725 "level": INFO "event": Generating unique operation named: handleUsingGET_19}
+{"timestamp": 2020-02-03 16:31:36,726 "level": INFO "event": Generating unique operation named: handleUsingGET_20}
+{"timestamp": 2020-02-03 16:31:36,728 "level": INFO "event": Generating unique operation named: handleUsingGET_21}
+{"timestamp": 2020-02-03 16:31:36,729 "level": INFO "event": Generating unique operation named: handleUsingGET_22}
+{"timestamp": 2020-02-03 16:31:36,730 "level": INFO "event": Generating unique operation named: handleUsingGET_23}
+{"timestamp": 2020-02-03 16:31:36,731 "level": INFO "event": Generating unique operation named: handleUsingGET_24}
+{"timestamp": 2020-02-03 16:31:36,732 "level": INFO "event": Generating unique operation named: handleUsingGET_25}
+{"timestamp": 2020-02-03 16:31:36,733 "level": INFO "event": Generating unique operation named: handleUsingGET_26}
+{"timestamp": 2020-02-03 16:31:36,734 "level": INFO "event": Generating unique operation named: handleUsingGET_27}
+{"timestamp": 2020-02-03 16:31:36,735 "level": INFO "event": Generating unique operation named: handleUsingGET_28}
+{"timestamp": 2020-02-03 16:31:36,736 "level": INFO "event": Generating unique operation named: handleUsingGET_29}
+{"timestamp": 2020-02-03 16:31:36,737 "level": INFO "event": Generating unique operation named: handleUsingGET_30}
+{"timestamp": 2020-02-03 16:31:36,738 "level": INFO "event": Generating unique operation named: handleUsingGET_31}
+{"timestamp": 2020-02-03 16:31:36,739 "level": INFO "event": Generating unique operation named: handleUsingGET_32}
+{"timestamp": 2020-02-03 16:31:36,740 "level": INFO "event": Generating unique operation named: handleUsingGET_33}
+{"timestamp": 2020-02-03 16:31:36,741 "level": INFO "event": Generating unique operation named: handleUsingGET_34}
+{"timestamp": 2020-02-03 16:31:36,742 "level": INFO "event": Generating unique operation named: handleUsingGET_35}
+{"timestamp": 2020-02-03 16:31:36,751 "level": INFO "event": Generating unique operation named: createUsingPOST_1}
+{"timestamp": 2020-02-03 16:31:36,771 "level": INFO "event": Starting ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-02-03 16:31:36,798 "level": INFO "event": Tomcat started on port(s): 8080 (http) with context path ''}
+{"timestamp": 2020-02-03 16:31:36,805 "level": INFO "event": Started PaymentApplication in 10.872 seconds (JVM running for 11.235)}
+{"timestamp": 2020-02-03 16:31:37,694 "level": INFO "event": Initializing Spring DispatcherServlet 'dispatcherServlet'}
+{"timestamp": 2020-02-03 16:31:37,695 "level": INFO "event": Initializing Servlet 'dispatcherServlet'}
+{"timestamp": 2020-02-03 16:31:37,708 "level": INFO "event": Completed initialization in 13 ms}
+{"timestamp": 2020-02-03 16:31:45,558 "level": INFO "event": {name:PAYMENTFAILED,description:user1's details are incorrect,details:{"PaymentId":"37","BeneficiaryIfscCode":"HDFC1234","PayeeIfscCode":"HDFC1234"}}}
+{"timestamp": 2020-02-03 16:32:22,947 "level": INFO "event": Shutting down ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-02-03 16:32:22,951 "level": INFO "event": Closing JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-02-03 16:32:22,955 "level": INFO "event": HikariPool-1 - Shutdown initiated...}
+{"timestamp": 2020-02-03 16:32:22,963 "level": INFO "event": HikariPool-1 - Shutdown completed.}
