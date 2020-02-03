@@ -9,9 +9,8 @@ import com.thoughtworks.prometheus.Prometheus;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.prometheus.client.CollectorRegistry;
-import io.prometheus.client.Histogram;
+import io.prometheus.client.Gauge;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.autoconfigure.metrics.CompositeMeterRegistryAutoConfiguration;
@@ -54,14 +53,6 @@ public class PaymentControllerTest {
     @MockBean
     Prometheus prometheus;
 
-    private static Histogram histogram;
-
-    @BeforeEach
-    void setUp() {
-        histogram = Histogram.build()
-                .name("histogram").help("time for histogram").register(collectorRegistry);
-    }
-
     @AfterEach
     void tearDown() {
         collectorRegistry.clear();
@@ -93,7 +84,10 @@ public class PaymentControllerTest {
                 .tags("counter", "successful payments")
                 .register(meterRegistry));
 
-        when(prometheus.getHistogram()).thenReturn(histogram);
+        when(prometheus.getPaymentRequestTime()).thenReturn(Gauge.build()
+                .name("payment_Request_Time")
+                .help("calculate time for per payment request")
+                .register(collectorRegistry));
 
         when(paymentService.create(any(Payment.class))).thenReturn(payment);
 
@@ -115,12 +109,12 @@ public class PaymentControllerTest {
         Map<String, String> errors = new HashMap<>();
         errors.put("message", "Beneficiary AccountDetails Not Found");
         ObjectMapper objectMapper = new ObjectMapper();
+
         when(prometheus.getPaymentsCounter()).thenReturn(Counter
                 .builder("paymentService")
                 .description("counter for number of payments")
                 .tags("counter", "number of payments")
                 .register(meterRegistry));
-        when(prometheus.getHistogram()).thenReturn(histogram);
 
         mockMvc.perform(post("/payments")
                 .content("{\"amount\":500," +
@@ -145,8 +139,6 @@ public class PaymentControllerTest {
                 .description("counter for number of payments")
                 .tags("counter", "number of payments")
                 .register(meterRegistry));
-
-        when(prometheus.getHistogram()).thenReturn(histogram);
 
         when(paymentService.create(any(Payment.class))).thenThrow(new PayeeAccountDetailsNotFound("message", "Payee AccountDetails Not Found"));
 
