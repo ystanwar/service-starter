@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import com.thoughtworks.payment.message.PaymentResponse;
 import com.thoughtworks.payment.model.Payment;
 import com.thoughtworks.prometheus.Prometheus;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.prometheus.client.Gauge;
@@ -20,6 +21,7 @@ import static net.logstash.logback.argument.StructuredArguments.v;
 
 @RestController
 @RequestMapping("/payments")
+@CircuitBreaker(name = "service1")
 public class PaymentController {
     @Autowired
     MeterRegistry meterRegistry;
@@ -44,7 +46,7 @@ public class PaymentController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<PaymentResponse> create(@RequestBody PaymentRequest paymentRequest) throws Exception {
-        paymentRequestTime =prometheus.getPaymentRequestTime();
+        paymentRequestTime = prometheus.getPaymentRequestTime();
         long startTime = System.currentTimeMillis();
         paymentsCounter = prometheus.getPaymentsCounter();
         paymentsCounter.increment();

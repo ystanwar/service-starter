@@ -7,4 +7,17 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,info,prometheus
+        include: '*'
+  health:
+    show-details: always
+
+resilience4j.circuitbreaker:
+  instances:
+    service1:
+      registerHealthIndicator: true
+      ringBufferSizeInClosedState: 5
+      ringBufferSizeInHalfOpenState: 3
+      waitDurationInOpenState: 10s
+      failureRateThreshold: 50
+      recordExceptions:
+        - com.thoughtworks.payment.BeneficiaryAccountDetailsNotFound
