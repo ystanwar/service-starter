@@ -3,9 +3,10 @@ package com.thoughtworks.prometheus;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.prometheus.client.CollectorRegistry;
-import io.prometheus.client.Histogram;
+import io.prometheus.client.Gauge;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 @Service
 public class Prometheus {
@@ -13,7 +14,7 @@ public class Prometheus {
     private Counter paymentFailedCounter;
     private Counter paymentsCounter;
     private Counter paymentSuccessCounter;
-    private Histogram histogram;
+    private Gauge paymentRequestTime;
 
     @Autowired
     Prometheus(MeterRegistry meterRegistry,
@@ -36,11 +37,10 @@ public class Prometheus {
                 .tags("counter", "successful payments")
                 .register(meterRegistry);
 
-        histogram = Histogram.build()
-                .name("histogram")
-                .help("time for histogram")
+        paymentRequestTime = Gauge.build()
+                .name("payment_Request_Time")
+                .help("calculate time for per payment request")
                 .register(collectorRegistry);
-
     }
 
     public Counter getPaymentFailedCounter() {
@@ -55,7 +55,7 @@ public class Prometheus {
         return paymentSuccessCounter;
     }
 
-    public Histogram getHistogram() {
-        return histogram;
+    public Gauge getPaymentRequestTime() {
+        return paymentRequestTime;
     }
 }

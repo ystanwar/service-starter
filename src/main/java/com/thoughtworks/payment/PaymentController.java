@@ -6,7 +6,7 @@ import com.thoughtworks.payment.model.Payment;
 import com.thoughtworks.prometheus.Prometheus;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
-import io.prometheus.client.Histogram;
+import io.prometheus.client.Gauge;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.apache.logging.log4j.LogManager;
@@ -24,12 +24,9 @@ public class PaymentController {
     @Autowired
     MeterRegistry meterRegistry;
 
-//    @Autowired
-//    CollectorRegistry collectorRegistry;
-
     private Counter paymentsCounter;
     private Counter paymentSuccessCounter;
-    private Histogram histogram ;
+    private Gauge paymentRequestTime;
 
     @Autowired
     Prometheus prometheus;
@@ -47,9 +44,8 @@ public class PaymentController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<PaymentResponse> create(@RequestBody PaymentRequest paymentRequest) throws Exception {
-        histogram=prometheus.getHistogram();
-
-        Histogram.Timer requestTimer = histogram.startTimer();
+        paymentRequestTime =prometheus.getPaymentRequestTime();
+        long startTime = System.currentTimeMillis();
         paymentsCounter = prometheus.getPaymentsCounter();
         paymentsCounter.increment();
 
@@ -59,8 +55,10 @@ public class PaymentController {
         if (savedPayment.getStatus().equals("success")) {
             paymentSuccessCounter = prometheus.getPaymentSuccessCounter();
             paymentSuccessCounter.increment();
+            long endTime = System.currentTimeMillis();
+            long executeTime = endTime - startTime;
+            paymentRequestTime.set(executeTime);
         }
-        requestTimer.observeDuration();
 
         JsonObject logDetails = new JsonObject();
         logDetails.addProperty("PaymentId", savedPayment.getId());

@@ -14060,3 +14060,724 @@ Hints:
 {"timestamp": 2020-01-29 18:17:16,973 "level": INFO "event": HikariPool-3 - Shutdown completed.}
 {"timestamp": 2020-01-29 18:17:16,974 "level": INFO "event": HikariPool-2 - Shutdown completed.}
 {"timestamp": 2020-01-29 18:17:16,973 "level": INFO "event": HikariPool-1 - Shutdown completed.}
+{"timestamp": 2020-02-03 10:49:00,857 "level": INFO "event": Starting PaymentApplication on Dipalis-MacBook-Pro.local with PID 12333 (/Users/dipaliprakashkelkar/Desktop/payment/build/classes/java/main started by dipaliprakashkelkar in /Users/dipaliprakashkelkar/Desktop/payment)}
+{"timestamp": 2020-02-03 10:49:00,860 "level": DEBUG "event": Running with Spring Boot v2.2.1.RELEASE, Spring v5.2.1.RELEASE}
+{"timestamp": 2020-02-03 10:49:00,860 "level": INFO "event": No active profile set, falling back to default profiles: default}
+{"timestamp": 2020-02-03 10:49:01,824 "level": INFO "event": Bootstrapping Spring Data repositories in DEFAULT mode.}
+{"timestamp": 2020-02-03 10:49:01,871 "level": INFO "event": Finished Spring Data repository scanning in 42ms. Found 2 repository interfaces.}
+{"timestamp": 2020-02-03 10:49:02,105 "level": INFO "event": Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)}
+{"timestamp": 2020-02-03 10:49:02,347 "level": INFO "event": Tomcat initialized with port(s): 8080 (http)}
+{"timestamp": 2020-02-03 10:49:02,358 "level": INFO "event": Initializing ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-02-03 10:49:02,359 "level": INFO "event": Starting service [Tomcat]}
+{"timestamp": 2020-02-03 10:49:02,359 "level": INFO "event": Starting Servlet engine: [Apache Tomcat/9.0.27]}
+{"timestamp": 2020-02-03 10:49:02,435 "level": INFO "event": Initializing Spring embedded WebApplicationContext}
+{"timestamp": 2020-02-03 10:49:02,436 "level": INFO "event": Root WebApplicationContext: initialization completed in 1544 ms}
+{"timestamp": 2020-02-03 10:49:02,703 "level": INFO "event": Flyway Community Edition 5.2.3 by Boxfuse}
+{"timestamp": 2020-02-03 10:49:02,705 "level": INFO "event": HikariPool-1 - Starting...}
+{"timestamp": 2020-02-03 10:49:02,798 "level": INFO "event": HikariPool-1 - Start completed.}
+{"timestamp": 2020-02-03 10:49:02,803 "level": INFO "event": Database: jdbc:postgresql://localhost:5432/postgres (PostgreSQL 12.0)}
+{"timestamp": 2020-02-03 10:49:02,825 "level": WARN "event": Flyway upgrade recommended: PostgreSQL 12.0 is newer than this version of Flyway and support has not been tested.}
+{"timestamp": 2020-02-03 10:49:02,898 "level": INFO "event": Successfully validated 2 migrations (execution time 00:00.017s)}
+{"timestamp": 2020-02-03 10:49:02,949 "level": WARN "event": Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/autoconfigure/flyway/FlywayAutoConfiguration$FlywayConfiguration.class]: Invocation of init method failed; nested exception is org.flywaydb.core.api.FlywayException: Found non-empty schema(s) "public" without schema history table! Use baseline() or set baselineOnMigrate to true to initialize the schema history table.}
+{"timestamp": 2020-02-03 10:49:02,950 "level": INFO "event": HikariPool-1 - Shutdown initiated...}
+{"timestamp": 2020-02-03 10:49:02,964 "level": INFO "event": HikariPool-1 - Shutdown completed.}
+{"timestamp": 2020-02-03 10:49:02,968 "level": INFO "event": Stopping service [Tomcat]}
+{"timestamp": 2020-02-03 10:49:02,982 "level": INFO "event": 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.}
+{"timestamp": 2020-02-03 10:49:02,989 "level": ERROR "event": Application run failed}
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/autoconfigure/flyway/FlywayAutoConfiguration$FlywayConfiguration.class]: Invocation of init method failed; nested exception is org.flywaydb.core.api.FlywayException: Found non-empty schema(s) "public" without schema history table! Use baseline() or set baselineOnMigrate to true to initialize the schema history table.
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1803)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:595)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:310)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1108)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:868)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:550)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:141)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:747)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1226)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1215)
+	at com.thoughtworks.PaymentApplication.main(PaymentApplication.java:11)
+Caused by: org.flywaydb.core.api.FlywayException: Found non-empty schema(s) "public" without schema history table! Use baseline() or set baselineOnMigrate to true to initialize the schema history table.
+	at org.flywaydb.core.Flyway$1.execute(Flyway.java:1383)
+	at org.flywaydb.core.Flyway$1.execute(Flyway.java:1353)
+	at org.flywaydb.core.Flyway.execute(Flyway.java:1708)
+	at org.flywaydb.core.Flyway.migrate(Flyway.java:1353)
+	at org.springframework.boot.autoconfigure.flyway.FlywayMigrationInitializer.afterPropertiesSet(FlywayMigrationInitializer.java:65)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1862)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1799)
+	... 18 common frames omitted
+{"timestamp": 2020-02-03 10:51:11,626 "level": INFO "event": Starting PaymentApplication on Dipalis-MacBook-Pro.local with PID 12419 (/Users/dipaliprakashkelkar/Desktop/payment/build/classes/java/main started by dipaliprakashkelkar in /Users/dipaliprakashkelkar/Desktop/payment)}
+{"timestamp": 2020-02-03 10:51:11,629 "level": DEBUG "event": Running with Spring Boot v2.2.1.RELEASE, Spring v5.2.1.RELEASE}
+{"timestamp": 2020-02-03 10:51:11,630 "level": INFO "event": No active profile set, falling back to default profiles: default}
+{"timestamp": 2020-02-03 10:51:12,728 "level": INFO "event": Bootstrapping Spring Data repositories in DEFAULT mode.}
+{"timestamp": 2020-02-03 10:51:12,830 "level": INFO "event": Finished Spring Data repository scanning in 89ms. Found 2 repository interfaces.}
+{"timestamp": 2020-02-03 10:51:13,138 "level": INFO "event": Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)}
+{"timestamp": 2020-02-03 10:51:13,370 "level": INFO "event": Tomcat initialized with port(s): 8080 (http)}
+{"timestamp": 2020-02-03 10:51:13,377 "level": INFO "event": Initializing ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-02-03 10:51:13,378 "level": INFO "event": Starting service [Tomcat]}
+{"timestamp": 2020-02-03 10:51:13,378 "level": INFO "event": Starting Servlet engine: [Apache Tomcat/9.0.27]}
+{"timestamp": 2020-02-03 10:51:13,507 "level": INFO "event": Initializing Spring embedded WebApplicationContext}
+{"timestamp": 2020-02-03 10:51:13,507 "level": INFO "event": Root WebApplicationContext: initialization completed in 1839 ms}
+{"timestamp": 2020-02-03 10:51:13,779 "level": INFO "event": Flyway Community Edition 5.2.3 by Boxfuse}
+{"timestamp": 2020-02-03 10:51:13,782 "level": INFO "event": HikariPool-1 - Starting...}
+{"timestamp": 2020-02-03 10:51:13,853 "level": INFO "event": HikariPool-1 - Start completed.}
+{"timestamp": 2020-02-03 10:51:13,858 "level": INFO "event": Database: jdbc:postgresql://localhost:5432/postgres (PostgreSQL 12.0)}
+{"timestamp": 2020-02-03 10:51:13,866 "level": WARN "event": Flyway upgrade recommended: PostgreSQL 12.0 is newer than this version of Flyway and support has not been tested.}
+{"timestamp": 2020-02-03 10:51:13,912 "level": INFO "event": Successfully validated 2 migrations (execution time 00:00.016s)}
+{"timestamp": 2020-02-03 10:51:13,942 "level": INFO "event": Creating Schema History table: "public"."flyway_schema_history"}
+{"timestamp": 2020-02-03 10:51:13,988 "level": INFO "event": Current version of schema "public": << Empty Schema >>}
+{"timestamp": 2020-02-03 10:51:13,989 "level": INFO "event": Migrating schema "public" to version 1 - payment Table}
+{"timestamp": 2020-02-03 10:51:14,038 "level": INFO "event": Migrating schema "public" to version 2 - bank info Table}
+{"timestamp": 2020-02-03 10:51:14,078 "level": INFO "event": Successfully applied 2 migrations to schema "public" (execution time 00:00.145s)}
+{"timestamp": 2020-02-03 10:51:14,163 "level": INFO "event": HHH000204: Processing PersistenceUnitInfo [name: default]}
+{"timestamp": 2020-02-03 10:51:14,232 "level": INFO "event": HHH000412: Hibernate Core {5.4.8.Final}}
+{"timestamp": 2020-02-03 10:51:14,356 "level": INFO "event": HCANN000001: Hibernate Commons Annotations {5.1.0.Final}}
+{"timestamp": 2020-02-03 10:51:14,471 "level": INFO "event": HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect}
+{"timestamp": 2020-02-03 10:51:15,823 "level": INFO "event": HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]}
+{"timestamp": 2020-02-03 10:51:15,831 "level": INFO "event": Initialized JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-02-03 10:51:16,504 "level": WARN "event": spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning}
+{"timestamp": 2020-02-03 10:51:16,617 "level": INFO "event": Exposing 3 endpoint(s) beneath base path '/actuator'}
+{"timestamp": 2020-02-03 10:51:16,684 "level": INFO "event": Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]}
+{"timestamp": 2020-02-03 10:51:16,788 "level": INFO "event": Initializing ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-02-03 10:51:17,086 "level": INFO "event": Context refreshed}
+{"timestamp": 2020-02-03 10:51:17,116 "level": INFO "event": Found 1 custom documentation plugin(s)}
+{"timestamp": 2020-02-03 10:51:17,153 "level": INFO "event": Scanning for api listing references}
+{"timestamp": 2020-02-03 10:51:17,369 "level": INFO "event": Generating unique operation named: handleUsingGET_1}
+{"timestamp": 2020-02-03 10:51:17,371 "level": INFO "event": Generating unique operation named: handleUsingGET_2}
+{"timestamp": 2020-02-03 10:51:17,373 "level": INFO "event": Generating unique operation named: handleUsingGET_3}
+{"timestamp": 2020-02-03 10:51:17,386 "level": INFO "event": Generating unique operation named: createUsingPOST_1}
+{"timestamp": 2020-02-03 10:51:17,418 "level": INFO "event": Starting ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-02-03 10:51:17,482 "level": INFO "event": Tomcat started on port(s): 8080 (http) with context path ''}
+{"timestamp": 2020-02-03 10:51:17,491 "level": INFO "event": Started PaymentApplication in 11.34 seconds (JVM running for 11.809)}
+{"timestamp": 2020-02-03 10:51:27,291 "level": INFO "event": Initializing Spring DispatcherServlet 'dispatcherServlet'}
+{"timestamp": 2020-02-03 10:51:27,292 "level": INFO "event": Initializing Servlet 'dispatcherServlet'}
+{"timestamp": 2020-02-03 10:51:27,298 "level": INFO "event": Completed initialization in 6 ms}
+{"timestamp": 2020-02-03 10:52:41,423 "level": INFO "event": {name:PAYMENTSUCCESSFUL,details:{"PaymentId":1,"BeneficiaryIfscCode":"HDFC1234","PayeeIfscCode":"HDFC1234"}}}
+{"timestamp": 2020-02-03 10:53:15,216 "level": ERROR "event": Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.IllegalArgumentException: Collector already registered that provides name: java_my_gauge] with root cause}
+java.lang.IllegalArgumentException: Collector already registered that provides name: java_my_gauge
+	at io.prometheus.client.CollectorRegistry.register(CollectorRegistry.java:54)
+	at io.prometheus.client.SimpleCollector$Builder.register(SimpleCollector.java:246)
+	at io.prometheus.client.SimpleCollector$Builder.register(SimpleCollector.java:238)
+	at com.thoughtworks.payment.PaymentController.create(PaymentController.java:53)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:888)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:793)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:660)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter.doFilterInternal(WebMvcMetricsFilter.java:108)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:526)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:861)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1579)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+{"timestamp": 2020-02-03 10:54:18,105 "level": INFO "event": Shutting down ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-02-03 10:54:18,109 "level": INFO "event": Closing JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-02-03 10:54:18,112 "level": INFO "event": HikariPool-1 - Shutdown initiated...}
+{"timestamp": 2020-02-03 10:54:18,121 "level": INFO "event": HikariPool-1 - Shutdown completed.}
+{"timestamp": 2020-02-03 10:54:27,438 "level": INFO "event": Starting PaymentApplication on Dipalis-MacBook-Pro.local with PID 12514 (/Users/dipaliprakashkelkar/Desktop/payment/build/classes/java/main started by dipaliprakashkelkar in /Users/dipaliprakashkelkar/Desktop/payment)}
+{"timestamp": 2020-02-03 10:54:27,441 "level": DEBUG "event": Running with Spring Boot v2.2.1.RELEASE, Spring v5.2.1.RELEASE}
+{"timestamp": 2020-02-03 10:54:27,441 "level": INFO "event": No active profile set, falling back to default profiles: default}
+{"timestamp": 2020-02-03 10:54:28,415 "level": INFO "event": Bootstrapping Spring Data repositories in DEFAULT mode.}
+{"timestamp": 2020-02-03 10:54:28,537 "level": INFO "event": Finished Spring Data repository scanning in 105ms. Found 2 repository interfaces.}
+{"timestamp": 2020-02-03 10:54:28,943 "level": INFO "event": Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)}
+{"timestamp": 2020-02-03 10:54:29,159 "level": INFO "event": Tomcat initialized with port(s): 8080 (http)}
+{"timestamp": 2020-02-03 10:54:29,167 "level": INFO "event": Initializing ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-02-03 10:54:29,168 "level": INFO "event": Starting service [Tomcat]}
+{"timestamp": 2020-02-03 10:54:29,168 "level": INFO "event": Starting Servlet engine: [Apache Tomcat/9.0.27]}
+{"timestamp": 2020-02-03 10:54:29,252 "level": INFO "event": Initializing Spring embedded WebApplicationContext}
+{"timestamp": 2020-02-03 10:54:29,252 "level": INFO "event": Root WebApplicationContext: initialization completed in 1764 ms}
+{"timestamp": 2020-02-03 10:54:29,525 "level": INFO "event": Flyway Community Edition 5.2.3 by Boxfuse}
+{"timestamp": 2020-02-03 10:54:29,529 "level": INFO "event": HikariPool-1 - Starting...}
+{"timestamp": 2020-02-03 10:54:29,613 "level": INFO "event": HikariPool-1 - Start completed.}
+{"timestamp": 2020-02-03 10:54:29,619 "level": INFO "event": Database: jdbc:postgresql://localhost:5432/postgres (PostgreSQL 12.0)}
+{"timestamp": 2020-02-03 10:54:29,626 "level": WARN "event": Flyway upgrade recommended: PostgreSQL 12.0 is newer than this version of Flyway and support has not been tested.}
+{"timestamp": 2020-02-03 10:54:29,681 "level": INFO "event": Successfully validated 2 migrations (execution time 00:00.029s)}
+{"timestamp": 2020-02-03 10:54:29,705 "level": INFO "event": Current version of schema "public": 2}
+{"timestamp": 2020-02-03 10:54:29,707 "level": INFO "event": Schema "public" is up to date. No migration necessary.}
+{"timestamp": 2020-02-03 10:54:29,779 "level": INFO "event": HHH000204: Processing PersistenceUnitInfo [name: default]}
+{"timestamp": 2020-02-03 10:54:29,853 "level": INFO "event": HHH000412: Hibernate Core {5.4.8.Final}}
+{"timestamp": 2020-02-03 10:54:29,972 "level": INFO "event": HCANN000001: Hibernate Commons Annotations {5.1.0.Final}}
+{"timestamp": 2020-02-03 10:54:30,073 "level": INFO "event": HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect}
+{"timestamp": 2020-02-03 10:54:31,102 "level": INFO "event": HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]}
+{"timestamp": 2020-02-03 10:54:31,107 "level": INFO "event": Initialized JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-02-03 10:54:31,650 "level": WARN "event": spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning}
+{"timestamp": 2020-02-03 10:54:31,776 "level": INFO "event": Exposing 3 endpoint(s) beneath base path '/actuator'}
+{"timestamp": 2020-02-03 10:54:31,857 "level": INFO "event": Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]}
+{"timestamp": 2020-02-03 10:54:32,135 "level": INFO "event": Initializing ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-02-03 10:54:32,665 "level": INFO "event": Context refreshed}
+{"timestamp": 2020-02-03 10:54:32,709 "level": INFO "event": Found 1 custom documentation plugin(s)}
+{"timestamp": 2020-02-03 10:54:32,761 "level": INFO "event": Scanning for api listing references}
+{"timestamp": 2020-02-03 10:54:32,978 "level": INFO "event": Generating unique operation named: handleUsingGET_1}
+{"timestamp": 2020-02-03 10:54:32,981 "level": INFO "event": Generating unique operation named: handleUsingGET_2}
+{"timestamp": 2020-02-03 10:54:32,984 "level": INFO "event": Generating unique operation named: handleUsingGET_3}
+{"timestamp": 2020-02-03 10:54:32,996 "level": INFO "event": Generating unique operation named: createUsingPOST_1}
+{"timestamp": 2020-02-03 10:54:33,058 "level": INFO "event": Starting ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-02-03 10:54:33,109 "level": INFO "event": Tomcat started on port(s): 8080 (http) with context path ''}
+{"timestamp": 2020-02-03 10:54:33,126 "level": INFO "event": Started PaymentApplication in 11.115 seconds (JVM running for 11.508)}
+{"timestamp": 2020-02-03 10:54:33,926 "level": INFO "event": Initializing Spring DispatcherServlet 'dispatcherServlet'}
+{"timestamp": 2020-02-03 10:54:33,926 "level": INFO "event": Initializing Servlet 'dispatcherServlet'}
+{"timestamp": 2020-02-03 10:54:33,931 "level": INFO "event": Completed initialization in 5 ms}
+{"timestamp": 2020-02-03 10:54:36,936 "level": INFO "event": {name:PAYMENTSUCCESSFUL,details:{"PaymentId":2,"BeneficiaryIfscCode":"HDFC1234","PayeeIfscCode":"HDFC1234"}}}
+{"timestamp": 2020-02-03 10:56:25,292 "level": INFO "event": Shutting down ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-02-03 10:56:25,295 "level": INFO "event": Closing JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-02-03 10:56:25,298 "level": INFO "event": HikariPool-1 - Shutdown initiated...}
+{"timestamp": 2020-02-03 10:56:25,306 "level": INFO "event": HikariPool-1 - Shutdown completed.}
+{"timestamp": 2020-02-03 10:56:34,102 "level": INFO "event": Starting PaymentApplication on Dipalis-MacBook-Pro.local with PID 12542 (/Users/dipaliprakashkelkar/Desktop/payment/build/classes/java/main started by dipaliprakashkelkar in /Users/dipaliprakashkelkar/Desktop/payment)}
+{"timestamp": 2020-02-03 10:56:34,104 "level": DEBUG "event": Running with Spring Boot v2.2.1.RELEASE, Spring v5.2.1.RELEASE}
+{"timestamp": 2020-02-03 10:56:34,105 "level": INFO "event": No active profile set, falling back to default profiles: default}
+{"timestamp": 2020-02-03 10:56:35,054 "level": INFO "event": Bootstrapping Spring Data repositories in DEFAULT mode.}
+{"timestamp": 2020-02-03 10:56:35,127 "level": INFO "event": Finished Spring Data repository scanning in 61ms. Found 2 repository interfaces.}
+{"timestamp": 2020-02-03 10:56:35,376 "level": INFO "event": Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)}
+{"timestamp": 2020-02-03 10:56:35,570 "level": INFO "event": Tomcat initialized with port(s): 8080 (http)}
+{"timestamp": 2020-02-03 10:56:35,578 "level": INFO "event": Initializing ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-02-03 10:56:35,579 "level": INFO "event": Starting service [Tomcat]}
+{"timestamp": 2020-02-03 10:56:35,579 "level": INFO "event": Starting Servlet engine: [Apache Tomcat/9.0.27]}
+{"timestamp": 2020-02-03 10:56:35,666 "level": INFO "event": Initializing Spring embedded WebApplicationContext}
+{"timestamp": 2020-02-03 10:56:35,666 "level": INFO "event": Root WebApplicationContext: initialization completed in 1525 ms}
+{"timestamp": 2020-02-03 10:56:35,945 "level": INFO "event": Flyway Community Edition 5.2.3 by Boxfuse}
+{"timestamp": 2020-02-03 10:56:35,949 "level": INFO "event": HikariPool-1 - Starting...}
+{"timestamp": 2020-02-03 10:56:36,022 "level": INFO "event": HikariPool-1 - Start completed.}
+{"timestamp": 2020-02-03 10:56:36,027 "level": INFO "event": Database: jdbc:postgresql://localhost:5432/postgres (PostgreSQL 12.0)}
+{"timestamp": 2020-02-03 10:56:36,034 "level": WARN "event": Flyway upgrade recommended: PostgreSQL 12.0 is newer than this version of Flyway and support has not been tested.}
+{"timestamp": 2020-02-03 10:56:36,078 "level": INFO "event": Successfully validated 2 migrations (execution time 00:00.018s)}
+{"timestamp": 2020-02-03 10:56:36,108 "level": INFO "event": Current version of schema "public": 2}
+{"timestamp": 2020-02-03 10:56:36,110 "level": INFO "event": Schema "public" is up to date. No migration necessary.}
+{"timestamp": 2020-02-03 10:56:36,190 "level": INFO "event": HHH000204: Processing PersistenceUnitInfo [name: default]}
+{"timestamp": 2020-02-03 10:56:36,252 "level": INFO "event": HHH000412: Hibernate Core {5.4.8.Final}}
+{"timestamp": 2020-02-03 10:56:36,383 "level": INFO "event": HCANN000001: Hibernate Commons Annotations {5.1.0.Final}}
+{"timestamp": 2020-02-03 10:56:36,488 "level": INFO "event": HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect}
+{"timestamp": 2020-02-03 10:56:37,502 "level": INFO "event": HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]}
+{"timestamp": 2020-02-03 10:56:37,508 "level": INFO "event": Initialized JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-02-03 10:56:37,940 "level": WARN "event": spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning}
+{"timestamp": 2020-02-03 10:56:38,029 "level": INFO "event": Exposing 3 endpoint(s) beneath base path '/actuator'}
+{"timestamp": 2020-02-03 10:56:38,096 "level": INFO "event": Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]}
+{"timestamp": 2020-02-03 10:56:38,193 "level": INFO "event": Initializing ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-02-03 10:56:38,408 "level": INFO "event": Context refreshed}
+{"timestamp": 2020-02-03 10:56:38,433 "level": INFO "event": Found 1 custom documentation plugin(s)}
+{"timestamp": 2020-02-03 10:56:38,468 "level": INFO "event": Scanning for api listing references}
+{"timestamp": 2020-02-03 10:56:38,621 "level": INFO "event": Generating unique operation named: handleUsingGET_1}
+{"timestamp": 2020-02-03 10:56:38,624 "level": INFO "event": Generating unique operation named: handleUsingGET_2}
+{"timestamp": 2020-02-03 10:56:38,625 "level": INFO "event": Generating unique operation named: handleUsingGET_3}
+{"timestamp": 2020-02-03 10:56:38,635 "level": INFO "event": Generating unique operation named: createUsingPOST_1}
+{"timestamp": 2020-02-03 10:56:38,658 "level": INFO "event": Starting ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-02-03 10:56:38,681 "level": INFO "event": Tomcat started on port(s): 8080 (http) with context path ''}
+{"timestamp": 2020-02-03 10:56:38,688 "level": INFO "event": Started PaymentApplication in 9.988 seconds (JVM running for 10.36)}
+{"timestamp": 2020-02-03 10:56:48,926 "level": INFO "event": Initializing Spring DispatcherServlet 'dispatcherServlet'}
+{"timestamp": 2020-02-03 10:56:48,927 "level": INFO "event": Initializing Servlet 'dispatcherServlet'}
+{"timestamp": 2020-02-03 10:56:48,933 "level": INFO "event": Completed initialization in 6 ms}
+{"timestamp": 2020-02-03 10:57:08,424 "level": INFO "event": Shutting down ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-02-03 10:57:08,427 "level": INFO "event": Closing JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-02-03 10:57:08,429 "level": INFO "event": HikariPool-1 - Shutdown initiated...}
+{"timestamp": 2020-02-03 10:57:08,437 "level": INFO "event": HikariPool-1 - Shutdown completed.}
+{"timestamp": 2020-02-03 10:57:16,704 "level": INFO "event": Starting PaymentApplication on Dipalis-MacBook-Pro.local with PID 12570 (/Users/dipaliprakashkelkar/Desktop/payment/build/classes/java/main started by dipaliprakashkelkar in /Users/dipaliprakashkelkar/Desktop/payment)}
+{"timestamp": 2020-02-03 10:57:16,706 "level": DEBUG "event": Running with Spring Boot v2.2.1.RELEASE, Spring v5.2.1.RELEASE}
+{"timestamp": 2020-02-03 10:57:16,707 "level": INFO "event": No active profile set, falling back to default profiles: default}
+{"timestamp": 2020-02-03 10:57:17,617 "level": INFO "event": Bootstrapping Spring Data repositories in DEFAULT mode.}
+{"timestamp": 2020-02-03 10:57:17,681 "level": INFO "event": Finished Spring Data repository scanning in 53ms. Found 2 repository interfaces.}
+{"timestamp": 2020-02-03 10:57:17,957 "level": INFO "event": Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)}
+{"timestamp": 2020-02-03 10:57:18,191 "level": INFO "event": Tomcat initialized with port(s): 8080 (http)}
+{"timestamp": 2020-02-03 10:57:18,202 "level": INFO "event": Initializing ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-02-03 10:57:18,203 "level": INFO "event": Starting service [Tomcat]}
+{"timestamp": 2020-02-03 10:57:18,203 "level": INFO "event": Starting Servlet engine: [Apache Tomcat/9.0.27]}
+{"timestamp": 2020-02-03 10:57:18,268 "level": INFO "event": Initializing Spring embedded WebApplicationContext}
+{"timestamp": 2020-02-03 10:57:18,268 "level": INFO "event": Root WebApplicationContext: initialization completed in 1518 ms}
+{"timestamp": 2020-02-03 10:57:18,551 "level": INFO "event": Flyway Community Edition 5.2.3 by Boxfuse}
+{"timestamp": 2020-02-03 10:57:18,554 "level": INFO "event": HikariPool-1 - Starting...}
+{"timestamp": 2020-02-03 10:57:18,628 "level": INFO "event": HikariPool-1 - Start completed.}
+{"timestamp": 2020-02-03 10:57:18,638 "level": INFO "event": Database: jdbc:postgresql://localhost:5432/postgres (PostgreSQL 12.0)}
+{"timestamp": 2020-02-03 10:57:18,649 "level": WARN "event": Flyway upgrade recommended: PostgreSQL 12.0 is newer than this version of Flyway and support has not been tested.}
+{"timestamp": 2020-02-03 10:57:18,693 "level": INFO "event": Successfully validated 2 migrations (execution time 00:00.018s)}
+{"timestamp": 2020-02-03 10:57:18,713 "level": INFO "event": Current version of schema "public": 2}
+{"timestamp": 2020-02-03 10:57:18,715 "level": INFO "event": Schema "public" is up to date. No migration necessary.}
+{"timestamp": 2020-02-03 10:57:18,796 "level": INFO "event": HHH000204: Processing PersistenceUnitInfo [name: default]}
+{"timestamp": 2020-02-03 10:57:18,867 "level": INFO "event": HHH000412: Hibernate Core {5.4.8.Final}}
+{"timestamp": 2020-02-03 10:57:18,990 "level": INFO "event": HCANN000001: Hibernate Commons Annotations {5.1.0.Final}}
+{"timestamp": 2020-02-03 10:57:19,074 "level": INFO "event": HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect}
+{"timestamp": 2020-02-03 10:57:19,976 "level": INFO "event": HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]}
+{"timestamp": 2020-02-03 10:57:19,981 "level": INFO "event": Initialized JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-02-03 10:57:20,398 "level": WARN "event": spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning}
+{"timestamp": 2020-02-03 10:57:20,486 "level": INFO "event": Exposing 3 endpoint(s) beneath base path '/actuator'}
+{"timestamp": 2020-02-03 10:57:20,551 "level": INFO "event": Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]}
+{"timestamp": 2020-02-03 10:57:20,681 "level": INFO "event": Initializing ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-02-03 10:57:20,862 "level": INFO "event": Context refreshed}
+{"timestamp": 2020-02-03 10:57:20,880 "level": INFO "event": Found 1 custom documentation plugin(s)}
+{"timestamp": 2020-02-03 10:57:20,902 "level": INFO "event": Scanning for api listing references}
+{"timestamp": 2020-02-03 10:57:21,022 "level": INFO "event": Generating unique operation named: handleUsingGET_1}
+{"timestamp": 2020-02-03 10:57:21,024 "level": INFO "event": Generating unique operation named: handleUsingGET_2}
+{"timestamp": 2020-02-03 10:57:21,025 "level": INFO "event": Generating unique operation named: handleUsingGET_3}
+{"timestamp": 2020-02-03 10:57:21,036 "level": INFO "event": Generating unique operation named: createUsingPOST_1}
+{"timestamp": 2020-02-03 10:57:21,066 "level": INFO "event": Starting ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-02-03 10:57:21,090 "level": INFO "event": Tomcat started on port(s): 8080 (http) with context path ''}
+{"timestamp": 2020-02-03 10:57:21,094 "level": INFO "event": Started PaymentApplication in 9.806 seconds (JVM running for 10.151)}
+{"timestamp": 2020-02-03 10:57:33,927 "level": INFO "event": Initializing Spring DispatcherServlet 'dispatcherServlet'}
+{"timestamp": 2020-02-03 10:57:33,928 "level": INFO "event": Initializing Servlet 'dispatcherServlet'}
+{"timestamp": 2020-02-03 10:57:33,934 "level": INFO "event": Completed initialization in 5 ms}
+{"timestamp": 2020-02-03 10:58:28,213 "level": INFO "event": {name:PAYMENTSUCCESSFUL,details:{"PaymentId":3,"BeneficiaryIfscCode":"HDFC1234","PayeeIfscCode":"HDFC1234"}}}
+{"timestamp": 2020-02-03 10:58:56,659 "level": ERROR "event": Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.IllegalArgumentException: Collector already registered that provides name: java_my_gauge] with root cause}
+java.lang.IllegalArgumentException: Collector already registered that provides name: java_my_gauge
+	at io.prometheus.client.CollectorRegistry.register(CollectorRegistry.java:54)
+	at io.prometheus.client.SimpleCollector$Builder.register(SimpleCollector.java:246)
+	at io.prometheus.client.SimpleCollector$Builder.register(SimpleCollector.java:238)
+	at com.thoughtworks.payment.PaymentController.create(PaymentController.java:53)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:888)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:793)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:660)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter.doFilterInternal(WebMvcMetricsFilter.java:108)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:526)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:861)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1579)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+{"timestamp": 2020-02-03 10:59:02,446 "level": INFO "event": Shutting down ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-02-03 10:59:02,449 "level": INFO "event": Closing JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-02-03 10:59:02,451 "level": INFO "event": HikariPool-1 - Shutdown initiated...}
+{"timestamp": 2020-02-03 10:59:02,459 "level": INFO "event": HikariPool-1 - Shutdown completed.}
+{"timestamp": 2020-02-03 10:59:13,554 "level": INFO "event": Starting PaymentApplication on Dipalis-MacBook-Pro.local with PID 12623 (/Users/dipaliprakashkelkar/Desktop/payment/build/classes/java/main started by dipaliprakashkelkar in /Users/dipaliprakashkelkar/Desktop/payment)}
+{"timestamp": 2020-02-03 10:59:13,557 "level": DEBUG "event": Running with Spring Boot v2.2.1.RELEASE, Spring v5.2.1.RELEASE}
+{"timestamp": 2020-02-03 10:59:13,557 "level": INFO "event": No active profile set, falling back to default profiles: default}
+{"timestamp": 2020-02-03 10:59:14,496 "level": INFO "event": Bootstrapping Spring Data repositories in DEFAULT mode.}
+{"timestamp": 2020-02-03 10:59:14,565 "level": INFO "event": Finished Spring Data repository scanning in 57ms. Found 2 repository interfaces.}
+{"timestamp": 2020-02-03 10:59:14,834 "level": INFO "event": Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)}
+{"timestamp": 2020-02-03 10:59:15,033 "level": INFO "event": Tomcat initialized with port(s): 8080 (http)}
+{"timestamp": 2020-02-03 10:59:15,041 "level": INFO "event": Initializing ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-02-03 10:59:15,042 "level": INFO "event": Starting service [Tomcat]}
+{"timestamp": 2020-02-03 10:59:15,042 "level": INFO "event": Starting Servlet engine: [Apache Tomcat/9.0.27]}
+{"timestamp": 2020-02-03 10:59:15,141 "level": INFO "event": Initializing Spring embedded WebApplicationContext}
+{"timestamp": 2020-02-03 10:59:15,141 "level": INFO "event": Root WebApplicationContext: initialization completed in 1538 ms}
+{"timestamp": 2020-02-03 10:59:15,410 "level": INFO "event": Flyway Community Edition 5.2.3 by Boxfuse}
+{"timestamp": 2020-02-03 10:59:15,414 "level": INFO "event": HikariPool-1 - Starting...}
+{"timestamp": 2020-02-03 10:59:15,487 "level": INFO "event": HikariPool-1 - Start completed.}
+{"timestamp": 2020-02-03 10:59:15,495 "level": INFO "event": Database: jdbc:postgresql://localhost:5432/postgres (PostgreSQL 12.0)}
+{"timestamp": 2020-02-03 10:59:15,507 "level": WARN "event": Flyway upgrade recommended: PostgreSQL 12.0 is newer than this version of Flyway and support has not been tested.}
+{"timestamp": 2020-02-03 10:59:15,551 "level": INFO "event": Successfully validated 2 migrations (execution time 00:00.020s)}
+{"timestamp": 2020-02-03 10:59:15,574 "level": INFO "event": Current version of schema "public": 2}
+{"timestamp": 2020-02-03 10:59:15,576 "level": INFO "event": Schema "public" is up to date. No migration necessary.}
+{"timestamp": 2020-02-03 10:59:15,660 "level": INFO "event": HHH000204: Processing PersistenceUnitInfo [name: default]}
+{"timestamp": 2020-02-03 10:59:15,734 "level": INFO "event": HHH000412: Hibernate Core {5.4.8.Final}}
+{"timestamp": 2020-02-03 10:59:15,884 "level": INFO "event": HCANN000001: Hibernate Commons Annotations {5.1.0.Final}}
+{"timestamp": 2020-02-03 10:59:15,978 "level": INFO "event": HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect}
+{"timestamp": 2020-02-03 10:59:16,844 "level": INFO "event": HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]}
+{"timestamp": 2020-02-03 10:59:16,849 "level": INFO "event": Initialized JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-02-03 10:59:17,261 "level": WARN "event": spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning}
+{"timestamp": 2020-02-03 10:59:17,359 "level": INFO "event": Exposing 3 endpoint(s) beneath base path '/actuator'}
+{"timestamp": 2020-02-03 10:59:17,426 "level": INFO "event": Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]}
+{"timestamp": 2020-02-03 10:59:17,517 "level": INFO "event": Initializing ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-02-03 10:59:17,729 "level": INFO "event": Context refreshed}
+{"timestamp": 2020-02-03 10:59:17,746 "level": INFO "event": Found 1 custom documentation plugin(s)}
+{"timestamp": 2020-02-03 10:59:17,767 "level": INFO "event": Scanning for api listing references}
+{"timestamp": 2020-02-03 10:59:17,886 "level": INFO "event": Generating unique operation named: handleUsingGET_1}
+{"timestamp": 2020-02-03 10:59:17,888 "level": INFO "event": Generating unique operation named: handleUsingGET_2}
+{"timestamp": 2020-02-03 10:59:17,889 "level": INFO "event": Generating unique operation named: handleUsingGET_3}
+{"timestamp": 2020-02-03 10:59:17,902 "level": INFO "event": Generating unique operation named: createUsingPOST_1}
+{"timestamp": 2020-02-03 10:59:17,930 "level": INFO "event": Starting ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-02-03 10:59:17,953 "level": INFO "event": Tomcat started on port(s): 8080 (http) with context path ''}
+{"timestamp": 2020-02-03 10:59:17,956 "level": INFO "event": Started PaymentApplication in 9.837 seconds (JVM running for 10.227)}
+{"timestamp": 2020-02-03 10:59:18,929 "level": INFO "event": Initializing Spring DispatcherServlet 'dispatcherServlet'}
+{"timestamp": 2020-02-03 10:59:18,930 "level": INFO "event": Initializing Servlet 'dispatcherServlet'}
+{"timestamp": 2020-02-03 10:59:18,936 "level": INFO "event": Completed initialization in 6 ms}
+{"timestamp": 2020-02-03 10:59:26,562 "level": INFO "event": {name:PAYMENTSUCCESSFUL,details:{"PaymentId":4,"BeneficiaryIfscCode":"HDFC1234","PayeeIfscCode":"HDFC1234"}}}
+{"timestamp": 2020-02-03 10:59:38,758 "level": INFO "event": Shutting down ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-02-03 10:59:38,760 "level": INFO "event": Closing JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-02-03 10:59:38,762 "level": INFO "event": HikariPool-1 - Shutdown initiated...}
+{"timestamp": 2020-02-03 10:59:38,771 "level": INFO "event": HikariPool-1 - Shutdown completed.}
+{"timestamp": 2020-02-03 10:59:48,117 "level": INFO "event": Starting PaymentApplication on Dipalis-MacBook-Pro.local with PID 12648 (/Users/dipaliprakashkelkar/Desktop/payment/build/classes/java/main started by dipaliprakashkelkar in /Users/dipaliprakashkelkar/Desktop/payment)}
+{"timestamp": 2020-02-03 10:59:48,119 "level": DEBUG "event": Running with Spring Boot v2.2.1.RELEASE, Spring v5.2.1.RELEASE}
+{"timestamp": 2020-02-03 10:59:48,120 "level": INFO "event": No active profile set, falling back to default profiles: default}
+{"timestamp": 2020-02-03 10:59:48,982 "level": INFO "event": Bootstrapping Spring Data repositories in DEFAULT mode.}
+{"timestamp": 2020-02-03 10:59:49,059 "level": INFO "event": Finished Spring Data repository scanning in 67ms. Found 2 repository interfaces.}
+{"timestamp": 2020-02-03 10:59:49,297 "level": INFO "event": Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)}
+{"timestamp": 2020-02-03 10:59:49,498 "level": INFO "event": Tomcat initialized with port(s): 8080 (http)}
+{"timestamp": 2020-02-03 10:59:49,506 "level": INFO "event": Initializing ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-02-03 10:59:49,507 "level": INFO "event": Starting service [Tomcat]}
+{"timestamp": 2020-02-03 10:59:49,507 "level": INFO "event": Starting Servlet engine: [Apache Tomcat/9.0.27]}
+{"timestamp": 2020-02-03 10:59:49,598 "level": INFO "event": Initializing Spring embedded WebApplicationContext}
+{"timestamp": 2020-02-03 10:59:49,599 "level": INFO "event": Root WebApplicationContext: initialization completed in 1451 ms}
+{"timestamp": 2020-02-03 10:59:49,857 "level": INFO "event": Flyway Community Edition 5.2.3 by Boxfuse}
+{"timestamp": 2020-02-03 10:59:49,859 "level": INFO "event": HikariPool-1 - Starting...}
+{"timestamp": 2020-02-03 10:59:49,925 "level": INFO "event": HikariPool-1 - Start completed.}
+{"timestamp": 2020-02-03 10:59:49,930 "level": INFO "event": Database: jdbc:postgresql://localhost:5432/postgres (PostgreSQL 12.0)}
+{"timestamp": 2020-02-03 10:59:49,936 "level": WARN "event": Flyway upgrade recommended: PostgreSQL 12.0 is newer than this version of Flyway and support has not been tested.}
+{"timestamp": 2020-02-03 10:59:49,975 "level": INFO "event": Successfully validated 2 migrations (execution time 00:00.017s)}
+{"timestamp": 2020-02-03 10:59:49,998 "level": INFO "event": Current version of schema "public": 2}
+{"timestamp": 2020-02-03 10:59:50,003 "level": INFO "event": Schema "public" is up to date. No migration necessary.}
+{"timestamp": 2020-02-03 10:59:50,079 "level": INFO "event": HHH000204: Processing PersistenceUnitInfo [name: default]}
+{"timestamp": 2020-02-03 10:59:50,134 "level": INFO "event": HHH000412: Hibernate Core {5.4.8.Final}}
+{"timestamp": 2020-02-03 10:59:50,223 "level": INFO "event": HCANN000001: Hibernate Commons Annotations {5.1.0.Final}}
+{"timestamp": 2020-02-03 10:59:50,297 "level": INFO "event": HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect}
+{"timestamp": 2020-02-03 10:59:51,131 "level": INFO "event": HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]}
+{"timestamp": 2020-02-03 10:59:51,136 "level": INFO "event": Initialized JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-02-03 10:59:51,491 "level": WARN "event": spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning}
+{"timestamp": 2020-02-03 10:59:51,601 "level": INFO "event": Exposing 3 endpoint(s) beneath base path '/actuator'}
+{"timestamp": 2020-02-03 10:59:51,660 "level": INFO "event": Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]}
+{"timestamp": 2020-02-03 10:59:51,759 "level": INFO "event": Initializing ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-02-03 10:59:51,958 "level": INFO "event": Context refreshed}
+{"timestamp": 2020-02-03 10:59:51,968 "level": INFO "event": Found 1 custom documentation plugin(s)}
+{"timestamp": 2020-02-03 10:59:51,986 "level": INFO "event": Scanning for api listing references}
+{"timestamp": 2020-02-03 10:59:52,099 "level": INFO "event": Generating unique operation named: handleUsingGET_1}
+{"timestamp": 2020-02-03 10:59:52,105 "level": INFO "event": Generating unique operation named: handleUsingGET_2}
+{"timestamp": 2020-02-03 10:59:52,111 "level": INFO "event": Generating unique operation named: handleUsingGET_3}
+{"timestamp": 2020-02-03 10:59:52,122 "level": INFO "event": Generating unique operation named: createUsingPOST_1}
+{"timestamp": 2020-02-03 10:59:52,146 "level": INFO "event": Starting ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-02-03 10:59:52,183 "level": INFO "event": Tomcat started on port(s): 8080 (http) with context path ''}
+{"timestamp": 2020-02-03 10:59:52,196 "level": INFO "event": Started PaymentApplication in 9.446 seconds (JVM running for 9.757)}
+{"timestamp": 2020-02-03 10:59:56,911 "level": INFO "event": Initializing Spring DispatcherServlet 'dispatcherServlet'}
+{"timestamp": 2020-02-03 10:59:56,912 "level": INFO "event": Initializing Servlet 'dispatcherServlet'}
+{"timestamp": 2020-02-03 10:59:56,919 "level": INFO "event": Completed initialization in 7 ms}
+{"timestamp": 2020-02-03 10:59:57,588 "level": INFO "event": {name:PAYMENTSUCCESSFUL,details:{"PaymentId":5,"BeneficiaryIfscCode":"HDFC1234","PayeeIfscCode":"HDFC1234"}}}
+{"timestamp": 2020-02-03 11:01:46,495 "level": ERROR "event": Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.IllegalArgumentException: Collector already registered that provides name: java_my_gauge] with root cause}
+java.lang.IllegalArgumentException: Collector already registered that provides name: java_my_gauge
+	at io.prometheus.client.CollectorRegistry.register(CollectorRegistry.java:54)
+	at io.prometheus.client.SimpleCollector$Builder.register(SimpleCollector.java:246)
+	at io.prometheus.client.SimpleCollector$Builder.register(SimpleCollector.java:238)
+	at com.thoughtworks.payment.PaymentController.create(PaymentController.java:53)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:888)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:793)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:660)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter.doFilterInternal(WebMvcMetricsFilter.java:108)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:526)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:861)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1579)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+{"timestamp": 2020-02-03 11:06:12,555 "level": INFO "event": Shutting down ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-02-03 11:06:12,557 "level": INFO "event": Closing JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-02-03 11:06:12,559 "level": INFO "event": HikariPool-1 - Shutdown initiated...}
+{"timestamp": 2020-02-03 11:06:12,563 "level": INFO "event": HikariPool-1 - Shutdown completed.}
+{"timestamp": 2020-02-03 11:06:21,351 "level": INFO "event": Starting PaymentApplication on Dipalis-MacBook-Pro.local with PID 12696 (/Users/dipaliprakashkelkar/Desktop/payment/build/classes/java/main started by dipaliprakashkelkar in /Users/dipaliprakashkelkar/Desktop/payment)}
+{"timestamp": 2020-02-03 11:06:21,353 "level": DEBUG "event": Running with Spring Boot v2.2.1.RELEASE, Spring v5.2.1.RELEASE}
+{"timestamp": 2020-02-03 11:06:21,354 "level": INFO "event": No active profile set, falling back to default profiles: default}
+{"timestamp": 2020-02-03 11:06:22,229 "level": INFO "event": Bootstrapping Spring Data repositories in DEFAULT mode.}
+{"timestamp": 2020-02-03 11:06:22,288 "level": INFO "event": Finished Spring Data repository scanning in 50ms. Found 2 repository interfaces.}
+{"timestamp": 2020-02-03 11:06:22,551 "level": INFO "event": Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)}
+{"timestamp": 2020-02-03 11:06:22,760 "level": INFO "event": Tomcat initialized with port(s): 8080 (http)}
+{"timestamp": 2020-02-03 11:06:22,768 "level": INFO "event": Initializing ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-02-03 11:06:22,768 "level": INFO "event": Starting service [Tomcat]}
+{"timestamp": 2020-02-03 11:06:22,768 "level": INFO "event": Starting Servlet engine: [Apache Tomcat/9.0.27]}
+{"timestamp": 2020-02-03 11:06:22,858 "level": INFO "event": Initializing Spring embedded WebApplicationContext}
+{"timestamp": 2020-02-03 11:06:22,859 "level": INFO "event": Root WebApplicationContext: initialization completed in 1471 ms}
+{"timestamp": 2020-02-03 11:06:23,129 "level": INFO "event": Flyway Community Edition 5.2.3 by Boxfuse}
+{"timestamp": 2020-02-03 11:06:23,130 "level": INFO "event": HikariPool-1 - Starting...}
+{"timestamp": 2020-02-03 11:06:23,202 "level": INFO "event": HikariPool-1 - Start completed.}
+{"timestamp": 2020-02-03 11:06:23,208 "level": INFO "event": Database: jdbc:postgresql://localhost:5432/postgres (PostgreSQL 12.0)}
+{"timestamp": 2020-02-03 11:06:23,216 "level": WARN "event": Flyway upgrade recommended: PostgreSQL 12.0 is newer than this version of Flyway and support has not been tested.}
+{"timestamp": 2020-02-03 11:06:23,266 "level": INFO "event": Successfully validated 2 migrations (execution time 00:00.021s)}
+{"timestamp": 2020-02-03 11:06:23,284 "level": INFO "event": Current version of schema "public": 2}
+{"timestamp": 2020-02-03 11:06:23,286 "level": INFO "event": Schema "public" is up to date. No migration necessary.}
+{"timestamp": 2020-02-03 11:06:23,358 "level": INFO "event": HHH000204: Processing PersistenceUnitInfo [name: default]}
+{"timestamp": 2020-02-03 11:06:23,412 "level": INFO "event": HHH000412: Hibernate Core {5.4.8.Final}}
+{"timestamp": 2020-02-03 11:06:23,529 "level": INFO "event": HCANN000001: Hibernate Commons Annotations {5.1.0.Final}}
+{"timestamp": 2020-02-03 11:06:23,621 "level": INFO "event": HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect}
+{"timestamp": 2020-02-03 11:06:24,489 "level": INFO "event": HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]}
+{"timestamp": 2020-02-03 11:06:24,493 "level": INFO "event": Initialized JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-02-03 11:06:24,918 "level": WARN "event": spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning}
+{"timestamp": 2020-02-03 11:06:25,010 "level": INFO "event": Exposing 3 endpoint(s) beneath base path '/actuator'}
+{"timestamp": 2020-02-03 11:06:25,082 "level": INFO "event": Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]}
+{"timestamp": 2020-02-03 11:06:25,175 "level": INFO "event": Initializing ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-02-03 11:06:25,390 "level": INFO "event": Context refreshed}
+{"timestamp": 2020-02-03 11:06:25,406 "level": INFO "event": Found 1 custom documentation plugin(s)}
+{"timestamp": 2020-02-03 11:06:25,431 "level": INFO "event": Scanning for api listing references}
+{"timestamp": 2020-02-03 11:06:25,553 "level": INFO "event": Generating unique operation named: handleUsingGET_1}
+{"timestamp": 2020-02-03 11:06:25,555 "level": INFO "event": Generating unique operation named: handleUsingGET_2}
+{"timestamp": 2020-02-03 11:06:25,556 "level": INFO "event": Generating unique operation named: handleUsingGET_3}
+{"timestamp": 2020-02-03 11:06:25,566 "level": INFO "event": Generating unique operation named: createUsingPOST_1}
+{"timestamp": 2020-02-03 11:06:25,589 "level": INFO "event": Starting ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-02-03 11:06:25,614 "level": INFO "event": Tomcat started on port(s): 8080 (http) with context path ''}
+{"timestamp": 2020-02-03 11:06:25,618 "level": INFO "event": Started PaymentApplication in 10.043 seconds (JVM running for 10.631)}
+{"timestamp": 2020-02-03 11:06:30,878 "level": INFO "event": Initializing Spring DispatcherServlet 'dispatcherServlet'}
+{"timestamp": 2020-02-03 11:06:30,880 "level": INFO "event": Initializing Servlet 'dispatcherServlet'}
+{"timestamp": 2020-02-03 11:06:30,890 "level": INFO "event": Completed initialization in 9 ms}
+{"timestamp": 2020-02-03 11:06:31,559 "level": INFO "event": {name:PAYMENTSUCCESSFUL,details:{"PaymentId":6,"BeneficiaryIfscCode":"HDFC1234","PayeeIfscCode":"HDFC1234"}}}
+{"timestamp": 2020-02-03 11:06:32,688 "level": INFO "event": {name:PAYMENTSUCCESSFUL,details:{"PaymentId":7,"BeneficiaryIfscCode":"HDFC1234","PayeeIfscCode":"HDFC1234"}}}
+{"timestamp": 2020-02-03 11:07:14,944 "level": INFO "event": {name:PAYMENTSUCCESSFUL,details:{"PaymentId":8,"BeneficiaryIfscCode":"HDFC1234","PayeeIfscCode":"HDFC1234"}}}
+{"timestamp": 2020-02-03 11:08:50,379 "level": INFO "event": Shutting down ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-02-03 11:08:50,382 "level": INFO "event": Closing JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-02-03 11:08:50,385 "level": INFO "event": HikariPool-1 - Shutdown initiated...}
+{"timestamp": 2020-02-03 11:08:50,392 "level": INFO "event": HikariPool-1 - Shutdown completed.}
+{"timestamp": 2020-02-03 11:08:59,253 "level": INFO "event": Starting PaymentApplication on Dipalis-MacBook-Pro.local with PID 12740 (/Users/dipaliprakashkelkar/Desktop/payment/build/classes/java/main started by dipaliprakashkelkar in /Users/dipaliprakashkelkar/Desktop/payment)}
+{"timestamp": 2020-02-03 11:08:59,255 "level": DEBUG "event": Running with Spring Boot v2.2.1.RELEASE, Spring v5.2.1.RELEASE}
+{"timestamp": 2020-02-03 11:08:59,255 "level": INFO "event": No active profile set, falling back to default profiles: default}
+{"timestamp": 2020-02-03 11:09:00,136 "level": INFO "event": Bootstrapping Spring Data repositories in DEFAULT mode.}
+{"timestamp": 2020-02-03 11:09:00,206 "level": INFO "event": Finished Spring Data repository scanning in 61ms. Found 2 repository interfaces.}
+{"timestamp": 2020-02-03 11:09:00,438 "level": INFO "event": Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)}
+{"timestamp": 2020-02-03 11:09:00,632 "level": INFO "event": Tomcat initialized with port(s): 8080 (http)}
+{"timestamp": 2020-02-03 11:09:00,640 "level": INFO "event": Initializing ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-02-03 11:09:00,641 "level": INFO "event": Starting service [Tomcat]}
+{"timestamp": 2020-02-03 11:09:00,641 "level": INFO "event": Starting Servlet engine: [Apache Tomcat/9.0.27]}
+{"timestamp": 2020-02-03 11:09:00,724 "level": INFO "event": Initializing Spring embedded WebApplicationContext}
+{"timestamp": 2020-02-03 11:09:00,725 "level": INFO "event": Root WebApplicationContext: initialization completed in 1430 ms}
+{"timestamp": 2020-02-03 11:09:00,997 "level": INFO "event": Flyway Community Edition 5.2.3 by Boxfuse}
+{"timestamp": 2020-02-03 11:09:00,999 "level": INFO "event": HikariPool-1 - Starting...}
+{"timestamp": 2020-02-03 11:09:01,078 "level": INFO "event": HikariPool-1 - Start completed.}
+{"timestamp": 2020-02-03 11:09:01,084 "level": INFO "event": Database: jdbc:postgresql://localhost:5432/postgres (PostgreSQL 12.0)}
+{"timestamp": 2020-02-03 11:09:01,092 "level": WARN "event": Flyway upgrade recommended: PostgreSQL 12.0 is newer than this version of Flyway and support has not been tested.}
+{"timestamp": 2020-02-03 11:09:01,135 "level": INFO "event": Successfully validated 2 migrations (execution time 00:00.019s)}
+{"timestamp": 2020-02-03 11:09:01,158 "level": INFO "event": Current version of schema "public": 2}
+{"timestamp": 2020-02-03 11:09:01,163 "level": INFO "event": Schema "public" is up to date. No migration necessary.}
+{"timestamp": 2020-02-03 11:09:01,235 "level": INFO "event": HHH000204: Processing PersistenceUnitInfo [name: default]}
+{"timestamp": 2020-02-03 11:09:01,293 "level": INFO "event": HHH000412: Hibernate Core {5.4.8.Final}}
+{"timestamp": 2020-02-03 11:09:01,410 "level": INFO "event": HCANN000001: Hibernate Commons Annotations {5.1.0.Final}}
+{"timestamp": 2020-02-03 11:09:01,491 "level": INFO "event": HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect}
+{"timestamp": 2020-02-03 11:09:02,341 "level": INFO "event": HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]}
+{"timestamp": 2020-02-03 11:09:02,346 "level": INFO "event": Initialized JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-02-03 11:09:02,744 "level": WARN "event": spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning}
+{"timestamp": 2020-02-03 11:09:02,842 "level": INFO "event": Exposing 3 endpoint(s) beneath base path '/actuator'}
+{"timestamp": 2020-02-03 11:09:02,904 "level": INFO "event": Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]}
+{"timestamp": 2020-02-03 11:09:02,994 "level": INFO "event": Initializing ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-02-03 11:09:03,200 "level": INFO "event": Context refreshed}
+{"timestamp": 2020-02-03 11:09:03,215 "level": INFO "event": Found 1 custom documentation plugin(s)}
+{"timestamp": 2020-02-03 11:09:03,236 "level": INFO "event": Scanning for api listing references}
+{"timestamp": 2020-02-03 11:09:03,354 "level": INFO "event": Generating unique operation named: handleUsingGET_1}
+{"timestamp": 2020-02-03 11:09:03,356 "level": INFO "event": Generating unique operation named: handleUsingGET_2}
+{"timestamp": 2020-02-03 11:09:03,361 "level": INFO "event": Generating unique operation named: handleUsingGET_3}
+{"timestamp": 2020-02-03 11:09:03,372 "level": INFO "event": Generating unique operation named: createUsingPOST_1}
+{"timestamp": 2020-02-03 11:09:03,395 "level": INFO "event": Starting ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-02-03 11:09:03,417 "level": INFO "event": Tomcat started on port(s): 8080 (http) with context path ''}
+{"timestamp": 2020-02-03 11:09:03,421 "level": INFO "event": Started PaymentApplication in 9.55 seconds (JVM running for 9.869)}
+{"timestamp": 2020-02-03 11:09:03,942 "level": INFO "event": Initializing Spring DispatcherServlet 'dispatcherServlet'}
+{"timestamp": 2020-02-03 11:09:03,942 "level": INFO "event": Initializing Servlet 'dispatcherServlet'}
+{"timestamp": 2020-02-03 11:09:03,948 "level": INFO "event": Completed initialization in 5 ms}
+{"timestamp": 2020-02-03 11:09:32,478 "level": INFO "event": {name:PAYMENTSUCCESSFUL,details:{"PaymentId":9,"BeneficiaryIfscCode":"HDFC1234","PayeeIfscCode":"HDFC1234"}}}
+{"timestamp": 2020-02-03 11:09:33,439 "level": INFO "event": {name:PAYMENTSUCCESSFUL,details:{"PaymentId":10,"BeneficiaryIfscCode":"HDFC1234","PayeeIfscCode":"HDFC1234"}}}
+{"timestamp": 2020-02-03 11:10:35,041 "level": INFO "event": {name:PAYMENTSUCCESSFUL,details:{"PaymentId":11,"BeneficiaryIfscCode":"HDFC1234","PayeeIfscCode":"HDFC1234"}}}
+{"timestamp": 2020-02-03 11:21:18,531 "level": INFO "event": Shutting down ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-02-03 11:21:18,535 "level": INFO "event": Closing JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-02-03 11:21:18,538 "level": INFO "event": HikariPool-1 - Shutdown initiated...}
+{"timestamp": 2020-02-03 11:21:18,550 "level": INFO "event": HikariPool-1 - Shutdown completed.}
+{"timestamp": 2020-02-03 11:21:27,637 "level": INFO "event": Starting PaymentApplication on Dipalis-MacBook-Pro.local with PID 12855 (/Users/dipaliprakashkelkar/Desktop/payment/build/classes/java/main started by dipaliprakashkelkar in /Users/dipaliprakashkelkar/Desktop/payment)}
+{"timestamp": 2020-02-03 11:21:27,641 "level": DEBUG "event": Running with Spring Boot v2.2.1.RELEASE, Spring v5.2.1.RELEASE}
+{"timestamp": 2020-02-03 11:21:27,641 "level": INFO "event": No active profile set, falling back to default profiles: default}
+{"timestamp": 2020-02-03 11:21:28,569 "level": INFO "event": Bootstrapping Spring Data repositories in DEFAULT mode.}
+{"timestamp": 2020-02-03 11:21:28,638 "level": INFO "event": Finished Spring Data repository scanning in 59ms. Found 2 repository interfaces.}
+{"timestamp": 2020-02-03 11:21:28,878 "level": INFO "event": Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)}
+{"timestamp": 2020-02-03 11:21:29,074 "level": INFO "event": Tomcat initialized with port(s): 8080 (http)}
+{"timestamp": 2020-02-03 11:21:29,094 "level": INFO "event": Initializing ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-02-03 11:21:29,094 "level": INFO "event": Starting service [Tomcat]}
+{"timestamp": 2020-02-03 11:21:29,095 "level": INFO "event": Starting Servlet engine: [Apache Tomcat/9.0.27]}
+{"timestamp": 2020-02-03 11:21:29,172 "level": INFO "event": Initializing Spring embedded WebApplicationContext}
+{"timestamp": 2020-02-03 11:21:29,172 "level": INFO "event": Root WebApplicationContext: initialization completed in 1495 ms}
+{"timestamp": 2020-02-03 11:21:29,437 "level": INFO "event": Flyway Community Edition 5.2.3 by Boxfuse}
+{"timestamp": 2020-02-03 11:21:29,439 "level": INFO "event": HikariPool-1 - Starting...}
+{"timestamp": 2020-02-03 11:21:29,512 "level": INFO "event": HikariPool-1 - Start completed.}
+{"timestamp": 2020-02-03 11:21:29,518 "level": INFO "event": Database: jdbc:postgresql://localhost:5432/postgres (PostgreSQL 12.0)}
+{"timestamp": 2020-02-03 11:21:29,526 "level": WARN "event": Flyway upgrade recommended: PostgreSQL 12.0 is newer than this version of Flyway and support has not been tested.}
+{"timestamp": 2020-02-03 11:21:29,577 "level": INFO "event": Successfully validated 2 migrations (execution time 00:00.020s)}
+{"timestamp": 2020-02-03 11:21:29,598 "level": INFO "event": Current version of schema "public": 2}
+{"timestamp": 2020-02-03 11:21:29,600 "level": INFO "event": Schema "public" is up to date. No migration necessary.}
+{"timestamp": 2020-02-03 11:21:29,678 "level": INFO "event": HHH000204: Processing PersistenceUnitInfo [name: default]}
+{"timestamp": 2020-02-03 11:21:29,729 "level": INFO "event": HHH000412: Hibernate Core {5.4.8.Final}}
+{"timestamp": 2020-02-03 11:21:29,853 "level": INFO "event": HCANN000001: Hibernate Commons Annotations {5.1.0.Final}}
+{"timestamp": 2020-02-03 11:21:29,932 "level": INFO "event": HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect}
+{"timestamp": 2020-02-03 11:21:30,830 "level": INFO "event": HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]}
+{"timestamp": 2020-02-03 11:21:30,835 "level": INFO "event": Initialized JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-02-03 11:21:31,285 "level": WARN "event": spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning}
+{"timestamp": 2020-02-03 11:21:31,700 "level": INFO "event": Exposing 3 endpoint(s) beneath base path '/actuator'}
+{"timestamp": 2020-02-03 11:21:31,939 "level": INFO "event": Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]}
+{"timestamp": 2020-02-03 11:21:32,255 "level": INFO "event": Initializing ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-02-03 11:21:32,545 "level": INFO "event": Context refreshed}
+{"timestamp": 2020-02-03 11:21:32,562 "level": INFO "event": Found 1 custom documentation plugin(s)}
+{"timestamp": 2020-02-03 11:21:32,585 "level": INFO "event": Scanning for api listing references}
+{"timestamp": 2020-02-03 11:21:32,741 "level": INFO "event": Generating unique operation named: handleUsingGET_1}
+{"timestamp": 2020-02-03 11:21:32,745 "level": INFO "event": Generating unique operation named: handleUsingGET_2}
+{"timestamp": 2020-02-03 11:21:32,748 "level": INFO "event": Generating unique operation named: handleUsingGET_3}
+{"timestamp": 2020-02-03 11:21:32,764 "level": INFO "event": Generating unique operation named: createUsingPOST_1}
+{"timestamp": 2020-02-03 11:21:32,794 "level": INFO "event": Starting ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-02-03 11:21:32,818 "level": INFO "event": Tomcat started on port(s): 8080 (http) with context path ''}
+{"timestamp": 2020-02-03 11:21:32,822 "level": INFO "event": Started PaymentApplication in 10.577 seconds (JVM running for 10.916)}
+{"timestamp": 2020-02-03 11:21:33,872 "level": INFO "event": Initializing Spring DispatcherServlet 'dispatcherServlet'}
+{"timestamp": 2020-02-03 11:21:33,873 "level": INFO "event": Initializing Servlet 'dispatcherServlet'}
+{"timestamp": 2020-02-03 11:21:33,881 "level": INFO "event": Completed initialization in 7 ms}
+{"timestamp": 2020-02-03 11:21:34,484 "level": INFO "event": {name:PAYMENTSUCCESSFUL,details:{"PaymentId":12,"BeneficiaryIfscCode":"HDFC1234","PayeeIfscCode":"HDFC1234"}}}
+{"timestamp": 2020-02-03 11:26:46,081 "level": INFO "event": Shutting down ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-02-03 11:26:46,084 "level": INFO "event": Closing JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-02-03 11:26:46,087 "level": INFO "event": HikariPool-1 - Shutdown initiated...}
+{"timestamp": 2020-02-03 11:26:46,094 "level": INFO "event": HikariPool-1 - Shutdown completed.}
+{"timestamp": 2020-02-03 11:26:54,345 "level": INFO "event": Starting PaymentApplication on Dipalis-MacBook-Pro.local with PID 12883 (/Users/dipaliprakashkelkar/Desktop/payment/build/classes/java/main started by dipaliprakashkelkar in /Users/dipaliprakashkelkar/Desktop/payment)}
+{"timestamp": 2020-02-03 11:26:54,347 "level": DEBUG "event": Running with Spring Boot v2.2.1.RELEASE, Spring v5.2.1.RELEASE}
+{"timestamp": 2020-02-03 11:26:54,347 "level": INFO "event": No active profile set, falling back to default profiles: default}
+{"timestamp": 2020-02-03 11:26:55,206 "level": INFO "event": Bootstrapping Spring Data repositories in DEFAULT mode.}
+{"timestamp": 2020-02-03 11:26:55,265 "level": INFO "event": Finished Spring Data repository scanning in 51ms. Found 2 repository interfaces.}
+{"timestamp": 2020-02-03 11:26:55,529 "level": INFO "event": Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)}
+{"timestamp": 2020-02-03 11:26:55,739 "level": INFO "event": Tomcat initialized with port(s): 8080 (http)}
+{"timestamp": 2020-02-03 11:26:55,748 "level": INFO "event": Initializing ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-02-03 11:26:55,748 "level": INFO "event": Starting service [Tomcat]}
+{"timestamp": 2020-02-03 11:26:55,749 "level": INFO "event": Starting Servlet engine: [Apache Tomcat/9.0.27]}
+{"timestamp": 2020-02-03 11:26:55,849 "level": INFO "event": Initializing Spring embedded WebApplicationContext}
+{"timestamp": 2020-02-03 11:26:55,849 "level": INFO "event": Root WebApplicationContext: initialization completed in 1468 ms}
+{"timestamp": 2020-02-03 11:26:56,106 "level": INFO "event": Flyway Community Edition 5.2.3 by Boxfuse}
+{"timestamp": 2020-02-03 11:26:56,108 "level": INFO "event": HikariPool-1 - Starting...}
+{"timestamp": 2020-02-03 11:26:56,177 "level": INFO "event": HikariPool-1 - Start completed.}
+{"timestamp": 2020-02-03 11:26:56,182 "level": INFO "event": Database: jdbc:postgresql://localhost:5432/postgres (PostgreSQL 12.0)}
+{"timestamp": 2020-02-03 11:26:56,193 "level": WARN "event": Flyway upgrade recommended: PostgreSQL 12.0 is newer than this version of Flyway and support has not been tested.}
+{"timestamp": 2020-02-03 11:26:56,242 "level": INFO "event": Successfully validated 2 migrations (execution time 00:00.020s)}
+{"timestamp": 2020-02-03 11:26:56,260 "level": INFO "event": Current version of schema "public": 2}
+{"timestamp": 2020-02-03 11:26:56,262 "level": INFO "event": Schema "public" is up to date. No migration necessary.}
+{"timestamp": 2020-02-03 11:26:56,332 "level": INFO "event": HHH000204: Processing PersistenceUnitInfo [name: default]}
+{"timestamp": 2020-02-03 11:26:56,383 "level": INFO "event": HHH000412: Hibernate Core {5.4.8.Final}}
+{"timestamp": 2020-02-03 11:26:56,502 "level": INFO "event": HCANN000001: Hibernate Commons Annotations {5.1.0.Final}}
+{"timestamp": 2020-02-03 11:26:56,587 "level": INFO "event": HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect}
+{"timestamp": 2020-02-03 11:26:57,433 "level": INFO "event": HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]}
+{"timestamp": 2020-02-03 11:26:57,437 "level": INFO "event": Initialized JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-02-03 11:26:57,815 "level": WARN "event": spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning}
+{"timestamp": 2020-02-03 11:26:57,911 "level": INFO "event": Exposing 3 endpoint(s) beneath base path '/actuator'}
+{"timestamp": 2020-02-03 11:26:57,968 "level": INFO "event": Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]}
+{"timestamp": 2020-02-03 11:26:58,059 "level": INFO "event": Initializing ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-02-03 11:26:58,260 "level": INFO "event": Context refreshed}
+{"timestamp": 2020-02-03 11:26:58,277 "level": INFO "event": Found 1 custom documentation plugin(s)}
+{"timestamp": 2020-02-03 11:26:58,300 "level": INFO "event": Scanning for api listing references}
+{"timestamp": 2020-02-03 11:26:58,415 "level": INFO "event": Generating unique operation named: handleUsingGET_1}
+{"timestamp": 2020-02-03 11:26:58,417 "level": INFO "event": Generating unique operation named: handleUsingGET_2}
+{"timestamp": 2020-02-03 11:26:58,418 "level": INFO "event": Generating unique operation named: handleUsingGET_3}
+{"timestamp": 2020-02-03 11:26:58,427 "level": INFO "event": Generating unique operation named: createUsingPOST_1}
+{"timestamp": 2020-02-03 11:26:58,448 "level": INFO "event": Starting ProtocolHandler ["http-nio-8080"]}
+{"timestamp": 2020-02-03 11:26:58,468 "level": INFO "event": Tomcat started on port(s): 8080 (http) with context path ''}
+{"timestamp": 2020-02-03 11:26:58,472 "level": INFO "event": Started PaymentApplication in 9.532 seconds (JVM running for 9.86)}
+{"timestamp": 2020-02-03 11:27:03,929 "level": INFO "event": Initializing Spring DispatcherServlet 'dispatcherServlet'}
+{"timestamp": 2020-02-03 11:27:03,931 "level": INFO "event": Initializing Servlet 'dispatcherServlet'}
+{"timestamp": 2020-02-03 11:27:03,937 "level": INFO "event": Completed initialization in 6 ms}
+{"timestamp": 2020-02-03 11:27:05,401 "level": INFO "event": {name:PAYMENTSUCCESSFUL,details:{"PaymentId":13,"BeneficiaryIfscCode":"HDFC1234","PayeeIfscCode":"HDFC1234"}}}
+{"timestamp": 2020-02-03 11:27:42,620 "level": INFO "event": Shutting down ExecutorService 'applicationTaskExecutor'}
+{"timestamp": 2020-02-03 11:27:42,622 "level": INFO "event": Closing JPA EntityManagerFactory for persistence unit 'default'}
+{"timestamp": 2020-02-03 11:27:42,625 "level": INFO "event": HikariPool-1 - Shutdown initiated...}
+{"timestamp": 2020-02-03 11:27:42,635 "level": INFO "event": HikariPool-1 - Shutdown completed.}
