@@ -29,6 +29,9 @@ public class PaymentService {
     private Counter paymentFailed;
 
     public Payment create(Payment payment) throws Exception {
+        if(payment==null){
+            throw new IllegalArgumentException("payment cannot be empty");
+        }
         paymentFailed = prometheus.getPaymentFailedCounter();
 
         boolean isValidBeneficiaryAccount = bankClient.checkBankDetails(payment.getBeneficiaryAccountNumber(), payment.getBeneficiaryIfscCode());

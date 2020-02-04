@@ -35,6 +35,7 @@ public class Payment {
     @Column(name = "payee_ifsc")
     private String payeeIfscCode;
 
+
     @Column(name = "status")
     private String status;
 
@@ -42,6 +43,15 @@ public class Payment {
     }
 
     public Payment(int amount, BankDetails beneficiary, BankDetails payee) {
+
+        if (payee == null) {
+            throw new IllegalArgumentException("payee cannot be null");
+        } else if (amount <= 0) {
+            throw new IllegalArgumentException("amount should be greater than zero");
+        }else if( beneficiary == null){
+            throw new IllegalArgumentException("beneficiary cannot be null");
+        }
+
         this.amount = amount;
         this.beneficiaryName = beneficiary.getName();
         this.beneficiaryAccountNumber = beneficiary.getAccountNumber();
