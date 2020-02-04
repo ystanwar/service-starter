@@ -20,7 +20,6 @@ public class BankInfoServiceTest {
 
     @BeforeEach
     void tearDown() {
-        System.out.println("teardown running...");
         bankInfoRepository.deleteAll();
     }
 
@@ -36,10 +35,22 @@ public class BankInfoServiceTest {
     void cannotCreateBankWhenBankInfoAlreadyExists() throws BankInfoAlreadyExistsException {
         BankInfo bank = new BankInfo("HDFC", "http://localhost:8082");
         bankInfoService.create(bank);
-        BankInfoAlreadyExistsException exception = assertThrows(BankInfoAlreadyExistsException.class, () -> bankInfoService.create(bank));
+        BankInfoAlreadyExistsException exception =
+                assertThrows(BankInfoAlreadyExistsException.class, () -> bankInfoService.create(bank));
 
         assertEquals("Bank info already exists", exception.getValue());
     }
+
+    @Test
+    void cannotCreateBankWhenBankCodeIsNull() throws BankInfoAlreadyExistsException {
+        assertThrows(IllegalArgumentException.class, () -> bankInfoService.create(new BankInfo(null, "http://localhost:8082")));
+        assertThrows(IllegalArgumentException.class, () -> bankInfoService.create(new BankInfo("HDFC", null)));
+        assertThrows(IllegalArgumentException.class, () -> bankInfoService.create(null));
+        assertThrows(IllegalArgumentException.class, () -> bankInfoService.create(new BankInfo("", "http://localhost:8082")));
+        assertThrows(IllegalArgumentException.class, () -> bankInfoService.create(new BankInfo("HDFC", "")));
+    }
+
+
 
     @Test
     void fetchABankByBankCodeTest() throws BankInfoAlreadyExistsException {
@@ -49,4 +60,18 @@ public class BankInfoServiceTest {
         assertEquals(savedBank.getBankCode(), fetchedBank.getBankCode());
         assertEquals(savedBank.getUrl(), fetchedBank.getUrl());
     }
+
+
+    @Test
+    void failsToFetchIfBankCodeIsNullOrEmpty(){
+        assertThrows(IllegalArgumentException.class,()->bankInfoService.fetchBankByBankCode(null));
+        assertThrows(IllegalArgumentException.class,()->bankInfoService.fetchBankByBankCode(""));
+    }
+
+    @Test
+    void failsToFetchBankIfBankCodeIsMissing() throws BankInfoAlreadyExistsException {
+        assertEquals(null,bankInfoService.fetchBankByBankCode("ICIC"));
+    }
+
+
 }
