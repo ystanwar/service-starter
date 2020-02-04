@@ -31,8 +31,8 @@ public class PaymentService {
     public Payment create(Payment payment) throws Exception {
         paymentFailed = prometheus.getPaymentFailedCounter();
 
-        int beneficiaryResponseCode = bankClient.checkBankDetails(payment.getBeneficiaryAccountNumber(), payment.getBeneficiaryIfscCode());
-        if (beneficiaryResponseCode == 404) {
+        boolean isValidBeneficiaryAccount = bankClient.checkBankDetails(payment.getBeneficiaryAccountNumber(), payment.getBeneficiaryIfscCode());
+        if (!isValidBeneficiaryAccount ) {
             payment.setStatus("failed");
             Payment savedPayment = paymentRepository.save(payment);
             if (savedPayment.getStatus().equals("failed")) {
@@ -47,8 +47,8 @@ public class PaymentService {
 
             throw new BeneficiaryAccountDetailsNotFound("message", payment.getBeneficiaryName() + "'s AccountDetails Not Found");
         }
-        int payeeResponseCode = bankClient.checkBankDetails(payment.getPayeeAccountNumber(), payment.getPayeeIfscCode());
-        if (payeeResponseCode == 404) {
+        boolean isValidPayeeAccount = bankClient.checkBankDetails(payment.getPayeeAccountNumber(), payment.getPayeeIfscCode());
+        if (!isValidPayeeAccount) {
             payment.setStatus("failed");
             Payment savedPayment = paymentRepository.save(payment);
             if (savedPayment.getStatus().equals("failed")) {
@@ -63,6 +63,7 @@ public class PaymentService {
 
             throw new PayeeAccountDetailsNotFound("message", payment.getPayeeName() + "'s AccountDetails Not Found");
         }
+
         return paymentRepository.save(payment);
     }
 

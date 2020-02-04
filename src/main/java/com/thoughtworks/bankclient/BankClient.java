@@ -10,7 +10,6 @@ import org.apache.http.impl.client.HttpClients;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -22,27 +21,39 @@ public class BankClient {
     @Autowired
     BankInfoService bankService;
 
-    private String getBankCode(String ifscCode) {
-        return ifscCode.substring(0, 4);
+    private String getBankCode(String ifscCode) throws InvalidIfscCodeFormatException {
+        if (ifscCode!=null&&ifscCode.length() >= 5) {
+            return ifscCode.substring(0, 4);
+        } else {
+            throw new InvalidIfscCodeFormatException(ifscCode);
+        }
     }
 
-    public int checkBankDetails(long accountNumber, String ifscCode) throws IOException, URISyntaxException, BankInfoNotFoundException {
+    public boolean checkBankDetails(long accountNumber, String ifscCode) throws Exception {
 
         BankInfo bankInfo = bankService.fetchBankByBankCode(getBankCode(ifscCode));
-        if(bankInfo==null) throw new BankInfoNotFoundException("Bank info not found for " + ifscCode);
-        baseUrl  =  bankInfo.getUrl();
+        if (bankInfo == null) throw new BankInfoNotFoundException("Bank info not found for " + ifscCode);
+        baseUrl = bankInfo.getUrl();
         String url = baseUrl + "/checkDetails";
-        HttpGet get = buildUrl(accountNumber, ifscCode, url);
+        HttpGet get = buildUrl(url, accountNumber, ifscCode);
 
+        int statusCode = 0;
         CloseableHttpClient httpclient = HttpClients.createDefault();
         CloseableHttpResponse response = httpclient.execute(get);
-        int statusCode = response.getStatusLine().getStatusCode();
+        statusCode = response.getStatusLine().getStatusCode();
         response.close();
-        return statusCode;
+
+        if (statusCode == 200)
+            return true;
+        else if (statusCode == 404) {
+            return false;
+        } else {
+            throw new Exception("Error calling bank service for " + ifscCode + "; received statusCode=" + statusCode);
+        }
     }
 
-    private HttpGet buildUrl(long accountNumber, String ifscCode, String url) throws URISyntaxException {
-        HttpGet get = new HttpGet(url);
+    private HttpGet buildUrl(String baseUrl, long accountNumber, String ifscCode) throws URISyntaxException {
+        HttpGet get = new HttpGet(baseUrl);
         URI uri = new URIBuilder(get.getURI())
                 .addParameter("accountNumber", String.valueOf(accountNumber))
                 .addParameter("ifscCode", ifscCode)

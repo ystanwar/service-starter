@@ -4,6 +4,9 @@ import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.stubbing.StubMapping;
 import com.thoughtworks.bankInfo.BankInfo;
 import com.thoughtworks.bankInfo.BankInfoService;
+import org.apache.http.conn.HttpHostConnectException;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,51 +28,67 @@ public class BankClientTest {
     @MockBean
     BankInfoService bankInfoService;
 
-    @Test
-    public void checkBankDetails() throws Exception {
-        WireMockServer wireMockServer = new WireMockServer(8082);
+    private static WireMockServer wireMockServer;
+
+    @BeforeAll
+    static void setup() {
+        wireMockServer = new WireMockServer(8082);
         wireMockServer.start();
         configureFor("localhost", 8082);
+    }
+
+    @AfterAll
+    static void tearDown() {
+        wireMockServer.stop();
+    }
+
+    @Test
+    public void testcheckBankDetailsSuccess() throws Exception {
 
         when(bankInfoService.fetchBankByBankCode(anyString())).thenReturn(new BankInfo("HDFC", "http://localhost:8082"));
         StubMapping string = stubFor(get(urlEqualTo("/checkDetails?accountNumber=12345&ifscCode=HDFC1234")).willReturn(aResponse().withStatus(200)));
 
-        assertEquals(200, bankClient.checkBankDetails(12345, "HDFC1234"));
-        wireMockServer.stop();
+        assertEquals(true, bankClient.checkBankDetails(12345, "HDFC1234"));
     }
 
     @Test
-    public void testCheckBankDetailsWithWrongBank() throws Exception {
+    public void testCheckBankDetailsWithWrongIfscCode() throws Exception {
 
         when(bankInfoService.fetchBankByBankCode("XXYY")).thenReturn(null);
-        //assertEquals(200, bankClient.checkBankDetails(12345, "XXYY1234"));
-        assertThrows(BankInfoNotFoundException.class, ()->bankClient.checkBankDetails(12345, "XXYY1234"));
+        assertThrows(BankInfoNotFoundException.class, () -> bankClient.checkBankDetails(12345, "XXYY1234"));
 
     }
 
     @Test
-    public void failsToCheckBankDetails() throws Exception {
-        WireMockServer wireMockServer = new WireMockServer(8082);
-        wireMockServer.start();
-        configureFor("localhost", 8082);
+    public void testCheckBankDetailsWithInvalidFormatIfscCode() throws Exception {
+        assertThrows(InvalidIfscCodeFormatException.class, () -> bankClient.checkBankDetails(12345, ""));
+        assertThrows(InvalidIfscCodeFormatException.class, () -> bankClient.checkBankDetails(12345, "H"));
+        assertThrows(InvalidIfscCodeFormatException.class, () -> bankClient.checkBankDetails(12345, "HDFC"));
+        assertThrows(InvalidIfscCodeFormatException.class, () -> bankClient.checkBankDetails(12345, null));
+    }
 
+    @Test
+    public void testCheckBankDetailsForInvalidAccount() throws Exception {
         when(bankInfoService.fetchBankByBankCode(anyString())).thenReturn(new BankInfo("HDFC", "http://localhost:8082"));
-        stubFor(get(urlEqualTo("/checkDetails?accountNumber=0000&ifscCode=HDFC1234")).willReturn(aResponse().withStatus(404)));
+        stubFor(get(urlEqualTo("/checkDetails?accountNumber=0&ifscCode=HDFC1234")).willReturn(aResponse().withStatus(404)));
 
-        assertEquals(404, bankClient.checkBankDetails(0000, "HDFC1234"));
-        wireMockServer.stop();
+        assertEquals(false, bankClient.checkBankDetails(0, "HDFC1234"));
     }
 
     @Test
-    public void checkBankDetailsOfInAnotherBank() throws Exception {
-        WireMockServer wireMockServer = new WireMockServer(8084);
-        wireMockServer.start();
-        configureFor("localhost", 8084);
+    public void testCheckBankDetailsForWrongBaseUrl() throws Exception {
 
-        when(bankInfoService.fetchBankByBankCode(anyString())).thenReturn(new BankInfo("AXIS", "http://localhost:8084"));
-        StubMapping string = stubFor(get(urlEqualTo("/checkDetails?accountNumber=12345&ifscCode=AXIS1234")).willReturn(aResponse().withStatus(200)));
+        when(bankInfoService.fetchBankByBankCode(anyString())).thenReturn(new BankInfo("HDFC", "http://localhost:808"));
 
-        assertEquals(200, bankClient.checkBankDetails(12345, "AXIS1234"));
-        wireMockServer.stop();
+        assertThrows(HttpHostConnectException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
+    }
+
+    @Test
+    public void testCheckBankDetailsForBankServiceErrors() throws Exception {
+        when(bankInfoService.fetchBankByBankCode(anyString())).thenReturn(new BankInfo("HDFC", "http://localhost:8082"));
+        StubMapping string = stubFor(get(urlEqualTo("/checkDetails?accountNumber=12345&ifscCode=HDFC1234")).willReturn(aResponse().withStatus(500)));
+
+        Exception exception = assertThrows(Exception.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
+        assertEquals("Error calling bank service for HDFC1234; received statusCode=500", exception.getMessage());
     }
 }
