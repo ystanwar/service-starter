@@ -11,6 +11,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
@@ -35,6 +36,15 @@ public class BankClientTest {
 
         assertEquals(200, bankClient.checkBankDetails(12345, "HDFC1234"));
         wireMockServer.stop();
+    }
+
+    @Test
+    public void testCheckBankDetailsWithWrongBank() throws Exception {
+
+        when(bankInfoService.fetchBankByBankCode("XXYY")).thenReturn(null);
+        //assertEquals(200, bankClient.checkBankDetails(12345, "XXYY1234"));
+        assertThrows(BankInfoNotFoundException.class, ()->bankClient.checkBankDetails(12345, "XXYY1234"));
+
     }
 
     @Test

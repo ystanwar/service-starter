@@ -1,5 +1,6 @@
 package com.thoughtworks.bankclient;
 
+import com.thoughtworks.bankInfo.BankInfo;
 import com.thoughtworks.bankInfo.BankInfoService;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -25,8 +26,11 @@ public class BankClient {
         return ifscCode.substring(0, 4);
     }
 
-    public int checkBankDetails(long accountNumber, String ifscCode) throws IOException, URISyntaxException {
-        baseUrl = bankService.fetchBankByBankCode(getBankCode(ifscCode)).getUrl();
+    public int checkBankDetails(long accountNumber, String ifscCode) throws IOException, URISyntaxException, BankInfoNotFoundException {
+
+        BankInfo bankInfo = bankService.fetchBankByBankCode(getBankCode(ifscCode));
+        if(bankInfo==null) throw new BankInfoNotFoundException("Bank info not found for " + ifscCode);
+        baseUrl  =  bankInfo.getUrl();
         String url = baseUrl + "/checkDetails";
         HttpGet get = buildUrl(accountNumber, ifscCode, url);
 

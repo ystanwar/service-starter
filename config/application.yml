@@ -21,3 +21,5 @@ resilience4j.circuitbreaker:
       failureRateThreshold: 50
       recordExceptions:
         - com.thoughtworks.payment.BeneficiaryAccountDetailsNotFound
+Server:
+  port: 5012
