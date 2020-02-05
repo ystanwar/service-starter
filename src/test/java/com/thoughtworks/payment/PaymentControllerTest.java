@@ -20,13 +20,13 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -152,5 +152,51 @@ public class PaymentControllerTest {
                 .andExpect(content().string(objectMapper.writeValueAsString(new PaymentErrorResponse("PAYMENT_FAILED", errors))));
 
         verify(paymentService).create(any(Payment.class));
+    }
+
+    @Test
+    public void createPaymentWithAmountGreaterThanLimit() throws Exception {
+
+        when(prometheus.getPaymentsCounter()).thenReturn(Counter
+                .builder("paymentService")
+                .description("counter for number of payments")
+                .tags("counter", "number of payments")
+                .register(meterRegistry));
+
+        when(paymentService.create(any(Payment.class))).thenThrow(MethodArgumentNotValidException.class);
+
+        mockMvc.perform(post("/payments")
+                .content("{\"amount\":10000000," +
+                        "\"beneficiary\":{\"name\":\"user1\",\"accountNumber\":12345,\"ifscCode\":\"HDFC1234\"}" +
+                        ",\"payee\":{\"name\":\"user2\",\"accountNumber\":67890,\"ifscCode\":\"HDFC1234\"}" +
+                        "}")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string("{\"message\":\"Request validation failure\",\"reasons\":{\"amount\":\"amount cannot be greater than 100000\"}}"));
+
+        verify(paymentService, times(0)).create(any(Payment.class));
+    }
+
+    @Test
+    public void createPaymentWithMultipleValidationErrors() throws Exception {
+
+        when(prometheus.getPaymentsCounter()).thenReturn(Counter
+                .builder("paymentService")
+                .description("counter for number of payments")
+                .tags("counter", "number of payments")
+                .register(meterRegistry));
+
+        when(paymentService.create(any(Payment.class))).thenThrow(MethodArgumentNotValidException.class);
+
+        mockMvc.perform(post("/payments")
+                .content("{\"amount\":10000000," +
+                        "\"beneficiary\":{\"name\":\"user1\",\"accountNumber\":12345,\"ifscCode\":\"\"}" +
+                        ",\"payee\":{\"name\":\"user2\",\"accountNumber\":67890,\"ifscCode\":\"HDFC1234\"}" +
+                        "}")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string("{\"message\":\"Request validation failure\",\"reasons\":{\"beneficiary.ifscCode\":\"ifsc code must not be empty\",\"amount\":\"amount cannot be greater than 100000\"}}"));
+
+        verify(paymentService, times(0)).create(any(Payment.class));
     }
 }

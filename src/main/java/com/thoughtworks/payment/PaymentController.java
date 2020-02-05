@@ -17,6 +17,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/payments")
 @CircuitBreaker(name = "service1")
@@ -43,7 +45,7 @@ public class PaymentController {
     })
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<PaymentResponse> create(@RequestBody PaymentRequest paymentRequest) throws Exception {
+    public ResponseEntity<PaymentResponse> create(@Valid  @RequestBody PaymentRequest paymentRequest ) throws Exception {
         paymentRequestTime = prometheus.getPaymentRequestTime();
         long startTime = System.currentTimeMillis();
         paymentsCounter = prometheus.getPaymentsCounter();
