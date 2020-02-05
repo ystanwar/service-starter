@@ -1,5 +1,0 @@
-{"timestamp": 2020-01-21 06:25:33,805 "level": WARN "event": HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=12h1m10s153ms).}
-{"timestamp": 2020-01-21 11:05:31,389 "level": WARN "event": HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=4h39m57s585ms).}
-{"timestamp": 2020-01-21 11:21:31,030 "level": WARN "event": HikariPool-1 - Retrograde clock change detected (housekeeper delta=29s642ms), soft-evicting connections from pool.}
-{"timestamp": 2020-01-21 12:31:52,118 "level": WARN "event": HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=35m19s414ms).}
-{"timestamp": 2020-01-21 14:38:39,469 "level": WARN "event": HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2h1m17s338ms).}
