@@ -29,24 +29,24 @@ public class PaymentService {
     private Counter paymentFailed;
 
     public Payment create(Payment payment) throws Exception {
-        if(payment==null){
+        if (payment == null) {
             throw new IllegalArgumentException("payment cannot be empty");
         }
         paymentFailed = prometheus.getPaymentFailedCounter();
 
         boolean isValidBeneficiaryAccount = bankClient.checkBankDetails(payment.getBeneficiaryAccountNumber(), payment.getBeneficiaryIfscCode());
-        if (!isValidBeneficiaryAccount ) {
+        if (!isValidBeneficiaryAccount) {
             payment.setStatus("failed");
             Payment savedPayment = paymentRepository.save(payment);
             if (savedPayment.getStatus().equals("failed")) {
                 paymentFailed.increment();
             }
 
-            ErrorEvent errorEvent = new ErrorEvent("PAYMENTFAILED", payment.getBeneficiaryName() + "'s details are incorrect", logger);
-            errorEvent.addProperty("PaymentId", String.valueOf(payment.getId()));
-            errorEvent.addProperty("BeneficiaryIfscCode", payment.getBeneficiaryIfscCode());
-            errorEvent.addProperty("PayeeIfscCode", payment.getPayeeIfscCode());
-            errorEvent.publish();
+            new ErrorEvent("PAYMENTFAILED", payment.getBeneficiaryName() + "'s details are incorrect", logger)
+                    .addProperty("PaymentId", String.valueOf(payment.getId()))
+                    .addProperty("BeneficiaryIfscCode", payment.getBeneficiaryIfscCode())
+                    .addProperty("PayeeIfscCode", payment.getPayeeIfscCode())
+                    .publish();
 
             throw new BeneficiaryAccountDetailsNotFound("message", payment.getBeneficiaryName() + "'s AccountDetails Not Found");
         }
@@ -58,11 +58,11 @@ public class PaymentService {
                 paymentFailed.increment();
             }
 
-            ErrorEvent errorEvent = new ErrorEvent("PAYMENTFAILED", payment.getPayeeName() + "'s details are incorrect", logger);
-            errorEvent.addProperty("PaymentId", String.valueOf(payment.getId()));
-            errorEvent.addProperty("BeneficiaryIfscCode", payment.getBeneficiaryIfscCode());
-            errorEvent.addProperty("PayeeIfscCode", payment.getPayeeIfscCode());
-            errorEvent.publish();
+            new ErrorEvent("PAYMENTFAILED", payment.getPayeeName() + "'s details are incorrect", logger)
+                    .addProperty("PaymentId", String.valueOf(payment.getId()))
+                    .addProperty("BeneficiaryIfscCode", payment.getBeneficiaryIfscCode())
+                    .addProperty("PayeeIfscCode", payment.getPayeeIfscCode())
+                    .publish();
 
             throw new PayeeAccountDetailsNotFound("message", payment.getPayeeName() + "'s AccountDetails Not Found");
         }

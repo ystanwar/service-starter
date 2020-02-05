@@ -22,7 +22,7 @@ public class BankClient {
     BankInfoService bankService;
 
     private String getBankCode(String ifscCode) throws InvalidIfscCodeFormatException {
-        if (ifscCode!=null&&ifscCode.length() >= 5) {
+        if (ifscCode != null && ifscCode.length() >= 5) {
             return ifscCode.substring(0, 4);
         } else {
             throw new InvalidIfscCodeFormatException(ifscCode);
@@ -37,7 +37,7 @@ public class BankClient {
         String url = baseUrl + "/checkDetails";
         HttpGet get = buildUrl(url, accountNumber, ifscCode);
 
-        int statusCode = 0;
+        int statusCode;
         CloseableHttpClient httpclient = HttpClients.createDefault();
         CloseableHttpResponse response = httpclient.execute(get);
         statusCode = response.getStatusLine().getStatusCode();

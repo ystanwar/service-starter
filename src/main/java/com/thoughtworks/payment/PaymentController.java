@@ -59,11 +59,11 @@ public class PaymentController {
             long executeTime = endTime - startTime;
             paymentRequestTime.set(executeTime);
         }
-        Event loggerEvent = new Event("PAYMENTSUCCESSFUL", logger);
-        loggerEvent.addProperty("PaymentId", String.valueOf(savedPayment.getId()));
-        loggerEvent.addProperty("BeneficiaryIfscCode", savedPayment.getBeneficiaryIfscCode());
-        loggerEvent.addProperty("PayeeIfscCode", savedPayment.getPayeeIfscCode());
-        loggerEvent.publish();
+        new Event("PAYMENTSUCCESSFUL", null, logger)
+                .addProperty("PaymentId", String.valueOf(savedPayment.getId()))
+                .addProperty("BeneficiaryIfscCode", savedPayment.getBeneficiaryIfscCode())
+                .addProperty("PayeeIfscCode", savedPayment.getPayeeIfscCode())
+                .publish();
 
         PaymentResponse response = new PaymentResponse();
         response.setStatusMessage("Payment done successfully");
