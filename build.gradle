@@ -14,10 +14,15 @@ repositories {
     maven { url 'https://repo.spring.io/milestone' }
     maven { url 'https://repo.spring.io/snapshot' }
 }
+bootRun {
+    bootRun.systemProperty 'spring.profiles.active', "${springProfile}"
+}
 
 test {
+    systemProperty 'spring.profiles.active', 'test'
     useJUnitPlatform()
 }
+
 ext {
     resilience4jVersion = '0.17.0'
 }
