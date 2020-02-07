@@ -1,11 +1,13 @@
 package com.thoughtworks.payment;
 
 import com.thoughtworks.payment.model.BankDetails;
+import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 
+@Validated
 public class PaymentRequest {
     @Max(value = 100000, message = "amount cannot be greater than 100000")
     private int amount;

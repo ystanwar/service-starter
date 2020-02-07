@@ -20,6 +20,6 @@ resilience4j.circuitbreaker:
       waitDurationInOpenState: 10s
       failureRateThreshold: 50
       recordExceptions:
-        - com.thoughtworks.payment.BeneficiaryAccountDetailsNotFound
+        - com.thoughtworks.exceptions.ProcessingException
 Server:
   port: 5012

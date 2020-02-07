@@ -2,8 +2,11 @@ package com.thoughtworks.bankclient;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.stubbing.StubMapping;
+import com.thoughtworks.exceptions.ResourceNotFoundException;
+import com.thoughtworks.exceptions.ValidationException;
 import com.thoughtworks.bankInfo.BankInfo;
 import com.thoughtworks.bankInfo.BankInfoService;
+import com.thoughtworks.serviceclients.BankClient;
 import org.apache.http.conn.HttpHostConnectException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -55,16 +58,16 @@ public class BankClientTest {
     public void testCheckBankDetailsWithWrongIfscCode() throws Exception {
 
         when(bankInfoService.fetchBankByBankCode("XXYY")).thenReturn(null);
-        assertThrows(BankInfoNotFoundException.class, () -> bankClient.checkBankDetails(12345, "XXYY1234"));
+        assertThrows(ResourceNotFoundException.class, () -> bankClient.checkBankDetails(12345, "XXYY1234"));
 
     }
 
     @Test
     public void testCheckBankDetailsWithInvalidFormatIfscCode() throws Exception {
-        assertThrows(InvalidIfscCodeFormatException.class, () -> bankClient.checkBankDetails(12345, ""));
-        assertThrows(InvalidIfscCodeFormatException.class, () -> bankClient.checkBankDetails(12345, "H"));
-        assertThrows(InvalidIfscCodeFormatException.class, () -> bankClient.checkBankDetails(12345, "HDFC"));
-        assertThrows(InvalidIfscCodeFormatException.class, () -> bankClient.checkBankDetails(12345, null));
+        assertThrows(ValidationException.class, () -> bankClient.checkBankDetails(12345, ""));
+        assertThrows(ValidationException.class, () -> bankClient.checkBankDetails(12345, "H"));
+        assertThrows(ValidationException.class, () -> bankClient.checkBankDetails(12345, "HDFC"));
+        assertThrows(ValidationException.class, () -> bankClient.checkBankDetails(12345, null));
     }
 
     @Test

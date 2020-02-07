@@ -1,14 +1,14 @@
-package com.thoughtworks.payment;
+package com.thoughtworks.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(HttpStatus.NOT_FOUND)
-public class PayeeAccountDetailsNotFound extends Exception {
+@ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+public class ProcessingException extends Exception {
     private final String key;
     private final String value;
 
-    public PayeeAccountDetailsNotFound(String key, String value) {
+    public ProcessingException(String key, String value) {
         super(value);
         this.key = key;
         this.value = value;

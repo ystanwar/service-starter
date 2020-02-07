@@ -1,4 +1,4 @@
-package com.thoughtworks.fraudclient;
+package com.thoughtworks.serviceclients;
 
 import com.thoughtworks.payment.model.Payment;
 import org.apache.http.NameValuePair;

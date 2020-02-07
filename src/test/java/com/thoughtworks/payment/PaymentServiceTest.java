@@ -1,7 +1,7 @@
 package com.thoughtworks.payment;
 
-import com.thoughtworks.bankclient.BankClient;
-import com.thoughtworks.bankclient.BankInfoNotFoundException;
+import com.thoughtworks.exceptions.ResourceNotFoundException;
+import com.thoughtworks.serviceclients.BankClient;
 import com.thoughtworks.payment.model.BankDetails;
 import com.thoughtworks.payment.model.Payment;
 import org.junit.jupiter.api.Test;
@@ -51,7 +51,7 @@ public class PaymentServiceTest {
 
         when(bankClient.checkBankDetails(anyLong(), anyString())).thenReturn(false);
 
-        BeneficiaryAccountDetailsNotFound exception = assertThrows(BeneficiaryAccountDetailsNotFound.class, () -> paymentService.create(payment));
+        ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class, () -> paymentService.create(payment));
 
         assertEquals("user1's AccountDetails Not Found", exception.getValue());
     }
@@ -65,7 +65,7 @@ public class PaymentServiceTest {
 
         Payment payment = new Payment(100, beneficiary, payee);
 
-        PayeeAccountDetailsNotFound exception = assertThrows(PayeeAccountDetailsNotFound.class, () -> paymentService.create(payment));
+        ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class, () -> paymentService.create(payment));
 
         assertEquals("user2's AccountDetails Not Found", exception.getValue());
     }
@@ -87,10 +87,10 @@ public class PaymentServiceTest {
 
         BankDetails validBankDetails = new BankDetails("user1", 12345, "HDFC1234");
         BankDetails bankDetailsWithInvalidIfscCode = new BankDetails("user2", 67890, "AAAAAAA");
-        when(bankClient.checkBankDetails(anyLong(), eq("AAAAAAA"))).thenThrow(BankInfoNotFoundException.class);
+        when(bankClient.checkBankDetails(anyLong(), eq("AAAAAAA"))).thenThrow(ResourceNotFoundException.class);
         when(bankClient.checkBankDetails(anyLong(), eq("HDFC1234"))).thenReturn(true);
 
-        assertThrows(BankInfoNotFoundException.class, () -> paymentService.create(new Payment(100, bankDetailsWithInvalidIfscCode, validBankDetails)));
-        assertThrows(BankInfoNotFoundException.class, () -> paymentService.create(new Payment(100, validBankDetails, bankDetailsWithInvalidIfscCode)));
+        assertThrows(ResourceNotFoundException.class, () -> paymentService.create(new Payment(100, bankDetailsWithInvalidIfscCode, validBankDetails)));
+        assertThrows(ResourceNotFoundException.class, () -> paymentService.create(new Payment(100, validBankDetails, bankDetailsWithInvalidIfscCode)));
     }
 }

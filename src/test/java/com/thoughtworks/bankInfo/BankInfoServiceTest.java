@@ -1,6 +1,7 @@
 package com.thoughtworks.bankInfo;
 
 
+import com.thoughtworks.exceptions.ResourceConflictException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class BankInfoServiceTest {
     }
 
     @Test
-    void createBankTest() throws BankInfoAlreadyExistsException {
+    void createBankTest() throws ResourceConflictException {
         BankInfo bank = new BankInfo("HDFC", "http://localhost:8082");
         BankInfo savedBank = bankInfoService.create(bank);
         assertEquals(bank.getBankCode(), savedBank.getBankCode());
@@ -32,17 +33,17 @@ public class BankInfoServiceTest {
     }
 
     @Test
-    void cannotCreateBankWhenBankInfoAlreadyExists() throws BankInfoAlreadyExistsException {
+    void cannotCreateBankWhenBankInfoAlreadyExists() throws ResourceConflictException {
         BankInfo bank = new BankInfo("HDFC", "http://localhost:8082");
         bankInfoService.create(bank);
-        BankInfoAlreadyExistsException exception =
-                assertThrows(BankInfoAlreadyExistsException.class, () -> bankInfoService.create(bank));
+        ResourceConflictException exception =
+                assertThrows(ResourceConflictException.class, () -> bankInfoService.create(bank));
 
         assertEquals("Bank info already exists", exception.getValue());
     }
 
     @Test
-    void cannotCreateBankWhenBankCodeIsNull() throws BankInfoAlreadyExistsException {
+    void cannotCreateBankWhenBankCodeIsNull() throws ResourceConflictException {
         assertThrows(IllegalArgumentException.class, () -> bankInfoService.create(new BankInfo(null, "http://localhost:8082")));
         assertThrows(IllegalArgumentException.class, () -> bankInfoService.create(new BankInfo("HDFC", null)));
         assertThrows(IllegalArgumentException.class, () -> bankInfoService.create(null));
@@ -51,9 +52,8 @@ public class BankInfoServiceTest {
     }
 
 
-
     @Test
-    void fetchABankByBankCodeTest() throws BankInfoAlreadyExistsException {
+    void fetchABankByBankCodeTest() throws ResourceConflictException {
         BankInfo bank = new BankInfo("HDFC", "http://localhost:8082");
         BankInfo savedBank = bankInfoService.create(bank);
         BankInfo fetchedBank = bankInfoService.fetchBankByBankCode("HDFC");
@@ -63,14 +63,14 @@ public class BankInfoServiceTest {
 
 
     @Test
-    void failsToFetchIfBankCodeIsNullOrEmpty(){
-        assertThrows(IllegalArgumentException.class,()->bankInfoService.fetchBankByBankCode(null));
-        assertThrows(IllegalArgumentException.class,()->bankInfoService.fetchBankByBankCode(""));
+    void failsToFetchIfBankCodeIsNullOrEmpty() {
+        assertThrows(IllegalArgumentException.class, () -> bankInfoService.fetchBankByBankCode(null));
+        assertThrows(IllegalArgumentException.class, () -> bankInfoService.fetchBankByBankCode(""));
     }
 
     @Test
-    void failsToFetchBankIfBankCodeIsMissing() throws BankInfoAlreadyExistsException {
-        assertEquals(null,bankInfoService.fetchBankByBankCode("ICIC"));
+    void failsToFetchBankIfBankCodeIsMissing() throws ResourceConflictException {
+        assertEquals(null, bankInfoService.fetchBankByBankCode("ICIC"));
     }
 
 

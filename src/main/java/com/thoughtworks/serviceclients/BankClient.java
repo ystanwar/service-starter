@@ -1,7 +1,9 @@
-package com.thoughtworks.bankclient;
+package com.thoughtworks.serviceclients;
 
 import com.thoughtworks.bankInfo.BankInfo;
 import com.thoughtworks.bankInfo.BankInfoService;
+import com.thoughtworks.exceptions.ResourceNotFoundException;
+import com.thoughtworks.exceptions.ValidationException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
@@ -21,18 +23,18 @@ public class BankClient {
     @Autowired
     BankInfoService bankService;
 
-    private String getBankCode(String ifscCode) throws InvalidIfscCodeFormatException {
+    private String getBankCode(String ifscCode) throws ValidationException {
         if (ifscCode != null && ifscCode.length() >= 5) {
             return ifscCode.substring(0, 4);
         } else {
-            throw new InvalidIfscCodeFormatException(ifscCode);
+            throw new ValidationException("message", "Invalid ifscCode format ->" + ifscCode);
         }
     }
 
     public boolean checkBankDetails(long accountNumber, String ifscCode) throws Exception {
 
         BankInfo bankInfo = bankService.fetchBankByBankCode(getBankCode(ifscCode));
-        if (bankInfo == null) throw new BankInfoNotFoundException("Bank info not found for " + ifscCode);
+        if (bankInfo == null) throw new ResourceNotFoundException("message", "Bank info not found for " + ifscCode);
         baseUrl = bankInfo.getUrl();
         String url = baseUrl + "/checkDetails";
         HttpGet get = buildUrl(url, accountNumber, ifscCode);

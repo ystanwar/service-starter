@@ -1,9 +1,10 @@
 package com.thoughtworks.payment;
 
-import com.thoughtworks.bankclient.BankClient;
+import com.thoughtworks.exceptions.ResourceNotFoundException;
 import com.thoughtworks.logger.ErrorEvent;
-import com.thoughtworks.payment.model.Payment;
 import com.thoughtworks.prometheus.Prometheus;
+import com.thoughtworks.serviceclients.BankClient;
+import com.thoughtworks.payment.model.Payment;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 import org.apache.logging.log4j.LogManager;
@@ -48,7 +49,7 @@ public class PaymentService {
                     .addProperty("PayeeIfscCode", payment.getPayeeIfscCode())
                     .publish();
 
-            throw new BeneficiaryAccountDetailsNotFound("message", payment.getBeneficiaryName() + "'s AccountDetails Not Found");
+            throw new ResourceNotFoundException("message", payment.getBeneficiaryName() + "'s AccountDetails Not Found");
         }
         boolean isValidPayeeAccount = bankClient.checkBankDetails(payment.getPayeeAccountNumber(), payment.getPayeeIfscCode());
         if (!isValidPayeeAccount) {
@@ -64,7 +65,7 @@ public class PaymentService {
                     .addProperty("PayeeIfscCode", payment.getPayeeIfscCode())
                     .publish();
 
-            throw new PayeeAccountDetailsNotFound("message", payment.getPayeeName() + "'s AccountDetails Not Found");
+            throw new ResourceNotFoundException("message", payment.getPayeeName() + "'s AccountDetails Not Found");
         }
 
         return paymentRepository.save(payment);

@@ -1,9 +1,9 @@
 package com.thoughtworks.payment;
 
-import com.thoughtworks.logger.Event;
-import com.thoughtworks.payment.message.PaymentResponse;
-import com.thoughtworks.payment.model.Payment;
 import com.thoughtworks.prometheus.Prometheus;
+import com.thoughtworks.logger.Event;
+import com.thoughtworks.messages.RequestSuccessResponse;
+import com.thoughtworks.payment.model.Payment;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
@@ -45,7 +45,7 @@ public class PaymentController {
     })
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<PaymentResponse> create(@Valid  @RequestBody PaymentRequest paymentRequest ) throws Exception {
+    public ResponseEntity<RequestSuccessResponse> create(@Valid  @RequestBody PaymentRequest paymentRequest ) throws Exception {
         paymentRequestTime = prometheus.getPaymentRequestTime();
         long startTime = System.currentTimeMillis();
         paymentsCounter = prometheus.getPaymentsCounter();
@@ -67,7 +67,7 @@ public class PaymentController {
                 .addProperty("PayeeIfscCode", savedPayment.getPayeeIfscCode())
                 .publish();
 
-        PaymentResponse response = new PaymentResponse();
+        RequestSuccessResponse response = new RequestSuccessResponse();
         response.setStatusMessage("Payment done successfully");
         response.setPaymentId(savedPayment.getId());
         return new ResponseEntity<>(response, HttpStatus.CREATED);

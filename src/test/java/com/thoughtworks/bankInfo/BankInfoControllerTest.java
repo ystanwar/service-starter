@@ -1,7 +1,8 @@
 package com.thoughtworks.bankInfo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.thoughtworks.error.BankInfoErrorResponse;
+import com.thoughtworks.exceptions.ResourceConflictException;
+import com.thoughtworks.messages.RequestFailureResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -46,7 +47,7 @@ public class BankInfoControllerTest {
 
     @Test
     public void cannotCreateBankWhenBankInfoAlreadyExists() throws Exception {
-        when(bankInfoService.create(any(BankInfo.class))).thenThrow(new BankInfoAlreadyExistsException("message", "Bank info already exists"));
+        when(bankInfoService.create(any(BankInfo.class))).thenThrow(new ResourceConflictException("message", "Bank info already exists"));
         Map<String, String> errors = new HashMap<>();
         errors.put("message", "Bank info already exists");
         ObjectMapper objectMapper = new ObjectMapper();
@@ -56,7 +57,7 @@ public class BankInfoControllerTest {
                         "\"url\":\"http://localhost:8082\"}")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isConflict())
-                .andExpect(content().string(objectMapper.writeValueAsString(new BankInfoErrorResponse("Bank info already exists", errors))));
+                .andExpect(content().string(objectMapper.writeValueAsString(new RequestFailureResponse("REQUEST_CONFLICT", errors))));
 
         verify(bankInfoService).create(any(BankInfo.class));
     }

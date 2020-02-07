@@ -1,14 +1,14 @@
-package com.thoughtworks.payment;
+package com.thoughtworks.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(HttpStatus.NOT_FOUND)
-public class BeneficiaryAccountDetailsNotFound extends Exception {
+@ResponseStatus(HttpStatus.CONFLICT)
+public class ResourceConflictException extends Exception {
     private final String key;
     private final String value;
 
-    public BeneficiaryAccountDetailsNotFound(String key, String value) {
+    public ResourceConflictException(String key, String value) {
         super(value);
         this.key = key;
         this.value = value;
@@ -21,5 +21,4 @@ public class BeneficiaryAccountDetailsNotFound extends Exception {
     public String getValue() {
         return value;
     }
-
 }

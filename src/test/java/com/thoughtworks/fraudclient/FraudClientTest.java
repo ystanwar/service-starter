@@ -3,6 +3,7 @@ package com.thoughtworks.fraudclient;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.thoughtworks.payment.model.BankDetails;
 import com.thoughtworks.payment.model.Payment;
+import com.thoughtworks.serviceclients.FraudClient;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
