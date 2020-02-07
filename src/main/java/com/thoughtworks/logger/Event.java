@@ -1,7 +1,7 @@
 package com.thoughtworks.logger;
 
 import com.google.gson.JsonObject;
-import jdk.internal.jline.internal.Nullable;
+import org.springframework.lang.Nullable;
 import org.apache.logging.log4j.Logger;
 
 import java.util.LinkedHashMap;
