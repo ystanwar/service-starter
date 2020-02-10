@@ -2,21 +2,28 @@ package com.thoughtworks.serviceclients;
 
 import com.thoughtworks.bankInfo.BankInfo;
 import com.thoughtworks.bankInfo.BankInfoService;
+import com.thoughtworks.exceptions.ProcessingException;
 import com.thoughtworks.exceptions.ResourceNotFoundException;
 import com.thoughtworks.exceptions.ValidationException;
+import com.thoughtworks.handlers.ExceptionMessageHandler;
+import com.thoughtworks.logger.ErrorEvent;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Arrays;
 
 @Service
 public class BankClient {
+    private static Logger logger = LogManager.getLogger(ExceptionMessageHandler.class);
 
     private String baseUrl;
 
@@ -41,9 +48,16 @@ public class BankClient {
 
         int statusCode;
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        CloseableHttpResponse response = httpclient.execute(get);
-        statusCode = response.getStatusLine().getStatusCode();
-        response.close();
+        try {
+            CloseableHttpResponse response = httpclient.execute(get);
+            statusCode = response.getStatusLine().getStatusCode();
+            response.close();
+        }
+        catch(Exception ex) {
+            new ErrorEvent(ex.getClass().toString(), ex.getMessage(), logger)
+                    .addProperty("stackTrace", Arrays.toString(ex.getStackTrace())).publish();
+            throw new ProcessingException("Service currently unavailable ", getBankCode(ifscCode));
+        }
 
         if (statusCode == 200)
             return true;

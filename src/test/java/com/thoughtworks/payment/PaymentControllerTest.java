@@ -22,6 +22,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -276,6 +277,26 @@ public class PaymentControllerTest {
                 .andExpect(content().string(objectMapper.writeValueAsString(new RequestFailureResponse("SERVER_ERROR", errors))));
 
         verify(paymentService).create(any(Payment.class));
+    }
+
+    @Test
+    public void createPaymentWithInvalidRequestFormat() throws Exception {
+        Map<String, String> errors = new HashMap<>();
+        errors.put("message", "Request body missing or incorrect format");
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        when(paymentService.create(any(Payment.class))).thenThrow(new Exception("paymentService.create() not expected to be called for this test case"));
+
+        mockMvc.perform(post("/payments")
+                .content("{\"amount\":500" +
+                        "\"beneficiary\":{\"name\":\"user1\",\"accountNumber\":12345,\"ifscCode\":\"ABCD\"}" +
+                        ",\"payee\":{\"name\":\"user2\",\"accountNumber\":12,\"ifscCode\":\"HDFC1234\"}" +
+                        "}")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string(objectMapper.writeValueAsString(new RequestFailureResponse("INVALID_INPUT", errors))));
+
+        verify(paymentService, times(0)).create(any(Payment.class));
     }
 }
 

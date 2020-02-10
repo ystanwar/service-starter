@@ -2,6 +2,7 @@ package com.thoughtworks.bankclient;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.stubbing.StubMapping;
+import com.thoughtworks.exceptions.ProcessingException;
 import com.thoughtworks.exceptions.ResourceNotFoundException;
 import com.thoughtworks.exceptions.ValidationException;
 import com.thoughtworks.bankInfo.BankInfo;
@@ -83,7 +84,7 @@ public class BankClientTest {
 
         when(bankInfoService.fetchBankByBankCode(anyString())).thenReturn(new BankInfo("HDFC", "http://localhost:808"));
 
-        assertThrows(HttpHostConnectException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
+        assertThrows(ProcessingException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
     }
 
     @Test

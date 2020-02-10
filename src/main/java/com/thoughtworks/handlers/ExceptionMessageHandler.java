@@ -10,6 +10,7 @@ import io.github.resilience4j.circuitbreaker.CallNotPermittedException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -69,6 +70,9 @@ public class ExceptionMessageHandler {
                 errors.put(errorMessage.getKey(), errorMessage.getValue());
             }
         }
+
+        new ErrorEvent(exception.getClass().toString(), exception.getMessage(), logger)
+                .addProperty("stackTrace", Arrays.toString(exception.getStackTrace())).publish();
         return new RequestFailureResponse("INVALID_INPUT", errors);
     }
 
@@ -78,6 +82,17 @@ public class ExceptionMessageHandler {
     protected RequestFailureResponse handleValidationException(ValidationException ex) {
         Map<String, String> errors = new HashMap<>();
         errors.put(ex.getKey(), ex.getValue());
+        return new RequestFailureResponse("INVALID_INPUT", errors);
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    protected RequestFailureResponse handleRequestNotReadableException(HttpMessageNotReadableException ex) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put("message", "Request body missing or incorrect format");
+        new ErrorEvent(ex.getClass().toString(), ex.getMessage(), logger)
+                .addProperty("stackTrace", Arrays.toString(ex.getStackTrace())).publish();
         return new RequestFailureResponse("INVALID_INPUT", errors);
     }
 
