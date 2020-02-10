@@ -6,7 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 
-@JsonDeserialize(using = PaymentDeSerializer.class)
+//@JsonDeserialize(using = PaymentDeSerializer.class)
 @Entity
 public class Payment {
 

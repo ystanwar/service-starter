@@ -1,20 +1,12 @@
 package com.thoughtworks.exceptions;
 
-public class ValidationException extends Exception {
-    private final String key;
-    private final String value;
+public class ValidationException extends ServiceException {
 
     public ValidationException(String key, String value) {
-        super(value);
-        this.key = key;
-        this.value = value;
+        super(key,value);
+    }
+    public ValidationException(String key, String value, Exception causedByException) {
+        super(key,value, causedByException);
     }
 
-    public String getKey() {
-        return key;
-    }
-
-    public String getValue() {
-        return value;
-    }
 }

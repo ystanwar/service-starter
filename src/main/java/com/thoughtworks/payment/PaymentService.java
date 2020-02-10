@@ -12,6 +12,8 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PaymentService {
     private static Logger logger = LogManager.getLogger(PaymentController.class);
@@ -69,6 +71,10 @@ public class PaymentService {
         }
 
         return paymentRepository.save(payment);
+    }
+
+    public List<Payment> getAll(){
+        return paymentRepository.findAll();
     }
 
 }

@@ -4,10 +4,13 @@ import com.thoughtworks.exceptions.ResourceNotFoundException;
 import com.thoughtworks.serviceclients.BankClient;
 import com.thoughtworks.payment.model.BankDetails;
 import com.thoughtworks.payment.model.Payment;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
@@ -19,9 +22,16 @@ public class PaymentServiceTest {
     @Autowired
     PaymentService paymentService;
 
+    @Autowired
+    PaymentRepository paymentRepository;
+
     @MockBean
     BankClient bankClient;
 
+    @AfterEach
+    void tearDown(){
+        paymentRepository.deleteAll();
+    }
     @Test
     public void createAPayment() throws Exception {
         BankDetails beneficiary = new BankDetails("user1", 12345, "HDFC1234");
@@ -92,5 +102,26 @@ public class PaymentServiceTest {
 
         assertThrows(ResourceNotFoundException.class, () -> paymentService.create(new Payment(100, bankDetailsWithInvalidIfscCode, validBankDetails)));
         assertThrows(ResourceNotFoundException.class, () -> paymentService.create(new Payment(100, validBankDetails, bankDetailsWithInvalidIfscCode)));
+    }
+
+    @Test
+    public void testFindAll() throws Exception {
+        BankDetails beneficiary = new BankDetails("user1", 12345, "HDFC1234");
+        BankDetails payee = new BankDetails("user2", 67890, "HDFC1234");
+
+        when(bankClient.checkBankDetails(anyLong(), anyString())).thenReturn(true);
+
+       for(int i=0; i<10; i++){
+           Payment payment = new Payment(100 + i*10, beneficiary, payee);
+           Payment savedPayment = paymentService.create(payment);
+       }
+
+        List<Payment> allPayments = paymentService.getAll();
+        System.out.println("Count" + allPayments.size());
+        assertEquals(10, allPayments.size());
+
+        for(int i=0; i<allPayments.size(); i++){
+            assertEquals (i+1, allPayments.get(i).getId());
+        }
     }
 }

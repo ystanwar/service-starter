@@ -54,9 +54,7 @@ public class BankClient {
             response.close();
         }
         catch(Exception ex) {
-            new ErrorEvent(ex.getClass().toString(), ex.getMessage(), logger)
-                    .addProperty("stackTrace", Arrays.toString(ex.getStackTrace())).publish();
-            throw new ProcessingException("Service currently unavailable ", getBankCode(ifscCode));
+            throw new ProcessingException("Service currently unavailable ", getBankCode(ifscCode), ex);
         }
 
         if (statusCode == 200)

@@ -28,12 +28,24 @@ import java.util.stream.Collectors;
 public class ExceptionMessageHandler {
     private static Logger logger = LogManager.getLogger(ExceptionMessageHandler.class);
 
+    void logException(Exception ex){
+        new ErrorEvent(ex.getClass().toString(), ex.getMessage(), logger)
+                .addProperty("stackTrace", Arrays.toString(ex.getStackTrace())).publish();
+        Throwable causedByException = ex.getCause();
+        if((causedByException)!=null) {
+            new ErrorEvent(causedByException.getClass().toString(), causedByException.getMessage(), logger)
+                    .addProperty("stackTrace", Arrays.toString(causedByException.getStackTrace())).publish();
+        }
+    }
+
+
     @ExceptionHandler(ResourceNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
     protected RequestFailureResponse handleResourceNotFoundException(ResourceNotFoundException ex) {
         Map<String, String> errors = new HashMap<>();
         errors.put(ex.getKey(), ex.getValue());
+        logException(ex);
         return new RequestFailureResponse("MISSING_INFO", errors);
     }
 
@@ -43,12 +55,14 @@ public class ExceptionMessageHandler {
     protected RequestFailureResponse handleConflictException(ResourceConflictException ex) {
         Map<String, String> errors = new HashMap<>();
         errors.put(ex.getKey(), ex.getValue());
+        logException(ex);
         return new RequestFailureResponse("REQUEST_CONFLICT", errors);
     }
 
     @ExceptionHandler(CallNotPermittedException.class)
     @ResponseBody
-    protected String handleCircuitBreakException(CallNotPermittedException CallNotPermittedException) {
+    protected String handleCircuitBreakException(CallNotPermittedException callNotPermittedException) {
+        logException(callNotPermittedException);
         return "CircuitBreakerException";
     }
 
@@ -71,9 +85,11 @@ public class ExceptionMessageHandler {
             }
         }
 
-        new ErrorEvent(exception.getClass().toString(), exception.getMessage(), logger)
-                .addProperty("stackTrace", Arrays.toString(exception.getStackTrace())).publish();
+        logException(exception);
         return new RequestFailureResponse("INVALID_INPUT", errors);
+    }
+    private static Map.Entry<String, String> extractMessage(FieldError fieldError) {
+        return new HashMap.SimpleEntry<>(fieldError.getField(), fieldError.getDefaultMessage());
     }
 
     @ExceptionHandler(ValidationException.class)
@@ -82,6 +98,7 @@ public class ExceptionMessageHandler {
     protected RequestFailureResponse handleValidationException(ValidationException ex) {
         Map<String, String> errors = new HashMap<>();
         errors.put(ex.getKey(), ex.getValue());
+        logException(ex);
         return new RequestFailureResponse("INVALID_INPUT", errors);
     }
 
@@ -91,15 +108,9 @@ public class ExceptionMessageHandler {
     protected RequestFailureResponse handleRequestNotReadableException(HttpMessageNotReadableException ex) {
         Map<String, String> errors = new HashMap<>();
         errors.put("message", "Request body missing or incorrect format");
-        new ErrorEvent(ex.getClass().toString(), ex.getMessage(), logger)
-                .addProperty("stackTrace", Arrays.toString(ex.getStackTrace())).publish();
+        logException(ex);
         return new RequestFailureResponse("INVALID_INPUT", errors);
     }
-
-    private static Map.Entry<String, String> extractMessage(FieldError fieldError) {
-        return new HashMap.SimpleEntry<>(fieldError.getField(), fieldError.getDefaultMessage());
-    }
-
 
     @ExceptionHandler(ProcessingException.class)
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
@@ -107,8 +118,11 @@ public class ExceptionMessageHandler {
     protected RequestFailureResponse handleProcessingException(ProcessingException ex) {
         Map<String, String> errors = new HashMap<>();
         errors.put(ex.getKey(), ex.getValue());
+        logException(ex);
         return new RequestFailureResponse("REQUEST_UNPROCESSABLE", errors);
     }
+
+
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -116,11 +130,8 @@ public class ExceptionMessageHandler {
     protected RequestFailureResponse handleGeneralException(Exception ex) {
         Map<String, String> errors = new HashMap<>();
         errors.put("message", "Could not process the request");
-        new ErrorEvent(ex.getClass().toString(), ex.getMessage(), logger)
-                .addProperty("stackTrace", Arrays.toString(ex.getStackTrace())).publish();
-
+        logException(ex);
         return new RequestFailureResponse("SERVER_ERROR", errors);
-
     }
 
 }

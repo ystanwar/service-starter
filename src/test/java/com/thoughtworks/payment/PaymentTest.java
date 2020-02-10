@@ -30,12 +30,30 @@ public class PaymentTest {
 
     }
 
+//    @Test
+//    void expectsPaymentWithNestingAfterDeSerialization() throws IOException {
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        String paymentString = "{\"amount\":500," +
+//                "\"beneficiary\":{\"name\":\"user1\",\"accountNumber\":12345,\"ifscCode\":\"HDFC1234\"}" +
+//                ",\"payee\":{\"name\":\"user2\",\"accountNumber\":12346,\"ifscCode\":\"HDFC1234\"}" +
+//                "}";
+//
+//        Payment payment = objectMapper.readValue(paymentString, Payment.class);
+//
+//        assertEquals(500, payment.getAmount());
+//        assertEquals("user1", payment.getBeneficiaryName());
+//        assertEquals(12345, payment.getBeneficiaryAccountNumber());
+//        assertEquals("HDFC1234", payment.getBeneficiaryIfscCode());
+//        assertEquals("user2", payment.getPayeeName());
+//        assertEquals(12346, payment.getPayeeAccountNumber());
+//        assertEquals("HDFC1234", payment.getPayeeIfscCode());
+//    }
     @Test
-    void expectsWalletWithNameAndBalanceAfterDeSerialization() throws IOException {
+    void expectsPaymentWithoutNestingAfterDeSerialization() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         String paymentString = "{\"amount\":500," +
-                "\"beneficiary\":{\"name\":\"user1\",\"accountNumber\":12345,\"ifscCode\":\"HDFC1234\"}" +
-                ",\"payee\":{\"name\":\"user2\",\"accountNumber\":12346,\"ifscCode\":\"HDFC1234\"}" +
+                "\"beneficiaryName\":\"user1\",\"beneficiaryAccountNumber\":12345,\"beneficiaryIfscCode\":\"HDFC1234\"" +
+                ",\"payeeName\":\"user2\",\"payeeAccountNumber\":12346,\"payeeIfscCode\":\"HDFC1234\"" +
                 "}";
 
         Payment payment = objectMapper.readValue(paymentString, Payment.class);

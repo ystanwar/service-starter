@@ -1,5 +1,8 @@
 package com.thoughtworks.payment;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.MappingIterator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thoughtworks.exceptions.ResourceNotFoundException;
 import com.thoughtworks.exceptions.ValidationException;
@@ -27,13 +30,17 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -84,6 +91,42 @@ public class PaymentControllerTest {
     @AfterEach
     void tearDown() {
         collectorRegistry.clear();
+    }
+
+    @Test
+    public void testGetAllPayments() throws Exception {
+
+        List<Payment> paymentList = new ArrayList<Payment>();
+
+        BankDetails beneficiary = new BankDetails("user1", 12, "HDFC1");
+        BankDetails payee = new BankDetails("user2", 12346, "HDFC1234");
+
+        Payment payment = new Payment(500, beneficiary, payee);
+        payment.setId(1);
+        paymentList.add(payment);
+
+        payment = new Payment(2100, beneficiary, payee);
+        payment.setId(2);
+        paymentList.add(payment);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        when(paymentService.getAll()).thenReturn(paymentList);
+
+        ResultActions mockResult = mockMvc.perform(get("/payments"))
+                .andExpect(status().is2xxSuccessful());
+
+        String responseJson = mockResult.andReturn().getResponse().getContentAsString();
+
+        ObjectMapper objectmapper = new ObjectMapper();
+        //MappingIterator<Payment> paymentResponseIterator = objectmapper.readValues(new com.fasterxml.jackson.core.JsonFactory().createParser(responseJson), Payment.class);
+        List<Payment> paymentListResponse = new ObjectMapper().readValue(responseJson, objectmapper.getTypeFactory().constructCollectionType(List.class, Payment.class));
+
+        verify(paymentService, times(1)).getAll();
+        assertEquals(2, paymentListResponse.size());
+
+        assertEquals(500,paymentListResponse.get(0).getAmount());
+        assertEquals(2100,paymentListResponse.get(1).getAmount());
     }
 
     @Test

@@ -18,6 +18,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/payments")
@@ -71,5 +73,10 @@ public class PaymentController {
         response.setStatusMessage("Payment done successfully");
         response.setPaymentId(savedPayment.getId());
         return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public List<Payment> getAllPayments(){
+        return paymentService.getAll();
     }
 }

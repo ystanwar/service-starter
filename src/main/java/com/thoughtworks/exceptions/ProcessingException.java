@@ -4,21 +4,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
-public class ProcessingException extends Exception {
-    private final String key;
-    private final String value;
-
+public class ProcessingException extends ServiceException {
     public ProcessingException(String key, String value) {
-        super(value);
-        this.key = key;
-        this.value = value;
+        super(key,value);
     }
-
-    public String getKey() {
-        return key;
-    }
-
-    public String getValue() {
-        return value;
+    public ProcessingException(String key, String value, Exception causedByException) {
+        super(key,value, causedByException);
     }
 }
