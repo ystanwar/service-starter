@@ -1,5 +1,5 @@
-# service-starter-dotnetcore
-This is a sample starter services incorporating [best practices](https://github.com/cd-jump-start/service-starter/blob/master/best-practices) for writing services in spring-boot.
+# service-starter
+This is a sample starter services incorporating [best practices](https://github.com/cd-jump-start/service-starter/blob/master/best-practices.md) for writing services in spring-boot.
 Uses PostgreSQL database.
 
 
