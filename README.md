@@ -1,6 +1,6 @@
 # service-starter
 This is a sample starter services incorporating [best practices](https://github.com/cd-jump-start/service-starter/blob/master/best-practices.md) for writing services in spring-boot.
-Uses PostgreSQL database. You can [Get Started here](https://github.com/cd-jump-start/service-starter/blob/master/best-practices.md)
+Uses PostgreSQL database. You can [Get Started here](https://github.com/cd-jump-start/service-starter/blob/master/getting-started.md)
 
 
 This repo contains the following:  
@@ -12,6 +12,6 @@ This repo contains the following:
 
 The PaymentApi takes connectionString from externalised configuration - can be specified via external file, command line or environment variables 
 
-You can [Get Started here](https://github.com/cd-jump-start/service-starter/blob/master/best-practices.md)
+You can [Get Started here](https://github.com/cd-jump-start/service-starter/blob/master/getting-started.md)
 
 
