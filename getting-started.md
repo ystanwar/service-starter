@@ -60,7 +60,7 @@ Open the service-starter project folder in IntelliJ
 }
 
 ## Running dependencies
-<Instructions here to get the bankservice docker and run>
+[Instructions here to get the bankservice docker and run]TBD
 
 - In postman or browser GET http://localhost:8082/checkDetails?accountNumber=12345&ifscCode=HDFC1234
   - This should return 200 response with empty body
@@ -107,6 +107,7 @@ Open the service-starter project folder in IntelliJ
     }
 ]
 
+**The service is now built and running fine in your setup. Explore, reference and reuse!!!**
 
 
  
