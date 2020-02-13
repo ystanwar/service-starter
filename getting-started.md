@@ -1,12 +1,14 @@
 # Getting Started
 ## Prerequisites
--Java JDK
+- Java JDK
 
--Postgres database
+- Postgres database
 
--gradle
+- gradle
 
--Java IDE
+- Docker
+
+- Java IDE
 
 ## Architecture
 Payment service (the main reference service)
@@ -60,7 +62,18 @@ Open the service-starter project folder in IntelliJ
 }
 
 ## Running dependencies
-[Instructions here to get the bankservice docker and run]TBD
+### The payment service will require to connect to "BankService"
+Follow below steps to get "BankService" running on your local machine 
+
+ *(NOTE: This assumes Postgres db running on localhost:5432. Update URI in the below mentioned docker run command if different)*
+- First get a github personal access token
+  - [How to get a github personal token](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line)
+- Authenticate with github packages
+  - docker login -u USERNAME -p TOKEN docker.pkg.github.com
+- Get the docker image for "BankService"
+  - docker pull docker.pkg.github.com/cd-jump-start/service-dep-bankservice/bankservice:latest
+ - Run the "BankService" in docker container
+  - docker run  -p 8082:8082 -e SPRING_PROFILES_ACTIVE=dev -e SPRING_DATASOURCE_URL=jdbc:postgresql://host.docker.internal:5432/postgres docker.pkg.github.com/cd-jump-start/service-dep-bankservice/bankservice:latest
 
 - In postman or browser GET http://localhost:8082/checkDetails?accountNumber=12345&ifscCode=HDFC1234
   - This should return 200 response with empty body
@@ -68,6 +81,7 @@ Open the service-starter project folder in IntelliJ
 *NOTE: This is the service that will validate the accounts before payment. Any account-IfscCode combination that you will given in the payment request (json sample given above) should be in the “accounts” table of the database you configured to be used by this service*
 
 ## Testing the reference service - /payment 
+- Run the service-starter application (./gradlew bootRun as mentioned above) 
 - Do a POST to http://localhost:5012/payments with json body as follows:
 
 {
