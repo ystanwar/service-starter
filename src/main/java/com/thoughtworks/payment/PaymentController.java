@@ -1,9 +1,9 @@
 package com.thoughtworks.payment;
 
-import com.thoughtworks.prometheus.Prometheus;
 import com.thoughtworks.logger.Event;
 import com.thoughtworks.messages.RequestSuccessResponse;
 import com.thoughtworks.payment.model.Payment;
+import com.thoughtworks.prometheus.Prometheus;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
@@ -18,7 +18,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -72,6 +71,7 @@ public class PaymentController {
         RequestSuccessResponse response = new RequestSuccessResponse();
         response.setStatusMessage("Payment done successfully");
         response.setPaymentId(savedPayment.getId());
+        logger.info("payment response");
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
