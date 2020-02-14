@@ -1,6 +1,6 @@
 package com.thoughtworks.handlers;
 
-import com.thoughtworks.exceptions.ProcessingException;
+import com.thoughtworks.exceptions.BusinessException;
 import com.thoughtworks.exceptions.ResourceConflictException;
 import com.thoughtworks.exceptions.ResourceNotFoundException;
 import com.thoughtworks.exceptions.ValidationException;
@@ -112,10 +112,10 @@ public class ExceptionMessageHandler {
         return new RequestFailureResponse("INVALID_INPUT", errors);
     }
 
-    @ExceptionHandler(ProcessingException.class)
+    @ExceptionHandler(BusinessException.class)
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     @ResponseBody
-    protected RequestFailureResponse handleProcessingException(ProcessingException ex) {
+    protected RequestFailureResponse handleProcessingException(BusinessException ex) {
         Map<String, String> errors = new HashMap<>();
         errors.put(ex.getKey(), ex.getValue());
         logException(ex);

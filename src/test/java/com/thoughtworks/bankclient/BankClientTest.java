@@ -2,13 +2,12 @@ package com.thoughtworks.bankclient;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.stubbing.StubMapping;
-import com.thoughtworks.exceptions.ProcessingException;
+import com.thoughtworks.exceptions.DependencyException;
 import com.thoughtworks.exceptions.ResourceNotFoundException;
 import com.thoughtworks.exceptions.ValidationException;
 import com.thoughtworks.bankInfo.BankInfo;
 import com.thoughtworks.bankInfo.BankInfoService;
 import com.thoughtworks.serviceclients.BankClient;
-import org.apache.http.conn.HttpHostConnectException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -84,15 +83,16 @@ public class BankClientTest {
 
         when(bankInfoService.fetchBankByBankCode(anyString())).thenReturn(new BankInfo("HDFC", "http://localhost:808"));
 
-        assertThrows(ProcessingException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
+        assertThrows(DependencyException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
     }
 
     @Test
-    public void testCheckBankDetailsForBankServiceErrors() throws Exception {
+    public void testCheckBankDetailsForBankServiceErrors() throws DependencyException {
         when(bankInfoService.fetchBankByBankCode(anyString())).thenReturn(new BankInfo("HDFC", "http://localhost:8082"));
         StubMapping string = stubFor(get(urlEqualTo("/checkDetails?accountNumber=12345&ifscCode=HDFC1234")).willReturn(aResponse().withStatus(500)));
 
-        Exception exception = assertThrows(Exception.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
-        assertEquals("Error calling bank service for HDFC1234; received statusCode=500", exception.getMessage());
+        DependencyException exception = assertThrows(DependencyException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
+        assertEquals("BankService - HDFC1234", exception.getKey());
+        assertEquals("SERVICE_ERROR - 500" , exception.getValue());
     }
 }
