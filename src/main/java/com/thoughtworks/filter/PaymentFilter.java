@@ -18,7 +18,7 @@ public class PaymentFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest httpRequest;
         httpRequest = (HttpServletRequest) servletRequest;
-        if (httpRequest.getRequestURL().toString().endsWith("/payments")) {
+     //   if (httpRequest.getRequestURL().toString().endsWith("/payments")) {
             ResettableStreamHttpServletRequest wrappedRequest = new ResettableStreamHttpServletRequest(
                     httpRequest);
 
@@ -27,11 +27,11 @@ public class PaymentFilter implements Filter {
 
             filterChain.doFilter(wrappedRequest, servletResponse);
 
-            logger.info("payment called {}", body);
+            logger.info(httpRequest.getRequestURL().toString() + " called {}", body);
 
-            logger.info("payment request end");
+            logger.info(httpRequest.getRequestURL().toString() + " request end");
 
-        }
+     //   }
     }
 
 

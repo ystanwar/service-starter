@@ -20,6 +20,6 @@ resilience4j.circuitbreaker:
       waitDurationInOpenState: 10s
       failureRateThreshold: 50
       recordExceptions:
-        - com.thoughtworks.exceptions.ProcessingException
+        - com.thoughtworks.exceptions.DependencyException
 Server:
   port: 5012
