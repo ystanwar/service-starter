@@ -2,11 +2,10 @@ package com.thoughtworks.serviceclients;
 
 import com.thoughtworks.bankInfo.BankInfo;
 import com.thoughtworks.bankInfo.BankInfoService;
-import com.thoughtworks.exceptions.ProcessingException;
+import com.thoughtworks.exceptions.DependencyException;
 import com.thoughtworks.exceptions.ResourceNotFoundException;
 import com.thoughtworks.exceptions.ValidationException;
 import com.thoughtworks.handlers.ExceptionMessageHandler;
-import com.thoughtworks.logger.ErrorEvent;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
@@ -19,7 +18,6 @@ import org.springframework.stereotype.Service;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Arrays;
 
 @Service
 public class BankClient {
@@ -54,7 +52,8 @@ public class BankClient {
             response.close();
         }
         catch(Exception ex) {
-            throw new ProcessingException("Service currently unavailable ", getBankCode(ifscCode), ex);
+            throw new DependencyException("ExternalService","BankService - "+ifscCode,url,"UNAVAILABLE", ex);
+            //throw new DependencyException("SERVICE_UNAVAILABLE ", "could not call " + getBankCode(ifscCode), ex);
         }
 
         if (statusCode == 200)
@@ -62,7 +61,8 @@ public class BankClient {
         else if (statusCode == 404) {
             return false;
         } else {
-            throw new Exception("Error calling bank service for " + ifscCode + "; received statusCode=" + statusCode);
+            throw new DependencyException("ExternalService","BankService - "+ifscCode,url,"SERVICE_ERROR - " + statusCode);
+            //throw new DependencyException("SERVICE_ERROR",  "calling " + ifscCode + " received statusCode=" + statusCode);
         }
     }
 
