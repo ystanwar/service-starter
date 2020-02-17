@@ -22,4 +22,4 @@ resilience4j.circuitbreaker:
       recordExceptions:
         - com.thoughtworks.exceptions.DependencyException
 Server:
-  port: 5012
+  port: 8080
