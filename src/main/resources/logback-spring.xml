@@ -1,8 +1,18 @@
 <configuration>
-    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+    <appender name="Console"
+              class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
             <Pattern>
                 %black(%d{ISO8601}) %highlight(%-5level) [%blue(%t)] %yellow(%C{1.}): %msg%n%throwable
+            </Pattern>
+        </layout>
+    </appender>
+
+    <appender name="ConsoleRef" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                request.id=%X{request.id} %black(%d{ISO8601}) %highlight(%-5level) [%blue(%t)] %yellow(%C{1.}): %msg%n%throwable
+<!--                %black(%d{ISO8601}) %highlight(%-5level) [%blue(%t)] %yellow(%C{1.}): %msg%n%throwable-->
             </Pattern>
         </layout>
     </appender>
@@ -11,7 +21,7 @@
         <file>logs/logs.log</file>
         <encoder
                 class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <Pattern>{"timestamp": %d "level": %p "event": %m}%n</Pattern>
+            <Pattern>{"request_id"= %X{request.id} "timestamp": %d "level": %p "event": %m}%n</Pattern>
         </encoder>
 
         <rollingPolicy
@@ -35,7 +45,12 @@
     <!-- LOG "com.thoughtworks*" at TRACE level -->
     <logger name="com.thoughtworks" level="trace" additivity="false">
         <appender-ref ref="RollingFile" />
-        <appender-ref ref="Console" />
+        <appender-ref ref="ConsoleRef" />
+    </logger>
+
+    <logger name="org.apache" level="info" additivity="false">
+        <appender-ref ref="RollingFile" />
+        <appender-ref ref="ConsoleRef" />
     </logger>
 
 </configuration>

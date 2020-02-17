@@ -23,11 +23,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(BankInfoController.class)
 public class BankInfoControllerTest {
 
-    @MockBean
-    BankInfoService bankInfoService;
-
     @Autowired
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
+
+    @MockBean
+    private BankInfoService bankInfoService;
 
     @Test
     public void createBankInfo() throws Exception {
@@ -51,7 +51,6 @@ public class BankInfoControllerTest {
         Map<String, String> errors = new HashMap<>();
         errors.put("message", "Bank info already exists");
         ObjectMapper objectMapper = new ObjectMapper();
-
         mockMvc.perform(post("/bankinfo")
                 .content("{\"bankCode\":\"HDFC\"," +
                         "\"url\":\"http://localhost:8082\"}")

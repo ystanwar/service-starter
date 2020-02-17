@@ -46,7 +46,7 @@ public class PaymentController {
     })
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<RequestSuccessResponse> create(@Valid  @RequestBody PaymentRequest paymentRequest ) throws Exception {
+    public ResponseEntity<RequestSuccessResponse> create(@Valid @RequestBody PaymentRequest paymentRequest) throws Exception {
         paymentRequestTime = prometheus.getPaymentRequestTime();
         long startTime = System.currentTimeMillis();
         paymentsCounter = prometheus.getPaymentsCounter();
@@ -76,7 +76,7 @@ public class PaymentController {
     }
 
     @GetMapping
-    public List<Payment> getAllPayments(){
+    public List<Payment> getAllPayments() {
         return paymentService.getAll();
     }
 }
