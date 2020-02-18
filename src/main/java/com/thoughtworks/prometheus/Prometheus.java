@@ -16,8 +16,8 @@ public class Prometheus {
     private Gauge paymentRequestTime;
 
     @Autowired
-    Prometheus(MeterRegistry meterRegistry,
-               CollectorRegistry collectorRegistry) {
+    public Prometheus(MeterRegistry meterRegistry,
+                      CollectorRegistry collectorRegistry) {
         paymentFailedCounter = Counter
                 .builder("paymentService")
                 .description("counter for number of payments")

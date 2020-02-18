@@ -1,16 +1,13 @@
 package com.thoughtworks.payment;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.MappingIterator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thoughtworks.exceptions.ResourceNotFoundException;
 import com.thoughtworks.exceptions.ValidationException;
 import com.thoughtworks.messages.RequestFailureResponse;
-import com.thoughtworks.payment.model.BankDetails;
-import com.thoughtworks.prometheus.Prometheus;
 import com.thoughtworks.messages.RequestSuccessResponse;
+import com.thoughtworks.payment.model.BankDetails;
 import com.thoughtworks.payment.model.Payment;
+import com.thoughtworks.prometheus.Prometheus;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.prometheus.client.CollectorRegistry;
@@ -25,7 +22,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -119,14 +115,13 @@ public class PaymentControllerTest {
         String responseJson = mockResult.andReturn().getResponse().getContentAsString();
 
         ObjectMapper objectmapper = new ObjectMapper();
-        //MappingIterator<Payment> paymentResponseIterator = objectmapper.readValues(new com.fasterxml.jackson.core.JsonFactory().createParser(responseJson), Payment.class);
         List<Payment> paymentListResponse = new ObjectMapper().readValue(responseJson, objectmapper.getTypeFactory().constructCollectionType(List.class, Payment.class));
 
         verify(paymentService, times(1)).getAll();
         assertEquals(2, paymentListResponse.size());
 
-        assertEquals(500,paymentListResponse.get(0).getAmount());
-        assertEquals(2100,paymentListResponse.get(1).getAmount());
+        assertEquals(500, paymentListResponse.get(0).getAmount());
+        assertEquals(2100, paymentListResponse.get(1).getAmount());
     }
 
     @Test

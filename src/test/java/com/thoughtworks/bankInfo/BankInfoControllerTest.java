@@ -2,11 +2,14 @@ package com.thoughtworks.bankInfo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thoughtworks.exceptions.ResourceConflictException;
+import com.thoughtworks.filter.PaymentsFilterConfig;
 import com.thoughtworks.messages.RequestFailureResponse;
+import com.thoughtworks.prometheus.Prometheus;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -21,6 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(BankInfoController.class)
+@Import({PaymentsFilterConfig.class})
 public class BankInfoControllerTest {
 
     @Autowired
@@ -28,6 +32,9 @@ public class BankInfoControllerTest {
 
     @MockBean
     private BankInfoService bankInfoService;
+
+    @MockBean
+    Prometheus prometheus;
 
     @Test
     public void createBankInfo() throws Exception {

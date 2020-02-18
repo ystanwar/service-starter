@@ -50,9 +50,8 @@ public class BankClient {
             CloseableHttpResponse response = httpclient.execute(get);
             statusCode = response.getStatusLine().getStatusCode();
             response.close();
-        }
-        catch(Exception ex) {
-            throw new DependencyException("ExternalService","BankService - "+ifscCode,url,"UNAVAILABLE", ex);
+        } catch (Exception ex) {
+            throw new DependencyException("ExternalService", "BankService - " + ifscCode, url, "UNAVAILABLE", ex);
             //throw new DependencyException("SERVICE_UNAVAILABLE ", "could not call " + getBankCode(ifscCode), ex);
         }
 
@@ -61,7 +60,7 @@ public class BankClient {
         else if (statusCode == 404) {
             return false;
         } else {
-            throw new DependencyException("ExternalService","BankService - "+ifscCode,url,"SERVICE_ERROR - " + statusCode);
+            throw new DependencyException("ExternalService", "BankService - " + ifscCode, url, "SERVICE_ERROR - " + statusCode);
             //throw new DependencyException("SERVICE_ERROR",  "calling " + ifscCode + " received statusCode=" + statusCode);
         }
     }
