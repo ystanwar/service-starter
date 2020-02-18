@@ -48,19 +48,12 @@ public class PaymentController {
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<RequestSuccessResponse> create(@Valid @RequestBody PaymentRequest paymentRequest) throws Exception {
         paymentRequestTime = prometheus.getPaymentRequestTime();
-        long startTime = System.currentTimeMillis();
-        paymentsCounter = prometheus.getPaymentsCounter();
-        paymentsCounter.increment();
-
         Payment payment = new Payment(paymentRequest.getAmount(), paymentRequest.getBeneficiary(), paymentRequest.getPayee());
         Payment savedPayment = paymentService.create(payment);
 
         if (savedPayment.getStatus().equals("success")) {
             paymentSuccessCounter = prometheus.getPaymentSuccessCounter();
             paymentSuccessCounter.increment();
-            long endTime = System.currentTimeMillis();
-            long executeTime = endTime - startTime;
-            paymentRequestTime.set(executeTime);
         }
         new Event("PAYMENTSUCCESSFUL", null, logger)
                 .addProperty("PaymentId", String.valueOf(savedPayment.getId()))
