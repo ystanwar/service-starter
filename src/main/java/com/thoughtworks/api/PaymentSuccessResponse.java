@@ -1,9 +1,9 @@
-package com.thoughtworks.messages;
+package com.thoughtworks.api;
 
 import org.springframework.stereotype.Component;
 
 @Component
-public class RequestSuccessResponse {
+public class PaymentSuccessResponse {
     private String statusMessage;
     private int paymentId;
 

@@ -3,7 +3,7 @@ package com.thoughtworks.bankInfo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thoughtworks.exceptions.ResourceConflictException;
 import com.thoughtworks.filter.PaymentsFilterConfig;
-import com.thoughtworks.messages.RequestFailureResponse;
+import com.thoughtworks.api.PaymentFailureResponse;
 import com.thoughtworks.prometheus.Prometheus;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +63,7 @@ public class BankInfoControllerTest {
                         "\"url\":\"http://localhost:8082\"}")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isConflict())
-                .andExpect(content().string(objectMapper.writeValueAsString(new RequestFailureResponse("REQUEST_CONFLICT", errors))));
+                .andExpect(content().string(objectMapper.writeValueAsString(new PaymentFailureResponse("REQUEST_CONFLICT", errors))));
 
         verify(bankInfoService).create(any(BankInfo.class));
     }

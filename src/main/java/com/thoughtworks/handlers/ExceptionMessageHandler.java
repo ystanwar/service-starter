@@ -5,7 +5,7 @@ import com.thoughtworks.exceptions.ResourceConflictException;
 import com.thoughtworks.exceptions.ResourceNotFoundException;
 import com.thoughtworks.exceptions.ValidationException;
 import com.thoughtworks.logger.ErrorEvent;
-import com.thoughtworks.messages.RequestFailureResponse;
+import com.thoughtworks.api.PaymentFailureResponse;
 import io.github.resilience4j.circuitbreaker.CallNotPermittedException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -42,21 +42,21 @@ public class ExceptionMessageHandler {
     @ExceptionHandler(ResourceNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
-    protected RequestFailureResponse handleResourceNotFoundException(ResourceNotFoundException ex) {
+    protected PaymentFailureResponse handleResourceNotFoundException(ResourceNotFoundException ex) {
         Map<String, String> errors = new HashMap<>();
         errors.put(ex.getKey(), ex.getValue());
         logException(ex);
-        return new RequestFailureResponse("MISSING_INFO", errors);
+        return new PaymentFailureResponse("MISSING_INFO", errors);
     }
 
     @ExceptionHandler(ResourceConflictException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
     @ResponseBody
-    protected RequestFailureResponse handleConflictException(ResourceConflictException ex) {
+    protected PaymentFailureResponse handleConflictException(ResourceConflictException ex) {
         Map<String, String> errors = new HashMap<>();
         errors.put(ex.getKey(), ex.getValue());
         logException(ex);
-        return new RequestFailureResponse("REQUEST_CONFLICT", errors);
+        return new PaymentFailureResponse("REQUEST_CONFLICT", errors);
     }
 
     @ExceptionHandler(CallNotPermittedException.class)
@@ -69,7 +69,7 @@ public class ExceptionMessageHandler {
     @ExceptionHandler({MethodArgumentNotValidException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    public RequestFailureResponse handleArgumentValidationException(MethodArgumentNotValidException exception) {
+    public PaymentFailureResponse handleArgumentValidationException(MethodArgumentNotValidException exception) {
         Map<String, String> errors = new HashMap<>();
 
         List<Map.Entry<String, String>> fieldErrorMessages = exception.getBindingResult().getFieldErrors().stream()
@@ -86,7 +86,7 @@ public class ExceptionMessageHandler {
         }
 
         logException(exception);
-        return new RequestFailureResponse("INVALID_INPUT", errors);
+        return new PaymentFailureResponse("INVALID_INPUT", errors);
     }
     private static Map.Entry<String, String> extractMessage(FieldError fieldError) {
         return new HashMap.SimpleEntry<>(fieldError.getField(), fieldError.getDefaultMessage());
@@ -95,31 +95,31 @@ public class ExceptionMessageHandler {
     @ExceptionHandler(ValidationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    protected RequestFailureResponse handleValidationException(ValidationException ex) {
+    protected PaymentFailureResponse handleValidationException(ValidationException ex) {
         Map<String, String> errors = new HashMap<>();
         errors.put(ex.getKey(), ex.getValue());
         logException(ex);
-        return new RequestFailureResponse("INVALID_INPUT", errors);
+        return new PaymentFailureResponse("INVALID_INPUT", errors);
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    protected RequestFailureResponse handleRequestNotReadableException(HttpMessageNotReadableException ex) {
+    protected PaymentFailureResponse handleRequestNotReadableException(HttpMessageNotReadableException ex) {
         Map<String, String> errors = new HashMap<>();
         errors.put("message", "Request body missing or incorrect format");
         logException(ex);
-        return new RequestFailureResponse("INVALID_INPUT", errors);
+        return new PaymentFailureResponse("INVALID_INPUT", errors);
     }
 
     @ExceptionHandler(BusinessException.class)
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     @ResponseBody
-    protected RequestFailureResponse handleProcessingException(BusinessException ex) {
+    protected PaymentFailureResponse handleProcessingException(BusinessException ex) {
         Map<String, String> errors = new HashMap<>();
         errors.put(ex.getKey(), ex.getValue());
         logException(ex);
-        return new RequestFailureResponse("REQUEST_UNPROCESSABLE", errors);
+        return new PaymentFailureResponse("REQUEST_UNPROCESSABLE", errors);
     }
 
 
@@ -127,11 +127,11 @@ public class ExceptionMessageHandler {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
-    protected RequestFailureResponse handleGeneralException(Exception ex) {
+    protected PaymentFailureResponse handleGeneralException(Exception ex) {
         Map<String, String> errors = new HashMap<>();
         errors.put("message", "Could not process the request");
         logException(ex);
-        return new RequestFailureResponse("SERVER_ERROR", errors);
+        return new PaymentFailureResponse("SERVER_ERROR", errors);
     }
 
 }

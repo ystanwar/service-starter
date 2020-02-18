@@ -3,8 +3,8 @@ package com.thoughtworks.payment;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thoughtworks.exceptions.ResourceNotFoundException;
 import com.thoughtworks.exceptions.ValidationException;
-import com.thoughtworks.messages.RequestFailureResponse;
-import com.thoughtworks.messages.RequestSuccessResponse;
+import com.thoughtworks.api.PaymentFailureResponse;
+import com.thoughtworks.api.PaymentSuccessResponse;
 import com.thoughtworks.payment.model.BankDetails;
 import com.thoughtworks.payment.model.Payment;
 import com.thoughtworks.prometheus.Prometheus;
@@ -134,7 +134,7 @@ public class PaymentControllerTest {
 
         ObjectMapper objectMapper = new ObjectMapper();
 
-        RequestSuccessResponse response = new RequestSuccessResponse();
+        PaymentSuccessResponse response = new PaymentSuccessResponse();
         response.setStatusMessage("Payment done successfully");
         response.setPaymentId(payment.getId());
 
@@ -167,7 +167,7 @@ public class PaymentControllerTest {
                         "}")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound())
-                .andExpect(content().string(objectMapper.writeValueAsString(new RequestFailureResponse("MISSING_INFO", errors))));
+                .andExpect(content().string(objectMapper.writeValueAsString(new PaymentFailureResponse("MISSING_INFO", errors))));
 
         verify(paymentService).create(any(Payment.class));
     }
@@ -187,7 +187,7 @@ public class PaymentControllerTest {
                         "}")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound())
-                .andExpect(content().string(objectMapper.writeValueAsString(new RequestFailureResponse("MISSING_INFO", errors))));
+                .andExpect(content().string(objectMapper.writeValueAsString(new PaymentFailureResponse("MISSING_INFO", errors))));
 
         verify(paymentService).create(any(Payment.class));
     }
@@ -270,7 +270,7 @@ public class PaymentControllerTest {
                         "}")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound())
-                .andExpect(content().string(objectMapper.writeValueAsString(new RequestFailureResponse("MISSING_INFO", errors))));
+                .andExpect(content().string(objectMapper.writeValueAsString(new PaymentFailureResponse("MISSING_INFO", errors))));
 
         verify(paymentService).create(any(Payment.class));
     }
@@ -291,7 +291,7 @@ public class PaymentControllerTest {
                         "}")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
-                .andExpect(content().string(objectMapper.writeValueAsString(new RequestFailureResponse("INVALID_INPUT", errors))));
+                .andExpect(content().string(objectMapper.writeValueAsString(new PaymentFailureResponse("INVALID_INPUT", errors))));
 
         verify(paymentService).create(any(Payment.class));
     }
@@ -312,7 +312,7 @@ public class PaymentControllerTest {
                         "}")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isInternalServerError())
-                .andExpect(content().string(objectMapper.writeValueAsString(new RequestFailureResponse("SERVER_ERROR", errors))));
+                .andExpect(content().string(objectMapper.writeValueAsString(new PaymentFailureResponse("SERVER_ERROR", errors))));
 
         verify(paymentService).create(any(Payment.class));
     }
@@ -332,7 +332,7 @@ public class PaymentControllerTest {
                         "}")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
-                .andExpect(content().string(objectMapper.writeValueAsString(new RequestFailureResponse("INVALID_INPUT", errors))));
+                .andExpect(content().string(objectMapper.writeValueAsString(new PaymentFailureResponse("INVALID_INPUT", errors))));
 
         verify(paymentService, times(0)).create(any(Payment.class));
     }

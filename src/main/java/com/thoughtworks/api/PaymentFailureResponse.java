@@ -1,12 +1,12 @@
-package com.thoughtworks.messages;
+package com.thoughtworks.api;
 
 import java.util.Map;
 
-public class RequestFailureResponse {
+public class PaymentFailureResponse {
     private String message;
     private Map<String, String> reasons;
 
-    public RequestFailureResponse(String message, Map<String, String> reasons) {
+    public PaymentFailureResponse(String message, Map<String, String> reasons) {
         this.message = message;
         this.reasons = reasons;
     }
