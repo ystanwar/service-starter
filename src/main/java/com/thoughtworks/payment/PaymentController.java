@@ -1,8 +1,8 @@
 package com.thoughtworks.payment;
 
-import com.thoughtworks.api.PaymentRequest;
+import com.thoughtworks.api.payment.PaymentRequest;
 import com.thoughtworks.logger.Event;
-import com.thoughtworks.api.PaymentSuccessResponse;
+import com.thoughtworks.api.payment.PaymentSuccessResponse;
 import com.thoughtworks.payment.model.Payment;
 import com.thoughtworks.prometheus.Prometheus;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;

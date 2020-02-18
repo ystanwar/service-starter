@@ -1,6 +1,6 @@
 package com.thoughtworks.payment;
 
-import com.thoughtworks.api.PaymentRequest;
+import com.thoughtworks.api.payment.PaymentRequest;
 import com.thoughtworks.payment.model.BankDetails;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;

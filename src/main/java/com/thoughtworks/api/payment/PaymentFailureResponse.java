@@ -1,4 +1,4 @@
-package com.thoughtworks.api;
+package com.thoughtworks.api.payment;
 
 import java.util.Map;
 

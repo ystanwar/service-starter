@@ -3,7 +3,7 @@ package com.thoughtworks.bankInfo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thoughtworks.exceptions.ResourceConflictException;
 import com.thoughtworks.filter.PaymentsFilterConfig;
-import com.thoughtworks.api.PaymentFailureResponse;
+import com.thoughtworks.api.payment.PaymentFailureResponse;
 import com.thoughtworks.prometheus.Prometheus;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -5,7 +5,7 @@ import com.thoughtworks.exceptions.ResourceConflictException;
 import com.thoughtworks.exceptions.ResourceNotFoundException;
 import com.thoughtworks.exceptions.ValidationException;
 import com.thoughtworks.logger.ErrorEvent;
-import com.thoughtworks.api.PaymentFailureResponse;
+import com.thoughtworks.api.payment.PaymentFailureResponse;
 import io.github.resilience4j.circuitbreaker.CallNotPermittedException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

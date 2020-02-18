@@ -1,4 +1,4 @@
-package com.thoughtworks.api;
+package com.thoughtworks.api.payment;
 
 import com.thoughtworks.payment.model.BankDetails;
 import org.springframework.validation.annotation.Validated;
