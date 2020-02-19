@@ -39,6 +39,7 @@ public class BankClient {
 
     public boolean checkBankDetails(long accountNumber, String ifscCode) throws Exception {
 
+        System.out.println("iam in bankclient");
         BankInfo bankInfo = bankService.fetchBankByBankCode(getBankCode(ifscCode));
         if (bankInfo == null) throw new ResourceNotFoundException("message", "Bank info not found for " + ifscCode);
         baseUrl = bankInfo.getUrl();

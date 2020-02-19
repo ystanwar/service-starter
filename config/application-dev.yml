@@ -21,5 +21,17 @@ resilience4j.circuitbreaker:
       failureRateThreshold: 50
       recordExceptions:
         - com.thoughtworks.exceptions.DependencyException
+
+
+resilience4j.retry:
+  instances:
+    service1:
+      maxRetryAttempts: 3
+      waitDuration: 10s
+      enableExponentialBackoff: true
+      exponentialBackoffMultiplier: 2
+      retryExceptions:
+        - com.thoughtworks.exceptions.DependencyException
+
 Server:
   port: 8080

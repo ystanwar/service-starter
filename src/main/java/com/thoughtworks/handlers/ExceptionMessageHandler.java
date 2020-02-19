@@ -3,10 +3,7 @@ package com.thoughtworks.handlers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.thoughtworks.api.payment.PaymentFailureResponse;
-import com.thoughtworks.exceptions.BusinessException;
-import com.thoughtworks.exceptions.ResourceConflictException;
-import com.thoughtworks.exceptions.ResourceNotFoundException;
-import com.thoughtworks.exceptions.ValidationException;
+import com.thoughtworks.exceptions.*;
 import io.github.resilience4j.circuitbreaker.CallNotPermittedException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -129,6 +126,15 @@ public class ExceptionMessageHandler {
         return new PaymentFailureResponse("REQUEST_UNPROCESSABLE", errors);
     }
 
+    @ExceptionHandler(DependencyException.class)
+    @ResponseStatus(HttpStatus.FAILED_DEPENDENCY)
+    @ResponseBody
+    protected PaymentFailureResponse handleDependencyException(Exception ex) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put("message", "dependency service not available");
+        logException(ex);
+        return new PaymentFailureResponse("DEPENDENCY_NOT_AVAILABLE", errors);
+    }
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

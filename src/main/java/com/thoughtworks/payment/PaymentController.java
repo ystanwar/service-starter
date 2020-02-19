@@ -6,6 +6,7 @@ import com.thoughtworks.api.payment.PaymentRequest;
 import com.thoughtworks.api.payment.PaymentSuccessResponse;
 import com.thoughtworks.payment.model.Payment;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.apache.logging.log4j.LogManager;
@@ -23,6 +24,7 @@ import static net.logstash.logback.argument.StructuredArguments.v;
 @RestController
 @RequestMapping("/payments")
 @CircuitBreaker(name = "service1")
+@Retry(name="service1")
 public class PaymentController {
     private static Logger logger = LogManager.getLogger(PaymentController.class);
 
