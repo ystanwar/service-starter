@@ -13,6 +13,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -71,7 +72,9 @@ public class BankClient {
                 .addParameter("accountNumber", String.valueOf(accountNumber))
                 .addParameter("ifscCode", ifscCode)
                 .build();
+
         get.setURI(uri);
+        get.setHeader("PAY_REQ_ID", MDC.get("request.id"));
         return get;
     }
 }
