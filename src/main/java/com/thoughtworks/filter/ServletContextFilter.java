@@ -18,7 +18,9 @@ public class ServletContextFilter {
         ServletContextRequestLoggingFilter filter
                 = new ServletContextRequestLoggingFilter();
         filter.setIncludeQueryString(true);
+        filter.setIncludeHeaders(true);
         filter.setIncludePayload(true);
+        filter.setIncludeClientInfo(true);
         filter.setMaxPayloadLength(10000);
         filter.setAfterMessagePrefix("PAYMENT ");
         return filter;
