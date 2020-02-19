@@ -1,8 +1,9 @@
 package com.thoughtworks.payment;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.thoughtworks.api.payment.PaymentRequest;
 import com.thoughtworks.api.payment.PaymentSuccessResponse;
-import com.thoughtworks.logger.Event;
 import com.thoughtworks.payment.model.Payment;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.swagger.annotations.ApiResponse;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+
+import static net.logstash.logback.argument.StructuredArguments.v;
 
 @RestController
 @RequestMapping("/payments")
@@ -38,16 +41,16 @@ public class PaymentController {
         Payment payment = new Payment(paymentRequest.getAmount(), paymentRequest.getBeneficiary(), paymentRequest.getPayee());
         Payment savedPayment = paymentService.create(payment);
 
-        new Event("PAYMENTSUCCESSFUL", null, logger)
-                .addProperty("PaymentId", String.valueOf(savedPayment.getId()))
-                .addProperty("BeneficiaryIfscCode", savedPayment.getBeneficiaryIfscCode())
-                .addProperty("PayeeIfscCode", savedPayment.getPayeeIfscCode())
-                .publish();
+        ObjectNode mapper = new ObjectMapper().createObjectNode();
+        mapper.put("PaymentId", String.valueOf(savedPayment.getId()));
+        mapper.put("BeneficiaryIfscCode", savedPayment.getBeneficiaryIfscCode());
+        mapper.put("PayeeIfscCode", savedPayment.getPayeeIfscCode());
+
+        logger.info("{name:{},details:{}}", v("name", "PAYMENTSUCCESSFUL"), v("details", mapper.toString()));
 
         PaymentSuccessResponse response = new PaymentSuccessResponse();
         response.setStatusMessage("Payment done successfully");
         response.setPaymentId(savedPayment.getId());
-        logger.info("payment response");
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 

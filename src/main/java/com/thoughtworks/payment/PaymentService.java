@@ -1,7 +1,8 @@
 package com.thoughtworks.payment;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.thoughtworks.exceptions.ResourceNotFoundException;
-import com.thoughtworks.logger.ErrorEvent;
 import com.thoughtworks.payment.model.Payment;
 import com.thoughtworks.serviceclients.BankClient;
 import org.apache.logging.log4j.LogManager;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static net.logstash.logback.argument.StructuredArguments.v;
 
 @Service
 public class PaymentService {
@@ -31,11 +34,11 @@ public class PaymentService {
             payment.setStatus("failed");
             paymentRepository.save(payment);
 
-            new ErrorEvent("PAYMENTFAILED", payment.getBeneficiaryName() + "'s details are incorrect", logger)
-                    .addProperty("PaymentId", String.valueOf(payment.getId()))
-                    .addProperty("BeneficiaryIfscCode", payment.getBeneficiaryIfscCode())
-                    .addProperty("PayeeIfscCode", payment.getPayeeIfscCode())
-                    .publish();
+            ObjectNode mapper = new ObjectMapper().createObjectNode();
+            mapper.put("PaymentId", String.valueOf(payment.getId()));
+            mapper.put("BeneficiaryIfscCode", payment.getBeneficiaryIfscCode());
+            mapper.put("PayeeIfscCode", payment.getPayeeIfscCode());
+            logger.error("{name:{},description:{},details:{}}", v("name", "PAYMENTFAILED"), v("description", payment.getBeneficiaryName() + "'s details are incorrect"), v("details", mapper.toString()));
 
             throw new ResourceNotFoundException("message", payment.getBeneficiaryName() + "'s AccountDetails Not Found");
         }
@@ -44,11 +47,11 @@ public class PaymentService {
             payment.setStatus("failed");
             paymentRepository.save(payment);
 
-            new ErrorEvent("PAYMENTFAILED", payment.getPayeeName() + "'s details are incorrect", logger)
-                    .addProperty("PaymentId", String.valueOf(payment.getId()))
-                    .addProperty("BeneficiaryIfscCode", payment.getBeneficiaryIfscCode())
-                    .addProperty("PayeeIfscCode", payment.getPayeeIfscCode())
-                    .publish();
+            ObjectNode mapper = new ObjectMapper().createObjectNode();
+            mapper.put("PaymentId", String.valueOf(payment.getId()));
+            mapper.put("BeneficiaryIfscCode", payment.getBeneficiaryIfscCode());
+            mapper.put("PayeeIfscCode", payment.getPayeeIfscCode());
+            logger.error("{name:{},description:{},details:{}}", v("name", "PAYMENTFAILED"), v("description", payment.getPayeeName() + "'s details are incorrect"), v("details", mapper.toString()));
 
             throw new ResourceNotFoundException("message", payment.getPayeeName() + "'s AccountDetails Not Found");
         }

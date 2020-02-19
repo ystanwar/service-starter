@@ -1,11 +1,12 @@
 package com.thoughtworks.handlers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.thoughtworks.api.payment.PaymentFailureResponse;
 import com.thoughtworks.exceptions.BusinessException;
 import com.thoughtworks.exceptions.ResourceConflictException;
 import com.thoughtworks.exceptions.ResourceNotFoundException;
 import com.thoughtworks.exceptions.ValidationException;
-import com.thoughtworks.logger.ErrorEvent;
-import com.thoughtworks.api.payment.PaymentFailureResponse;
 import io.github.resilience4j.circuitbreaker.CallNotPermittedException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,17 +25,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static net.logstash.logback.argument.StructuredArguments.v;
+
 @ControllerAdvice
 public class ExceptionMessageHandler {
     private static Logger logger = LogManager.getLogger(ExceptionMessageHandler.class);
 
-    void logException(Exception ex){
-        new ErrorEvent(ex.getClass().toString(), ex.getMessage(), logger)
-                .addProperty("stackTrace", Arrays.toString(ex.getStackTrace())).publish();
+    void logException(Exception ex) {
+        ObjectNode mapperOne = new ObjectMapper().createObjectNode();
+        mapperOne.put("stackTrace", Arrays.toString(ex.getStackTrace()));
+        logger.error("{name:{},description:{},details:{}}", v("name", ex.getClass().toString()), v("description", ex.getMessage()), v("details", mapperOne.toString()));
+
         Throwable causedByException = ex.getCause();
-        if((causedByException)!=null) {
-            new ErrorEvent(causedByException.getClass().toString(), causedByException.getMessage(), logger)
-                    .addProperty("stackTrace", Arrays.toString(causedByException.getStackTrace())).publish();
+        if ((causedByException) != null) {
+            ObjectNode mapper = new ObjectMapper().createObjectNode();
+            mapper.put("stackTrace", Arrays.toString(causedByException.getStackTrace()));
+            logger.error("{name:{},description:{},details:{}}", v("name", causedByException.getClass().toString()), v("description", causedByException.getMessage()), v("details", mapper.toString()));
         }
     }
 
@@ -88,6 +94,7 @@ public class ExceptionMessageHandler {
         logException(exception);
         return new PaymentFailureResponse("INVALID_INPUT", errors);
     }
+
     private static Map.Entry<String, String> extractMessage(FieldError fieldError) {
         return new HashMap.SimpleEntry<>(fieldError.getField(), fieldError.getDefaultMessage());
     }
@@ -121,7 +128,6 @@ public class ExceptionMessageHandler {
         logException(ex);
         return new PaymentFailureResponse("REQUEST_UNPROCESSABLE", errors);
     }
-
 
 
     @ExceptionHandler(Exception.class)
