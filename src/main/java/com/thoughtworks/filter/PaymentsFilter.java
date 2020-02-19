@@ -2,7 +2,6 @@ package com.thoughtworks.filter;
 
 import com.thoughtworks.prometheus.Prometheus;
 import io.micrometer.core.instrument.Counter;
-import io.prometheus.client.Gauge;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.slf4j.MDC;
@@ -31,12 +30,9 @@ public class PaymentsFilter implements Filter {
         ContentCachingRequestWrapper requestWrapper = new ContentCachingRequestWrapper((HttpServletRequest) servletRequest);
         ContentCachingResponseWrapper responseWrapper = new ContentCachingResponseWrapper((HttpServletResponse) servletResponse);
 
-        Gauge paymentRequestTime;
         Counter paymentsCounter;
         paymentsCounter = prometheus.getPaymentsCounter();
         paymentsCounter.increment();
-        paymentRequestTime = prometheus.getPaymentRequestTime();
-        Gauge.Timer timer = paymentRequestTime.startTimer();
         try {
             filterChain.doFilter(requestWrapper, responseWrapper);
         } finally {
@@ -46,7 +42,6 @@ public class PaymentsFilter implements Filter {
             logger.info("PAYMENT RESPONSE ->{}", responseBody);
 
             responseWrapper.copyBodyToResponse();
-            timer.setDuration();
         }
 
     }

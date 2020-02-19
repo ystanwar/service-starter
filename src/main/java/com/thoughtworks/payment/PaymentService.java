@@ -2,11 +2,8 @@ package com.thoughtworks.payment;
 
 import com.thoughtworks.exceptions.ResourceNotFoundException;
 import com.thoughtworks.logger.ErrorEvent;
-import com.thoughtworks.prometheus.Prometheus;
-import com.thoughtworks.serviceclients.BankClient;
 import com.thoughtworks.payment.model.Payment;
-import io.micrometer.core.instrument.Counter;
-import io.micrometer.core.instrument.MeterRegistry;
+import com.thoughtworks.serviceclients.BankClient;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,27 +20,16 @@ public class PaymentService {
     @Autowired
     BankClient bankClient;
 
-    @Autowired
-    MeterRegistry meterRegistry;
-
-    @Autowired
-    Prometheus prometheus;
-
-    private Counter paymentFailed;
-
     public Payment create(Payment payment) throws Exception {
         if (payment == null) {
             throw new IllegalArgumentException("payment cannot be empty");
         }
-        paymentFailed = prometheus.getPaymentFailedCounter();
+
 
         boolean isValidBeneficiaryAccount = bankClient.checkBankDetails(payment.getBeneficiaryAccountNumber(), payment.getBeneficiaryIfscCode());
         if (!isValidBeneficiaryAccount) {
             payment.setStatus("failed");
-            Payment savedPayment = paymentRepository.save(payment);
-            if (savedPayment.getStatus().equals("failed")) {
-                paymentFailed.increment();
-            }
+            paymentRepository.save(payment);
 
             new ErrorEvent("PAYMENTFAILED", payment.getBeneficiaryName() + "'s details are incorrect", logger)
                     .addProperty("PaymentId", String.valueOf(payment.getId()))
@@ -56,10 +42,7 @@ public class PaymentService {
         boolean isValidPayeeAccount = bankClient.checkBankDetails(payment.getPayeeAccountNumber(), payment.getPayeeIfscCode());
         if (!isValidPayeeAccount) {
             payment.setStatus("failed");
-            Payment savedPayment = paymentRepository.save(payment);
-            if (savedPayment.getStatus().equals("failed")) {
-                paymentFailed.increment();
-            }
+            paymentRepository.save(payment);
 
             new ErrorEvent("PAYMENTFAILED", payment.getPayeeName() + "'s details are incorrect", logger)
                     .addProperty("PaymentId", String.valueOf(payment.getId()))
@@ -73,7 +56,7 @@ public class PaymentService {
         return paymentRepository.save(payment);
     }
 
-    public List<Payment> getAll(){
+    public List<Payment> getAll() {
         return paymentRepository.findAll();
     }
 

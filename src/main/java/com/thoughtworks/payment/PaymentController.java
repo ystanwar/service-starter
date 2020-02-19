@@ -1,14 +1,10 @@
 package com.thoughtworks.payment;
 
 import com.thoughtworks.api.payment.PaymentRequest;
-import com.thoughtworks.logger.Event;
 import com.thoughtworks.api.payment.PaymentSuccessResponse;
+import com.thoughtworks.logger.Event;
 import com.thoughtworks.payment.model.Payment;
-import com.thoughtworks.prometheus.Prometheus;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
-import io.micrometer.core.instrument.Counter;
-import io.micrometer.core.instrument.MeterRegistry;
-import io.prometheus.client.Gauge;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.apache.logging.log4j.LogManager;
@@ -25,16 +21,6 @@ import java.util.List;
 @RequestMapping("/payments")
 @CircuitBreaker(name = "service1")
 public class PaymentController {
-    @Autowired
-    MeterRegistry meterRegistry;
-
-    private Counter paymentsCounter;
-    private Counter paymentSuccessCounter;
-    private Gauge paymentRequestTime;
-
-    @Autowired
-    Prometheus prometheus;
-
     private static Logger logger = LogManager.getLogger(PaymentController.class);
 
     @Autowired
@@ -48,14 +34,10 @@ public class PaymentController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<PaymentSuccessResponse> create(@Valid @RequestBody PaymentRequest paymentRequest) throws Exception {
-        paymentRequestTime = prometheus.getPaymentRequestTime();
+
         Payment payment = new Payment(paymentRequest.getAmount(), paymentRequest.getBeneficiary(), paymentRequest.getPayee());
         Payment savedPayment = paymentService.create(payment);
 
-        if (savedPayment.getStatus().equals("success")) {
-            paymentSuccessCounter = prometheus.getPaymentSuccessCounter();
-            paymentSuccessCounter.increment();
-        }
         new Event("PAYMENTSUCCESSFUL", null, logger)
                 .addProperty("PaymentId", String.valueOf(savedPayment.getId()))
                 .addProperty("BeneficiaryIfscCode", savedPayment.getBeneficiaryIfscCode())

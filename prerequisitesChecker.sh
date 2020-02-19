@@ -1,7 +1,7 @@
 #!/bin/bash
 # shellcheck disable=SC2006
 JAVA_VERSION=`java -version 2>&1 |awk 'NR==1{print $1}'`
-NOT_FOUND="prerequestives.sh:"
+NOT_FOUND="prerequisitesChecker.sh:"
 if [ "$JAVA_VERSION" == "$NOT_FOUND" ]
 then
     echo "install java"

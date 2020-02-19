@@ -1,17 +1,16 @@
 package com.thoughtworks.payment;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.thoughtworks.exceptions.ResourceNotFoundException;
-import com.thoughtworks.exceptions.ValidationException;
 import com.thoughtworks.api.payment.PaymentFailureResponse;
 import com.thoughtworks.api.payment.PaymentSuccessResponse;
+import com.thoughtworks.exceptions.ResourceNotFoundException;
+import com.thoughtworks.exceptions.ValidationException;
 import com.thoughtworks.payment.model.BankDetails;
 import com.thoughtworks.payment.model.Payment;
 import com.thoughtworks.prometheus.Prometheus;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.prometheus.client.CollectorRegistry;
-import io.prometheus.client.Gauge;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -65,23 +64,12 @@ public class PaymentControllerTest {
 
     @BeforeEach
     void setUp() {
+
         when(prometheus.getPaymentsCounter()).thenReturn(Counter
                 .builder("paymentService")
                 .description("counter for number of payments")
                 .tags("counter", "number of payments")
                 .register(meterRegistry));
-
-        when(prometheus.getPaymentSuccessCounter()).thenReturn(Counter
-                .builder("paymentService")
-                .description("counter for successful payments")
-                .tags("counter", "successful payments")
-                .register(meterRegistry));
-
-        when(prometheus.getPaymentRequestTime()).thenReturn(Gauge.build()
-                .name("payment_Request_Time")
-                .help("calculate time for per payment request")
-                .register(collectorRegistry));
-
     }
 
     @AfterEach
@@ -104,8 +92,6 @@ public class PaymentControllerTest {
         payment = new Payment(2100, beneficiary, payee);
         payment.setId(2);
         paymentList.add(payment);
-
-        ObjectMapper objectMapper = new ObjectMapper();
 
         when(paymentService.getAll()).thenReturn(paymentList);
 
