@@ -1,8 +1,7 @@
 package com.thoughtworks.payment.model;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.thoughtworks.payment.PaymentDeSerializer;
 import io.swagger.annotations.ApiModelProperty;
+import org.slf4j.MDC;
 
 import javax.persistence.*;
 
@@ -39,6 +38,10 @@ public class Payment {
     @Column(name = "status")
     private String status;
 
+    @Column(name="request_id")
+    private String requestId;
+
+
     public Payment() {
     }
 
@@ -60,6 +63,7 @@ public class Payment {
         this.payeeAccountNumber = payee.getAccountNumber();
         this.payeeIfscCode = payee.getIfscCode();
         this.status = "success";
+        this.requestId= MDC.get("request.id");
     }
 
     public int getId() {
@@ -96,6 +100,10 @@ public class Payment {
 
     public String getStatus() {
         return status;
+    }
+
+    public String getRequestId() {
+        return requestId;
     }
 
     public void setId(int id) {
