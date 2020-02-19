@@ -1,7 +1,5 @@
 package com.thoughtworks.api.bankinfo;
 
-import org.slf4j.MDC;
-
 public enum BankInfoStatusCodes {
     CREATED(201,"bankinfo is created"),
     CONFLICT(409,"bankinfo already exists"),
