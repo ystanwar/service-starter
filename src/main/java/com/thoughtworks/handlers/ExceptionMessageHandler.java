@@ -63,6 +63,7 @@ public class ExceptionMessageHandler {
     }
 
     @ExceptionHandler(CallNotPermittedException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     protected String handleCircuitBreakException(CallNotPermittedException callNotPermittedException) {
         logException(callNotPermittedException);

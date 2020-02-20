@@ -322,6 +322,7 @@ public class PaymentControllerTest {
 
         verify(paymentService, times(0)).create(any(Payment.class));
     }
+
 }
 
 class PaymentErrorResponseJson {

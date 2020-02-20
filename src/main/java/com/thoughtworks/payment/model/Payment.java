@@ -106,6 +106,10 @@ public class Payment {
         return requestId;
     }
 
+    public void setRequestId(String requestId) {
+        this.requestId = requestId;
+    }
+
     public void setId(int id) {
         this.id = id;
     }

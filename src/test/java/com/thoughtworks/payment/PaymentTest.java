@@ -17,6 +17,7 @@ public class PaymentTest {
         BankDetails payee = new BankDetails("user2", 12346, "HDFC1234");
 
         Payment payment = new Payment(100, beneficiary, payee);
+        payment.setRequestId("payment1234");
         ObjectMapper objectMapper = new ObjectMapper();
         String detailsString = objectMapper.writeValueAsString(payment);
         assertTrue(detailsString.contains("\"id\":0"));
@@ -27,6 +28,7 @@ public class PaymentTest {
         assertTrue(detailsString.contains("\"payeeName\":\"user2\""));
         assertTrue(detailsString.contains("\"payeeAccountNumber\":12346"));
         assertTrue(detailsString.contains("\"payeeIfscCode\":\"HDFC1234\""));
+        assertTrue(detailsString.contains("\"requestId\":\"payment1234\""));
 
     }
 
@@ -54,7 +56,7 @@ public class PaymentTest {
         String paymentString = "{\"amount\":500," +
                 "\"beneficiaryName\":\"user1\",\"beneficiaryAccountNumber\":12345,\"beneficiaryIfscCode\":\"HDFC1234\"" +
                 ",\"payeeName\":\"user2\",\"payeeAccountNumber\":12346,\"payeeIfscCode\":\"HDFC1234\"" +
-                "}";
+                ",\"requestId\":\"payment1234\"}";
 
         Payment payment = objectMapper.readValue(paymentString, Payment.class);
 
@@ -65,5 +67,6 @@ public class PaymentTest {
         assertEquals("user2", payment.getPayeeName());
         assertEquals(12346, payment.getPayeeAccountNumber());
         assertEquals("HDFC1234", payment.getPayeeIfscCode());
+        assertEquals("payment1234",payment.getRequestId());
     }
 }
