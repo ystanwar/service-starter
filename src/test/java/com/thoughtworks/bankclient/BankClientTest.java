@@ -67,7 +67,7 @@ public class BankClientTest {
     }
 
     @Test
-    public void circuitBreaker() throws Exception {
+    public void circuitBreakerOpensAfterFiftyPercentThresholdFailureLimitAndDoesntAllowRequests() throws Exception {
         when(bankInfoService.fetchBankByBankCode(any(String.class))).thenReturn(new BankInfo("HDFC", "http://localhost:8088"));
         CircuitBreaker circuitBreaker = circuitBreakerRegistry.circuitBreaker("service1");
 
