@@ -24,8 +24,7 @@ import static net.logstash.logback.argument.StructuredArguments.v;
 
 @RestController
 @RequestMapping("/payments")
-@CircuitBreaker(name = "service1")
-@Retry(name="service1")
+
 public class PaymentController {
     private static Logger logger = LogManager.getLogger(PaymentController.class);
 

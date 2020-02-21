@@ -6,6 +6,8 @@ import com.thoughtworks.exceptions.DependencyException;
 import com.thoughtworks.exceptions.ResourceNotFoundException;
 import com.thoughtworks.exceptions.ValidationException;
 import com.thoughtworks.handlers.ExceptionMessageHandler;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
@@ -21,6 +23,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 @Service
+@CircuitBreaker(name = "service1")
+@Retry(name="service1")
 public class BankClient {
     private static Logger logger = LogManager.getLogger(ExceptionMessageHandler.class);
 
