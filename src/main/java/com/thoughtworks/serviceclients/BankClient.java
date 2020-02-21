@@ -24,7 +24,7 @@ import java.net.URISyntaxException;
 
 @Service
 @CircuitBreaker(name = "service1")
-@Retry(name="service1")
+//@Retry(name="service1")
 public class BankClient {
     private static Logger logger = LogManager.getLogger(ExceptionMessageHandler.class);
 

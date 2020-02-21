@@ -7,14 +7,14 @@ spring:
     username: sa
 
 
-#resilience4j.circuitbreaker:
-#  instances:
-#    service1:
-#      registerHealthIndicator: true
-#      ringBufferSizeInClosedState: 5
-#      ringBufferSizeInHalfOpenState: 3
-#      waitDurationInOpenState: 10s
-#      failureRateThreshold: 50
-#      recordExceptions:
-#        - com.thoughtworks.exceptions.DependencyException
+resilience4j.circuitbreaker:
+  instances:
+    service1:
+      registerHealthIndicator: true
+      ringBufferSizeInClosedState: 5
+      ringBufferSizeInHalfOpenState: 3
+      waitDurationInOpenState: 100s
+      failureRateThreshold: 50
+      recordExceptions:
+        - com.thoughtworks.exceptions.DependencyException
 

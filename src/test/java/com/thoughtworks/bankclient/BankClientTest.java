@@ -8,25 +8,40 @@ import com.thoughtworks.exceptions.ValidationException;
 import com.thoughtworks.bankInfo.BankInfo;
 import com.thoughtworks.bankInfo.BankInfoService;
 import com.thoughtworks.serviceclients.BankClient;
+import io.github.resilience4j.circuitbreaker.CallNotPermittedException;
+import io.github.resilience4j.circuitbreaker.CircuitBreaker;
+import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig;
+import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry;
+import io.vavr.control.Try;
+import org.junit.Before;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
+
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+
 
 @SpringBootTest
+//@Import({CircuitBreakerRegistry.class})
 public class BankClientTest {
-
 
     @Autowired
     BankClient bankClient;
+
+    @Autowired
+    CircuitBreakerRegistry circuitBreakerRegistry;
 
     @MockBean
     BankInfoService bankInfoService;
@@ -38,6 +53,12 @@ public class BankClientTest {
         wireMockServer = new WireMockServer(8082);
         wireMockServer.start();
         configureFor("localhost", 8082);
+
+    }
+
+    @BeforeEach
+    void circuitBreakerSetup() {
+        circuitBreakerRegistry.circuitBreaker("service1").reset();
     }
 
     @AfterAll
@@ -46,10 +67,33 @@ public class BankClientTest {
     }
 
     @Test
-    public void testcheckBankDetailsSuccess() throws Exception {
+    public void circuitBreaker() throws Exception {
+        when(bankInfoService.fetchBankByBankCode(any(String.class))).thenReturn(new BankInfo("HDFC", "http://localhost:8088"));
+        CircuitBreaker circuitBreaker = circuitBreakerRegistry.circuitBreaker("service1");
+
+        for (int i = 0; i < 5; i++) {
+            try {
+                Supplier<Boolean> decoratedMethod = CircuitBreaker.decorateSupplier(circuitBreaker, () -> {
+                    try {
+                        return bankClient.checkBankDetails(12345, "HDFC1234");
+                    } catch (Exception bankClientException) {
+                        assertEquals(DependencyException.class, bankClientException.getClass());
+                        return false;
+                    }
+                });
+                decoratedMethod.get();
+            } catch (Exception circuitBreakerException) {
+                assertEquals(CallNotPermittedException.class, circuitBreakerException.getClass());
+            }
+        }
+        verify(bankInfoService, times(3)).fetchBankByBankCode(any(String.class));
+    }
+
+    @Test
+    public void testCheckBankDetailsSuccess() throws Exception {
 
         when(bankInfoService.fetchBankByBankCode(anyString())).thenReturn(new BankInfo("HDFC", "http://localhost:8082"));
-        StubMapping string = stubFor(get(urlEqualTo("/checkDetails?accountNumber=12345&ifscCode=HDFC1234")).willReturn(aResponse().withStatus(200)));
+        stubFor(get(urlEqualTo("/checkDetails?accountNumber=12345&ifscCode=HDFC1234")).willReturn(aResponse().withStatus(200)));
 
         assertEquals(true, bankClient.checkBankDetails(12345, "HDFC1234"));
     }
@@ -93,6 +137,6 @@ public class BankClientTest {
 
         DependencyException exception = assertThrows(DependencyException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
         assertEquals("BankService - HDFC1234", exception.getKey());
-        assertEquals("SERVICE_ERROR - 500" , exception.getValue());
+        assertEquals("SERVICE_ERROR - 500", exception.getValue());
     }
 }
