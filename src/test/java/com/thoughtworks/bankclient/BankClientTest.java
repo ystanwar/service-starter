@@ -1,12 +1,11 @@
 package com.thoughtworks.bankclient;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import com.github.tomakehurst.wiremock.stubbing.StubMapping;
+import com.thoughtworks.bankInfo.BankInfo;
+import com.thoughtworks.bankInfo.BankInfoService;
 import com.thoughtworks.exceptions.DependencyException;
 import com.thoughtworks.exceptions.ResourceNotFoundException;
 import com.thoughtworks.exceptions.ValidationException;
-import com.thoughtworks.bankInfo.BankInfo;
-import com.thoughtworks.bankInfo.BankInfoService;
 import com.thoughtworks.serviceclients.BankClient;
 import io.github.resilience4j.circuitbreaker.CallNotPermittedException;
 import io.github.resilience4j.circuitbreaker.CircuitBreaker;
@@ -20,7 +19,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
 
@@ -28,11 +26,12 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.*;
 
 
 @SpringBootTest
-//@Import({CircuitBreakerRegistry.class})
 public class BankClientTest {
 
     @Autowired
@@ -68,8 +67,7 @@ public class BankClientTest {
     }
 
     @Test
-    public void circuitBreakerOpensAfterFiftyPercentThresholdFailureLimitAndDoesntAllowRequests() throws Exception {
-
+    public void circuitBreakerOpensAfterFiftyPercentThresholdFailureLimitAndDoesNotAllowRequests() {
         when(bankInfoService.fetchBankByBankCode(any(String.class))).thenReturn(new BankInfo("HDFC", "http://localhost:8088"));
         CircuitBreaker circuitBreaker = circuitBreakerRegistry.circuitBreaker("service1");
 
@@ -152,7 +150,7 @@ public class BankClientTest {
     @Test
     public void testCheckBankDetailsForBankServiceErrors() throws DependencyException {
         when(bankInfoService.fetchBankByBankCode(anyString())).thenReturn(new BankInfo("HDFC", "http://localhost:8082"));
-        StubMapping string = stubFor(get(urlEqualTo("/checkDetails?accountNumber=12345&ifscCode=HDFC1234")).willReturn(aResponse().withStatus(500)));
+        stubFor(get(urlEqualTo("/checkDetails?accountNumber=12345&ifscCode=HDFC1234")).willReturn(aResponse().withStatus(500)));
 
         DependencyException exception = assertThrows(DependencyException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
         assertEquals("BankService - HDFC1234", exception.getKey());
