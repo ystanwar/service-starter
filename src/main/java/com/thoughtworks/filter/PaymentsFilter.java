@@ -34,7 +34,7 @@ public class PaymentsFilter implements Filter {
         paymentsCounter = prometheus.getPaymentsCounter();
         paymentsCounter.increment();
         try {
-            filterChain.doFilter(requestWrapper, responseWrapper);
+               filterChain.doFilter(requestWrapper, responseWrapper);
         } finally {
             String requestBody = new String(requestWrapper.getContentAsByteArray());
             String responseBody = new String(responseWrapper.getContentAsByteArray());

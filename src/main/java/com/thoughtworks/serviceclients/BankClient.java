@@ -23,8 +23,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 @Service
+@Retry(name="service1")
 @CircuitBreaker(name = "service1")
-//@Retry(name="service1")
 public class BankClient {
     private static Logger logger = LogManager.getLogger(ExceptionMessageHandler.class);
 
@@ -42,8 +42,7 @@ public class BankClient {
     }
 
     public boolean checkBankDetails(long accountNumber, String ifscCode) throws Exception {
-
-        System.out.println("iam in bankclient");
+        System.out.println("iam in bank client");
         BankInfo bankInfo = bankService.fetchBankByBankCode(getBankCode(ifscCode));
         if (bankInfo == null) throw new ResourceNotFoundException("message", "Bank info not found for " + ifscCode);
         baseUrl = bankInfo.getUrl();

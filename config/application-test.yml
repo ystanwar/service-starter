@@ -18,3 +18,17 @@ resilience4j.circuitbreaker:
       recordExceptions:
         - com.thoughtworks.exceptions.DependencyException
 
+
+
+resilience4j.retry:
+  instances:
+    service1:
+      maxRetryAttempts: 5
+      waitDuration: 1s
+      enableExponentialBackoff: true
+      exponentialBackoffMultiplier: 2
+      retryExceptions:
+        - com.thoughtworks.exceptions.DependencyException
+      ignoreExceptions:
+        - io.github.resilience4j.circuitbreaker.CallNotPermittedException
+
