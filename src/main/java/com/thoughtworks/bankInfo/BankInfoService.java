@@ -22,7 +22,6 @@ public class BankInfoService {
         if (fetchedBankInfo != null) {
             throw new ResourceConflictException("message", "Bank info already exists");
         }
-
         return bankInfoRepository.save(bank);
     }
 

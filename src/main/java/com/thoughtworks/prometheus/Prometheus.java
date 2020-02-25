@@ -2,27 +2,22 @@ package com.thoughtworks.prometheus;
 
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
-import io.prometheus.client.CollectorRegistry;
-import io.prometheus.client.Gauge;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Service
 public class Prometheus {
-    private Counter paymentFailedCounter;
     private Counter paymentsCounter;
-    private Counter paymentSuccessCounter;
-    private Gauge paymentRequestTime;
+    private Map<String, Counter> bankInfoCounterList = new HashMap<>();
+    MeterRegistry meterRegistry;
 
     @Autowired
-    public Prometheus(MeterRegistry meterRegistry,
-                      CollectorRegistry collectorRegistry) {
-        paymentFailedCounter = Counter
-                .builder("paymentService")
-                .description("counter for number of payments")
-                .tags("counter", "number of payments failed")
-                .register(meterRegistry);
+    public Prometheus(MeterRegistry meterRegistry) {
+        this.meterRegistry = meterRegistry;
 
         paymentsCounter = Counter
                 .builder("paymentService")
@@ -30,31 +25,24 @@ public class Prometheus {
                 .tags("counter", "number of payments")
                 .register(meterRegistry);
 
-        paymentSuccessCounter = Counter
-                .builder("paymentService")
-                .description("counter for successful payments")
-                .tags("counter", "successful payments")
-                .register(meterRegistry);
-
-        paymentRequestTime = Gauge.build()
-                .name("payment_Request_Time")
-                .help("calculate time for per payment request")
-                .register(collectorRegistry);
-    }
-
-    public Counter getPaymentFailedCounter() {
-        return paymentFailedCounter;
     }
 
     public Counter getPaymentsCounter() {
         return paymentsCounter;
     }
 
-    public Counter getPaymentSuccessCounter() {
-        return paymentSuccessCounter;
-    }
+    public Counter getBankInfoCounter(String bankName) {
+        if (bankInfoCounterList.containsKey(bankName)) {
+            return bankInfoCounterList.get(bankName);
+        } else {
+            Counter tempBankInfoCounter = Counter
+                    .builder(bankName)
+                    .description("count payments for " + bankName)
+                    .tags("counter", "successful payments with " + bankName)
+                    .register(meterRegistry);
 
-    public Gauge getPaymentRequestTime() {
-        return paymentRequestTime;
+            bankInfoCounterList.put(bankName, tempBankInfoCounter);
+            return tempBankInfoCounter;
+        }
     }
 }

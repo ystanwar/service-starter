@@ -4,7 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.thoughtworks.exceptions.ResourceNotFoundException;
 import com.thoughtworks.payment.model.Payment;
+import com.thoughtworks.prometheus.Prometheus;
 import com.thoughtworks.serviceclients.BankClient;
+import io.micrometer.core.instrument.Counter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +24,14 @@ public class PaymentService {
 
     @Autowired
     BankClient bankClient;
+    @Autowired
+    Prometheus prometheus;
+    private Counter bankCounter;
 
     public Payment create(Payment payment) throws Exception {
         if (payment == null) {
             throw new IllegalArgumentException("payment cannot be empty");
         }
-
-
         boolean isValidBeneficiaryAccount = bankClient.checkBankDetails(payment.getBeneficiaryAccountNumber(), payment.getBeneficiaryIfscCode());
         if (!isValidBeneficiaryAccount) {
             payment.setStatus("failed");
@@ -56,6 +59,8 @@ public class PaymentService {
             throw new ResourceNotFoundException("message", payment.getPayeeName() + "'s AccountDetails Not Found");
         }
 
+        bankCounter = prometheus.getBankInfoCounter(payment.getBeneficiaryIfscCode().substring(0,4));
+        bankCounter.increment();
         return paymentRepository.save(payment);
     }
 
