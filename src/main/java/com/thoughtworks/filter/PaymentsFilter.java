@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.ContentCachingRequestWrapper;
 import org.springframework.web.util.ContentCachingResponseWrapper;
@@ -17,6 +18,7 @@ import java.io.IOException;
 import java.util.UUID;
 
 @Service
+@Order(1)
 public class PaymentsFilter implements Filter {
 
     @Autowired
@@ -40,7 +42,6 @@ public class PaymentsFilter implements Filter {
             String responseBody = new String(responseWrapper.getContentAsByteArray());
             logger.info("PAYMENT REQUEST ->{}", requestBody);
             logger.info("PAYMENT RESPONSE ->{}", responseBody);
-
             responseWrapper.copyBodyToResponse();
         }
 

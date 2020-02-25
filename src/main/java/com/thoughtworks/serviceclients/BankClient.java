@@ -78,7 +78,7 @@ public class BankClient {
                 .build();
 
         get.setURI(uri);
-        get.setHeader("PAY_REQ_ID", MDC.get("request.id"));
+        get.setHeader("PARENT_REQ_ID", MDC.get("request.id"));
         return get;
     }
 }

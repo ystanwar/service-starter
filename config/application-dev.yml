@@ -15,23 +15,21 @@ resilience4j.circuitbreaker:
   instances:
     service1:
       registerHealthIndicator: true
-      ringBufferSizeInClosedState: 5
-      ringBufferSizeInHalfOpenState: 3
-      waitDurationInOpenState: 10s
+      ringBufferSizeInClosedState: 4
+      ringBufferSizeInHalfOpenState: 2
+      waitDurationInOpenState: 20s
       failureRateThreshold: 50
       recordExceptions:
         - com.thoughtworks.exceptions.DependencyException
-
-
-resilience4j.retry:
-  instances:
-    service1:
-      maxRetryAttempts: 3
-      waitDuration: 1s
-      enableExponentialBackoff: true
-      exponentialBackoffMultiplier: 2
-      retryExceptions:
+    service2:
+      slidingWindowSize: 10
+      permittedNumberOfCallsInHalfOpenState: 3
+      slidingWindowType: COUNT_BASED
+      minimumNumberOfCalls: 5
+      waitDurationInOpenState: 5s
+      failureRateThreshold: 50
+      eventConsumerBufferSize: 10
+      recordExceptions:
         - com.thoughtworks.exceptions.DependencyException
-
 Server:
   port: 8080
