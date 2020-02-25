@@ -5,8 +5,6 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.thoughtworks.api.payment.PaymentRequest;
 import com.thoughtworks.api.payment.PaymentSuccessResponse;
 import com.thoughtworks.payment.model.Payment;
-import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
-import io.github.resilience4j.retry.annotation.Retry;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.apache.logging.log4j.LogManager;

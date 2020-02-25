@@ -24,7 +24,6 @@ test {
 }
 
 ext {
-    resilience4jVersion = '0.17.0'
 }
 
 dependencies {
@@ -41,7 +40,7 @@ dependencies {
     testCompileOnly 'org.projectlombok:lombok:1.18.12'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
     compile 'org.apache.directory.studio:org.apache.commons.io:2.4'
-    compile "io.github.resilience4j:resilience4j-spring-boot2:${resilience4jVersion}"
+    compile group: 'io.github.resilience4j', name: 'resilience4j-spring-boot2', version: '1.3.1'
     compile('org.springframework.boot:spring-boot-starter-aop')
     compile 'org.springframework.boot:spring-boot-starter-actuator'
     compile 'io.micrometer:micrometer-registry-prometheus'

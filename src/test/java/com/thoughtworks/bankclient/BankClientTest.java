@@ -1,6 +1,7 @@
 package com.thoughtworks.bankclient;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
+import com.github.tomakehurst.wiremock.matching.StringValuePattern;
 import com.thoughtworks.bankInfo.BankInfo;
 import com.thoughtworks.bankInfo.BankInfoService;
 import com.thoughtworks.exceptions.DependencyException;
@@ -12,13 +13,13 @@ import io.github.resilience4j.circuitbreaker.CircuitBreaker;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry;
 import io.github.resilience4j.retry.Retry;
 import io.github.resilience4j.retry.RetryRegistry;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
 
@@ -61,6 +62,10 @@ public class BankClientTest {
         circuitBreakerRegistry.circuitBreaker("service1").reset();
     }
 
+    @AfterEach
+    void clearMDC(){
+        MDC.clear();
+    }
     @AfterAll
     static void tearDown() {
         wireMockServer.stop();
@@ -77,7 +82,7 @@ public class BankClientTest {
                 return bankClient.checkBankDetails(12345, "HDFC1234");
             } catch (Exception exception) {
                 counter.getAndIncrement();
-                if (counter.get() >= 5) {
+                if (counter.get() >= 3) {
                     assertEquals(CallNotPermittedException.class, exception.getClass());
                 }
                 assertEquals(DependencyException.class, exception.getClass());
@@ -86,7 +91,7 @@ public class BankClientTest {
         });
         decoratedMethod.get();
 
-        verify(bankInfoService, times(5)).fetchBankByBankCode(any(String.class));
+        verify(bankInfoService, times(4)).fetchBankByBankCode(any(String.class));
     }
 
     @Test
@@ -103,16 +108,22 @@ public class BankClientTest {
         });
         decoratedMethod.get();
 
-        verify(bankInfoService, times(5)).fetchBankByBankCode(any(String.class));
+        verify(bankInfoService, times(4)).fetchBankByBankCode(any(String.class));
     }
 
     @Test
     public void testCheckBankDetailsSuccess() throws Exception {
 
+        String requestID = String.valueOf(UUID.randomUUID());
+        MDC.put("request.id", requestID );
         when(bankInfoService.fetchBankByBankCode(anyString())).thenReturn(new BankInfo("HDFC", "http://localhost:8082"));
-        stubFor(get(urlEqualTo("/checkDetails?accountNumber=12345&ifscCode=HDFC1234")).willReturn(aResponse().withStatus(200)));
+        stubFor(
+                get(urlEqualTo("/checkDetails?accountNumber=12345&ifscCode=HDFC1234"))
+                        .withHeader("PARENT_REQ_ID",matching("[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"))
+                        .willReturn(aResponse().withStatus(200)));
 
         assertEquals(true, bankClient.checkBankDetails(12345, "HDFC1234"));
+
     }
 
     @Test
