@@ -1,7 +1,6 @@
 package com.thoughtworks.bankclient;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import com.github.tomakehurst.wiremock.matching.StringValuePattern;
 import com.thoughtworks.bankInfo.BankInfo;
 import com.thoughtworks.bankInfo.BankInfoService;
 import com.thoughtworks.exceptions.DependencyException;
@@ -9,20 +8,14 @@ import com.thoughtworks.exceptions.ResourceNotFoundException;
 import com.thoughtworks.exceptions.ValidationException;
 import com.thoughtworks.serviceclients.BankClient;
 import io.github.resilience4j.circuitbreaker.CallNotPermittedException;
-import io.github.resilience4j.circuitbreaker.CircuitBreaker;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry;
-import io.github.resilience4j.retry.Retry;
 import io.github.resilience4j.retry.RetryRegistry;
 import org.junit.jupiter.api.*;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-
 import java.util.UUID;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Supplier;
-
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -72,43 +65,20 @@ public class BankClientTest {
     }
 
     @Test
-    public void circuitBreakerOpensAfterFiftyPercentThresholdFailureLimitAndDoesNotAllowRequests() {
+    public void circuitBreakerOpensAfterFiftyPercentThresholdFailureLimitAndDoesNotAllowRequests() throws Exception {
         when(bankInfoService.fetchBankByBankCode(any(String.class))).thenReturn(new BankInfo("HDFC", "http://localhost:8088"));
-        CircuitBreaker circuitBreaker = circuitBreakerRegistry.circuitBreaker("service1");
 
-        AtomicInteger counter = new AtomicInteger(1);
-        Supplier<Boolean> decoratedMethod = CircuitBreaker.decorateSupplier(circuitBreaker, () -> {
-            try {
-                return bankClient.checkBankDetails(12345, "HDFC1234");
-            } catch (Exception exception) {
-                counter.getAndIncrement();
-                if (counter.get() >= 3) {
-                    assertEquals(CallNotPermittedException.class, exception.getClass());
-                }
-                assertEquals(DependencyException.class, exception.getClass());
-                return false;
-            }
-        });
-        decoratedMethod.get();
-
+        assertThrows(DependencyException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
+        assertThrows(CallNotPermittedException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
         verify(bankInfoService, times(4)).fetchBankByBankCode(any(String.class));
     }
 
     @Test
     public void requestIsRetriedAfterReceivingDependencyException() throws Exception {
         when(bankInfoService.fetchBankByBankCode(any(String.class))).thenReturn(new BankInfo("HDFC", "http://localhost:8088"));
-        Retry retry = retryRegistry.retry("service1");
-        Supplier<Boolean> decoratedMethod = Retry.decorateSupplier(retry, () -> {
-            try {
-                return bankClient.checkBankDetails(12345, "HDFC1234");
-            } catch (Exception exception) {
+        assertThrows(DependencyException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
 
-                return false;
-            }
-        });
-        decoratedMethod.get();
-
-        verify(bankInfoService, times(4)).fetchBankByBankCode(any(String.class));
+        verify(bankInfoService, times(3)).fetchBankByBankCode(any(String.class));
     }
 
     @Test
