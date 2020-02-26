@@ -15,7 +15,10 @@ import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
+
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -56,9 +59,10 @@ public class BankClientTest {
     }
 
     @AfterEach
-    void clearMDC(){
+    void clearMDC() {
         MDC.clear();
     }
+
     @AfterAll
     static void tearDown() {
         wireMockServer.stop();
@@ -74,6 +78,62 @@ public class BankClientTest {
     }
 
     @Test
+    public void circuitBreakerChangesItsStateFromOpenToClosed() throws Exception {
+        stubFor(get(urlEqualTo("/checkDetails?accountNumber=12345&ifscCode=HDFC1234")).willReturn(aResponse().withStatus(200)));
+
+        when(bankInfoService.fetchBankByBankCode(anyString()))
+                .thenReturn(
+                        new BankInfo("HDFC", "http://localhost:8088"),
+                        new BankInfo("HDFC", "http://localhost:8088"),
+                        new BankInfo("HDFC", "http://localhost:8088"),
+                        new BankInfo("HDFC", "http://localhost:8088"),
+
+                        new BankInfo("HDFC", "http://localhost:8088"),
+                        new BankInfo("HDFC", "http://localhost:8088"),
+                        new BankInfo("HDFC", "http://localhost:8088"),
+                        new BankInfo("HDFC", "http://localhost:8088"),
+
+                        new BankInfo("HDFC", "http://localhost:8082"),
+                        new BankInfo("HDFC", "http://localhost:8082"),
+                        new BankInfo("HDFC", "http://localhost:8088"),
+                        new BankInfo("HDFC", "http://localhost:8088"),
+
+                        new BankInfo("HDFC", "http://localhost:8082"),
+                        new BankInfo("HDFC", "http://localhost:8082"),
+                        new BankInfo("HDFC", "http://localhost:8082"),
+                        new BankInfo("HDFC", "http://localhost:8082"),
+                        new BankInfo("HDFC", "http://localhost:8082")
+
+                );
+
+        assertThrows(DependencyException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
+        verify(bankInfoService, times(3)).fetchBankByBankCode(any(String.class));
+
+        assertThrows(CallNotPermittedException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
+        verify(bankInfoService, times(4)).fetchBankByBankCode(any(String.class));
+
+        TimeUnit.SECONDS.sleep(5);
+        assertThrows(DependencyException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
+        assertThrows(CallNotPermittedException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
+        verify(bankInfoService, times(8)).fetchBankByBankCode(any(String.class));
+
+        TimeUnit.SECONDS.sleep(5);
+        assertEquals(true, bankClient.checkBankDetails(12345, "HDFC1234"));
+        assertEquals(true, bankClient.checkBankDetails(12345, "HDFC1234"));
+        assertThrows(CallNotPermittedException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
+        verify(bankInfoService, times(12)).fetchBankByBankCode(any(String.class));
+
+        TimeUnit.SECONDS.sleep(5);
+        assertEquals(true, bankClient.checkBankDetails(12345, "HDFC1234"));
+        assertEquals(true, bankClient.checkBankDetails(12345, "HDFC1234"));
+        assertEquals(true, bankClient.checkBankDetails(12345, "HDFC1234"));
+        assertEquals(true, bankClient.checkBankDetails(12345, "HDFC1234"));
+        assertEquals(true, bankClient.checkBankDetails(12345, "HDFC1234"));
+        verify(bankInfoService, times(17)).fetchBankByBankCode(any(String.class));
+
+    }
+
+    @Test
     public void requestIsRetriedAfterReceivingDependencyException() throws Exception {
         when(bankInfoService.fetchBankByBankCode(any(String.class))).thenReturn(new BankInfo("HDFC", "http://localhost:8088"));
         assertThrows(DependencyException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
@@ -85,11 +145,11 @@ public class BankClientTest {
     public void testCheckBankDetailsSuccess() throws Exception {
 
         String requestID = String.valueOf(UUID.randomUUID());
-        MDC.put("request.id", requestID );
+        MDC.put("request.id", requestID);
         when(bankInfoService.fetchBankByBankCode(anyString())).thenReturn(new BankInfo("HDFC", "http://localhost:8082"));
         stubFor(
                 get(urlEqualTo("/checkDetails?accountNumber=12345&ifscCode=HDFC1234"))
-                        .withHeader("PARENT_REQ_ID",matching("[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"))
+                        .withHeader("PARENT_REQ_ID", matching("[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"))
                         .willReturn(aResponse().withStatus(200)));
 
         assertEquals(true, bankClient.checkBankDetails(12345, "HDFC1234"));
