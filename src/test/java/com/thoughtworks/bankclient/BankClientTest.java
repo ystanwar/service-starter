@@ -145,8 +145,8 @@ public class BankClientTest {
     @Test
     public void requestIsRetriedAfterReceivingDependencyException() throws Exception {
         when(bankInfoService.fetchBankByBankCode(any(String.class))).thenReturn(new BankInfo("HDFC", "http://localhost:8088"));
-        assertThrows(DependencyException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));git
-        ver(bankInfoService, times(3)).fetchBankByBankCode(any(String.class));
+        assertThrows(DependencyException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
+        verify(bankInfoService, times(3)).fetchBankByBankCode(any(String.class));
     }
 
     @Test

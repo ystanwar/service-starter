@@ -73,5 +73,4 @@ public class BankInfoServiceTest {
         assertEquals(null, bankInfoService.fetchBankByBankCode("ICIC"));
     }
 
-
 }
