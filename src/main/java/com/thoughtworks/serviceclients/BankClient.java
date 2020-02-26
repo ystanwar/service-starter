@@ -23,8 +23,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 @Service
-@Retry(name="service1")
-@CircuitBreaker(name = "service1")
+@Retry(name="bankservice")
+@CircuitBreaker(name = "bankservice")
 public class BankClient {
     private static Logger logger = LogManager.getLogger(ExceptionMessageHandler.class);
 

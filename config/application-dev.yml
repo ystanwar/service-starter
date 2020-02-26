@@ -13,7 +13,7 @@ management:
 
 resilience4j.circuitbreaker:
   instances:
-    service1:
+    bankservice:
       slidingWindowSize: 4
       permittedNumberOfCallsInHalfOpenState: 4
       slidingWindowType: COUNT_BASED
@@ -25,9 +25,10 @@ resilience4j.circuitbreaker:
         - com.thoughtworks.exceptions.DependencyException
 
 
+
 resilience4j.retry:
   instances:
-    service1:
+    bankservice:
       maxRetryAttempts: 3
       waitDuration: 2s
       enableExponentialBackoff: true

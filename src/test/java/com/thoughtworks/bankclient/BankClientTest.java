@@ -8,6 +8,7 @@ import com.thoughtworks.exceptions.ResourceNotFoundException;
 import com.thoughtworks.exceptions.ValidationException;
 import com.thoughtworks.serviceclients.BankClient;
 import io.github.resilience4j.circuitbreaker.CallNotPermittedException;
+import io.github.resilience4j.circuitbreaker.CircuitBreaker;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry;
 import io.github.resilience4j.retry.RetryRegistry;
 import org.junit.jupiter.api.*;
@@ -20,8 +21,7 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.verify;
@@ -55,7 +55,7 @@ public class BankClientTest {
 
     @BeforeEach
     void circuitBreakerSetup() {
-        circuitBreakerRegistry.circuitBreaker("service1").reset();
+        circuitBreakerRegistry.circuitBreaker("bankservice").reset();
     }
 
     @AfterEach
@@ -79,6 +79,7 @@ public class BankClientTest {
 
     @Test
     public void circuitBreakerChangesItsStateFromOpenToClosed() throws Exception {
+        CircuitBreaker circuitBreaker=circuitBreakerRegistry.circuitBreaker("bankservice");
         stubFor(get(urlEqualTo("/checkDetails?accountNumber=12345&ifscCode=HDFC1234")).willReturn(aResponse().withStatus(200)));
 
         when(bankInfoService.fetchBankByBankCode(anyString()))
@@ -108,37 +109,44 @@ public class BankClientTest {
 
         assertThrows(DependencyException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
         verify(bankInfoService, times(3)).fetchBankByBankCode(any(String.class));
-
+        assertEquals("CLOSED", circuitBreaker.getState().name());;
         assertThrows(CallNotPermittedException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
         verify(bankInfoService, times(4)).fetchBankByBankCode(any(String.class));
+        assertEquals("OPEN", circuitBreaker.getState().name());;
 
         TimeUnit.SECONDS.sleep(5);
         assertThrows(DependencyException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
+        assertEquals("HALF_OPEN", circuitBreaker.getState().name());;
         assertThrows(CallNotPermittedException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
         verify(bankInfoService, times(8)).fetchBankByBankCode(any(String.class));
+        assertEquals("OPEN", circuitBreaker.getState().name());;
 
         TimeUnit.SECONDS.sleep(5);
         assertEquals(true, bankClient.checkBankDetails(12345, "HDFC1234"));
+        assertEquals("HALF_OPEN", circuitBreaker.getState().name());;
         assertEquals(true, bankClient.checkBankDetails(12345, "HDFC1234"));
         assertThrows(CallNotPermittedException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
         verify(bankInfoService, times(12)).fetchBankByBankCode(any(String.class));
+        assertEquals("OPEN", circuitBreaker.getState().name());;
 
         TimeUnit.SECONDS.sleep(5);
-        assertEquals(true, bankClient.checkBankDetails(12345, "HDFC1234"));
-        assertEquals(true, bankClient.checkBankDetails(12345, "HDFC1234"));
-        assertEquals(true, bankClient.checkBankDetails(12345, "HDFC1234"));
-        assertEquals(true, bankClient.checkBankDetails(12345, "HDFC1234"));
-        assertEquals(true, bankClient.checkBankDetails(12345, "HDFC1234"));
+        assertTrue(bankClient.checkBankDetails(12345, "HDFC1234"));
+        assertEquals("HALF_OPEN", circuitBreaker.getState().name());;
+        assertTrue(bankClient.checkBankDetails(12345, "HDFC1234"));
+        assertTrue(bankClient.checkBankDetails(12345, "HDFC1234"));
+        assertTrue(bankClient.checkBankDetails(12345, "HDFC1234"));
+        assertEquals("CLOSED", circuitBreaker.getState().name());;
+        assertTrue(bankClient.checkBankDetails(12345, "HDFC1234"));
         verify(bankInfoService, times(17)).fetchBankByBankCode(any(String.class));
+        assertEquals("CLOSED", circuitBreaker.getState().name());;
 
     }
 
     @Test
     public void requestIsRetriedAfterReceivingDependencyException() throws Exception {
         when(bankInfoService.fetchBankByBankCode(any(String.class))).thenReturn(new BankInfo("HDFC", "http://localhost:8088"));
-        assertThrows(DependencyException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
-
-        verify(bankInfoService, times(3)).fetchBankByBankCode(any(String.class));
+        assertThrows(DependencyException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));git
+        ver(bankInfoService, times(3)).fetchBankByBankCode(any(String.class));
     }
 
     @Test

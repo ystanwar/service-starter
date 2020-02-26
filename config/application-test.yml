@@ -9,16 +9,7 @@ spring:
 
 resilience4j.circuitbreaker:
   instances:
-    service2:
-      registerHealthIndicator: true
-      ringBufferSizeInClosedState: 3
-      ringBufferSizeInHalfOpenState: 1
-      waitDurationInOpenState: 2s
-      failureRateThreshold: 50
-      recordExceptions:
-        - com.thoughtworks.exceptions.DependencyException
-
-    service1:
+    bankservice:
       slidingWindowSize: 4
       permittedNumberOfCallsInHalfOpenState: 4
       slidingWindowType: COUNT_BASED
@@ -33,7 +24,7 @@ resilience4j.circuitbreaker:
 
 resilience4j.retry:
   instances:
-    service1:
+    bankservice:
       maxRetryAttempts: 3
       waitDuration: 1s
       enableExponentialBackoff: true
