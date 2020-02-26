@@ -28,20 +28,23 @@ public class PaymentsFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        MDC.put("request.id", String.valueOf(UUID.randomUUID()));
         ContentCachingRequestWrapper requestWrapper = new ContentCachingRequestWrapper((HttpServletRequest) servletRequest);
         ContentCachingResponseWrapper responseWrapper = new ContentCachingResponseWrapper((HttpServletResponse) servletResponse);
+        MDC.put("request.id", String.valueOf(UUID.randomUUID()));
+        MDC.put("parentrequest.id", requestWrapper.getHeader("PARENT_REQ_ID"));
 
         Counter paymentsCounter;
         paymentsCounter = prometheus.getPaymentsCounter();
         paymentsCounter.increment();
+
         try {
-               filterChain.doFilter(requestWrapper, responseWrapper);
+            filterChain.doFilter(requestWrapper, responseWrapper);
         } finally {
             String requestBody = new String(requestWrapper.getContentAsByteArray());
             String responseBody = new String(responseWrapper.getContentAsByteArray());
             logger.info("PAYMENT REQUEST ->{}", requestBody);
             logger.info("PAYMENT RESPONSE ->{}", responseBody);
+            MDC.clear();
             responseWrapper.copyBodyToResponse();
         }
 
