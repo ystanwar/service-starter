@@ -6,15 +6,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class PaymentsFilterConfig {
-
+public class PrometheusFilterConfig {
     @Autowired
-    PaymentsFilter paymentsFilter;
+    PrometheusFilter prometheusFilter;
 
     @Bean
-    public FilterRegistrationBean<PaymentsFilter> filterRegistrationBean() {
-        FilterRegistrationBean<PaymentsFilter> registrationBean = new FilterRegistrationBean();
-        registrationBean.setFilter(paymentsFilter);
+    public FilterRegistrationBean<PrometheusFilter> filterRegistrationBean() {
+        FilterRegistrationBean<PrometheusFilter> registrationBean = new FilterRegistrationBean();
+        registrationBean.setFilter(prometheusFilter);
         registrationBean.addUrlPatterns("/payments");
         return registrationBean;
     }

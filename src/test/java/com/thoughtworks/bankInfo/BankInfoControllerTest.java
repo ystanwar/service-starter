@@ -1,9 +1,9 @@
 package com.thoughtworks.bankInfo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.thoughtworks.exceptions.ResourceConflictException;
-import com.thoughtworks.filter.PaymentsFilterConfig;
 import com.thoughtworks.api.payment.PaymentFailureResponse;
+import com.thoughtworks.exceptions.ResourceConflictException;
+import com.thoughtworks.filter.PrometheusFilterConfig;
 import com.thoughtworks.prometheus.Prometheus;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(BankInfoController.class)
-@Import({PaymentsFilterConfig.class})
+@Import({PrometheusFilterConfig.class,})
 public class BankInfoControllerTest {
 
     @Autowired

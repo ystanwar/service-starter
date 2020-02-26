@@ -1,11 +1,8 @@
 package com.thoughtworks.filter;
 
-import com.thoughtworks.prometheus.Prometheus;
-import io.micrometer.core.instrument.Counter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.slf4j.MDC;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.ContentCachingRequestWrapper;
@@ -18,25 +15,17 @@ import java.io.IOException;
 import java.util.UUID;
 
 @Service
-@Order(1)
-public class PaymentsFilter implements Filter {
-
-    @Autowired
-    private Prometheus prometheus;
-
-    private static Logger logger = LogManager.getLogger(PaymentsFilter.class);
+@Order(2)
+public class CustomRequestLoggingFilter implements Filter {
+    private static Logger logger = LogManager.getLogger(CustomRequestLoggingFilter.class);
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         ContentCachingRequestWrapper requestWrapper = new ContentCachingRequestWrapper((HttpServletRequest) servletRequest);
         ContentCachingResponseWrapper responseWrapper = new ContentCachingResponseWrapper((HttpServletResponse) servletResponse);
+
         MDC.put("request.id", String.valueOf(UUID.randomUUID()));
         MDC.put("parentrequest.id", requestWrapper.getHeader("PARENT_REQ_ID"));
-
-        Counter paymentsCounter;
-        paymentsCounter = prometheus.getPaymentsCounter();
-        paymentsCounter.increment();
-
         try {
             filterChain.doFilter(requestWrapper, responseWrapper);
         } finally {
@@ -47,6 +36,5 @@ public class PaymentsFilter implements Filter {
             MDC.clear();
             responseWrapper.copyBodyToResponse();
         }
-
     }
 }
