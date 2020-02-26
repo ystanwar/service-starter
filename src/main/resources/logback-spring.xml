@@ -11,7 +11,7 @@
     <appender name="ConsoleRef" class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
             <Pattern>
-                request.id=%X{request.id} %black(%d{ISO8601}) %highlight(%-5level) [%blue(%t)] %yellow(%C{1.}): %msg%n%throwable
+                parentrequest_id= %X{parentrequest.id} request.id=%X{request.id} %black(%d{ISO8601}) %highlight(%-5level) [%blue(%t)] %yellow(%C{1.}): %msg%n%throwable
 <!--                %black(%d{ISO8601}) %highlight(%-5level) [%blue(%t)] %yellow(%C{1.}): %msg%n%throwable-->
             </Pattern>
         </layout>
@@ -21,7 +21,7 @@
         <file>logs/logs.log</file>
         <encoder
                 class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <Pattern>{"request_id"= %X{request.id} "timestamp": %d "level": %p "event": %m}%n</Pattern>
+            <Pattern>{"parentrequest_id"= %X{parentrequest.id} "request_id"= %X{request.id} "timestamp": %d "level": %p "event": %m}%n</Pattern>
         </encoder>
 
         <rollingPolicy
