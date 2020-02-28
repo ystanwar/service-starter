@@ -79,7 +79,7 @@ public class BankClientTest {
 
     @Test
     public void circuitBreakerChangesItsStateFromOpenToClosed() throws Exception {
-        CircuitBreaker circuitBreaker=circuitBreakerRegistry.circuitBreaker("bankservice");
+        CircuitBreaker circuitBreaker = circuitBreakerRegistry.circuitBreaker("bankservice");
         stubFor(get(urlEqualTo("/checkDetails?accountNumber=12345&ifscCode=HDFC1234")).willReturn(aResponse().withStatus(200)));
 
         when(bankInfoService.fetchBankByBankCode(anyString()))
@@ -109,36 +109,45 @@ public class BankClientTest {
 
         assertThrows(DependencyException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
         verify(bankInfoService, times(3)).fetchBankByBankCode(any(String.class));
-        assertEquals("CLOSED", circuitBreaker.getState().name());;
+        assertEquals("CLOSED", circuitBreaker.getState().name());
+        ;
         assertThrows(CallNotPermittedException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
         verify(bankInfoService, times(4)).fetchBankByBankCode(any(String.class));
-        assertEquals("OPEN", circuitBreaker.getState().name());;
+        assertEquals("OPEN", circuitBreaker.getState().name());
+        ;
 
         TimeUnit.SECONDS.sleep(5);
         assertThrows(DependencyException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
-        assertEquals("HALF_OPEN", circuitBreaker.getState().name());;
+        assertEquals("HALF_OPEN", circuitBreaker.getState().name());
+        ;
         assertThrows(CallNotPermittedException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
         verify(bankInfoService, times(8)).fetchBankByBankCode(any(String.class));
-        assertEquals("OPEN", circuitBreaker.getState().name());;
+        assertEquals("OPEN", circuitBreaker.getState().name());
+        ;
 
         TimeUnit.SECONDS.sleep(5);
         assertEquals(true, bankClient.checkBankDetails(12345, "HDFC1234"));
-        assertEquals("HALF_OPEN", circuitBreaker.getState().name());;
+        assertEquals("HALF_OPEN", circuitBreaker.getState().name());
+        ;
         assertEquals(true, bankClient.checkBankDetails(12345, "HDFC1234"));
         assertThrows(CallNotPermittedException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
         verify(bankInfoService, times(12)).fetchBankByBankCode(any(String.class));
-        assertEquals("OPEN", circuitBreaker.getState().name());;
+        assertEquals("OPEN", circuitBreaker.getState().name());
+        ;
 
         TimeUnit.SECONDS.sleep(5);
         assertTrue(bankClient.checkBankDetails(12345, "HDFC1234"));
-        assertEquals("HALF_OPEN", circuitBreaker.getState().name());;
+        assertEquals("HALF_OPEN", circuitBreaker.getState().name());
+        ;
         assertTrue(bankClient.checkBankDetails(12345, "HDFC1234"));
         assertTrue(bankClient.checkBankDetails(12345, "HDFC1234"));
         assertTrue(bankClient.checkBankDetails(12345, "HDFC1234"));
-        assertEquals("CLOSED", circuitBreaker.getState().name());;
+        assertEquals("CLOSED", circuitBreaker.getState().name());
+        ;
         assertTrue(bankClient.checkBankDetails(12345, "HDFC1234"));
         verify(bankInfoService, times(17)).fetchBankByBankCode(any(String.class));
-        assertEquals("CLOSED", circuitBreaker.getState().name());;
+        assertEquals("CLOSED", circuitBreaker.getState().name());
+        ;
 
     }
 
@@ -202,7 +211,7 @@ public class BankClientTest {
         stubFor(get(urlEqualTo("/checkDetails?accountNumber=12345&ifscCode=HDFC1234")).willReturn(aResponse().withStatus(500)));
 
         DependencyException exception = assertThrows(DependencyException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
-        assertEquals("BankService - HDFC1234", exception.getKey());
-        assertEquals("SERVICE_ERROR - 500", exception.getValue());
+        assertEquals("BankService - HDFC1234", exception.getErrorCode());
+        assertEquals("SERVICE_ERROR - 500", exception.getErrorMessage());
     }
 }

@@ -3,8 +3,7 @@ package com.thoughtworks.payment;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thoughtworks.api.payment.PaymentFailureResponse;
 import com.thoughtworks.api.payment.PaymentSuccessResponse;
-import com.thoughtworks.exceptions.ResourceNotFoundException;
-import com.thoughtworks.exceptions.ValidationException;
+import com.thoughtworks.exceptions.*;
 import com.thoughtworks.payment.model.BankDetails;
 import com.thoughtworks.payment.model.Payment;
 import com.thoughtworks.prometheus.Prometheus;
@@ -323,6 +322,66 @@ public class PaymentControllerTest {
         verify(paymentService, times(0)).create(any(Payment.class));
     }
 
+    @Test
+    public void testCannotCreatePaymentDueToSuspectedFraud() throws Exception {
+        when(paymentService.create(any(Payment.class))).thenThrow(new PaymentRefusedException("SUSPECTED_FRAUD", "Suspected fraudulent transaction"));
+
+        Map<String, String> errors = new HashMap<>();
+        errors.put("SUSPECTED_FRAUD", "Suspected fraudulent transaction");
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        mockMvc.perform(post("/payments")
+                .content("{\"amount\":500," +
+                        "\"beneficiary\":{\"name\":\"user1\",\"accountNumber\":12345,\"ifscCode\":\"HDFC1\"}" +
+                        ",\"payee\":{\"name\":\"user2\",\"accountNumber\":12345,\"ifscCode\":\"HDFC1234\"}" +
+                        "}")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(content().string(objectMapper.writeValueAsString(new PaymentFailureResponse("REQUEST_UNPROCESSABLE", errors))));
+
+        verify(paymentService).create(any(Payment.class));
+    }
+
+
+    @Test
+    public void testCannotCreatePaymentDueToDependencyError() throws Exception {
+        when(paymentService.create(any(Payment.class))).thenThrow(new DependencyException("ExternalService", "BankService - HDFC1234", "/checkFraud", "UNAVAILABLE", new Exception()));
+
+        Map<String, String> errors = new HashMap<>();
+        errors.put("message", "Could not process the request");
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        mockMvc.perform(post("/payments")
+                .content("{\"amount\":500," +
+                        "\"beneficiary\":{\"name\":\"user1\",\"accountNumber\":12345,\"ifscCode\":\"HDFC1\"}" +
+                        ",\"payee\":{\"name\":\"user2\",\"accountNumber\":12345,\"ifscCode\":\"HDFC1234\"}" +
+                        "}")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isInternalServerError())
+                .andExpect(content().string(objectMapper.writeValueAsString(new PaymentFailureResponse("SERVER_ERROR", errors))));
+
+        verify(paymentService).create(any(Payment.class));
+    }
+
+    @Test
+    public void testCannotCreatePaymentDueToBusinessError() throws Exception {
+        when(paymentService.create(any(Payment.class))).thenThrow(new BusinessException("SUSPECTED_FRAUD", "Suspected fraudulent transaction"));
+
+        Map<String, String> errors = new HashMap<>();
+        errors.put("SUSPECTED_FRAUD", "Suspected fraudulent transaction");
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        mockMvc.perform(post("/payments")
+                .content("{\"amount\":500," +
+                        "\"beneficiary\":{\"name\":\"user1\",\"accountNumber\":12345,\"ifscCode\":\"HDFC1\"}" +
+                        ",\"payee\":{\"name\":\"user2\",\"accountNumber\":12345,\"ifscCode\":\"HDFC1234\"}" +
+                        "}")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(content().string(objectMapper.writeValueAsString(new PaymentFailureResponse("REQUEST_UNPROCESSABLE", errors))));
+
+        verify(paymentService).create(any(Payment.class));
+    }
 }
 
 class PaymentErrorResponseJson {

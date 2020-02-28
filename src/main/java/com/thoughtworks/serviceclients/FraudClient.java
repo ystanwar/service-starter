@@ -1,19 +1,16 @@
 package com.thoughtworks.serviceclients;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.thoughtworks.exceptions.DependencyException;
 import com.thoughtworks.payment.model.Payment;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.message.BasicNameValuePair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class FraudClient {
@@ -24,18 +21,29 @@ public class FraudClient {
         this.baseUrl = env.getProperty("fraudService");
     }
 
-    public int checkFraud(Payment payment) throws Exception {
+    public boolean checkFraud(Payment payment) throws Exception {
         String url = baseUrl + "/checkFraud";
         CloseableHttpClient client = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost(url);
+        ObjectMapper obj = new ObjectMapper();
+        StringEntity entity = new StringEntity(obj.writeValueAsString(payment));
+        httpPost.setEntity(entity);
+        httpPost.setHeader("Content-type", "application/json");
+        int responseCode = 0;
+        try {
+            CloseableHttpResponse response = client.execute(httpPost);
+            responseCode = response.getStatusLine().getStatusCode();
+            client.close();
+        } catch (Exception ex) {
+            throw new DependencyException("InternalService", "FraudService", url, "UNAVAILABLE", ex);
+        }
 
-        List<NameValuePair> params = new ArrayList<>();
-        params.add(new BasicNameValuePair("payment", String.valueOf(payment)));
-        httpPost.setEntity(new UrlEncodedFormEntity(params));
-
-        CloseableHttpResponse response = client.execute(httpPost);
-        int responseCode = response.getStatusLine().getStatusCode();
-        client.close();
-        return responseCode;
+        if (responseCode == 200) {
+            return true;
+        } else if (responseCode == 422) {
+            return false;
+        } else {
+            throw new DependencyException("InternalService", "FraudService", url, "received " + responseCode);
+        }
     }
 }

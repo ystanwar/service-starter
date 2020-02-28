@@ -31,13 +31,42 @@ public class ExceptionMessageHandler {
     void logException(Exception ex) {
         ObjectNode mapperOne = new ObjectMapper().createObjectNode();
         mapperOne.put("stackTrace", Arrays.toString(ex.getStackTrace()));
-        logger.error("{name:{},description:{},details:{}}", v("name", ex.getClass().toString()), v("description", ex.getMessage()), v("details", mapperOne.toString()));
+
+        String eventCode = "";
+        String descriptionString = "";
+        String detailsString = "";
+        String exceptionString = "";
+
+        if (ServiceException.class.isAssignableFrom(ex.getClass())) {
+            ServiceException serviceException = (ServiceException) ex;
+
+            eventCode = serviceException.getErrorCode();
+            descriptionString = serviceException.getErrorMessage();
+            if (serviceException.getDetails() != null) {
+                detailsString = serviceException.getDetails().toString();
+            }
+            exceptionString = serviceException.getClass().toString();
+
+        } else {
+            eventCode = "SYSTEM_ERROR";
+            descriptionString = ex.getMessage();
+            exceptionString = ex.getClass().toString();
+        }
+
+        logger.error("{\"eventCode\":\"{}\",\"description\":\"{}\",\"details\":\"{}\",\"exception\":\"{}\"}", v("eventCode", eventCode), v("description", descriptionString), v("details", detailsString), v("exception", exceptionString));
 
         Throwable causedByException = ex.getCause();
         if ((causedByException) != null) {
-            ObjectNode mapper = new ObjectMapper().createObjectNode();
-            mapper.put("stackTrace", Arrays.toString(causedByException.getStackTrace()));
-            logger.error("{name:{},description:{},details:{}}", v("name", causedByException.getClass().toString()), v("description", causedByException.getMessage()), v("details", mapper.toString()));
+
+            descriptionString = causedByException.getMessage();
+            detailsString = "";
+            exceptionString = causedByException.getClass().toString();
+
+            System.out.println("event" + eventCode);
+
+//            ObjectNode mapper = new ObjectMapper().createObjectNode();
+//            mapper.put("stackTrace", Arrays.toString(causedByException.getStackTrace()));
+            logger.error("{\"eventCode\":\"{}\",\"description\":\"{}\",\"details\":\"{}\",\"exception\":\"{}\"}", v("eventCode", eventCode), v("description", descriptionString), v("details", detailsString), v("exception", exceptionString));
         }
     }
 
@@ -47,7 +76,7 @@ public class ExceptionMessageHandler {
     @ResponseBody
     protected PaymentFailureResponse handleResourceNotFoundException(ResourceNotFoundException ex) {
         Map<String, String> errors = new HashMap<>();
-        errors.put(ex.getKey(), ex.getValue());
+        errors.put(ex.getErrorCode(), ex.getErrorMessage());
         logException(ex);
         return new PaymentFailureResponse("MISSING_INFO", errors);
     }
@@ -57,7 +86,7 @@ public class ExceptionMessageHandler {
     @ResponseBody
     protected PaymentFailureResponse handleConflictException(ResourceConflictException ex) {
         Map<String, String> errors = new HashMap<>();
-        errors.put(ex.getKey(), ex.getValue());
+        errors.put(ex.getErrorCode(), ex.getErrorMessage());
         logException(ex);
         return new PaymentFailureResponse("REQUEST_CONFLICT", errors);
     }
@@ -102,7 +131,7 @@ public class ExceptionMessageHandler {
     @ResponseBody
     protected PaymentFailureResponse handleValidationException(ValidationException ex) {
         Map<String, String> errors = new HashMap<>();
-        errors.put(ex.getKey(), ex.getValue());
+        errors.put(ex.getErrorCode(), ex.getErrorMessage());
         logException(ex);
         return new PaymentFailureResponse("INVALID_INPUT", errors);
     }
@@ -122,7 +151,7 @@ public class ExceptionMessageHandler {
     @ResponseBody
     protected PaymentFailureResponse handleProcessingException(BusinessException ex) {
         Map<String, String> errors = new HashMap<>();
-        errors.put(ex.getKey(), ex.getValue());
+        errors.put(ex.getErrorCode(), ex.getErrorMessage());
         logException(ex);
         return new PaymentFailureResponse("REQUEST_UNPROCESSABLE", errors);
     }

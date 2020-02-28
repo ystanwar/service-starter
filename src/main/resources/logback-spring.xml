@@ -11,7 +11,7 @@
     <appender name="ConsoleRef" class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
             <Pattern>
-                parentrequest_id= %X{parentrequest.id} request.id=%X{request.id} %black(%d{ISO8601}) %highlight(%-5level) [%blue(%t)] %yellow(%C{1.}): %msg%n%throwable
+                {"parentrequest_id":"%X{parentrequest.id}", "request.id":"%X{request.id}", "timestamp":"%black(%d{ISO8601})", "level":"%highlight(%-5level)","thread":"[%blue(%t)]",  "class":"%yellow(%C{1.})", "message":%msg}%n%throwable
 <!--                %black(%d{ISO8601}) %highlight(%-5level) [%blue(%t)] %yellow(%C{1.}): %msg%n%throwable-->
             </Pattern>
         </layout>
@@ -54,3 +54,5 @@
     </logger>
 
 </configuration>
+
+

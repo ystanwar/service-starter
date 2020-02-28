@@ -49,7 +49,7 @@ public class PaymentController {
         mapper.put("BeneficiaryIfscCode", savedPayment.getBeneficiaryIfscCode());
         mapper.put("PayeeIfscCode", savedPayment.getPayeeIfscCode());
 
-        logger.info("{name:{},details:{}}", v("name", "PAYMENTSUCCESSFUL"), v("details", mapper.toString()));
+        logger.info("{\"eventCode\":\"{}\",\"description\":\"{}\",\"details\":{}}", v("name", "PAYMENT_SUCCESSFUL"), v("description", "payment successful"), v("details", mapper.toString()));
 
         PaymentSuccessResponse response = new PaymentSuccessResponse();
         response.setStatusMessage("Payment done successfully");

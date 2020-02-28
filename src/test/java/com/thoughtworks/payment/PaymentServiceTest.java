@@ -1,9 +1,11 @@
 package com.thoughtworks.payment;
 
+import com.thoughtworks.exceptions.PaymentRefusedException;
 import com.thoughtworks.exceptions.ResourceNotFoundException;
-import com.thoughtworks.serviceclients.BankClient;
 import com.thoughtworks.payment.model.BankDetails;
 import com.thoughtworks.payment.model.Payment;
+import com.thoughtworks.serviceclients.BankClient;
+import com.thoughtworks.serviceclients.FraudClient;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 
@@ -28,10 +31,14 @@ public class PaymentServiceTest {
     @MockBean
     BankClient bankClient;
 
+    @MockBean
+    FraudClient fraudClient;
+
     @AfterEach
-    void tearDown(){
+    void tearDown() {
         paymentRepository.deleteAll();
     }
+
     @Test
     public void createAPayment() throws Exception {
         BankDetails beneficiary = new BankDetails("user1", 12345, "HDFC1234");
@@ -39,6 +46,7 @@ public class PaymentServiceTest {
 
         Payment payment = new Payment(100, beneficiary, payee);
         when(bankClient.checkBankDetails(anyLong(), anyString())).thenReturn(true);
+        when(fraudClient.checkFraud(any())).thenReturn(true);
 
         Payment savedPayment = paymentService.create(payment);
         assertEquals(100, savedPayment.getAmount());
@@ -63,7 +71,7 @@ public class PaymentServiceTest {
 
         ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class, () -> paymentService.create(payment));
 
-        assertEquals("user1's AccountDetails Not Found", exception.getValue());
+        assertEquals("user1's AccountDetails Not Found At OOOOOO", exception.getErrorMessage());
     }
 
     @Test
@@ -77,7 +85,7 @@ public class PaymentServiceTest {
 
         ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class, () -> paymentService.create(payment));
 
-        assertEquals("user2's AccountDetails Not Found", exception.getValue());
+        assertEquals("user2's AccountDetails Not Found At 0000000", exception.getErrorMessage());
     }
 
     @Test
@@ -105,23 +113,34 @@ public class PaymentServiceTest {
     }
 
     @Test
+    public void testCreatePaymentWithFraudulentInput() throws Exception {
+        BankDetails beneficiary = new BankDetails("user1", 12345, "HDFC1234");
+        BankDetails payee = new BankDetails("user2", 12345, "HDFC1234");
+
+        Payment payment = new Payment(100, beneficiary, payee);
+        when(bankClient.checkBankDetails(anyLong(), anyString())).thenReturn(true);
+        when(fraudClient.checkFraud(any())).thenThrow(PaymentRefusedException.class);
+        assertThrows(PaymentRefusedException.class, () -> paymentService.create(payment));
+    }
+
+    @Test
     public void testFindAll() throws Exception {
         BankDetails beneficiary = new BankDetails("user1", 12345, "HDFC1234");
         BankDetails payee = new BankDetails("user2", 67890, "HDFC1234");
 
         when(bankClient.checkBankDetails(anyLong(), anyString())).thenReturn(true);
-
-       for(int i=0; i<10; i++){
-           Payment payment = new Payment(100 + i*10, beneficiary, payee);
-           Payment savedPayment = paymentService.create(payment);
-       }
+        when(fraudClient.checkFraud(any())).thenReturn(true);
+        for (int i = 0; i < 10; i++) {
+            Payment payment = new Payment(100 + i * 10, beneficiary, payee);
+            Payment savedPayment = paymentService.create(payment);
+        }
 
         List<Payment> allPayments = paymentService.getAll();
         System.out.println("Count" + allPayments.size());
         assertEquals(10, allPayments.size());
 
-        for(int i=0; i<allPayments.size(); i++){
-            assertEquals (i+1, allPayments.get(i).getId());
+        for (int i = 0; i < allPayments.size(); i++) {
+            assertEquals(i + 1, allPayments.get(i).getId());
         }
     }
 }

@@ -7,7 +7,7 @@ import org.springframework.web.filter.CommonsRequestLoggingFilter;
 @Service
 @Order(2)
 public class CommonsOrderedRequestLoggingFilter extends CommonsRequestLoggingFilter {
-    CommonsOrderedRequestLoggingFilter(){
+    CommonsOrderedRequestLoggingFilter() {
         super();
         this.setIncludeQueryString(true);
         this.setIncludeHeaders(true);

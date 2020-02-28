@@ -24,12 +24,12 @@ public class DependencyException extends ServiceException {
     }
 
     @Override
-    public String getKey() {
+    public String getErrorCode() {
         return dependencyName;
     }
 
     @Override
-    public String getValue() {
+    public String getErrorMessage() {
         return dependencyError;
     }
 }

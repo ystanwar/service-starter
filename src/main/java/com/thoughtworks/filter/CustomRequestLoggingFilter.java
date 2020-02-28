@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.UUID;
 
+import static net.logstash.logback.argument.StructuredArguments.v;
+
 @Service
 @Order(2)
 public class CustomRequestLoggingFilter implements Filter {
@@ -31,8 +33,13 @@ public class CustomRequestLoggingFilter implements Filter {
         } finally {
             String requestBody = new String(requestWrapper.getContentAsByteArray());
             String responseBody = new String(responseWrapper.getContentAsByteArray());
-            logger.info("PAYMENT REQUEST ->{}", requestBody);
-            logger.info("PAYMENT RESPONSE ->{}", responseBody);
+
+            HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
+
+            logger.info("{\"eventCode\":\"{}\",\"description\":\"{}\",\"details\":{\"params\":\"{}\", \"body\":{}},\"exception\":\"{}\"}", v("eventCode", "REQUEST_RECEIVED"), v("description", httpServletRequest.getMethod() + " " + httpServletRequest.getServletPath()), v("params", "parameters here"), v("body", requestBody), v("exception", ""));
+
+            logger.info("{\"eventCode\":\"{}\",\"description\":\"{}\",\"details\":{\"params\":\"{}\", \"body\":{}},\"exception\":\"{}\"}", v("eventCode", "RESPONSE_SENT"), v("description", httpServletRequest.getMethod() + " " + httpServletRequest.getServletPath()), v("params", ""), v("body", responseBody), v("exception", ""));
+
             MDC.clear();
             responseWrapper.copyBodyToResponse();
         }

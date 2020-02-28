@@ -39,7 +39,7 @@ public class BankInfoServiceTest {
         ResourceConflictException exception =
                 assertThrows(ResourceConflictException.class, () -> bankInfoService.create(bank));
 
-        assertEquals("Bank info already exists", exception.getValue());
+        assertEquals("Bank info already exists", exception.getErrorMessage());
     }
 
     @Test
