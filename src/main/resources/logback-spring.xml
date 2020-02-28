@@ -21,7 +21,7 @@
         <file>logs/logs.log</file>
         <encoder
                 class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <Pattern>{"parentrequest_id"= %X{parentrequest.id} "request_id"= %X{request.id} "timestamp": %d "level": %p "event": %m}%n</Pattern>
+            <Pattern>{"parentrequest_id": "%X{parentrequest.id}" ,"request_id":"%X{request.id}" ,"timestamp": "%d{ISO8601}", "level":" %p" ,"thread":"%t", "class":"%c","message": %m}%n</Pattern>
         </encoder>
 
         <rollingPolicy

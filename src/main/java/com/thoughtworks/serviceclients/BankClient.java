@@ -23,7 +23,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 @Service
-@Retry(name="bankservice")
+@Retry(name = "bankservice")
 @CircuitBreaker(name = "bankservice")
 public class BankClient {
     private static Logger logger = LogManager.getLogger(ExceptionMessageHandler.class);
@@ -55,7 +55,7 @@ public class BankClient {
             statusCode = response.getStatusLine().getStatusCode();
             response.close();
         } catch (Exception ex) {
-            throw new DependencyException("ExternalService", "BankService - " + ifscCode, url, "UNAVAILABLE", ex);
+            throw new DependencyException("ExternalService", "BANKSERVICE_" + ifscCode, url, "UNAVAILABLE", ex);
             //throw new DependencyException("SERVICE_UNAVAILABLE ", "could not call " + getBankCode(ifscCode), ex);
         }
 
@@ -64,7 +64,7 @@ public class BankClient {
         else if (statusCode == 404) {
             return false;
         } else {
-            throw new DependencyException("ExternalService", "BankService - " + ifscCode, url, "SERVICE_ERROR - " + statusCode);
+            throw new DependencyException("ExternalService", "BANKSERVICE_" + ifscCode, url, "SERVICE_ERROR - " + statusCode);
             //throw new DependencyException("SERVICE_ERROR",  "calling " + ifscCode + " received statusCode=" + statusCode);
         }
     }

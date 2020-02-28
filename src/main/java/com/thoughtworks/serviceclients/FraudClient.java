@@ -35,7 +35,7 @@ public class FraudClient {
             responseCode = response.getStatusLine().getStatusCode();
             client.close();
         } catch (Exception ex) {
-            throw new DependencyException("InternalService", "FraudService", url, "UNAVAILABLE", ex);
+            throw new DependencyException("InternalService", "FRAUDSERVICE", url, "UNAVAILABLE", ex);
         }
 
         if (responseCode == 200) {
@@ -43,7 +43,7 @@ public class FraudClient {
         } else if (responseCode == 422) {
             return false;
         } else {
-            throw new DependencyException("InternalService", "FraudService", url, "received " + responseCode);
+            throw new DependencyException("InternalService", "FRAUDSERVICE", url, "received " + responseCode);
         }
     }
 }

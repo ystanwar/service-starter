@@ -50,23 +50,18 @@ public class ExceptionMessageHandler {
         } else {
             eventCode = "SYSTEM_ERROR";
             descriptionString = ex.getMessage();
-            exceptionString = ex.getClass().toString();
+            exceptionString = ex.toString();
         }
 
-        logger.error("{\"eventCode\":\"{}\",\"description\":\"{}\",\"details\":\"{}\",\"exception\":\"{}\"}", v("eventCode", eventCode), v("description", descriptionString), v("details", detailsString), v("exception", exceptionString));
+        logger.error("{\"eventCode\":\"{}\",\"description\":\"{}\",\"details\":{},\"exception\":\"{}\",\"stackTrace\":\"{}\"}", v("eventCode", eventCode), v("description", descriptionString), v("details", detailsString), v("exception", exceptionString), v("stackTrace", ex.getStackTrace()));
 
         Throwable causedByException = ex.getCause();
         if ((causedByException) != null) {
 
             descriptionString = causedByException.getMessage();
             detailsString = "";
-            exceptionString = causedByException.getClass().toString();
-
-            System.out.println("event" + eventCode);
-
-//            ObjectNode mapper = new ObjectMapper().createObjectNode();
-//            mapper.put("stackTrace", Arrays.toString(causedByException.getStackTrace()));
-            logger.error("{\"eventCode\":\"{}\",\"description\":\"{}\",\"details\":\"{}\",\"exception\":\"{}\"}", v("eventCode", eventCode), v("description", descriptionString), v("details", detailsString), v("exception", exceptionString));
+            exceptionString = causedByException.toString();
+            logger.error("{\"eventCode\":\"{}\",\"description\":\"{}\",\"details\":{},\"exception\":\"{}\",\"stackTrace\":\"{}\"}", v("eventCode", eventCode), v("description", descriptionString), v("details", detailsString), v("exception", exceptionString), v("stackTrace", ex.getStackTrace()));
         }
     }
 

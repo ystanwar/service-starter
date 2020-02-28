@@ -25,7 +25,7 @@ public class DependencyException extends ServiceException {
 
     @Override
     public String getErrorCode() {
-        return dependencyName;
+        return dependencyName +"_FAILURE";
     }
 
     @Override
