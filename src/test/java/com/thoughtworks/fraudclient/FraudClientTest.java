@@ -63,7 +63,7 @@ public class FraudClientTest {
         Payment payment = new Payment(100, beneficiary, payee);
 
         DependencyException dex = assertThrows(DependencyException.class, () -> fraudClient.checkFraud(payment));
-        assertEquals("FraudService", dex.getErrorCode());
+        assertEquals("FRAUDSERVICE_FAILURE", dex.getErrorCode());
         assertEquals("received 500", dex.getErrorMessage());
         wireMockServer.stop();
     }
@@ -76,7 +76,7 @@ public class FraudClientTest {
         Payment payment = new Payment(100, beneficiary, payee);
 
         DependencyException dex = assertThrows(DependencyException.class, () -> fraudClient.checkFraud(payment));
-        assertEquals("FraudService", dex.getErrorCode());
+        assertEquals("FRAUDSERVICE_FAILURE", dex.getErrorCode());
         assertEquals("UNAVAILABLE", dex.getErrorMessage());
     }
 }

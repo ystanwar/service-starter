@@ -211,7 +211,7 @@ public class BankClientTest {
         stubFor(get(urlEqualTo("/checkDetails?accountNumber=12345&ifscCode=HDFC1234")).willReturn(aResponse().withStatus(500)));
 
         DependencyException exception = assertThrows(DependencyException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
-        assertEquals("BankService - HDFC1234", exception.getErrorCode());
+        assertEquals("BANKSERVICE_HDFC1234_FAILURE", exception.getErrorCode());
         assertEquals("SERVICE_ERROR - 500", exception.getErrorMessage());
     }
 }
