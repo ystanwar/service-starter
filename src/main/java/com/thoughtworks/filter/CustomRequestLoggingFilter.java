@@ -13,6 +13,8 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -36,17 +38,37 @@ public class CustomRequestLoggingFilter implements Filter {
             String requestBody = new String(requestWrapper.getContentAsByteArray());
             String responseBody = new String(responseWrapper.getContentAsByteArray());
 
-            Map<String, String[]> requestParams = servletRequest.getParameterMap();
-            ObjectMapper requestParamMapper = new ObjectMapper();
-            String paramString = requestParamMapper.writerWithDefaultPrettyPrinter().writeValueAsString(requestParams);
+            if (responseBody.isEmpty()) {
+                responseBody = "\"\"";
+            } else if (responseBody.length() > 1000) responseBody = "\"payload is too large to log\"";
+
+            if (requestBody.isEmpty()) {
+                requestBody = "\"\"";
+            } else if (requestBody.length() > 1000) requestBody = "\"payload is too large to log\"";
+
 
             HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
             HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
 
+            Map<String, String> headerMap = new HashMap<>();
 
-            logger.info("{\"eventCode\":\"{}\",\"description\":\"{}\",\"details\":{\"params\":{}, \"body\":{}},\"exception\":\"{}\"}", v("eventCode", "REQUEST_RECEIVED"), v("description", httpServletRequest.getMethod() + " " + httpServletRequest.getServletPath()), v("params", paramString), v("body", requestBody), v("exception", ""));
+            Enumeration en = (httpServletRequest).getHeaderNames();
+            while (en.hasMoreElements()) {
+                String headerName = (String) en.nextElement();
+                headerMap.put(headerName, httpServletRequest.getHeader(headerName));
+            }
 
-            logger.info("{\"eventCode\":\"{}\",\"description\":\"{}\",\"details\":{\"statusCode\":\"{}\",\"body\":{}},\"exception\":\"{}\"}", v("eventCode", "RESPONSE_SENT"), v("description", httpServletRequest.getMethod() + " " + httpServletRequest.getServletPath()), v("statusCode", httpServletResponse.getStatus()), v("body", responseBody), v("exception", ""));
+            Map<String, String[]> requestParams = servletRequest.getParameterMap();
+            ObjectMapper objectMapper = new ObjectMapper();
+            String paramString = objectMapper.writeValueAsString(requestParams);
+
+            String headerString = objectMapper.writeValueAsString(headerMap);
+
+
+            //logEventAsJson(logger, "REQUEST_RECEIVED", httpServletRequest.getMethod() + " " + httpServletRequest.getServletPath(),detailsMap);
+            logger.info("{\"eventCode\":\"{}\",\"description\":\"{}\",\"details\":{\"headers\":{},\"params\":{}, \"body\":{}},\"exception\":\"{}\"}", v("eventCode", "REQUEST_RECEIVED"), v("description", httpServletRequest.getMethod() + " " + httpServletRequest.getServletPath()), v("headers", headerString), v("params", paramString), v("body", requestBody), v("exception", ""));
+
+            logger.info("{\"eventCode\":\"{}\",\"description\":\"{}\",\"details\":{\"statusCode\":\"{}\",\"headers\":{},\"body\":{}},\"exception\":\"{}\"}", v("eventCode", "RESPONSE_SENT"), v("description", httpServletRequest.getMethod() + " " + httpServletRequest.getServletPath()), v("statusCode", httpServletResponse.getStatus()), v("headers", headerString), v("body", responseBody), v("exception", ""));
 
             MDC.clear();
             responseWrapper.copyBodyToResponse();
