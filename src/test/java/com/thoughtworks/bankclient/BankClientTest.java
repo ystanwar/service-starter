@@ -110,44 +110,41 @@ public class BankClientTest {
         assertThrows(DependencyException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
         verify(bankInfoService, times(3)).fetchBankByBankCode(any(String.class));
         assertEquals("CLOSED", circuitBreaker.getState().name());
-        ;
+
         assertThrows(CallNotPermittedException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
         verify(bankInfoService, times(4)).fetchBankByBankCode(any(String.class));
         assertEquals("OPEN", circuitBreaker.getState().name());
-        ;
 
         TimeUnit.SECONDS.sleep(5);
         assertThrows(DependencyException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
         assertEquals("HALF_OPEN", circuitBreaker.getState().name());
-        ;
+
         assertThrows(CallNotPermittedException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
         verify(bankInfoService, times(8)).fetchBankByBankCode(any(String.class));
         assertEquals("OPEN", circuitBreaker.getState().name());
-        ;
+
 
         TimeUnit.SECONDS.sleep(5);
         assertEquals(true, bankClient.checkBankDetails(12345, "HDFC1234"));
         assertEquals("HALF_OPEN", circuitBreaker.getState().name());
-        ;
+
         assertEquals(true, bankClient.checkBankDetails(12345, "HDFC1234"));
         assertThrows(CallNotPermittedException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
         verify(bankInfoService, times(12)).fetchBankByBankCode(any(String.class));
         assertEquals("OPEN", circuitBreaker.getState().name());
-        ;
 
         TimeUnit.SECONDS.sleep(5);
         assertTrue(bankClient.checkBankDetails(12345, "HDFC1234"));
         assertEquals("HALF_OPEN", circuitBreaker.getState().name());
-        ;
+
         assertTrue(bankClient.checkBankDetails(12345, "HDFC1234"));
         assertTrue(bankClient.checkBankDetails(12345, "HDFC1234"));
         assertTrue(bankClient.checkBankDetails(12345, "HDFC1234"));
         assertEquals("CLOSED", circuitBreaker.getState().name());
-        ;
+
         assertTrue(bankClient.checkBankDetails(12345, "HDFC1234"));
         verify(bankInfoService, times(17)).fetchBankByBankCode(any(String.class));
         assertEquals("CLOSED", circuitBreaker.getState().name());
-        ;
 
     }
 
