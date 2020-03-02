@@ -41,7 +41,7 @@ public class PaymentController {
             @ApiResponse(responseCode = "404", description = "BankAccount not found"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
-    @PostMapping
+    @PostMapping(consumes = { "application/json"})
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Add a paymnet ", description = "Make payemt between two users", tags = { "Payments" })
     public ResponseEntity<PaymentSuccessResponse> create(@Valid @RequestBody PaymentRequest paymentRequest) throws Exception {
