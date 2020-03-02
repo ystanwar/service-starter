@@ -16,4 +16,5 @@ public class CommonsOrderedRequestLoggingFilter extends CommonsRequestLoggingFil
         this.setMaxPayloadLength(10000);
         this.setAfterMessagePrefix("PAYMENT ");
     }
+
 }
