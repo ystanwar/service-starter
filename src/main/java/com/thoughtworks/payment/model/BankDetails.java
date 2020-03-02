@@ -1,5 +1,7 @@
 package com.thoughtworks.payment.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -22,14 +24,17 @@ public class BankDetails {
     public BankDetails() {
     }
 
+    @Schema(example = "user", description = "")
     public String getName() {
         return name;
     }
 
+    @Schema(example = "12345", description = "")
     public long getAccountNumber() {
         return accountNumber;
     }
 
+    @Schema(example = "HDFC1234", description = "")
     public String getIfscCode() {
         return ifscCode;
     }

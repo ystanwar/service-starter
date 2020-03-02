@@ -5,8 +5,12 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.thoughtworks.api.payment.PaymentRequest;
 import com.thoughtworks.api.payment.PaymentSuccessResponse;
 import com.thoughtworks.payment.model.Payment;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+//import io.swagger.annotations.ApiResponse;
+//import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +26,7 @@ import static net.logstash.logback.argument.StructuredArguments.v;
 
 @RestController
 @RequestMapping("/payments")
-
+@Tag(name = "Payments", description = "Manage the transactions between two users.")
 public class PaymentController {
     private static Logger logger = LogManager.getLogger(PaymentController.class);
 
@@ -33,12 +37,13 @@ public class PaymentController {
     Environment environment;
 
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Payment created successfully"),
-            @ApiResponse(code = 404, message = "BankAccount not found"),
-            @ApiResponse(code = 500, message = "Internal server error")
+            @ApiResponse(responseCode = "201", description = "Payment created successfully"),
+            @ApiResponse(responseCode = "404", description = "BankAccount not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @Operation(summary = "Add a paymnet ", description = "Make payemt between two users", tags = { "Payments" })
     public ResponseEntity<PaymentSuccessResponse> create(@Valid @RequestBody PaymentRequest paymentRequest) throws Exception {
 
         Payment payment = new Payment(paymentRequest.getAmount(), paymentRequest.getBeneficiary(), paymentRequest.getPayee());
