@@ -43,7 +43,7 @@ public class PaymentController {
     })
     @PostMapping(consumes = { "application/json"})
     @ResponseStatus(HttpStatus.CREATED)
-    @Operation(summary = "Add a paymnet ", description = "Make payemt between two users", tags = { "Payments" })
+    @Operation(summary = "Add a payment ", description = "Make payemt between two users", tags = { "Payments" })
     public ResponseEntity<PaymentSuccessResponse> create(@Valid @RequestBody PaymentRequest paymentRequest) throws Exception {
 
         Payment payment = new Payment(paymentRequest.getAmount(), paymentRequest.getBeneficiary(), paymentRequest.getPayee());
@@ -62,6 +62,12 @@ public class PaymentController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
+
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "All Payments gets successfully"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
+    @Operation(summary = "Gets all payments ", description = "Gets All Transactions done ", tags = { "Payments" })
     @GetMapping
     public List<Payment> getAllPayments() {
         return paymentService.getAll();
