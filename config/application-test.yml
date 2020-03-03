@@ -6,7 +6,6 @@ spring:
     url: jdbc:h2:mem:testdb
     username: sa
 
-
 resilience4j.circuitbreaker:
   instances:
     bankservice:
@@ -19,8 +18,6 @@ resilience4j.circuitbreaker:
       eventConsumerBufferSize: 10
       recordExceptions:
         - com.thoughtworks.exceptions.DependencyException
-
-
 
 resilience4j.retry:
   instances:

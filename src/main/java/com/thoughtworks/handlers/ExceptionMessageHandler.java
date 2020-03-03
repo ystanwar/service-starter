@@ -87,11 +87,13 @@ public class ExceptionMessageHandler {
     }
 
     @ExceptionHandler(CallNotPermittedException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
-    protected String handleCircuitBreakException(CallNotPermittedException callNotPermittedException) {
+    protected PaymentFailureResponse handleCircuitBreakException(CallNotPermittedException callNotPermittedException) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put("message", "Could not process the request");
         logException(callNotPermittedException);
-        return "CircuitBreakerException";
+        return new PaymentFailureResponse("SERVER_ERROR", errors);
     }
 
     @ExceptionHandler({MethodArgumentNotValidException.class})

@@ -24,8 +24,6 @@ resilience4j.circuitbreaker:
       recordExceptions:
         - com.thoughtworks.exceptions.DependencyException
 
-
-
 resilience4j.retry:
   instances:
     bankservice:

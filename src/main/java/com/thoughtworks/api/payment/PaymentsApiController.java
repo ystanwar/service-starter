@@ -17,9 +17,12 @@ import java.util.List;
 public interface PaymentsApiController {
 
     @ApiResponses(value = {
-            @ApiResponse(
-                    responseCode = "201", description = "Payment created successfully"),
-            @ApiResponse(responseCode = "404", description = "BankAccount not found",
+            @ApiResponse(responseCode = "201", description = "Payment created successfully"),
+            @ApiResponse(responseCode = "404", description = "Info referred in request not found",
+                    content = @Content(schema = @Schema(implementation = PaymentFailureResponse.class))),
+            @ApiResponse(responseCode = "400", description = "Invalid input or request body missing or incorrect format",
+                    content = @Content(schema = @Schema(implementation = PaymentFailureResponse.class))),
+            @ApiResponse(responseCode = "422", description = "Payment request is unprocessable",
                     content = @Content(schema = @Schema(implementation = PaymentFailureResponse.class))),
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(schema = @Schema(implementation = PaymentFailureResponse.class)))
