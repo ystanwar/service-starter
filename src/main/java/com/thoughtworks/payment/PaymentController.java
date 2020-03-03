@@ -2,10 +2,13 @@ package com.thoughtworks.payment;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.thoughtworks.api.payment.PaymentFailureResponse;
 import com.thoughtworks.api.payment.PaymentRequest;
 import com.thoughtworks.api.payment.PaymentSuccessResponse;
 import com.thoughtworks.payment.model.Payment;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -35,9 +38,12 @@ public class PaymentController {
     Environment environment;
 
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Payment created successfully"),
-            @ApiResponse(responseCode = "404", description = "BankAccount not found"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
+            @ApiResponse(
+                    responseCode = "201", description = "Payment created successfully"),
+            @ApiResponse(responseCode = "404", description = "BankAccount not found",
+                    content = @Content(schema = @Schema(implementation = PaymentFailureResponse.class))),
+            @ApiResponse(responseCode = "500", description = "Internal server error",
+                    content = @Content(schema = @Schema(implementation = PaymentFailureResponse.class)))
     })
     @PostMapping(consumes = { "application/json"})
     @ResponseStatus(HttpStatus.CREATED)
@@ -63,7 +69,8 @@ public class PaymentController {
 
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "All Payments gets successfully"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
+            @ApiResponse(responseCode = "500", description = "Internal server error",
+                    content = @Content(schema = @Schema(implementation = PaymentFailureResponse.class))),
     })
     @Operation(summary = "Gets all payments ", description = "Gets All Transactions done ", tags = { "Payments" })
     @GetMapping

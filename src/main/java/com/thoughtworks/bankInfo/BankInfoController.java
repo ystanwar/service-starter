@@ -1,8 +1,11 @@
 package com.thoughtworks.bankInfo;
 
 import com.thoughtworks.api.PaymentServiceURLs;
+import com.thoughtworks.api.payment.PaymentFailureResponse;
 import com.thoughtworks.exceptions.ResourceConflictException;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -20,7 +23,8 @@ public class BankInfoController {
 
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "BankInfo created successfully"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
+            @ApiResponse(responseCode = "500", description = "Internal server error",
+                    content = @Content(schema = @Schema(implementation = PaymentFailureResponse.class)))
     })
 
     @PostMapping(consumes = { "application/json"})
