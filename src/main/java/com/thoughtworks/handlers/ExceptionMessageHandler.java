@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.thoughtworks.api.payment.PaymentFailureResponse;
 import com.thoughtworks.exceptions.*;
 import io.github.resilience4j.circuitbreaker.CallNotPermittedException;
+import io.swagger.v3.oas.annotations.Hidden;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,7 @@ import java.util.stream.Collectors;
 
 import static net.logstash.logback.argument.StructuredArguments.v;
 
+@Hidden
 @ControllerAdvice
 public class ExceptionMessageHandler {
     private static Logger logger = LogManager.getLogger(ExceptionMessageHandler.class);

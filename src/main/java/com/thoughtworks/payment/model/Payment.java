@@ -1,6 +1,6 @@
 package com.thoughtworks.payment.model;
 
-import io.swagger.annotations.ApiModelProperty;
+//import io.swagger.annotations.ApiModelProperty;
 import org.slf4j.MDC;
 
 import javax.persistence.*;
@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class Payment {
 
     @Id
-    @ApiModelProperty(hidden = true)
+//    @ApiModelProperty(hidden = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 

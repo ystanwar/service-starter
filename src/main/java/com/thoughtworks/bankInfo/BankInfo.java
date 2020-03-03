@@ -1,13 +1,13 @@
 package com.thoughtworks.bankInfo;
 
-import io.swagger.annotations.ApiModelProperty;
+//import io.swagger.annotations.ApiModelProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import javax.persistence.*;
 
 @Entity
 public class BankInfo {
     @Id
-    @ApiModelProperty(hidden = true)
+//    @ApiModelProperty(hidden = true)
     @Schema(hidden = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
