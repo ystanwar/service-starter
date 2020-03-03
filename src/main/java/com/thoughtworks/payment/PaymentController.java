@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.thoughtworks.api.payment.PaymentFailureResponse;
 import com.thoughtworks.api.payment.PaymentRequest;
 import com.thoughtworks.api.payment.PaymentSuccessResponse;
+import com.thoughtworks.api.payment.PaymentsApiController;
 import com.thoughtworks.payment.model.Payment;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -27,8 +28,7 @@ import static net.logstash.logback.argument.StructuredArguments.v;
 
 @RestController
 @RequestMapping("/payments")
-@Tag(name = "Payments", description = "Manage the transactions between two users.")
-public class PaymentController {
+public class PaymentController implements PaymentsApiController {
     private static Logger logger = LogManager.getLogger(PaymentController.class);
 
     @Autowired
@@ -37,19 +37,9 @@ public class PaymentController {
     @Autowired
     Environment environment;
 
-    @ApiResponses(value = {
-            @ApiResponse(
-                    responseCode = "201", description = "Payment created successfully"),
-            @ApiResponse(responseCode = "404", description = "BankAccount not found",
-                    content = @Content(schema = @Schema(implementation = PaymentFailureResponse.class))),
-            @ApiResponse(responseCode = "500", description = "Internal server error",
-                    content = @Content(schema = @Schema(implementation = PaymentFailureResponse.class)))
-    })
     @PostMapping(consumes = { "application/json"})
-    @ResponseStatus(HttpStatus.CREATED)
-    @Operation(summary = "Add a payment ", description = "Make payemt between two users", tags = { "Payments" })
+    @Override
     public ResponseEntity<PaymentSuccessResponse> create(@Valid @RequestBody PaymentRequest paymentRequest) throws Exception {
-
         Payment payment = new Payment(paymentRequest.getAmount(), paymentRequest.getBeneficiary(), paymentRequest.getPayee());
         Payment savedPayment = paymentService.create(payment);
 
@@ -66,14 +56,8 @@ public class PaymentController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "All Payments gets successfully"),
-            @ApiResponse(responseCode = "500", description = "Internal server error",
-                    content = @Content(schema = @Schema(implementation = PaymentFailureResponse.class))),
-    })
-    @Operation(summary = "Gets all payments ", description = "Gets All Transactions done ", tags = { "Payments" })
     @GetMapping
+    @Override
     public List<Payment> getAllPayments() {
         return paymentService.getAll();
     }
