@@ -1,6 +1,8 @@
 package com.thoughtworks.bankInfo;
 
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import org.springframework.context.annotation.Scope;
 
 import javax.persistence.*;
 
@@ -8,6 +10,7 @@ import javax.persistence.*;
 public class BankInfo {
     @Id
     @ApiModelProperty(hidden = true)
+    @Schema(hidden = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 

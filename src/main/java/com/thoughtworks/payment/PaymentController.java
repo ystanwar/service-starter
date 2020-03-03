@@ -5,8 +5,6 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.thoughtworks.api.payment.PaymentRequest;
 import com.thoughtworks.api.payment.PaymentSuccessResponse;
 import com.thoughtworks.payment.model.Payment;
-//import io.swagger.annotations.ApiResponse;
-//import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
