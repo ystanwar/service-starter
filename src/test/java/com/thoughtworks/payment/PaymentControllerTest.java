@@ -2,6 +2,7 @@ package com.thoughtworks.payment;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thoughtworks.api.payment.PaymentFailureResponse;
+import com.thoughtworks.api.payment.PaymentRequest;
 import com.thoughtworks.api.payment.PaymentSuccessResponse;
 import com.thoughtworks.exceptions.*;
 import com.thoughtworks.payment.model.BankDetails;
@@ -79,16 +80,18 @@ public class PaymentControllerTest {
     @Test
     public void testGetAllPayments() throws Exception {
 
-        List<Payment> paymentList = new ArrayList<Payment>();
+        List<Payment> paymentList = new ArrayList<>();
 
         BankDetails beneficiary = new BankDetails("user1", 12, "HDFC1");
         BankDetails payee = new BankDetails("user2", 12346, "HDFC1234");
 
-        Payment payment = new Payment(500, beneficiary, payee);
+        PaymentRequest paymentRequest = new PaymentRequest(500, beneficiary, payee);
+        Payment payment = new Payment(paymentRequest);
         payment.setId(1);
         paymentList.add(payment);
 
-        payment = new Payment(2100, beneficiary, payee);
+        paymentRequest = new PaymentRequest(2100, beneficiary, payee);
+        payment = new Payment(paymentRequest);
         payment.setId(2);
         paymentList.add(payment);
 
@@ -114,7 +117,8 @@ public class PaymentControllerTest {
         BankDetails beneficiary = new BankDetails("user1", 12, "HDFC1");
         BankDetails payee = new BankDetails("user2", 12346, "HDFC1234");
 
-        Payment payment = new Payment(500, beneficiary, payee);
+        PaymentRequest paymentRequest = new PaymentRequest(500, beneficiary, payee);
+        Payment payment = new Payment(paymentRequest);
         payment.setId(1);
 
         ObjectMapper objectMapper = new ObjectMapper();

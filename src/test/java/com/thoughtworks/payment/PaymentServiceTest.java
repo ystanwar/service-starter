@@ -1,5 +1,6 @@
 package com.thoughtworks.payment;
 
+import com.thoughtworks.api.payment.PaymentRequest;
 import com.thoughtworks.exceptions.PaymentRefusedException;
 import com.thoughtworks.exceptions.ResourceNotFoundException;
 import com.thoughtworks.payment.model.BankDetails;
@@ -44,7 +45,8 @@ public class PaymentServiceTest {
         BankDetails beneficiary = new BankDetails("user1", 12345, "HDFC1234");
         BankDetails payee = new BankDetails("user2", 67890, "HDFC1234");
 
-        Payment payment = new Payment(100, beneficiary, payee);
+        PaymentRequest paymentRequest = new PaymentRequest(100, beneficiary, payee);
+        Payment payment = new Payment(paymentRequest);
         when(bankClient.checkBankDetails(anyLong(), anyString())).thenReturn(true);
         when(fraudClient.checkFraud(any())).thenReturn(true);
 
@@ -65,7 +67,8 @@ public class PaymentServiceTest {
         BankDetails beneficiary = new BankDetails("user1", 00000, "OOOOOO");
         BankDetails payee = new BankDetails("user2", 67890, "HDFC1234");
 
-        Payment payment = new Payment(100, beneficiary, payee);
+        PaymentRequest paymentRequest = new PaymentRequest(100, beneficiary, payee);
+        Payment payment = new Payment(paymentRequest);
 
         when(bankClient.checkBankDetails(anyLong(), anyString())).thenReturn(false);
 
@@ -81,7 +84,8 @@ public class PaymentServiceTest {
 
         when(bankClient.checkBankDetails(anyLong(), anyString())).thenReturn(true, false);
 
-        Payment payment = new Payment(100, beneficiary, payee);
+        PaymentRequest paymentRequest = new PaymentRequest(100, beneficiary, payee);
+        Payment payment = new Payment(paymentRequest);
 
         ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class, () -> paymentService.create(payment));
 
@@ -92,11 +96,14 @@ public class PaymentServiceTest {
     public void testCreatePaymentForInvalidArguments() throws Exception {
         BankDetails beneficiary = new BankDetails("user1", 12345, "HDFC1234");
         BankDetails payee = new BankDetails("user2", 67890, "HDFC1234");
+        PaymentRequest paymentRequestWithAmountZero = new PaymentRequest(0, beneficiary, payee);
+        PaymentRequest paymentRequestWithBeneficiaryNull = new PaymentRequest(1000, null, payee);
+        PaymentRequest paymentRequestWithPayeeNull = new PaymentRequest(1000, beneficiary, null);
 
         assertThrows(IllegalArgumentException.class, () -> paymentService.create(null));
-        assertThrows(IllegalArgumentException.class, () -> paymentService.create(new Payment(0, beneficiary, payee)));
-        assertThrows(IllegalArgumentException.class, () -> paymentService.create(new Payment(1000, null, payee)));
-        assertThrows(IllegalArgumentException.class, () -> paymentService.create(new Payment(1000, beneficiary, null)));
+        assertThrows(IllegalArgumentException.class, () -> paymentService.create(new Payment(paymentRequestWithAmountZero)));
+        assertThrows(IllegalArgumentException.class, () -> paymentService.create(new Payment(paymentRequestWithBeneficiaryNull)));
+        assertThrows(IllegalArgumentException.class, () -> paymentService.create(new Payment(paymentRequestWithPayeeNull)));
 
     }
 
@@ -107,9 +114,11 @@ public class PaymentServiceTest {
         BankDetails bankDetailsWithInvalidIfscCode = new BankDetails("user2", 67890, "AAAAAAA");
         when(bankClient.checkBankDetails(anyLong(), eq("AAAAAAA"))).thenThrow(ResourceNotFoundException.class);
         when(bankClient.checkBankDetails(anyLong(), eq("HDFC1234"))).thenReturn(true);
+        PaymentRequest paymentRequestWithInvalidIfscForBene = new PaymentRequest(100, bankDetailsWithInvalidIfscCode, validBankDetails);
 
-        assertThrows(ResourceNotFoundException.class, () -> paymentService.create(new Payment(100, bankDetailsWithInvalidIfscCode, validBankDetails)));
-        assertThrows(ResourceNotFoundException.class, () -> paymentService.create(new Payment(100, validBankDetails, bankDetailsWithInvalidIfscCode)));
+        PaymentRequest paymentRequestWithInvalidIfscForPayee = new PaymentRequest(100, validBankDetails, bankDetailsWithInvalidIfscCode);
+        assertThrows(ResourceNotFoundException.class, () -> paymentService.create(new Payment(paymentRequestWithInvalidIfscForBene)));
+        assertThrows(ResourceNotFoundException.class, () -> paymentService.create(new Payment(paymentRequestWithInvalidIfscForPayee)));
     }
 
     @Test
@@ -117,7 +126,8 @@ public class PaymentServiceTest {
         BankDetails beneficiary = new BankDetails("user1", 12345, "HDFC1234");
         BankDetails payee = new BankDetails("user2", 12345, "HDFC1234");
 
-        Payment payment = new Payment(100, beneficiary, payee);
+        PaymentRequest paymentRequest = new PaymentRequest(100, beneficiary, payee);
+        Payment payment = new Payment(paymentRequest);
         when(bankClient.checkBankDetails(anyLong(), anyString())).thenReturn(true);
         when(fraudClient.checkFraud(any())).thenThrow(PaymentRefusedException.class);
         assertThrows(PaymentRefusedException.class, () -> paymentService.create(payment));
@@ -131,7 +141,8 @@ public class PaymentServiceTest {
         when(bankClient.checkBankDetails(anyLong(), anyString())).thenReturn(true);
         when(fraudClient.checkFraud(any())).thenReturn(true);
         for (int i = 0; i < 10; i++) {
-            Payment payment = new Payment(100 + i * 10, beneficiary, payee);
+            PaymentRequest paymentRequest = new PaymentRequest(100, beneficiary, payee);
+            Payment payment = new Payment(paymentRequest);
             Payment savedPayment = paymentService.create(payment);
         }
 

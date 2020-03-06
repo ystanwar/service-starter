@@ -1,6 +1,7 @@
 package com.thoughtworks.fraudclient;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
+import com.thoughtworks.api.payment.PaymentRequest;
 import com.thoughtworks.exceptions.DependencyException;
 import com.thoughtworks.payment.model.BankDetails;
 import com.thoughtworks.payment.model.Payment;
@@ -28,7 +29,8 @@ public class FraudClientTest {
 
         BankDetails beneficiary = new BankDetails("user1", 12345, "HDFC1234");
         BankDetails payee = new BankDetails("user2", 67890, "HDFC1234");
-        Payment payment = new Payment(100, beneficiary, payee);
+        PaymentRequest paymentRequest = new PaymentRequest(100, beneficiary, payee);
+        Payment payment = new Payment(paymentRequest);
 
         assertTrue(fraudClient.checkFraud(payment));
         wireMockServer.stop();
@@ -44,7 +46,8 @@ public class FraudClientTest {
 
         BankDetails beneficiary = new BankDetails("user1", 12345, "HDFC1234");
         BankDetails payee = new BankDetails("user2", 12345, "HDFC1234");
-        Payment payment = new Payment(100, beneficiary, payee);
+        PaymentRequest paymentRequest = new PaymentRequest(100, beneficiary, payee);
+        Payment payment = new Payment(paymentRequest);
 
         assertFalse(fraudClient.checkFraud(payment));
         wireMockServer.stop();
@@ -60,7 +63,8 @@ public class FraudClientTest {
 
         BankDetails beneficiary = new BankDetails("user1", 12345, "HDFC1234");
         BankDetails payee = new BankDetails("user2", 12345, "HDFC1234");
-        Payment payment = new Payment(100, beneficiary, payee);
+        PaymentRequest paymentRequest = new PaymentRequest(100, beneficiary, payee);
+        Payment payment = new Payment(paymentRequest);
 
         DependencyException dex = assertThrows(DependencyException.class, () -> fraudClient.checkFraud(payment));
         assertEquals("FRAUDSERVICE_FAILURE", dex.getErrorCode());
@@ -73,7 +77,8 @@ public class FraudClientTest {
 
         BankDetails beneficiary = new BankDetails("user1", 12345, "HDFC1234");
         BankDetails payee = new BankDetails("user2", 12345, "HDFC1234");
-        Payment payment = new Payment(100, beneficiary, payee);
+        PaymentRequest paymentRequest = new PaymentRequest(100, beneficiary, payee);
+        Payment payment = new Payment(paymentRequest);
 
         DependencyException dex = assertThrows(DependencyException.class, () -> fraudClient.checkFraud(payment));
         assertEquals("FRAUDSERVICE_FAILURE", dex.getErrorCode());

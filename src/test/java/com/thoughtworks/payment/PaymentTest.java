@@ -1,6 +1,7 @@
 package com.thoughtworks.payment;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.thoughtworks.api.payment.PaymentRequest;
 import com.thoughtworks.payment.model.BankDetails;
 import com.thoughtworks.payment.model.Payment;
 import org.junit.jupiter.api.Test;
@@ -16,7 +17,8 @@ public class PaymentTest {
         BankDetails beneficiary = new BankDetails("user1", 12345, "HDFC1234");
         BankDetails payee = new BankDetails("user2", 12346, "HDFC1234");
 
-        Payment payment = new Payment(100, beneficiary, payee);
+        PaymentRequest paymentRequest = new PaymentRequest(100, beneficiary, payee);
+        Payment payment = new Payment(paymentRequest);
         payment.setRequestId("payment1234");
         ObjectMapper objectMapper = new ObjectMapper();
         String detailsString = objectMapper.writeValueAsString(payment);

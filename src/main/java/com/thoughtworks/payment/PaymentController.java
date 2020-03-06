@@ -9,7 +9,6 @@ import com.thoughtworks.payment.model.Payment;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,13 +26,10 @@ public class PaymentController implements PaymentsApiController {
     @Autowired
     PaymentService paymentService;
 
-    @Autowired
-    Environment environment;
-
-    @PostMapping(consumes = { "application/json"})
+    @PostMapping(consumes = {"application/json"})
     @Override
     public ResponseEntity<PaymentSuccessResponse> create(@Valid @RequestBody PaymentRequest paymentRequest) throws Exception {
-        Payment payment = new Payment(paymentRequest.getAmount(), paymentRequest.getBeneficiary(), paymentRequest.getPayee());
+        Payment payment = new Payment(paymentRequest);
         Payment savedPayment = paymentService.create(payment);
 
         ObjectNode mapper = new ObjectMapper().createObjectNode();
@@ -41,7 +37,7 @@ public class PaymentController implements PaymentsApiController {
         mapper.put("BeneficiaryIfscCode", savedPayment.getBeneficiaryIfscCode());
         mapper.put("PayeeIfscCode", savedPayment.getPayeeIfscCode());
 
-        logger.info("{\"eventCode\":\"{}\",\"description\":\"{}\",\"details\":{}}", v("name", "PAYMENT_SUCCESSFUL"), v("description", "payment successful"), v("details", mapper.toString()));
+        logger.info("{eventCode:{},description:{},details:{}}", v("name", "PAYMENT_SUCCESSFUL"), v("description", "payment successful"), v("details", mapper.toString()));
 
         PaymentSuccessResponse response = new PaymentSuccessResponse();
         response.setStatusMessage("Payment done successfully");

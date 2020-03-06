@@ -1,16 +1,16 @@
 package com.thoughtworks.payment.model;
 
 //import io.swagger.annotations.ApiModelProperty;
+
+import com.thoughtworks.api.payment.PaymentRequest;
 import org.slf4j.MDC;
 
 import javax.persistence.*;
 
-//@JsonDeserialize(using = PaymentDeSerializer.class)
 @Entity
 public class Payment {
 
     @Id
-//    @ApiModelProperty(hidden = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
@@ -38,33 +38,53 @@ public class Payment {
     @Column(name = "status")
     private String status;
 
-    @Column(name="request_id")
+    @Column(name = "request_id")
     private String requestId;
 
 
     public Payment() {
     }
 
-    public Payment(int amount, BankDetails beneficiary, BankDetails payee) {
-
-        if (payee == null) {
+    public Payment(PaymentRequest paymentRequest) {
+        if (paymentRequest.getPayee() == null) {
             throw new IllegalArgumentException("payee cannot be null");
-        } else if (amount <= 0) {
+        } else if (paymentRequest.getAmount() <= 0) {
             throw new IllegalArgumentException("amount should be greater than zero");
-        }else if( beneficiary == null){
+        } else if (paymentRequest.getBeneficiary() == null) {
             throw new IllegalArgumentException("beneficiary cannot be null");
         }
 
-        this.amount = amount;
-        this.beneficiaryName = beneficiary.getName();
-        this.beneficiaryAccountNumber = beneficiary.getAccountNumber();
-        this.beneficiaryIfscCode = beneficiary.getIfscCode();
-        this.payeeName = payee.getName();
-        this.payeeAccountNumber = payee.getAccountNumber();
-        this.payeeIfscCode = payee.getIfscCode();
+        this.amount = paymentRequest.getAmount();
+        this.beneficiaryName = paymentRequest.getBeneficiary().getName();
+        this.beneficiaryAccountNumber = paymentRequest.getBeneficiary().getAccountNumber();
+        this.beneficiaryIfscCode = paymentRequest.getBeneficiary().getIfscCode();
+        this.payeeName = paymentRequest.getPayee().getName();
+        this.payeeAccountNumber = paymentRequest.getPayee().getAccountNumber();
+        this.payeeIfscCode = paymentRequest.getPayee().getIfscCode();
         this.status = "success";
-        this.requestId= MDC.get("request.id");
+        this.requestId = MDC.get("request.id");
     }
+
+//    public Payment(int amount, BankDetails beneficiary, BankDetails payee) {
+//
+//        if (payee == null) {
+//            throw new IllegalArgumentException("payee cannot be null");
+//        } else if (amount <= 0) {
+//            throw new IllegalArgumentException("amount should be greater than zero");
+//        }else if( beneficiary == null){
+//            throw new IllegalArgumentException("beneficiary cannot be null");
+//        }
+//
+//        this.amount = amount;
+//        this.beneficiaryName = beneficiary.getName();
+//        this.beneficiaryAccountNumber = beneficiary.getAccountNumber();
+//        this.beneficiaryIfscCode = beneficiary.getIfscCode();
+//        this.payeeName = payee.getName();
+//        this.payeeAccountNumber = payee.getAccountNumber();
+//        this.payeeIfscCode = payee.getIfscCode();
+//        this.status = "success";
+//        this.requestId= MDC.get("request.id");
+//    }
 
     public int getId() {
         return id;
