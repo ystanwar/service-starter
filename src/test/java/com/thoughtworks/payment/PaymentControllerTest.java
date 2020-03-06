@@ -80,12 +80,12 @@ public class PaymentControllerTest {
     @Test
     public void testGetAllPayments() throws Exception {
 
-        List<Payment> paymentList = new ArrayList<Payment>();
+        List<Payment> paymentList = new ArrayList<>();
 
         BankDetails beneficiary = new BankDetails("user1", 12, "HDFC1");
         BankDetails payee = new BankDetails("user2", 12346, "HDFC1234");
 
-        Payment payment = new Payment(500, beneficiary, payee);
+        Payment payment = new Payment(500,beneficiary,payee);
         payment.setId(1);
         paymentList.add(payment);
 

@@ -1,16 +1,13 @@
 package com.thoughtworks.payment.model;
 
-//import io.swagger.annotations.ApiModelProperty;
 import org.slf4j.MDC;
 
 import javax.persistence.*;
 
-//@JsonDeserialize(using = PaymentDeSerializer.class)
 @Entity
 public class Payment {
 
     @Id
-//    @ApiModelProperty(hidden = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
@@ -34,11 +31,10 @@ public class Payment {
     @Column(name = "payee_ifsc")
     private String payeeIfscCode;
 
-
     @Column(name = "status")
     private String status;
 
-    @Column(name="request_id")
+    @Column(name = "request_id")
     private String requestId;
 
 
@@ -46,12 +42,11 @@ public class Payment {
     }
 
     public Payment(int amount, BankDetails beneficiary, BankDetails payee) {
-
         if (payee == null) {
             throw new IllegalArgumentException("payee cannot be null");
         } else if (amount <= 0) {
             throw new IllegalArgumentException("amount should be greater than zero");
-        }else if( beneficiary == null){
+        } else if (beneficiary == null) {
             throw new IllegalArgumentException("beneficiary cannot be null");
         }
 
@@ -63,7 +58,7 @@ public class Payment {
         this.payeeAccountNumber = payee.getAccountNumber();
         this.payeeIfscCode = payee.getIfscCode();
         this.status = "success";
-        this.requestId= MDC.get("request.id");
+        this.requestId = MDC.get("request.id");
     }
 
     public int getId() {

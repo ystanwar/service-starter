@@ -1,6 +1,7 @@
 package com.thoughtworks.fraudclient;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
+import com.thoughtworks.api.payment.PaymentRequest;
 import com.thoughtworks.exceptions.DependencyException;
 import com.thoughtworks.payment.model.BankDetails;
 import com.thoughtworks.payment.model.Payment;

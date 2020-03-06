@@ -34,7 +34,6 @@ public class PaymentDeSerializer extends StdDeserializer<Payment> {
         long payeeAccountNumber = node.get("payee").get("accountNumber").asLong();
         String payeeIfscCode = node.get("payee").get("ifscCode").asText();
         BankDetails payee = new BankDetails(payeeName, payeeAccountNumber, payeeIfscCode);
-
-        return new Payment(amount, beneficiary, payee);
+        return new Payment(amount, payee, beneficiary);
     }
 }

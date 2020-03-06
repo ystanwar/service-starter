@@ -93,8 +93,8 @@ public class PaymentServiceTest {
     public void testCreatePaymentForInvalidArguments() throws Exception {
         BankDetails beneficiary = new BankDetails("user1", 12345, "HDFC1234");
         BankDetails payee = new BankDetails("user2", 67890, "HDFC1234");
-
         assertThrows(IllegalArgumentException.class, () -> paymentService.create(null));
+
         assertThrows(IllegalArgumentException.class, () -> paymentService.create(new PaymentRequest(0, beneficiary, payee)));
         assertThrows(IllegalArgumentException.class, () -> paymentService.create(new PaymentRequest(100, null, payee)));
         assertThrows(IllegalArgumentException.class, () -> paymentService.create(new PaymentRequest(100, beneficiary, null)));
@@ -111,6 +111,7 @@ public class PaymentServiceTest {
 
         assertThrows(ResourceNotFoundException.class, () -> paymentService.create(new PaymentRequest(100, bankDetailsWithInvalidIfscCode, validBankDetails)));
         assertThrows(ResourceNotFoundException.class, () -> paymentService.create(new PaymentRequest(100, validBankDetails, bankDetailsWithInvalidIfscCode)));
+
     }
 
     @Test
@@ -119,7 +120,6 @@ public class PaymentServiceTest {
         BankDetails payee = new BankDetails("user2", 12345, "HDFC1234");
 
         PaymentRequest paymentRequest = new PaymentRequest(100, beneficiary, payee);
-
         when(bankClient.checkBankDetails(anyLong(), anyString())).thenReturn(true);
         when(fraudClient.checkFraud(any())).thenThrow(PaymentRefusedException.class);
         assertThrows(PaymentRefusedException.class, () -> paymentService.create(paymentRequest));
@@ -133,13 +133,11 @@ public class PaymentServiceTest {
         when(bankClient.checkBankDetails(anyLong(), anyString())).thenReturn(true);
         when(fraudClient.checkFraud(any())).thenReturn(true);
         for (int i = 0; i < 10; i++) {
-
             PaymentRequest paymentRequest = new PaymentRequest(100 + i * 10, beneficiary, payee);
             paymentService.create(paymentRequest);
         }
 
         List<Payment> allPayments = paymentService.getAll();
-        System.out.println("Count" + allPayments.size());
         assertEquals(10, allPayments.size());
 
         for (int i = 0; i < allPayments.size(); i++) {
