@@ -38,14 +38,9 @@ public class CustomRequestLoggingFilter implements Filter {
             String requestBody = new String(requestWrapper.getContentAsByteArray());
             String responseBody = new String(responseWrapper.getContentAsByteArray());
 
-            if (responseBody.isEmpty()) {
-                responseBody = "\"\"";
-            } else if (responseBody.length() > 1000) responseBody = "\"payload is too large to log\"";
+            responseBody = isResponseLarge(responseBody);
 
-            if (requestBody.isEmpty()) {
-                requestBody = "\"\"";
-            } else if (requestBody.length() > 1000) requestBody = "\"payload is too large to log\"";
-
+            requestBody = isRequestLarge(requestBody);
 
             HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
             HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
@@ -61,17 +56,23 @@ public class CustomRequestLoggingFilter implements Filter {
             Map<String, String[]> requestParams = servletRequest.getParameterMap();
             ObjectMapper objectMapper = new ObjectMapper();
             String paramString = objectMapper.writeValueAsString(requestParams);
-
             String headerString = objectMapper.writeValueAsString(headerMap);
 
-
-            //logEventAsJson(logger, "REQUEST_RECEIVED", httpServletRequest.getMethod() + " " + httpServletRequest.getServletPath(),detailsMap);
-            logger.info("{\"eventCode\":\"{}\",\"description\":\"{}\",\"details\":{\"headers\":{},\"params\":{}, \"body\":{}},\"exception\":\"{}\"}", v("eventCode", "REQUEST_RECEIVED"), v("description", httpServletRequest.getMethod() + " " + httpServletRequest.getServletPath()), v("headers", headerString), v("params", paramString), v("body", requestBody), v("exception", ""));
-
-            logger.info("{\"eventCode\":\"{}\",\"description\":\"{}\",\"details\":{\"statusCode\":\"{}\",\"headers\":{},\"body\":{}},\"exception\":\"{}\"}", v("eventCode", "RESPONSE_SENT"), v("description", httpServletRequest.getMethod() + " " + httpServletRequest.getServletPath()), v("statusCode", httpServletResponse.getStatus()), v("headers", headerString), v("body", responseBody), v("exception", ""));
+            logger.info("{eventCode:{},description:{},details:{headers:{},params:{},body:{}},exception:{}}", v("eventCode", "REQUEST_RECEIVED"), v("description", httpServletRequest.getMethod() + " " + httpServletRequest.getServletPath()), v("headers", headerString), v("params", paramString), v("body", requestBody), v("exception", ""));
+            logger.info("{eventCode:{},description:{},details:{statusCode:{},headers:{},body:{}},exception:{}}", v("eventCode", "RESPONSE_SENT"), v("description", httpServletRequest.getMethod() + " " + httpServletRequest.getServletPath()), v("statusCode", httpServletResponse.getStatus()), v("headers", headerString), v("body", responseBody), v("exception", ""));
 
             MDC.clear();
             responseWrapper.copyBodyToResponse();
         }
+    }
+
+    private String isResponseLarge(String responseBody) {
+        if (responseBody.length() > 1000) responseBody = "\"payload is too large to log\"";
+        return responseBody;
+    }
+
+    private String isRequestLarge(String requestBody) {
+        if (requestBody.length() > 1000) requestBody = "\"payload is too large to log\"";
+        return requestBody;
     }
 }

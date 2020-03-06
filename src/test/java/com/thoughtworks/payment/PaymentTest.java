@@ -32,7 +32,7 @@ public class PaymentTest {
 
     }
 
-//    @Test
+    //   @Test
 //    void expectsPaymentWithNestingAfterDeSerialization() throws IOException {
 //        ObjectMapper objectMapper = new ObjectMapper();
 //        String paymentString = "{\"amount\":500," +
@@ -67,6 +67,6 @@ public class PaymentTest {
         assertEquals("user2", payment.getPayeeName());
         assertEquals(12346, payment.getPayeeAccountNumber());
         assertEquals("HDFC1234", payment.getPayeeIfscCode());
-        assertEquals("payment1234",payment.getRequestId());
+        assertEquals("payment1234", payment.getRequestId());
     }
 }

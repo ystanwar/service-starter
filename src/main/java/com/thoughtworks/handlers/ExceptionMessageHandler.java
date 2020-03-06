@@ -30,14 +30,14 @@ import static net.logstash.logback.argument.StructuredArguments.v;
 public class ExceptionMessageHandler {
     private static Logger logger = LogManager.getLogger(ExceptionMessageHandler.class);
 
-    void logException(Exception ex) {
+    private void logException(Exception ex) {
         ObjectNode mapperOne = new ObjectMapper().createObjectNode();
         mapperOne.put("stackTrace", Arrays.toString(ex.getStackTrace()));
 
-        String eventCode = "";
-        String descriptionString = "";
+        String eventCode;
+        String descriptionString;
         String detailsString = "";
-        String exceptionString = "";
+        String exceptionString;
 
         if (ServiceException.class.isAssignableFrom(ex.getClass())) {
             ServiceException serviceException = (ServiceException) ex;
@@ -55,7 +55,7 @@ public class ExceptionMessageHandler {
             exceptionString = ex.toString();
         }
 
-        logger.error("{\"eventCode\":\"{}\",\"description\":\"{}\",\"details\":{},\"exception\":\"{}\",\"stackTrace\":\"{}\"}", v("eventCode", eventCode), v("description", descriptionString), v("details", detailsString), v("exception", exceptionString), v("stackTrace", ex.getStackTrace()));
+        logger.error("{eventCode:{},description:{},details:{},exception:{},stackTrace:{}}", v("eventCode", eventCode), v("description", descriptionString), v("details", detailsString), v("exception", exceptionString), v("stackTrace", ex.getStackTrace()));
 
         Throwable causedByException = ex.getCause();
         if ((causedByException) != null) {
@@ -63,7 +63,7 @@ public class ExceptionMessageHandler {
             descriptionString = causedByException.getMessage();
             detailsString = "";
             exceptionString = causedByException.toString();
-            logger.error("{\"eventCode\":\"{}\",\"description\":\"{}\",\"details\":{},\"exception\":\"{}\",\"stackTrace\":\"{}\"}", v("eventCode", eventCode), v("description", descriptionString), v("details", detailsString), v("exception", exceptionString), v("stackTrace", ex.getStackTrace()));
+            logger.error("{eventCode:{},description:{},details:{},exception:{},stackTrace:{}}", v("eventCode", eventCode), v("description", descriptionString), v("details", detailsString), v("exception", exceptionString), v("stackTrace", ex.getStackTrace()));
         }
     }
 

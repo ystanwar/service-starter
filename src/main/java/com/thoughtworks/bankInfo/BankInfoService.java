@@ -12,9 +12,6 @@ public class BankInfoService {
 
     public BankInfo create(BankInfo bank) throws ResourceConflictException {
         if (bank == null) throw new IllegalArgumentException("Bank info cannot be null");
-        if (bank.getBankCode() == null || bank.getBankCode().length() == 0) {
-            throw new IllegalArgumentException("Bank code cannot be null or empty");
-        }
         if (bank.getUrl() == null || bank.getUrl().length() == 0) {
             throw new IllegalArgumentException("Bank url cannot be null or empty");
         }
@@ -31,5 +28,4 @@ public class BankInfoService {
         }
         return bankInfoRepository.findByBankCode(bankCode);
     }
-
 }

@@ -8,20 +8,28 @@
         </layout>
     </appender>
 
-    <appender name="ConsoleRef" class="ch.qos.logback.core.ConsoleAppender">
-        <layout class="ch.qos.logback.classic.PatternLayout">
-            <Pattern>
-                {"parentrequest_id":"%X{parentrequest.id}", "request.id":"%X{request.id}", "timestamp":"%black(%d{ISO8601})", "level":"%highlight(%-5level)","thread":"[%blue(%t)]",  "class":"%yellow(%C{1.})", "message":%msg}%n%throwable
-<!--                %black(%d{ISO8601}) %highlight(%-5level) [%blue(%t)] %yellow(%C{1.}): %msg%n%throwable-->
-            </Pattern>
+    <appender name="json" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.contrib.json.classic.JsonLayout">
+            <jsonFormatter
+                    class="ch.qos.logback.contrib.jackson.JacksonJsonFormatter">
+                <prettyPrint>true</prettyPrint>
+            </jsonFormatter>
+            <timestampFormat>yyyy-MM-dd' 'HH:mm:ss.SSS</timestampFormat>
         </layout>
     </appender>
+
+
     <appender name="RollingFile"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>logs/logs.log</file>
-        <encoder
-                class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <Pattern>{"parentrequest_id": "%X{parentrequest.id}" ,"request_id":"%X{request.id}" ,"timestamp": "%d{ISO8601}", "level":" %p" ,"thread":"%t", "class":"%c","message": %m}%n</Pattern>
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="ch.qos.logback.contrib.json.classic.JsonLayout">
+                <jsonFormatter class="ch.qos.logback.contrib.jackson.JacksonJsonFormatter">
+                    <prettyPrint>true</prettyPrint>
+                </jsonFormatter>
+                <timestampFormat>yyyy-MM-dd' 'HH:mm:ss.SSS</timestampFormat>
+
+            </layout>
         </encoder>
 
         <rollingPolicy
@@ -38,19 +46,19 @@
 
     <!-- LOG everything at INFO level -->
     <root level="info">
-        <appender-ref ref="RollingFile" />
-        <appender-ref ref="Console" />
+        <appender-ref ref="RollingFile"/>
+        <appender-ref ref="Console"/>
     </root>
 
     <!-- LOG "com.thoughtworks*" at TRACE level -->
     <logger name="com.thoughtworks" level="trace" additivity="false">
-        <appender-ref ref="RollingFile" />
-        <appender-ref ref="ConsoleRef" />
+        <appender-ref ref="RollingFile"/>
+        <appender-ref ref="json"/>
     </logger>
 
     <logger name="org.apache" level="info" additivity="false">
-        <appender-ref ref="RollingFile" />
-        <appender-ref ref="ConsoleRef" />
+        <appender-ref ref="RollingFile"/>
+        <appender-ref ref="json"/>
     </logger>
 
 </configuration>
