@@ -32,7 +32,7 @@ public class PaymentService {
 
     public Payment create(PaymentRequest paymentRequest) throws Exception {
         if (paymentRequest == null) {
-            throw new IllegalArgumentException("payment cannot be empty");
+            throw new IllegalArgumentException("paymentRequest cannot be null");
         }
         Payment payment = new Payment(paymentRequest.getAmount(), paymentRequest.getBeneficiary(), paymentRequest.getPayee());
         boolean isValidBeneficiaryAccount = bankClient.checkBankDetails(payment.getBeneficiaryAccountNumber(), payment.getBeneficiaryIfscCode());
