@@ -1,5 +1,6 @@
 package com.thoughtworks.payment;
 
+import com.thoughtworks.api.payment.PaymentRequest;
 import com.thoughtworks.exceptions.PaymentRefusedException;
 import com.thoughtworks.exceptions.ResourceNotFoundException;
 import com.thoughtworks.payment.model.BankDetails;
@@ -44,11 +45,11 @@ public class PaymentServiceTest {
         BankDetails beneficiary = new BankDetails("user1", 12345, "HDFC1234");
         BankDetails payee = new BankDetails("user2", 67890, "HDFC1234");
 
-        Payment payment = new Payment(100, beneficiary, payee);
+        PaymentRequest paymentRequest = new PaymentRequest(100, beneficiary, payee);
         when(bankClient.checkBankDetails(anyLong(), anyString())).thenReturn(true);
         when(fraudClient.checkFraud(any())).thenReturn(true);
 
-        Payment savedPayment = paymentService.create(payment);
+        Payment savedPayment = paymentService.create(paymentRequest);
         assertEquals(100, savedPayment.getAmount());
         assertEquals(beneficiary.getName(), savedPayment.getBeneficiaryName());
         assertEquals(beneficiary.getAccountNumber(), savedPayment.getBeneficiaryAccountNumber());
@@ -65,11 +66,11 @@ public class PaymentServiceTest {
         BankDetails beneficiary = new BankDetails("user1", 00000, "OOOOOO");
         BankDetails payee = new BankDetails("user2", 67890, "HDFC1234");
 
-        Payment payment = new Payment(100, beneficiary, payee);
+        PaymentRequest paymentRequest = new PaymentRequest(100, beneficiary, payee);
 
         when(bankClient.checkBankDetails(anyLong(), anyString())).thenReturn(false);
 
-        ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class, () -> paymentService.create(payment));
+        ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class, () -> paymentService.create(paymentRequest));
 
         assertEquals("user1's AccountDetails Not Found At OOOOOO", exception.getErrorMessage());
     }
@@ -81,9 +82,9 @@ public class PaymentServiceTest {
 
         when(bankClient.checkBankDetails(anyLong(), anyString())).thenReturn(true, false);
 
-        Payment payment = new Payment(100, beneficiary, payee);
+        PaymentRequest paymentRequest = new PaymentRequest(100, beneficiary, payee);
 
-        ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class, () -> paymentService.create(payment));
+        ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class, () -> paymentService.create(paymentRequest));
 
         assertEquals("user2's AccountDetails Not Found At 0000000", exception.getErrorMessage());
     }
@@ -94,9 +95,9 @@ public class PaymentServiceTest {
         BankDetails payee = new BankDetails("user2", 67890, "HDFC1234");
 
         assertThrows(IllegalArgumentException.class, () -> paymentService.create(null));
-        assertThrows(IllegalArgumentException.class, () -> paymentService.create(new Payment(0, beneficiary, payee)));
-        assertThrows(IllegalArgumentException.class, () -> paymentService.create(new Payment(1000, null, payee)));
-        assertThrows(IllegalArgumentException.class, () -> paymentService.create(new Payment(1000, beneficiary, null)));
+        assertThrows(IllegalArgumentException.class, () -> paymentService.create(new PaymentRequest(0, beneficiary, payee)));
+        assertThrows(IllegalArgumentException.class, () -> paymentService.create(new PaymentRequest(100, null, payee)));
+        assertThrows(IllegalArgumentException.class, () -> paymentService.create(new PaymentRequest(100, beneficiary, null)));
 
     }
 
@@ -108,8 +109,8 @@ public class PaymentServiceTest {
         when(bankClient.checkBankDetails(anyLong(), eq("AAAAAAA"))).thenThrow(ResourceNotFoundException.class);
         when(bankClient.checkBankDetails(anyLong(), eq("HDFC1234"))).thenReturn(true);
 
-        assertThrows(ResourceNotFoundException.class, () -> paymentService.create(new Payment(100, bankDetailsWithInvalidIfscCode, validBankDetails)));
-        assertThrows(ResourceNotFoundException.class, () -> paymentService.create(new Payment(100, validBankDetails, bankDetailsWithInvalidIfscCode)));
+        assertThrows(ResourceNotFoundException.class, () -> paymentService.create(new PaymentRequest(100, bankDetailsWithInvalidIfscCode, validBankDetails)));
+        assertThrows(ResourceNotFoundException.class, () -> paymentService.create(new PaymentRequest(100, validBankDetails, bankDetailsWithInvalidIfscCode)));
     }
 
     @Test
@@ -117,10 +118,11 @@ public class PaymentServiceTest {
         BankDetails beneficiary = new BankDetails("user1", 12345, "HDFC1234");
         BankDetails payee = new BankDetails("user2", 12345, "HDFC1234");
 
-        Payment payment = new Payment(100, beneficiary, payee);
+        PaymentRequest paymentRequest = new PaymentRequest(100, beneficiary, payee);
+
         when(bankClient.checkBankDetails(anyLong(), anyString())).thenReturn(true);
         when(fraudClient.checkFraud(any())).thenThrow(PaymentRefusedException.class);
-        assertThrows(PaymentRefusedException.class, () -> paymentService.create(payment));
+        assertThrows(PaymentRefusedException.class, () -> paymentService.create(paymentRequest));
     }
 
     @Test
@@ -131,8 +133,9 @@ public class PaymentServiceTest {
         when(bankClient.checkBankDetails(anyLong(), anyString())).thenReturn(true);
         when(fraudClient.checkFraud(any())).thenReturn(true);
         for (int i = 0; i < 10; i++) {
-            Payment payment = new Payment(100 + i * 10, beneficiary, payee);
-            Payment savedPayment = paymentService.create(payment);
+
+            PaymentRequest paymentRequest = new PaymentRequest(100 + i * 10, beneficiary, payee);
+            paymentService.create(paymentRequest);
         }
 
         List<Payment> allPayments = paymentService.getAll();

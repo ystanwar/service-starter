@@ -1,6 +1,7 @@
 package com.thoughtworks.payment;
 
 import com.google.gson.JsonObject;
+import com.thoughtworks.api.payment.PaymentRequest;
 import com.thoughtworks.exceptions.PaymentRefusedException;
 import com.thoughtworks.exceptions.ResourceNotFoundException;
 import com.thoughtworks.payment.model.Payment;
@@ -29,10 +30,11 @@ public class PaymentService {
 
     private Counter bankCounter;
 
-    public Payment create(Payment payment) throws Exception {
-        if (payment == null) {
+    public Payment create(PaymentRequest paymentRequest) throws Exception {
+        if (paymentRequest == null) {
             throw new IllegalArgumentException("payment cannot be empty");
         }
+        Payment payment = new Payment(paymentRequest.getAmount(), paymentRequest.getBeneficiary(), paymentRequest.getPayee());
         boolean isValidBeneficiaryAccount = bankClient.checkBankDetails(payment.getBeneficiaryAccountNumber(), payment.getBeneficiaryIfscCode());
         if (!isValidBeneficiaryAccount) {
             payment.setStatus("failed");
