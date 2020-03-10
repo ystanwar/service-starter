@@ -6,8 +6,7 @@ import com.thoughtworks.api.payment.PaymentRequest;
 import com.thoughtworks.api.payment.PaymentSuccessResponse;
 import com.thoughtworks.api.payment.PaymentsApiController;
 import com.thoughtworks.payment.model.Payment;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,10 +20,10 @@ import static net.logstash.logback.argument.StructuredArguments.v;
 @RestController
 @RequestMapping("/payments")
 public class PaymentController implements PaymentsApiController {
-    private static Logger logger = LogManager.getLogger(PaymentController.class);
+    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(PaymentController.class);
 
     @Autowired
-    PaymentService paymentService;
+    private PaymentService paymentService;
 
     @PostMapping(consumes = {"application/json"})
     @Override
