@@ -85,7 +85,7 @@ public class PaymentControllerTest {
         BankDetails beneficiary = new BankDetails("user1", 12, "HDFC1");
         BankDetails payee = new BankDetails("user2", 12346, "HDFC1234");
 
-        Payment payment = new Payment(500,beneficiary,payee);
+        Payment payment = new Payment(500, beneficiary, payee);
         payment.setId(1);
         paymentList.add(payment);
 
@@ -189,7 +189,7 @@ public class PaymentControllerTest {
                         "}")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
-                .andExpect(content().string("{\"message\":\"INVALID_INPUT\",\"reasons\":{\"amount\":\"amount cannot be greater than 100000\"}}"));
+                .andExpect(content().string("{\"message\":\"INVALID_INPUT\",\"reasons\":{\"amount\":\"must be less than or equal to 100000\"}}"));
 
         verify(paymentService, times(0)).create(any(PaymentRequest.class));
     }
@@ -214,7 +214,7 @@ public class PaymentControllerTest {
 
     private String getContentForMultipleValidationErrors() {
         return "{\"amount\":10000000," +
-                "\"beneficiary\":{\"name\":\"user1\",\"accountNumber\":12345,\"ifscCode\":\"\"}" +
+                "\"beneficiary\":{\"name\":\"user1\",\"accountNumber\":12345,\"ifscCode\":null}" +
                 ",\"payee\":{\"name\":\"user2\",\"accountNumber\":67890,\"ifscCode\":\"HDFC1234\"}" +
                 "}";
     }
@@ -227,12 +227,11 @@ public class PaymentControllerTest {
         Map<String, String> reasons = errorResponse.getReasons();
         for (Map.Entry<String, String> reason : reasons.entrySet()) {
             if (reason.getKey().equalsIgnoreCase("amount")
-                    && reason.getValue().equalsIgnoreCase("amount cannot be greater than 100000")) {
+                    && reason.getValue().equalsIgnoreCase("must be less than or equal to 100000")) {
                 isAmountInvalid = true;
             }
-
             if (reason.getKey().equalsIgnoreCase("beneficiary.ifscCode")
-                    && reason.getValue().equalsIgnoreCase("ifsc code must not be empty")) {
+                    && reason.getValue().equalsIgnoreCase("must not be null")) {
                 isBeneficiaryIfscCodeEmpty = true;
             }
         }

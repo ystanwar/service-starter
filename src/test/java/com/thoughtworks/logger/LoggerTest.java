@@ -4,9 +4,7 @@ import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.read.ListAppender;
-import com.thoughtworks.api.payment.PaymentRequest;
 import com.thoughtworks.payment.PaymentController;
-import com.thoughtworks.payment.model.BankDetails;
 import com.thoughtworks.serviceclients.BankClient;
 import com.thoughtworks.serviceclients.FraudClient;
 import org.junit.jupiter.api.Test;
@@ -16,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.web.client.RestTemplate;
 
+import javax.validation.Valid;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -24,13 +23,10 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest
 public class LoggerTest {
-
     @MockBean
     BankClient bankClient;
-
     @MockBean
     FraudClient fraudClient;
-
     @Autowired
     PaymentController paymentController;
 
@@ -43,13 +39,24 @@ public class LoggerTest {
         ListAppender<ILoggingEvent> listAppender = new ListAppender<>();
         listAppender.start();
         fooLogger.addAppender(listAppender);
-        BankDetails beneficiary = new BankDetails("user1", 12345, "HDFC1234");
-        BankDetails payee = new BankDetails("user2", 67890, "HDFC1234");
 
-        PaymentRequest paymentRequest = new PaymentRequest(500, beneficiary, payee);
+        com.thoughtworks.api.api.model.BankDetails beneficiary = new com.thoughtworks.api.api.model.BankDetails();
+        beneficiary.setName("user1");
+        beneficiary.setAccountNumber((long) 12345);
+        beneficiary.setIfscCode("HDFC1234");
+
+        com.thoughtworks.api.api.model.BankDetails payee = new com.thoughtworks.api.api.model.BankDetails();
+        payee.setName("user2");
+        payee.setAccountNumber((long) 67890);
+        payee.setIfscCode("HDFC1234");
+
+        com.thoughtworks.api.api.model.@Valid PaymentRequest paymentRequest = new com.thoughtworks.api.api.model.PaymentRequest();
+        paymentRequest.setAmount(100);
+        paymentRequest.setBeneficiary(beneficiary);
+        paymentRequest.setPayee(payee);
         when(bankClient.checkBankDetails(anyLong(), anyString())).thenReturn(true);
         when(fraudClient.checkFraud(any())).thenReturn(true);
-        paymentController.create(paymentRequest);
+        paymentController.create1(paymentRequest);
 
         List<ILoggingEvent> logsList = listAppender.list;
 
