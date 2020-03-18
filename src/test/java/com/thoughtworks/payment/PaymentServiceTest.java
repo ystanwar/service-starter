@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -34,6 +35,9 @@ public class PaymentServiceTest {
 
     @MockBean
     FraudClient fraudClient;
+
+    @MockBean
+    RestTemplate restTemplate;
 
     @AfterEach
     void tearDown() {

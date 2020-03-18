@@ -16,6 +16,7 @@ import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -42,6 +43,9 @@ public class BankClientTest {
 
     @MockBean
     BankInfoService bankInfoService;
+
+    @MockBean
+    RestTemplate restTemplate;
 
     private static WireMockServer wireMockServer;
 

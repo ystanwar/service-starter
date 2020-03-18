@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -32,6 +33,9 @@ public class LoggerTest {
 
     @Autowired
     PaymentController paymentController;
+
+    @MockBean
+    RestTemplate restTemplate;
 
     @Test
     void checkLoggerMessage() throws Exception {
