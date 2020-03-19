@@ -10,22 +10,22 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
 repositories {
-
     mavenLocal()
     mavenCentral()
     maven {
-        url = uri("https://maven.pkg.github.com/kelkardipali1/BankClient")
+        name = "BankClient"
+        url = uri("https://maven.pkg.github.com/cd-jump-start/BankClient")
         credentials {
-            username = "kelkardipali1"
-            password = "12337d2b26969a89c48e105fe2883283d459583e"
+            username = "cd-jump-start"
+            password = "b1c47bb40b748449de6f6dacaa6015e2db8e3b5c"
         }
     }
     maven {
         name = "FraudClient"
-        url = uri("https://maven.pkg.github.com/kelkardipali1/FraudClient")
+        url = uri("https://maven.pkg.github.com/cd-jump-start/FraudClient")
         credentials {
-            username = "kelkardipali1"
-            password = "12337d2b26969a89c48e105fe2883283d459583e"
+            username = "cd-jump-start"
+            password = "b1c47bb40b748449de6f6dacaa6015e2db8e3b5c"
         }
     }
     maven { url 'https://repo.spring.io/milestone' }
@@ -69,8 +69,8 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     compile 'org.springdoc:springdoc-openapi-core:1.1.49'
     compile group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.1.49'
-    compile 'com.thoughtworks:BankServiceClient1:1.0-SNAPSHOT'
-    compile 'com.thoughtworks:FraudServiceClient:1.0-SNAPSHOT'
+    compile 'com.thoughtworks:BankServiceClient:1.1-SNAPSHOT'
+    compile 'com.thoughtworks:FraudServiceClient:1.1-SNAPSHOT'
     compile group: 'org.openapitools', name: 'jackson-databind-nullable', version: '0.2.1'
     compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
 }
