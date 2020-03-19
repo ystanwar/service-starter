@@ -1,11 +1,14 @@
 package com.thoughtworks.bankclient;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
+import com.thoughtworks.BankClient.api.BankDetailsApi;
+import com.thoughtworks.BankClient.employee.ApiClient;
 import com.thoughtworks.bankInfo.BankInfo;
 import com.thoughtworks.bankInfo.BankInfoService;
 import com.thoughtworks.exceptions.DependencyException;
 import com.thoughtworks.exceptions.ResourceNotFoundException;
 import com.thoughtworks.exceptions.ValidationException;
+import com.thoughtworks.payment.model.BankDetails;
 import com.thoughtworks.serviceclients.BankClient;
 import io.github.resilience4j.circuitbreaker.CallNotPermittedException;
 import io.github.resilience4j.circuitbreaker.CircuitBreaker;
@@ -16,6 +19,8 @@ import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.UUID;
@@ -47,6 +52,9 @@ public class BankClientTest {
     @MockBean
     RestTemplate restTemplate;
 
+    @MockBean
+    BankDetailsApi bankDetailsApi;
+
     private static WireMockServer wireMockServer;
 
     @BeforeAll
@@ -75,7 +83,8 @@ public class BankClientTest {
     @Test
     public void circuitBreakerOpensAfterFiftyPercentThresholdFailureLimitAndDoesNotAllowRequests() throws Exception {
         when(bankInfoService.fetchBankByBankCode(any(String.class))).thenReturn(new BankInfo("HDFC", "http://localhost:8088"));
-
+        when(bankDetailsApi.getApiClient()).thenReturn(new ApiClient());
+        doThrow(new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR)).when(bankDetailsApi).checkDetails(any(), any());
         assertThrows(DependencyException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
         assertThrows(CallNotPermittedException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
         verify(bankInfoService, times(4)).fetchBankByBankCode(any(String.class));
@@ -84,32 +93,24 @@ public class BankClientTest {
     @Test
     public void circuitBreakerChangesItsStateFromOpenToClosed() throws Exception {
         CircuitBreaker circuitBreaker = circuitBreakerRegistry.circuitBreaker("bankservice");
-        stubFor(get(urlEqualTo("/checkDetails?accountNumber=12345&ifscCode=HDFC1234")).willReturn(aResponse().withStatus(200)));
+//        stubFor(get(urlEqualTo("/checkDetails?accountNumber=12345&ifscCode=HDFC1234")).willReturn(aResponse().withStatus(200)));
+        when(bankDetailsApi.getApiClient()).thenReturn(new ApiClient());
 
-        when(bankInfoService.fetchBankByBankCode(anyString()))
-                .thenReturn(
-                        new BankInfo("HDFC", "http://localhost:8088"),
-                        new BankInfo("HDFC", "http://localhost:8088"),
-                        new BankInfo("HDFC", "http://localhost:8088"),
-                        new BankInfo("HDFC", "http://localhost:8088"),
+        doThrow(new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR))
+                .doThrow(new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR))
+                .doThrow(new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR))
+                .doThrow(new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR))
+                .doThrow(new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR))
+                .doThrow(new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR))
+                .doThrow(new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR))
+                .doThrow(new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR))
+                .doNothing().doNothing()
+                .doThrow(new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR))
+                .doThrow(new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR))
+                .doNothing().doNothing().doNothing().doNothing().doNothing()
+                .when(bankDetailsApi).checkDetails(any(), any());
 
-                        new BankInfo("HDFC", "http://localhost:8088"),
-                        new BankInfo("HDFC", "http://localhost:8088"),
-                        new BankInfo("HDFC", "http://localhost:8088"),
-                        new BankInfo("HDFC", "http://localhost:8088"),
-
-                        new BankInfo("HDFC", "http://localhost:8082"),
-                        new BankInfo("HDFC", "http://localhost:8082"),
-                        new BankInfo("HDFC", "http://localhost:8088"),
-                        new BankInfo("HDFC", "http://localhost:8088"),
-
-                        new BankInfo("HDFC", "http://localhost:8082"),
-                        new BankInfo("HDFC", "http://localhost:8082"),
-                        new BankInfo("HDFC", "http://localhost:8082"),
-                        new BankInfo("HDFC", "http://localhost:8082"),
-                        new BankInfo("HDFC", "http://localhost:8082")
-
-                );
+        when(bankInfoService.fetchBankByBankCode(anyString())).thenReturn(new BankInfo("HDFC", any()));
 
         assertThrows(DependencyException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
         verify(bankInfoService, times(3)).fetchBankByBankCode(any(String.class));
@@ -155,6 +156,8 @@ public class BankClientTest {
     @Test
     public void requestIsRetriedAfterReceivingDependencyException() throws Exception {
         when(bankInfoService.fetchBankByBankCode(any(String.class))).thenReturn(new BankInfo("HDFC", "http://localhost:8088"));
+        when(bankDetailsApi.getApiClient()).thenReturn(new ApiClient());
+        doThrow(new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR)).when(bankDetailsApi).checkDetails(any(), any());
         assertThrows(DependencyException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
         verify(bankInfoService, times(3)).fetchBankByBankCode(any(String.class));
     }
@@ -165,10 +168,12 @@ public class BankClientTest {
         String requestID = String.valueOf(UUID.randomUUID());
         MDC.put("request.id", requestID);
         when(bankInfoService.fetchBankByBankCode(anyString())).thenReturn(new BankInfo("HDFC", "http://localhost:8082"));
-        stubFor(
-                get(urlEqualTo("/checkDetails?accountNumber=12345&ifscCode=HDFC1234"))
-                        .withHeader("PARENT_REQ_ID", matching("[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"))
-                        .willReturn(aResponse().withStatus(200)));
+        when(bankDetailsApi.getApiClient()).thenReturn(new ApiClient());
+        doNothing().when(bankDetailsApi).checkDetails(any(), any());
+//        stubFor(
+//                get(urlEqualTo("/checkDetails?accountNumber=12345&ifscCode=HDFC1234"))
+//                        .withHeader("PARENT_REQ_ID", matching("[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"))
+//                        .willReturn(aResponse().withStatus(200)));
 
         assertEquals(true, bankClient.checkBankDetails(12345, "HDFC1234"));
 
@@ -193,8 +198,9 @@ public class BankClientTest {
     @Test
     public void testCheckBankDetailsForInvalidAccount() throws Exception {
         when(bankInfoService.fetchBankByBankCode(anyString())).thenReturn(new BankInfo("HDFC", "http://localhost:8082"));
-        stubFor(get(urlEqualTo("/checkDetails?accountNumber=0&ifscCode=HDFC1234")).willReturn(aResponse().withStatus(404)));
-
+//        stubFor(get(urlEqualTo("/checkDetails?accountNumber=0&ifscCode=HDFC1234")).willReturn(aResponse().withStatus(404)));
+        when(bankDetailsApi.getApiClient()).thenReturn(new ApiClient());
+        doThrow(new HttpClientErrorException(HttpStatus.NOT_FOUND)).when(bankDetailsApi).checkDetails(any(), any());
         assertEquals(false, bankClient.checkBankDetails(0, "HDFC1234"));
     }
 
@@ -202,17 +208,19 @@ public class BankClientTest {
     public void testCheckBankDetailsForWrongBaseUrl() throws Exception {
 
         when(bankInfoService.fetchBankByBankCode(anyString())).thenReturn(new BankInfo("HDFC", "http://localhost:808"));
-
+        when(bankDetailsApi.getApiClient()).thenReturn(new ApiClient());
+        doThrow(new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR)).when(bankDetailsApi).checkDetails(any(), any());
         assertThrows(DependencyException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
     }
 
     @Test
     public void testCheckBankDetailsForBankServiceErrors() throws DependencyException {
         when(bankInfoService.fetchBankByBankCode(anyString())).thenReturn(new BankInfo("HDFC", "http://localhost:8082"));
-        stubFor(get(urlEqualTo("/checkDetails?accountNumber=12345&ifscCode=HDFC1234")).willReturn(aResponse().withStatus(500)));
-
+//        stubFor(get(urlEqualTo("/checkDetails?accountNumber=12345&ifscCode=HDFC1234")).willReturn(aResponse().withStatus(500)));
+        when(bankDetailsApi.getApiClient()).thenReturn(new ApiClient());
+        doThrow(new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR)).when(bankDetailsApi).checkDetails(any(), any());
         DependencyException exception = assertThrows(DependencyException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
         assertEquals("BANKSERVICE_HDFC1234_FAILURE", exception.getErrorCode());
-        assertEquals("SERVICE_ERROR - 500", exception.getErrorMessage());
+        assertEquals("UNAVAILABLE", exception.getErrorMessage());
     }
 }

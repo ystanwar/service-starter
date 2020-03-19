@@ -1,5 +1,7 @@
 package com.thoughtworks.serviceclients;
 
+import com.thoughtworks.BankClient.api.BankDetailsApi;
+import com.thoughtworks.api.api.BankinfoApi;
 import com.thoughtworks.bankInfo.BankInfo;
 import com.thoughtworks.bankInfo.BankInfoService;
 import com.thoughtworks.exceptions.DependencyException;
@@ -15,6 +17,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -29,6 +32,9 @@ public class BankClient {
     @Autowired
     BankInfoService bankService;
 
+    @Autowired
+    BankDetailsApi bankDetailsApi;
+
     private String getBankCode(String ifscCode) throws ValidationException {
         if (ifscCode != null && ifscCode.length() >= 5) {
             return ifscCode.substring(0, 4);
@@ -41,27 +47,17 @@ public class BankClient {
         BankInfo bankInfo = bankService.fetchBankByBankCode(getBankCode(ifscCode));
         if (bankInfo == null) throw new ResourceNotFoundException("message", "Bank info not found for " + ifscCode);
         baseUrl = bankInfo.getUrl();
-        String url = baseUrl + "/checkDetails";
-        HttpGet get = buildUrl(url, accountNumber, ifscCode);
-
-        int statusCode;
-        CloseableHttpClient httpclient = HttpClients.createDefault();
         try {
-            CloseableHttpResponse response = httpclient.execute(get);
-            statusCode = response.getStatusLine().getStatusCode();
-            response.close();
-        } catch (Exception ex) {
-            throw new DependencyException("ExternalService", "BANKSERVICE_" + ifscCode, url, "UNAVAILABLE", ex);
-            //throw new DependencyException("SERVICE_UNAVAILABLE ", "could not call " + getBankCode(ifscCode), ex);
-        }
-
-        if (statusCode == 200)
+            bankDetailsApi.getApiClient().setBasePath(baseUrl);
+            bankDetailsApi.getApiClient().addDefaultHeader("PARENT_REQ_ID", MDC.get("request.id"));
+            bankDetailsApi.checkDetails(accountNumber, ifscCode);
             return true;
-        else if (statusCode == 404) {
-            return false;
-        } else {
-            throw new DependencyException("ExternalService", "BANKSERVICE_" + ifscCode, url, "SERVICE_ERROR - " + statusCode);
-            //throw new DependencyException("SERVICE_ERROR",  "calling " + ifscCode + " received statusCode=" + statusCode);
+        } catch (HttpClientErrorException ex) {
+            if (ex.getStatusCode().value() == 404) {
+                return false;
+            } else {
+                throw new DependencyException("ExternalService", "BANKSERVICE_" + ifscCode, baseUrl + "/checkDetails", "UNAVAILABLE", ex);
+            }
         }
     }
 
