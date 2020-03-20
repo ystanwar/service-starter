@@ -13,19 +13,17 @@ repositories {
     mavenLocal()
     mavenCentral()
     maven {
-        name = "BankClient"
         url = uri("https://maven.pkg.github.com/cd-jump-start/BankClient")
         credentials {
-            username = "cd-jump-start"
-            password = "453f0f5d220f146d14240cb1e6b0214e14eccec9"
+            username = ""
+            password = "6e095b669745dcb0c8e29d8c20faff496802662c"
         }
     }
     maven {
-        name = "FraudClient"
         url = uri("https://maven.pkg.github.com/cd-jump-start/FraudClient")
         credentials {
-            username = "cd-jump-start"
-            password = "453f0f5d220f146d14240cb1e6b0214e14eccec9"
+            username = ""
+            password = "6e095b669745dcb0c8e29d8c20faff496802662c"
         }
     }
     maven { url 'https://repo.spring.io/milestone' }

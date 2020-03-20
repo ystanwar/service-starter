@@ -1,6 +1,5 @@
 package com.thoughtworks.bankclient;
 
-import com.github.tomakehurst.wiremock.WireMockServer;
 import com.thoughtworks.BankClient.api.BankDetailsApi;
 import com.thoughtworks.BankClient.invoker.ApiClient;
 import com.thoughtworks.bankInfo.BankInfo;
@@ -13,7 +12,9 @@ import io.github.resilience4j.circuitbreaker.CallNotPermittedException;
 import io.github.resilience4j.circuitbreaker.CircuitBreaker;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry;
 import io.github.resilience4j.retry.RetryRegistry;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,7 +27,6 @@ import org.springframework.web.client.RestTemplate;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-import static com.github.tomakehurst.wiremock.client.WireMock.configureFor;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
@@ -53,15 +53,15 @@ public class BankClientTest {
     @MockBean
     BankDetailsApi bankDetailsApi;
 
-    private static WireMockServer wireMockServer;
+    //   private static WireMockServer wireMockServer;
 
-    @BeforeAll
-    static void setup() {
-        wireMockServer = new WireMockServer(8082);
-        wireMockServer.start();
-        configureFor("localhost", 8082);
-
-    }
+//    @BeforeAll
+//    static void setup() {
+//        wireMockServer = new WireMockServer(8082);
+//        wireMockServer.start();
+//        configureFor("localhost", 8082);
+//
+//    }
 
     @BeforeEach
     void circuitBreakerSetup() {
@@ -73,10 +73,10 @@ public class BankClientTest {
         MDC.clear();
     }
 
-    @AfterAll
-    static void tearDown() {
-        wireMockServer.stop();
-    }
+//    @AfterAll
+//    static void tearDown() {
+//        wireMockServer.stop();
+//    }
 
     @Test
     public void circuitBreakerOpensAfterFiftyPercentThresholdFailureLimitAndDoesNotAllowRequests() throws Exception {
@@ -203,7 +203,7 @@ public class BankClientTest {
     }
 
     @Test
-    public void testCheckBankDetailsForWrongBaseUrl(){
+    public void testCheckBankDetailsForWrongBaseUrl() {
 
         when(bankInfoService.fetchBankByBankCode(anyString())).thenReturn(new BankInfo("HDFC", "http://localhost:808"));
         when(bankDetailsApi.getApiClient()).thenReturn(new ApiClient());
@@ -212,7 +212,7 @@ public class BankClientTest {
     }
 
     @Test
-    public void testCheckBankDetailsForBankServiceErrors(){
+    public void testCheckBankDetailsForBankServiceErrors() {
         when(bankInfoService.fetchBankByBankCode(anyString())).thenReturn(new BankInfo("HDFC", "http://localhost:8082"));
 //        stubFor(get(urlEqualTo("/checkDetails?accountNumber=12345&ifscCode=HDFC1234")).willReturn(aResponse().withStatus(500)));
         when(bankDetailsApi.getApiClient()).thenReturn(new ApiClient());
@@ -223,7 +223,7 @@ public class BankClientTest {
     }
 
     @Test
-    public void checkBankDetailsWhenServiceNotReachable(){
+    public void checkBankDetailsWhenServiceNotReachable() {
         when(bankInfoService.fetchBankByBankCode(anyString())).thenReturn(new BankInfo("HDFC", "http://localhost:8082"));
         when(bankDetailsApi.getApiClient()).thenReturn(new ApiClient());
         doThrow(RestClientException.class).when(bankDetailsApi).checkDetails(any(), any());
