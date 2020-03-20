@@ -2,13 +2,12 @@ package com.thoughtworks.bankclient;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.thoughtworks.BankClient.api.BankDetailsApi;
-import com.thoughtworks.BankClient.employee.ApiClient;
+import com.thoughtworks.BankClient.invoker.ApiClient;
 import com.thoughtworks.bankInfo.BankInfo;
 import com.thoughtworks.bankInfo.BankInfoService;
 import com.thoughtworks.exceptions.DependencyException;
 import com.thoughtworks.exceptions.ResourceNotFoundException;
 import com.thoughtworks.exceptions.ValidationException;
-import com.thoughtworks.payment.model.BankDetails;
 import com.thoughtworks.serviceclients.BankClient;
 import io.github.resilience4j.circuitbreaker.CallNotPermittedException;
 import io.github.resilience4j.circuitbreaker.CircuitBreaker;
@@ -21,16 +20,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-import static com.github.tomakehurst.wiremock.client.WireMock.*;
+import static com.github.tomakehurst.wiremock.client.WireMock.configureFor;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.*;
 
 
@@ -205,7 +203,7 @@ public class BankClientTest {
     }
 
     @Test
-    public void testCheckBankDetailsForWrongBaseUrl() throws Exception {
+    public void testCheckBankDetailsForWrongBaseUrl(){
 
         when(bankInfoService.fetchBankByBankCode(anyString())).thenReturn(new BankInfo("HDFC", "http://localhost:808"));
         when(bankDetailsApi.getApiClient()).thenReturn(new ApiClient());
@@ -214,13 +212,24 @@ public class BankClientTest {
     }
 
     @Test
-    public void testCheckBankDetailsForBankServiceErrors() throws DependencyException {
+    public void testCheckBankDetailsForBankServiceErrors(){
         when(bankInfoService.fetchBankByBankCode(anyString())).thenReturn(new BankInfo("HDFC", "http://localhost:8082"));
 //        stubFor(get(urlEqualTo("/checkDetails?accountNumber=12345&ifscCode=HDFC1234")).willReturn(aResponse().withStatus(500)));
         when(bankDetailsApi.getApiClient()).thenReturn(new ApiClient());
         doThrow(new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR)).when(bankDetailsApi).checkDetails(any(), any());
         DependencyException exception = assertThrows(DependencyException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
         assertEquals("BANKSERVICE_HDFC1234_FAILURE", exception.getErrorCode());
-        assertEquals("UNAVAILABLE", exception.getErrorMessage());
+        assertEquals("received 500", exception.getErrorMessage());
+    }
+
+    @Test
+    public void checkBankDetailsWhenServiceNotReachable(){
+        when(bankInfoService.fetchBankByBankCode(anyString())).thenReturn(new BankInfo("HDFC", "http://localhost:8082"));
+        when(bankDetailsApi.getApiClient()).thenReturn(new ApiClient());
+        doThrow(RestClientException.class).when(bankDetailsApi).checkDetails(any(), any());
+
+        DependencyException dex = assertThrows(DependencyException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
+        assertEquals("BANKSERVICE_HDFC1234_FAILURE", dex.getErrorCode());
+        assertEquals("UNAVAILABLE", dex.getErrorMessage());
     }
 }
