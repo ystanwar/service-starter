@@ -1,9 +1,10 @@
 package com.thoughtworks.payment;
 
 import com.google.gson.JsonObject;
-import com.thoughtworks.api.payment.PaymentRequest;
+import com.thoughtworks.api.api.model.PaymentRequest;
 import com.thoughtworks.exceptions.PaymentRefusedException;
 import com.thoughtworks.exceptions.ResourceNotFoundException;
+import com.thoughtworks.api.api.model.BankDetails;
 import com.thoughtworks.payment.model.Payment;
 import com.thoughtworks.prometheus.Prometheus;
 import com.thoughtworks.serviceclients.BankClient;
@@ -13,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import javax.validation.Valid;
 
 @Service
 public class PaymentService {
@@ -30,7 +33,7 @@ public class PaymentService {
 
     private Counter bankCounter;
 
-    public Payment create(PaymentRequest paymentRequest) throws Exception {
+    public Payment create(@Valid PaymentRequest paymentRequest) throws Exception {
         if (paymentRequest == null) {
             throw new IllegalArgumentException("paymentRequest cannot be null");
         }

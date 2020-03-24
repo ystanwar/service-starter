@@ -1,7 +1,7 @@
 package com.thoughtworks.bankInfo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.thoughtworks.api.payment.PaymentFailureResponse;
+import com.thoughtworks.api.api.model.PaymentFailureResponse;
 import com.thoughtworks.exceptions.ResourceConflictException;
 import com.thoughtworks.filter.PrometheusFilterConfig;
 import com.thoughtworks.prometheus.Prometheus;
@@ -64,7 +64,7 @@ public class BankInfoControllerTest {
                         "\"url\":\"http://localhost:8082\"}")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isConflict())
-                .andExpect(content().string(objectMapper.writeValueAsString(new PaymentFailureResponse("REQUEST_CONFLICT", errors))));
+                .andExpect(content().string(objectMapper.writeValueAsString(new PaymentFailureResponse().message("REQUEST_CONFLICT").reasons(errors))));
 
         verify(bankInfoService).create(any(BankInfo.class));
     }

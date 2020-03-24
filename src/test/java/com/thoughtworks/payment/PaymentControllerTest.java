@@ -1,11 +1,11 @@
 package com.thoughtworks.payment;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.thoughtworks.api.payment.PaymentFailureResponse;
-import com.thoughtworks.api.payment.PaymentRequest;
-import com.thoughtworks.api.payment.PaymentSuccessResponse;
+import com.thoughtworks.api.api.model.PaymentFailureResponse;
+import com.thoughtworks.api.api.model.PaymentRequest;
+import com.thoughtworks.api.api.model.PaymentSuccessResponse;
 import com.thoughtworks.exceptions.*;
-import com.thoughtworks.payment.model.BankDetails;
+import com.thoughtworks.api.api.model.BankDetails;
 import com.thoughtworks.payment.model.Payment;
 import com.thoughtworks.prometheus.Prometheus;
 import io.micrometer.core.instrument.Counter;
@@ -82,8 +82,10 @@ public class PaymentControllerTest {
 
         List<Payment> paymentList = new ArrayList<>();
 
-        BankDetails beneficiary = new BankDetails("user1", 12, "HDFC1");
-        BankDetails payee = new BankDetails("user2", 12346, "HDFC1234");
+       
+
+        BankDetails beneficiary = new BankDetails().name("user1").accountNumber(12L).ifscCode("HDFC1");
+        BankDetails payee = new BankDetails().name("user2").accountNumber(12346L).ifscCode("HDFC1234");
 
         Payment payment = new Payment(500, beneficiary, payee);
         payment.setId(1);
@@ -112,8 +114,8 @@ public class PaymentControllerTest {
 
     @Test
     public void createPayment() throws Exception {
-        BankDetails beneficiary = new BankDetails("user1", 12, "HDFC1");
-        BankDetails payee = new BankDetails("user2", 12346, "HDFC1234");
+        BankDetails beneficiary = new BankDetails().name("user1").accountNumber(12L).ifscCode("HDFC1");
+        BankDetails payee = new BankDetails().name("user2").accountNumber(12346L).ifscCode("HDFC1234");
 
         Payment payment = new Payment(500, beneficiary, payee);
         payment.setId(1);
@@ -153,7 +155,7 @@ public class PaymentControllerTest {
                         "}")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound())
-                .andExpect(content().string(objectMapper.writeValueAsString(new PaymentFailureResponse("MISSING_INFO", errors))));
+                .andExpect(content().string(objectMapper.writeValueAsString(new PaymentFailureResponse().message("MISSING_INFO").reasons(errors))));
 
         verify(paymentService).create(any(PaymentRequest.class));
     }
@@ -173,7 +175,7 @@ public class PaymentControllerTest {
                         "}")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound())
-                .andExpect(content().string(objectMapper.writeValueAsString(new PaymentFailureResponse("MISSING_INFO", errors))));
+                .andExpect(content().string(objectMapper.writeValueAsString(new PaymentFailureResponse().message("MISSING_INFO").reasons(errors))));
 
         verify(paymentService).create(any(PaymentRequest.class));
     }
@@ -255,7 +257,7 @@ public class PaymentControllerTest {
                         "}")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound())
-                .andExpect(content().string(objectMapper.writeValueAsString(new PaymentFailureResponse("MISSING_INFO", errors))));
+                .andExpect(content().string(objectMapper.writeValueAsString(new PaymentFailureResponse().message("MISSING_INFO").reasons(errors))));
 
         verify(paymentService).create(any(PaymentRequest.class));
     }
@@ -276,7 +278,7 @@ public class PaymentControllerTest {
                         "}")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
-                .andExpect(content().string(objectMapper.writeValueAsString(new PaymentFailureResponse("INVALID_INPUT", errors))));
+                .andExpect(content().string(objectMapper.writeValueAsString(new PaymentFailureResponse().message("INVALID_INPUT").reasons(errors))));
 
         verify(paymentService).create(any(PaymentRequest.class));
     }
@@ -297,7 +299,7 @@ public class PaymentControllerTest {
                         "}")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isInternalServerError())
-                .andExpect(content().string(objectMapper.writeValueAsString(new PaymentFailureResponse("SERVER_ERROR", errors))));
+                .andExpect(content().string(objectMapper.writeValueAsString(new PaymentFailureResponse().message("SERVER_ERROR").reasons(errors))));
 
         verify(paymentService).create(any(PaymentRequest.class));
     }
@@ -317,7 +319,7 @@ public class PaymentControllerTest {
                         "}")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
-                .andExpect(content().string(objectMapper.writeValueAsString(new PaymentFailureResponse("INVALID_INPUT", errors))));
+                .andExpect(content().string(objectMapper.writeValueAsString(new PaymentFailureResponse().message("INVALID_INPUT").reasons(errors))));
 
         verify(paymentService, times(0)).create(any(PaymentRequest.class));
     }
@@ -337,7 +339,7 @@ public class PaymentControllerTest {
                         "}")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnprocessableEntity())
-                .andExpect(content().string(objectMapper.writeValueAsString(new PaymentFailureResponse("REQUEST_UNPROCESSABLE", errors))));
+                .andExpect(content().string(objectMapper.writeValueAsString(new PaymentFailureResponse().message("REQUEST_UNPROCESSABLE").reasons(errors))));
 
         verify(paymentService).create(any(PaymentRequest.class));
     }
@@ -358,7 +360,7 @@ public class PaymentControllerTest {
                         "}")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isInternalServerError())
-                .andExpect(content().string(objectMapper.writeValueAsString(new PaymentFailureResponse("SERVER_ERROR", errors))));
+                .andExpect(content().string(objectMapper.writeValueAsString(new PaymentFailureResponse().message("SERVER_ERROR").reasons(errors))));
 
         verify(paymentService).create(any(PaymentRequest.class));
     }
@@ -378,7 +380,7 @@ public class PaymentControllerTest {
                         "}")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnprocessableEntity())
-                .andExpect(content().string(objectMapper.writeValueAsString(new PaymentFailureResponse("REQUEST_UNPROCESSABLE", errors))));
+                .andExpect(content().string(objectMapper.writeValueAsString(new PaymentFailureResponse().message("REQUEST_UNPROCESSABLE").reasons(errors))));
 
         verify(paymentService).create(any(PaymentRequest.class));
     }

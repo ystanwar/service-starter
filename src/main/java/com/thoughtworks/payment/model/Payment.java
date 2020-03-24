@@ -3,6 +3,7 @@ package com.thoughtworks.payment.model;
 import org.slf4j.MDC;
 
 import javax.persistence.*;
+import com.thoughtworks.api.api.model.BankDetails;
 
 @Entity
 public class Payment {

@@ -1,7 +1,7 @@
 package com.thoughtworks.payment;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.thoughtworks.payment.model.BankDetails;
+import com.thoughtworks.api.api.model.BankDetails;
 import com.thoughtworks.payment.model.Payment;
 import org.junit.jupiter.api.Test;
 
@@ -14,8 +14,9 @@ public class PaymentTest {
 
     @Test
     public void expectsPaymentAfterSerialization() throws IOException {
-        BankDetails beneficiary = new BankDetails("user1", 12345, "HDFC1234");
-        BankDetails payee = new BankDetails("user2", 12346, "HDFC1234");
+      
+        BankDetails beneficiary = new BankDetails().name("user1").accountNumber(12345L).ifscCode("HDFC1234");
+        BankDetails payee = new BankDetails().name("user2").accountNumber(12346L).ifscCode("HDFC1234");
 
         Payment payment = new Payment(100, beneficiary, payee);
         payment.setRequestId("payment1234");

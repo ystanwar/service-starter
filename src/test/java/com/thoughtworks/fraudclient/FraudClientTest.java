@@ -3,7 +3,6 @@ package com.thoughtworks.fraudclient;
 import com.thoughtworks.FraudClient.api.CheckFraudApi;
 import com.thoughtworks.FraudClient.invoker.ApiClient;
 import com.thoughtworks.exceptions.DependencyException;
-import com.thoughtworks.payment.model.BankDetails;
 import com.thoughtworks.payment.model.Payment;
 import com.thoughtworks.serviceclients.FraudClient;
 import org.junit.jupiter.api.Test;
@@ -14,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
+
+import com.thoughtworks.api.api.model.BankDetails;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -40,8 +41,9 @@ public class FraudClientTest {
         when(checkFraudApi.getApiClient()).thenReturn(new ApiClient());
         doNothing().when(checkFraudApi).checkFraud(any());
 
-        BankDetails beneficiary = new BankDetails("user1", 12345, "HDFC1234");
-        BankDetails payee = new BankDetails("user2", 67890, "HDFC1234");
+
+        BankDetails beneficiary = new BankDetails().name("user1").accountNumber(12345L).ifscCode("HDFC1234");
+        BankDetails payee = new BankDetails().name("user2").accountNumber(67890L).ifscCode("HDFC1234");
         Payment payment = new Payment(100, beneficiary, payee);
 
         assertTrue(fraudClient.checkFraud(payment));
@@ -57,8 +59,8 @@ public class FraudClientTest {
         when(checkFraudApi.getApiClient()).thenReturn(new ApiClient());
         doThrow(new HttpClientErrorException(HttpStatus.UNPROCESSABLE_ENTITY)).when(checkFraudApi).checkFraud(any());
 
-        BankDetails beneficiary = new BankDetails("user1", 12345, "HDFC1234");
-        BankDetails payee = new BankDetails("user2", 12345, "HDFC1234");
+        BankDetails beneficiary = new BankDetails().name("user1").accountNumber(12345L).ifscCode("HDFC1234");
+        BankDetails payee = new BankDetails().name("user2").accountNumber(12345L).ifscCode("HDFC1234");
         Payment payment = new Payment(100, beneficiary, payee);
 
         assertFalse(fraudClient.checkFraud(payment));
@@ -74,8 +76,8 @@ public class FraudClientTest {
 
         when(checkFraudApi.getApiClient()).thenReturn(new ApiClient());
         doThrow(new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR)).when(checkFraudApi).checkFraud(any());
-        BankDetails beneficiary = new BankDetails("user1", 12345, "HDFC1234");
-        BankDetails payee = new BankDetails("user2", 12345, "HDFC1234");
+        BankDetails beneficiary = new BankDetails().name("user1").accountNumber(12345L).ifscCode("HDFC1234");
+        BankDetails payee = new BankDetails().name("user2").accountNumber(12345L).ifscCode("HDFC1234");
         Payment payment = new Payment(100, beneficiary, payee);
 
         DependencyException dex = assertThrows(DependencyException.class, () -> fraudClient.checkFraud(payment));
@@ -89,8 +91,8 @@ public class FraudClientTest {
         when(checkFraudApi.getApiClient()).thenReturn(new ApiClient());
         doThrow(RestClientException.class).when(checkFraudApi).checkFraud(any());
 
-        BankDetails beneficiary = new BankDetails("user1", 12345, "HDFC1234");
-        BankDetails payee = new BankDetails("user2", 12345, "HDFC1234");
+        BankDetails beneficiary = new BankDetails().name("user1").accountNumber(12345L).ifscCode("HDFC1234");
+        BankDetails payee = new BankDetails().name("user2").accountNumber(12345L).ifscCode("HDFC1234");
         Payment payment = new Payment(100, beneficiary, payee);
 
         DependencyException dex = assertThrows(DependencyException.class, () -> fraudClient.checkFraud(payment));

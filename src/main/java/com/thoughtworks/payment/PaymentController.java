@@ -6,7 +6,6 @@ import com.thoughtworks.api.api.PaymentsApi;
 import com.thoughtworks.api.api.model.Payment;
 import com.thoughtworks.api.api.model.PaymentRequest;
 import com.thoughtworks.api.api.model.PaymentSuccessResponse;
-import com.thoughtworks.payment.model.BankDetails;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,10 +38,8 @@ public class PaymentController implements PaymentsApi {
     @PostMapping(consumes = {"application/json"})
     @Override
     public ResponseEntity<PaymentSuccessResponse> create1(@Valid PaymentRequest paymentRequest) throws Exception {
-        BankDetails beneficiary = new BankDetails(paymentRequest.getBeneficiary().getName(), paymentRequest.getBeneficiary().getAccountNumber(), paymentRequest.getBeneficiary().getIfscCode());
-        BankDetails payee = new BankDetails(paymentRequest.getPayee().getName(), paymentRequest.getPayee().getAccountNumber(), paymentRequest.getPayee().getIfscCode());
-        com.thoughtworks.api.payment.PaymentRequest paymentRequest1 = new com.thoughtworks.api.payment.PaymentRequest(paymentRequest.getAmount(), beneficiary, payee);
-        com.thoughtworks.payment.model.Payment savedPayment = paymentService.create(paymentRequest1);
+
+        com.thoughtworks.payment.model.Payment savedPayment = paymentService.create(paymentRequest);
 
         ObjectNode mapper = new ObjectMapper().createObjectNode();
         mapper.put("PaymentId", String.valueOf(savedPayment.getId()));

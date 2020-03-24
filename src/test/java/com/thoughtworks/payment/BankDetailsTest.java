@@ -1,7 +1,7 @@
 package com.thoughtworks.payment;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.thoughtworks.payment.model.BankDetails;
+import com.thoughtworks.api.api.model.BankDetails;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -12,7 +12,7 @@ public class BankDetailsTest {
 
     @Test
     public void expectsBankDetailsAfterSerialization() throws IOException {
-        BankDetails details = new BankDetails("user1", 12345, "HDFC1234");
+        BankDetails details = new BankDetails().name("user1").accountNumber(12345L).ifscCode("HDFC1234");
         ObjectMapper objectMapper = new ObjectMapper();
 
         String detailsString = objectMapper.writeValueAsString(details);

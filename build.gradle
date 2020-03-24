@@ -2,7 +2,7 @@ plugins {
     id 'org.springframework.boot' version '2.2.1.RELEASE'
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
     id 'java'
-    id 'org.openapi.generator' version '4.2.3'
+    // id 'org.openapi.generator' version '4.2.3'
 }
 
 group = 'com.thoughtworks'
@@ -16,14 +16,14 @@ repositories {
         url = uri("https://maven.pkg.github.com/cd-jump-start/BankClient")
         credentials {
             username = ""
-            password = "5fd8b612234d38ecd4e4e034252d46fae72064bf"
+            password = "31544b0bf4f2ccfb1f8afb1a851be1eb20100e7d"
         }
     }
     maven {
         url = uri("https://maven.pkg.github.com/cd-jump-start/FraudClient")
         credentials {
             username = ""
-            password = "5fd8b612234d38ecd4e4e034252d46fae72064bf"
+            password = "31544b0bf4f2ccfb1f8afb1a851be1eb20100e7d"
         }
     }
     maven { url 'https://repo.spring.io/milestone' }
@@ -65,33 +65,34 @@ dependencies {
     runtimeOnly 'org.postgresql:postgresql:42.2.5'
     compile 'com.h2database:h2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    compile 'org.springdoc:springdoc-openapi-core:1.1.49'
-    compile group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.1.49'
+    // compile 'org.springdoc:springdoc-openapi-core:1.1.49'
+    // compile 'org.springdoc:springdoc-openapi-core:1.2.19'
+    // compile group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.1.49'
     compile 'com.thoughtworks:BankServiceClient:1.1-SNAPSHOT'
     compile 'com.thoughtworks:FraudServiceClient:1.1-SNAPSHOT'
-    compile group: 'org.openapitools', name: 'jackson-databind-nullable', version: '0.2.1'
-    compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+    //compile group: 'org.openapitools', name: 'jackson-databind-nullable', version: '0.2.1'
+    //compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
 }
 
-openApiGenerate {
-    generatorName = "spring"
-    library = "spring-boot"
-    inputSpec = "$rootDir/src/main/resources/openapi.json".toString()
-    outputDir = "$rootDir".toString()
-    apiPackage = "com.thoughtworks.api.api"
-    modelPackage = "com.thoughtworks.api.api.model"
+// openApiGenerate {
+//     generatorName = "spring"
+//     library = "spring-boot"
+//     inputSpec = "$rootDir/src/main/resources/static/openapi.json".toString()
+//     outputDir = "$rootDir".toString()
+//     apiPackage = "com.thoughtworks.api.api"
+//     modelPackage = "com.thoughtworks.api.api.model"
 
-    modelFilesConstrainedTo = []
-    configOptions = [
-            unhandledException     : "true",
-            title                  : "Payment",
-            dateLibrary            : "java8",
-            interfaceOnly          : "true",
-            java8                  : "true",
-            hideGenerationTimestamp: "true",
-            returnSuccessCode      : "true",
-            swaggerDocketConfig    : "true",
-//			skipDefaultInterface   : "true",
-            configPackage          : "com.thoughtworks.api.api.configuration",
-    ]
-}
+//     modelFilesConstrainedTo = []
+//     configOptions = [
+//             unhandledException     : "true",
+//             title                  : "Payment",
+//             dateLibrary            : "java8",
+//             interfaceOnly          : "true",
+//             java8                  : "true",
+//             hideGenerationTimestamp: "true",
+//             returnSuccessCode      : "true",
+//             swaggerDocketConfig    : "false",
+// //			skipDefaultInterface   : "true",
+//             configPackage          : "com.thoughtworks.api.api.configuration",
+//     ]
+// }

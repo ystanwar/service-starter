@@ -2,10 +2,9 @@ package com.thoughtworks.handlers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.thoughtworks.api.payment.PaymentFailureResponse;
+import com.thoughtworks.api.api.model.PaymentFailureResponse;
 import com.thoughtworks.exceptions.*;
 import io.github.resilience4j.circuitbreaker.CallNotPermittedException;
-import io.swagger.v3.oas.annotations.Hidden;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
@@ -25,7 +24,7 @@ import java.util.stream.Collectors;
 
 import static net.logstash.logback.argument.StructuredArguments.v;
 
-@Hidden
+//@Hidden
 @ControllerAdvice
 public class ExceptionMessageHandler {
     private static Logger logger = LogManager.getLogger(ExceptionMessageHandler.class);
@@ -75,7 +74,8 @@ public class ExceptionMessageHandler {
         Map<String, String> errors = new HashMap<>();
         errors.put(ex.getErrorCode(), ex.getErrorMessage());
         logException(ex);
-        return new PaymentFailureResponse("MISSING_INFO", errors);
+        return new PaymentFailureResponse().message("MISSING_INFO").reasons(errors);
+
     }
 
     @ExceptionHandler(ResourceConflictException.class)
@@ -85,7 +85,7 @@ public class ExceptionMessageHandler {
         Map<String, String> errors = new HashMap<>();
         errors.put(ex.getErrorCode(), ex.getErrorMessage());
         logException(ex);
-        return new PaymentFailureResponse("REQUEST_CONFLICT", errors);
+        return new PaymentFailureResponse().message("REQUEST_CONFLICT").reasons(errors);
     }
 
     @ExceptionHandler(CallNotPermittedException.class)
@@ -95,7 +95,7 @@ public class ExceptionMessageHandler {
         Map<String, String> errors = new HashMap<>();
         errors.put("message", "Could not process the request");
         logException(callNotPermittedException);
-        return new PaymentFailureResponse("SERVER_ERROR", errors);
+        return new PaymentFailureResponse().message("SERVER_ERROR").reasons(errors);
     }
 
     @ExceptionHandler({MethodArgumentNotValidException.class})
@@ -118,7 +118,7 @@ public class ExceptionMessageHandler {
         }
 
         logException(exception);
-        return new PaymentFailureResponse("INVALID_INPUT", errors);
+        return new PaymentFailureResponse().message("INVALID_INPUT").reasons(errors);
     }
 
     private static Map.Entry<String, String> extractMessage(FieldError fieldError) {
@@ -132,7 +132,7 @@ public class ExceptionMessageHandler {
         Map<String, String> errors = new HashMap<>();
         errors.put(ex.getErrorCode(), ex.getErrorMessage());
         logException(ex);
-        return new PaymentFailureResponse("INVALID_INPUT", errors);
+        return new PaymentFailureResponse().message("INVALID_INPUT").reasons(errors);
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
@@ -142,7 +142,7 @@ public class ExceptionMessageHandler {
         Map<String, String> errors = new HashMap<>();
         errors.put("message", "Request body missing or incorrect format");
         logException(ex);
-        return new PaymentFailureResponse("INVALID_INPUT", errors);
+        return new PaymentFailureResponse().message("INVALID_INPUT").reasons(errors);
     }
 
     @ExceptionHandler(BusinessException.class)
@@ -152,7 +152,7 @@ public class ExceptionMessageHandler {
         Map<String, String> errors = new HashMap<>();
         errors.put(ex.getErrorCode(), ex.getErrorMessage());
         logException(ex);
-        return new PaymentFailureResponse("REQUEST_UNPROCESSABLE", errors);
+        return new PaymentFailureResponse().message("REQUEST_UNPROCESSABLE").reasons(errors);
     }
 
     @ExceptionHandler(Exception.class)
@@ -162,6 +162,6 @@ public class ExceptionMessageHandler {
         Map<String, String> errors = new HashMap<>();
         errors.put("message", "Could not process the request");
         logException(ex);
-        return new PaymentFailureResponse("SERVER_ERROR", errors);
+        return new PaymentFailureResponse().message("SERVER_ERROR").reasons(errors);
     }
 }
