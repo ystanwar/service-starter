@@ -16,14 +16,14 @@ repositories {
         url = uri("https://maven.pkg.github.com/cd-jump-start/BankClient")
         credentials {
             username = ""
-            password = "27ac000c4db81ea8c635b03d1d0d353e63bb2250"
+            password = System.getenv("GITHUB_TOKEN")
         }
     }
     maven {
         url = uri("https://maven.pkg.github.com/cd-jump-start/FraudClient")
         credentials {
             username = ""
-            password = "27ac000c4db81ea8c635b03d1d0d353e63bb2250"
+            password = System.getenv("GITHUB_TOKEN")
         }
     }
     maven { url 'https://repo.spring.io/milestone' }
