@@ -80,6 +80,19 @@ Follow below steps to get "BankService" running on your local machine
 
 *NOTE: This is the service that will validate the accounts before payment. Any account-IfscCode combination that you will given in the payment request (json sample given above) should be in the “accounts” table of the database you configured to be used by this service*
 
+### The payment service will require to connect to "Fraud-check Service"
+Follow below steps to get "FraudService" running on your local machine 
+
+- First get a github personal access token
+  - [How to get a github personal token](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line)
+- Authenticate with github packages
+  - docker login -u USERNAME -p TOKEN docker.pkg.github.com
+- Get the docker image for "FraudService"
+  - docker pull docker.pkg.github.com/cd-jump-start/service-dep-fraudservice/fraudservice:latest
+ - Run the "FraudService" in docker container
+  - docker run -p 8083:8083 -e SPRING_PROFILES_ACTIVE=dev docker.pkg.github.com/cd-jump-start/service-dep-fraudservice/fraudservice:latest
+
+
 ## Testing the reference service - /payment 
 - Run the service-starter application (./gradlew bootRun as mentioned above) 
 - Do a POST to http://localhost:5012/payments with json body as follows:
