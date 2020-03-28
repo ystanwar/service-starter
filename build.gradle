@@ -2,7 +2,7 @@ plugins {
     id 'org.springframework.boot' version '2.2.1.RELEASE'
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
     id 'java'
-    // id 'org.openapi.generator' version '4.2.3'
+    id 'org.openapi.generator' version '4.2.3'
 }
 
 group = 'com.thoughtworks'
@@ -74,25 +74,24 @@ dependencies {
     //compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
 }
 
-// openApiGenerate {
-//     generatorName = "spring"
-//     library = "spring-boot"
-//     inputSpec = "$rootDir/src/main/resources/static/openapi.json".toString()
-//     outputDir = "$rootDir".toString()
-//     apiPackage = "com.thoughtworks.api.api"
-//     modelPackage = "com.thoughtworks.api.api.model"
-
-//     modelFilesConstrainedTo = []
-//     configOptions = [
-//             unhandledException     : "true",
-//             title                  : "Payment",
-//             dateLibrary            : "java8",
-//             interfaceOnly          : "true",
-//             java8                  : "true",
-//             hideGenerationTimestamp: "true",
-//             returnSuccessCode      : "true",
-//             swaggerDocketConfig    : "false",
-// //			skipDefaultInterface   : "true",
-//             configPackage          : "com.thoughtworks.api.api.configuration",
-//     ]
-// }
+ openApiGenerate {
+     generatorName = "spring"
+     library = "spring-boot"
+     inputSpec = "$rootDir/src/main/resources/static/paymentapi.json".toString()
+     outputDir = "$rootDir".toString()
+     apiPackage = "com.thoughtworks.api.api"
+     modelPackage = "com.thoughtworks.api.api.model"
+     modelFilesConstrainedTo = []
+     configOptions = [
+             unhandledException     : "true",
+             title                  : "Payment",
+             dateLibrary            : "java8",
+             interfaceOnly          : "true",
+             java8                  : "true",
+             hideGenerationTimestamp: "true",
+             returnSuccessCode      : "true",
+             swaggerDocketConfig    : "false",
+ //			skipDefaultInterface   : "true",
+             configPackage          : "com.thoughtworks.api.api.configuration",
+     ]
+ }
