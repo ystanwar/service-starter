@@ -16,6 +16,8 @@ on:
 env:
   # TODO: Change variable to your image's name.
   IMAGE_NAME: paymentservice
+  ORG_GRADLE_PROJECT_gdusername: ${{ github.actor }}
+  ORG_GRADLE_PROJECT_gdtoken: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   # Run tests.
@@ -33,10 +35,7 @@ jobs:
             docker-compose --file docker-compose.test.yml run sut
           else
             docker build . --file Dockerfile
-          fi
-        env:
-          ORG_GRADLE_PROJECT_gdusername: ${{ github.actor }}
-          ORG_GRADLE_PROJECT_gdtoken: ${{ secrets.GITHUB_TOKEN }}
+          fi          
 
   # Push image to GitHub Packages.
   # See also https://docs.docker.com/docker-hub/builds/
