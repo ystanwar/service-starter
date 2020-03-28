@@ -34,6 +34,9 @@ jobs:
           else
             docker build . --file Dockerfile
           fi
+        env:
+          ORG_GRADLE_PROJECT_gdusername: ${{ github.actor }}
+          ORG_GRADLE_PROJECT_gdtoken: ${{ secrets.GITHUB_TOKEN }}
 
   # Push image to GitHub Packages.
   # See also https://docs.docker.com/docker-hub/builds/
