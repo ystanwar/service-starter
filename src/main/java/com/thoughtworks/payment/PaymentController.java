@@ -6,7 +6,7 @@ import com.thoughtworks.api.api.PaymentsApi;
 import com.thoughtworks.api.api.model.Payment;
 import com.thoughtworks.api.api.model.PaymentRequest;
 import com.thoughtworks.api.api.model.PaymentSuccessResponse;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,10 +22,10 @@ import java.util.Optional;
 
 import static net.logstash.logback.argument.StructuredArguments.v;
 
+@Slf4j
 @RestController
 @RequestMapping("/payments")
 public class PaymentController implements PaymentsApi {
-    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(PaymentController.class);
 
     @Autowired
     private PaymentService paymentService;
@@ -46,7 +46,7 @@ public class PaymentController implements PaymentsApi {
         mapper.put("BeneficiaryIfscCode", savedPayment.getBeneficiaryIfscCode());
         mapper.put("PayeeIfscCode", savedPayment.getPayeeIfscCode());
 
-        logger.info("{eventCode:{},description:{},details:{}}", v("name", "PAYMENT_SUCCESSFUL"), v("description", "payment successful"), v("details", mapper.toString()));
+        log.info("{\"eventCode\":{},\"description\":{},\"details\":{}}", v("eventCode", "\"PAYMENT_SUCCESSFUL\""), v("description", "\"payment successful\""), v("details", mapper.toString()));
 
         PaymentSuccessResponse response = new PaymentSuccessResponse();
         response.setStatusMessage("Payment done successfully");
