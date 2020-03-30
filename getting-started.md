@@ -19,11 +19,11 @@ You need to have both the database and the BankService running for payment servi
 Follow the below instructions to set them up
 
 ## Getting the code
-$>> git clone https://github.com/cd-jump-start/service-starter.git
-
-$>> cd service-starter/
-
-$>>./gradlew build --refresh-dependencies
+```
+git clone https://github.com/cd-jump-start/service-starter.git
+cd service-starter/
+./gradlew -Pgdusername=<<your_github_username>> -Pgdtoken=<<your_github_token>> build
+```
 
 ## Building the code
 ### In CLI
