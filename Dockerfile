@@ -1,6 +1,12 @@
 FROM openjdk:8-jdk-alpine AS build
 WORKDIR /workspace/app
 COPY . /workspace/app
+ARG ORG_GRADLE_PROJECT_gdusername
+ARG ORG_GRADLE_PROJECT_gdtoken
+ENV ORG_GRADLE_PROJECT_gdusername=$ORG_GRADLE_PROJECT_gdusername
+ENV ORG_GRADLE_PROJECT_gdtoken=$ORG_GRADLE_PROJECT_gdtoken
+RUN echo $ORG_GRADLE_PROJECT_gdusername
+RUN echo $ORG_GRADLE_PROJECT_gdtoken
 RUN target=/root/.gradle ./gradlew clean build
 RUN mkdir -p build/dependency && (cd build/dependency; jar -xf ../libs/*.jar)
 
