@@ -1,8 +1,19 @@
+#The below properties can be overridden with environment variables by passing JVM parameters e.g. -Dspring.datasource.username=bob
+#Refer the link: https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-external-config-application-property-files
 spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/paymentdb
+    username: paymentuser
+    password: password
   jpa:
-    hibernate.ddl-auto: validate
-flyway.enabled: true
-flyway.locations: classpath:/db/migration
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    url: jdbc:postgresql://localhost:5432/paymentdb
+    user: paymentuser
+    password: password
+    enabled: true
+    locations: classpath:/db/migration
 management:
   endpoints:
     web:
