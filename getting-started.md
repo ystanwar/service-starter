@@ -19,11 +19,11 @@ You need to have both the database and the BankService running for payment servi
 Follow the below instructions to set them up
 
 ## Getting the code
-$>> git clone https://github.com/cd-jump-start/service-starter.git
-
-$>> cd service-starter/
-
-$>>./gradlew build --refresh-dependencies
+```
+git clone https://github.com/cd-jump-start/service-starter.git
+cd service-starter/
+./gradlew -Pgdusername=<<your_github_username>> -Pgdtoken=<<your_github_token>> build
+```
 
 ## Building the code
 ### In CLI
@@ -46,7 +46,7 @@ Open the service-starter project folder in IntelliJ
   -There will be 2 new empty tables – bankInfo and payment. Check and confirm the same
 
 ## Setting up seed data
-- Do a POST to http://localhost:5012/bankinfo with the following json
+- Do a POST to http://localhost:8080/bankinfo with the following json
 
 {
 	"bankCode": "HDFC",
@@ -95,7 +95,7 @@ Follow below steps to get "FraudService" running on your local machine
 
 ## Testing the reference service - /payment 
 - Run the service-starter application (./gradlew bootRun as mentioned above) 
-- Do a POST to http://localhost:5012/payments with json body as follows:
+- Do a POST to http://localhost:8080/payments with json body as follows:
 
 {
 	"amount" : 10001,
@@ -118,7 +118,7 @@ Follow below steps to get "FraudService" running on your local machine
     "paymentId": 1
 }
 
-- Do a GET http://localhost:5012/payments
+- Do a GET http://localhost:8080/payments
   - This should return 200 response with following body
   [
     {

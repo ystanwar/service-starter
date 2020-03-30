@@ -15,20 +15,29 @@ repositories {
     maven {
         url = uri("https://maven.pkg.github.com/cd-jump-start/BankClient")
         credentials {
-            username = ""
-            password = System.getenv("GITHUB_TOKEN")
+            username = getProjectProperty('gdusername')
+            password = getProjectProperty('gdtoken')
         }
     }
     maven {
         url = uri("https://maven.pkg.github.com/cd-jump-start/FraudClient")
         credentials {
-            username = ""
-            password = System.getenv("GITHUB_TOKEN")
+            username = getProjectProperty('gdusername')
+            password = getProjectProperty('gdtoken')
         }
     }
     maven { url 'https://repo.spring.io/milestone' }
     maven { url 'https://repo.spring.io/snapshot' }
 }
+
+String getProjectProperty(String propertyName) {
+    String propertyValue = "null"
+    if (hasProperty(propertyName)) {
+        propertyValue = this.properties[propertyName]
+    }
+    return propertyValue
+}
+
 bootRun {
     bootRun.systemProperty 'spring.profiles.active', "${springProfile}"
 }
