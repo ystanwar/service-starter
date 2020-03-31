@@ -30,7 +30,7 @@ jobs:
       - name: Create Build Artifact
         uses: eskatos/gradle-command-action@v1
         with:
-          arguments: clean build 
+          arguments: -Pgdusername=$gdusername -Pgdtoken=$gdtoken clean build
 
       - name: Run tests
         run: |
