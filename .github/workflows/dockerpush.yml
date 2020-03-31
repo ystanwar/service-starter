@@ -30,8 +30,7 @@ jobs:
       - name: Create Build Artifact
         uses: eskatos/gradle-command-action@v1
         with:
-          arguments: -Pgdusername=$gdusername -Pgdtoken=$gdtoken clean build
-
+          arguments: -Pgdusername=${{ github.actor }} -Pgdtoken=${{ secrets.GITHUB_TOKEN }} clean build
       - name: Run tests
         run: |
           if [ -f docker-compose.test.yml ]; then
