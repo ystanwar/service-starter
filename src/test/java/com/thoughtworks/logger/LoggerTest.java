@@ -175,8 +175,7 @@ public class LoggerTest {
             assertTrue(actualLogMessage.has("details"));
             assertTrue(actualLogMessage.has("description"));
             assertTrue(actualLogMessage.has("eventCode"));
-            assertTrue(actualLogMessage.has("exception"));
-            assertEquals(4, actualLogMessage.size());
+            assertEquals(3, actualLogMessage.size());
             assertEquals(Level.INFO, logEvent.getLevel());
         }
 
