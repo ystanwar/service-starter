@@ -5,8 +5,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.thoughtworks.api.api.model.PaymentFailureResponse;
 import com.thoughtworks.exceptions.*;
 import io.github.resilience4j.circuitbreaker.CallNotPermittedException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
@@ -22,16 +21,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static net.logstash.logback.argument.StructuredArguments.v;
-
 //@Hidden
+@Slf4j
 @ControllerAdvice
 public class ExceptionMessageHandler {
-    private static Logger logger = LogManager.getLogger(ExceptionMessageHandler.class);
-
     private void logException(Exception ex) {
         ObjectNode mapperOne = new ObjectMapper().createObjectNode();
-        mapperOne.put("stackTrace", Arrays.toString(ex.getStackTrace()));
 
         String eventCode;
         String descriptionString;
@@ -54,23 +49,26 @@ public class ExceptionMessageHandler {
             exceptionString = ex.toString();
         }
 
-        logger.error("{eventCode:{},description:{},details:{},exception:{},stackTrace:{}}", v("eventCode", eventCode), v("description", descriptionString), v("details", detailsString), v("exception", exceptionString), v("stackTrace", ex.getStackTrace()));
-
         Throwable causedByException = ex.getCause();
         if ((causedByException) != null) {
 
             descriptionString = causedByException.getMessage();
             detailsString = "";
             exceptionString = causedByException.toString();
-            logger.error("{eventCode:{},description:{},details:{},exception:{},stackTrace:{}}", v("eventCode", eventCode), v("description", descriptionString), v("details", detailsString), v("exception", exceptionString), v("stackTrace", ex.getStackTrace()));
         }
+        mapperOne.put("eventCode", eventCode);
+        mapperOne.put("description", descriptionString);
+        mapperOne.put("details", detailsString);
+        mapperOne.put("exception", exceptionString);
+        mapperOne.put("stackTrace", Arrays.toString(ex.getStackTrace()));
+        log.error(mapperOne.toString());
     }
 
 
     @ExceptionHandler(ResourceNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
-    protected PaymentFailureResponse handleResourceNotFoundException(ResourceNotFoundException ex) {
+    public PaymentFailureResponse handleResourceNotFoundException(ResourceNotFoundException ex) {
         Map<String, String> errors = new HashMap<>();
         errors.put(ex.getErrorCode(), ex.getErrorMessage());
         logException(ex);
