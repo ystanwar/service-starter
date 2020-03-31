@@ -1,6 +1,7 @@
 package com.thoughtworks.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.slf4j.MDC;
@@ -22,6 +23,7 @@ import static net.logstash.logback.argument.StructuredArguments.v;
 
 @Service
 @Order(2)
+@Slf4j
 public class CustomRequestLoggingFilter implements Filter {
     private static Logger logger = LogManager.getLogger(CustomRequestLoggingFilter.class);
 
@@ -58,8 +60,8 @@ public class CustomRequestLoggingFilter implements Filter {
             String paramString = objectMapper.writeValueAsString(requestParams);
             String headerString = objectMapper.writeValueAsString(headerMap);
 
-            logger.info("{eventCode:{},description:{},details:{headers:{},params:{},body:{}},exception:{}}", v("eventCode", "REQUEST_RECEIVED"), v("description", httpServletRequest.getMethod() + " " + httpServletRequest.getServletPath()), v("headers", headerString), v("params", paramString), v("body", requestBody), v("exception", ""));
-            logger.info("{eventCode:{},description:{},details:{statusCode:{},headers:{},body:{}},exception:{}}", v("eventCode", "RESPONSE_SENT"), v("description", httpServletRequest.getMethod() + " " + httpServletRequest.getServletPath()), v("statusCode", httpServletResponse.getStatus()), v("headers", headerString), v("body", responseBody), v("exception", ""));
+            log.info("{\"eventCode\":\"{}\",\"description\":\"{}\",\"details\":{\"headers\":{},\"params\":{},\"body\":{}},\"exception\":\"{}\"}", v("eventCode", "REQUEST_RECEIVED"), v("description", httpServletRequest.getMethod() + " " + httpServletRequest.getServletPath()), v("headers", headerString), v("params", paramString), v("body", requestBody), v("exception", ""));
+            log.info("{\"eventCode\":\"{}\",\"description\":\"{}\",\"details\":{\"statusCode\":\"{}\",\"headers\":{},\"body\":{}},\"exception\":\"{}\"}", v("eventCode", "RESPONSE_SENT"), v("description", httpServletRequest.getMethod() + " " + httpServletRequest.getServletPath()), v("statusCode", httpServletResponse.getStatus()), v("headers", headerString), v("body", responseBody), v("exception", ""));
 
             MDC.clear();
             responseWrapper.copyBodyToResponse();

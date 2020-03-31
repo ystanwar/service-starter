@@ -38,9 +38,7 @@ public class PaymentController implements PaymentsApi {
     @PostMapping(consumes = {"application/json"})
     @Override
     public ResponseEntity<PaymentSuccessResponse> create1(@Valid PaymentRequest paymentRequest) throws Exception {
-
         com.thoughtworks.payment.model.Payment savedPayment = paymentService.create(paymentRequest);
-
         ObjectNode mapper = new ObjectMapper().createObjectNode();
         mapper.put("PaymentId", String.valueOf(savedPayment.getId()));
         mapper.put("BeneficiaryIfscCode", savedPayment.getBeneficiaryIfscCode());
