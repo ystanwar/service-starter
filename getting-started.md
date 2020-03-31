@@ -27,7 +27,7 @@ cd service-starter/
 
 ## Building the code
 ### In CLI
-./gradlew build --refresh-dependencies
+./gradlew build
 
 ### In IDE
 Open the service-starter project folder in IntelliJ
@@ -35,15 +35,22 @@ Open the service-starter project folder in IntelliJ
 •	After the project is loaded and indexed, Build->Rebuild the project
 
 ## Configuring database
-- Open config.sh in root folder
-  - Check the connection properties and ensure it matches with your local postgres server connection properties
-  -The **default database name used is “postgres”**. Either create a database in your local server with this name or create a database with any name and update the name in the above two locations.
-- **Run the config.sh**
-- **Run the application in the same shell** where you ran config.sh
-  - from IntelliJ 
-  - or ./gradlew bootrun from commandline
-- **Check the database you have configured**
-  -There will be 2 new empty tables – bankInfo and payment. Check and confirm the same
+- Create a database in postgres by running the following script
+```
+src/main/resources/createdb.sh
+```
+## Start the application
+*  Run the following command
+```
+./gradlew -Dspring.profiles.active=dev bootrun
+```
+* From IDE, Run the PaymentApplication.java
+```
+Set this in VM Options of "Run Configuration" in your IDE
+-Dspring.profiles.active=dev
+```
+
+* Check the database you have configured. There will be 2 new empty tables – bankInfo and payment. Check and confirm the same
 
 ## Setting up seed data
 - Do a POST to http://localhost:8080/bankinfo with the following json
