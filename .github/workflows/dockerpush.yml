@@ -20,27 +20,19 @@ env:
   gdtoken: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
-  # Run tests.
-  # See also https://docs.docker.com/docker-hub/builds/automated-testing/
-  test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
       - name: Create Build Artifact
         uses: eskatos/gradle-command-action@v1
         with:
           arguments: -Pgdusername=${{ github.actor }} -Pgdtoken=${{ secrets.GITHUB_TOKEN }} clean build
-#      - name: Run tests
-#        run: |
-#          if [ -f docker-compose.test.yml ]; then
-#            docker-compose --file docker-compose.test.yml build
-#            docker-compose --file docker-compose.test.yml run sut
-#          else
-#            docker build --build-arg FOR_GRADLE_PROJECT_gdusername=$gdusername --build-arg FOR_GRADLE_PROJECT_gdtoken=$gdtoken . --file Dockerfile
-#          fi
 
-      - name: Upload file jar
+      - name: Upload jar artifact
         uses: actions/upload-artifact@v1
         with:
           name: buildjar
@@ -49,30 +41,25 @@ jobs:
   #   Push image to GitHub Packages.
   push:
     # Ensure test job passes before pushing image.
-    needs: test
+    needs: build
 
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout Code
+        uses: actions/checkout@v2
 
       - name: Download file buildJar
         uses: actions/download-artifact@v1
         with:
           name: buildjar
 
-      #      - name: Create Build Artifact
-      #        uses: eskatos/gradle-command-action@v1
-      #        with:
-      #          arguments: -Pgdusername=${{ github.actor }} -Pgdtoken=${{ secrets.GITHUB_TOKEN }} clean build
-
       - name: Build image
-
         run: |
           mkdir -p build/libs
           mv buildjar/payment-0.0.1-SNAPSHOT.jar build/libs
-          docker build --build-arg FOR_GRADLE_PROJECT_gdusername=$gdusername --build-arg FOR_GRADLE_PROJECT_gdtoken=$gdtoken . --file Dockerfile --tag image
+          docker build -t image .
 
       - name: Log into registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
