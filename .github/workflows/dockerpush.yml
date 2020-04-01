@@ -46,8 +46,8 @@ jobs:
            name: buildjar
            path: build/libs/payment-0.0.1-SNAPSHOT.jar
 
-  # Push image to GitHub Packages.
-  # See also https://docs.docker.com/docker-hub/builds/
+#   Push image to GitHub Packages.
+#   See also https://docs.docker.com/docker-hub/builds/
   push:
     # Ensure test job passes before pushing image.
     needs: test
