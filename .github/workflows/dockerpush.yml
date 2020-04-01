@@ -22,32 +22,31 @@ env:
 jobs:
   # Run tests.
   # See also https://docs.docker.com/docker-hub/builds/automated-testing/
-   test:
-     runs-on: ubuntu-latest
+  test:
+    runs-on: ubuntu-latest
 
-     steps:
-       - uses: actions/checkout@v2
-       - name: Create Build Artifact
-         uses: eskatos/gradle-command-action@v1
-         with:
-           arguments: -Pgdusername=${{ github.actor }} -Pgdtoken=${{ secrets.GITHUB_TOKEN }} clean build
-       - name: Run tests
-         run: |
-           if [ -f docker-compose.test.yml ]; then
-             docker-compose --file docker-compose.test.yml build
-             docker-compose --file docker-compose.test.yml run sut
-           else
-             docker build --build-arg FOR_GRADLE_PROJECT_gdusername=$gdusername --build-arg FOR_GRADLE_PROJECT_gdtoken=$gdtoken . --file Dockerfile
-           fi
+    steps:
+      - uses: actions/checkout@v2
+      - name: Create Build Artifact
+        uses: eskatos/gradle-command-action@v1
+        with:
+          arguments: -Pgdusername=${{ github.actor }} -Pgdtoken=${{ secrets.GITHUB_TOKEN }} clean build
+      - name: Run tests
+        run: |
+          if [ -f docker-compose.test.yml ]; then
+            docker-compose --file docker-compose.test.yml build
+            docker-compose --file docker-compose.test.yml run sut
+          else
+            docker build --build-arg FOR_GRADLE_PROJECT_gdusername=$gdusername --build-arg FOR_GRADLE_PROJECT_gdtoken=$gdtoken . --file Dockerfile
+          fi
 
-       - name: Upload file jar
-         uses: actions/upload-artifact@v1
-         with:
-           name: buildjar
-           path: build/libs/payment-0.0.1-SNAPSHOT.jar
+      - name: Upload file jar
+        uses: actions/upload-artifact@v1
+        with:
+          name: buildjar
+          path: build/libs/payment-0.0.1-SNAPSHOT.jar
 
-#   Push image to GitHub Packages.
-#   See also https://docs.docker.com/docker-hub/builds/
+  #   Push image to GitHub Packages.
   push:
     # Ensure test job passes before pushing image.
     needs: test
@@ -63,10 +62,10 @@ jobs:
         with:
           name: buildjar
 
-#      - name: Create Build Artifact
-#        uses: eskatos/gradle-command-action@v1
-#        with:
-#          arguments: -Pgdusername=${{ github.actor }} -Pgdtoken=${{ secrets.GITHUB_TOKEN }} clean build
+      #      - name: Create Build Artifact
+      #        uses: eskatos/gradle-command-action@v1
+      #        with:
+      #          arguments: -Pgdusername=${{ github.actor }} -Pgdtoken=${{ secrets.GITHUB_TOKEN }} clean build
 
       - name: Build image
 
@@ -81,7 +80,7 @@ jobs:
       - name: Push image
         run: |
           IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME
-          
+
           # Strip git ref prefix from version
           VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
 
