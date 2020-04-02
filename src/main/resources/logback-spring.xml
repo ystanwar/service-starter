@@ -9,7 +9,7 @@
     </appender>
 
     <appender name="json" class="ch.qos.logback.core.ConsoleAppender">
-        <layout class="ch.qos.logback.contrib.json.classic.JsonLayout">
+        <layout class="com.thoughtworks.logger.CustomJsonLayout">
             <jsonFormatter
                     class="ch.qos.logback.contrib.jackson.JacksonJsonFormatter">
                 <prettyPrint>true</prettyPrint>
@@ -23,7 +23,7 @@
               class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>logs/logs.log</file>
         <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
-            <layout class="ch.qos.logback.contrib.json.classic.JsonLayout">
+            <layout class="com.thoughtworks.logger.CustomJsonLayout">
                 <jsonFormatter class="ch.qos.logback.contrib.jackson.JacksonJsonFormatter">
                     <prettyPrint>true</prettyPrint>
                 </jsonFormatter>
