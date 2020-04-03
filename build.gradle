@@ -4,10 +4,19 @@ plugins {
     id 'java'
     id 'checkstyle'
     id 'org.openapi.generator' version '4.2.3'
+    id "org.sonarqube" version "2.7"
 }
 
 checkstyle {
     toolVersion = '8.31'
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", getProjectProperty('sonarprojectkey')
+        property "sonar.host.url", getProjectProperty('sonarhosturl')
+        property "sonar.login", getProjectProperty('sonarlogin')
+    }
 }
 
 group = 'com.thoughtworks'
@@ -88,24 +97,24 @@ dependencies {
     //compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
 }
 
- openApiGenerate {
-     generatorName = "spring"
-     library = "spring-boot"
-     inputSpec = "$rootDir/src/main/resources/static/paymentapi.json".toString()
-     outputDir = "$rootDir".toString()
-     apiPackage = "com.thoughtworks.api.api"
-     modelPackage = "com.thoughtworks.api.api.model"
-     modelFilesConstrainedTo = []
-     configOptions = [
-             unhandledException     : "true",
-             title                  : "Payment",
-             dateLibrary            : "java8",
-             interfaceOnly          : "true",
-             java8                  : "true",
-             hideGenerationTimestamp: "true",
-             returnSuccessCode      : "true",
-             swaggerDocketConfig    : "false",
- //			skipDefaultInterface   : "true",
-             configPackage          : "com.thoughtworks.api.api.configuration",
-     ]
- }
+openApiGenerate {
+    generatorName = "spring"
+    library = "spring-boot"
+    inputSpec = "$rootDir/src/main/resources/static/paymentapi.json".toString()
+    outputDir = "$rootDir".toString()
+    apiPackage = "com.thoughtworks.api.api"
+    modelPackage = "com.thoughtworks.api.api.model"
+    modelFilesConstrainedTo = []
+    configOptions = [
+            unhandledException     : "true",
+            title                  : "Payment",
+            dateLibrary            : "java8",
+            interfaceOnly          : "true",
+            java8                  : "true",
+            hideGenerationTimestamp: "true",
+            returnSuccessCode      : "true",
+            swaggerDocketConfig    : "false",
+            //			skipDefaultInterface   : "true",
+            configPackage          : "com.thoughtworks.api.api.configuration",
+    ]
+}
