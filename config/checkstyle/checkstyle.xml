@@ -11,6 +11,8 @@
            BOR_ASSIGN,BAND_ASSIGN"/>
             <property name="tokens" value="LCURLY,RCURLY"/>
         </module>
+        <module name="WhitespaceAfter"/>
+        <module name="SingleSpaceSeparator"/>
     </module>
 
     <module name="SuppressionFilter">

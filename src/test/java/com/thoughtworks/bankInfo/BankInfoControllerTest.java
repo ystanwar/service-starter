@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(BankInfoController.class)
-@Import({PrometheusFilterConfig.class,})
+@Import({PrometheusFilterConfig.class})
 public class BankInfoControllerTest {
 
     @Autowired
