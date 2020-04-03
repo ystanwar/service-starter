@@ -8,4 +8,6 @@
     <suppress checks="WhitespaceAround" files="[\\/]api[\\/]"/>
     <suppress checks="WhitespaceAfter" files="[\\/]api[\\/]"/>
     <suppress checks="SingleSpaceSeparator" files="[\\/]api[\\/]"/>
+    <suppress checks="NoWhitespaceBefore" files="[\\/]api[\\/]"/>
+    <suppress checks="NoWhitespaceAfter" files="[\\/]api[\\/]"/>
 </suppressions>

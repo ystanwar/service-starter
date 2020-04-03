@@ -13,6 +13,15 @@
         </module>
         <module name="WhitespaceAfter"/>
         <module name="SingleSpaceSeparator"/>
+        <module name="NoWhitespaceBefore">
+            <property name="tokens" value="METHOD_REF"/>
+            <property name="tokens" value="DOT"/>
+            <property name="allowLineBreaks" value="true"/>
+        </module>
+        <module name="NoWhitespaceAfter">
+            <property name="tokens" value="DOT"/>
+            <property name="allowLineBreaks" value="false"/>
+        </module>
     </module>
 
     <module name="SuppressionFilter">
