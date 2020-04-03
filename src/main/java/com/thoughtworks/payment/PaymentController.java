@@ -55,8 +55,9 @@ public class PaymentController implements PaymentsApi {
 
     @GetMapping
     @Override
-    public ResponseEntity<List<Payment>> getAllPayments() {
-        return ResponseEntity.status(HttpStatus.CREATED).body(paymentService.getAll());
+    public ResponseEntity<List<Payment>> getAllPayments() throws Exception {
+        List paymentList = paymentService.getAll();
+        return ResponseEntity.status(HttpStatus.CREATED).body(paymentList);
     }
 
 }
