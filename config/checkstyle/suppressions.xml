@@ -10,4 +10,5 @@
     <suppress checks="SingleSpaceSeparator" files="[\\/]api[\\/]"/>
     <suppress checks="NoWhitespaceBefore" files="[\\/]api[\\/]"/>
     <suppress checks="NoWhitespaceAfter" files="[\\/]api[\\/]"/>
+    <suppress checks="GenericWhitespace" files="[\\/]api[\\/]"/>
 </suppressions>
