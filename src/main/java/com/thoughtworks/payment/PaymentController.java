@@ -44,7 +44,7 @@ public class PaymentController implements PaymentsApi {
         mapper.put("PaymentId", String.valueOf(savedPayment.getId()));
         mapper.put("BeneficiaryIfscCode", savedPayment.getBeneficiaryIfscCode());
         mapper.put("PayeeIfscCode", savedPayment.getPayeeIfscCode());
-        MDC.put("event_code","success");
+        MDC.put("event_code", "success");
         log.info("{\"eventCode\":{},\"description\":{},\"details\":{}}", v("eventCode", "\"PAYMENT_SUCCESSFUL\""), v("description", "\"payment successful\""), v("details", mapper.toString()));
         MDC.remove("event_code");
         PaymentSuccessResponse response = new PaymentSuccessResponse();

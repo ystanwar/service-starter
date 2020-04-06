@@ -10,6 +10,6 @@ public class CustomJsonLayout extends JsonLayout {
     @Override
     protected void addCustomDataToJsonMap(Map<String, Object> map, ILoggingEvent event) {
         super.addCustomDataToJsonMap(map, event);
-        map.put("event_code","successfull");
+        map.put("event_code", "successfull");
     }
 }
