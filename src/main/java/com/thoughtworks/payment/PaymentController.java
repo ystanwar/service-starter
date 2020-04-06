@@ -7,6 +7,7 @@ import com.thoughtworks.api.api.model.Payment;
 import com.thoughtworks.api.api.model.PaymentRequest;
 import com.thoughtworks.api.api.model.PaymentSuccessResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,9 +44,9 @@ public class PaymentController implements PaymentsApi {
         mapper.put("PaymentId", String.valueOf(savedPayment.getId()));
         mapper.put("BeneficiaryIfscCode", savedPayment.getBeneficiaryIfscCode());
         mapper.put("PayeeIfscCode", savedPayment.getPayeeIfscCode());
-
+        MDC.put("event_code", "success");
         log.info("{\"eventCode\":{},\"description\":{},\"details\":{}}", v("eventCode", "\"PAYMENT_SUCCESSFUL\""), v("description", "\"payment successful\""), v("details", mapper.toString()));
-
+        MDC.remove("event_code");
         PaymentSuccessResponse response = new PaymentSuccessResponse();
         response.setStatusMessage("Payment done successfully");
         response.setPaymentId(savedPayment.getId());
