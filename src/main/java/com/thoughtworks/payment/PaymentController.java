@@ -3,7 +3,7 @@ package com.thoughtworks.payment;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.thoughtworks.api.api.PaymentsApi;
-import com.thoughtworks.payment.model.Payment;
+import com.thoughtworks.api.api.model.Payment;
 import com.thoughtworks.api.api.model.PaymentRequest;
 import com.thoughtworks.api.api.model.PaymentSuccessResponse;
 import lombok.extern.slf4j.Slf4j;
