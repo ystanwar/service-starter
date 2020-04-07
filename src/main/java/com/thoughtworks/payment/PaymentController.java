@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static net.logstash.logback.argument.StructuredArguments.v;
+import static net.logstash.logback.argument.StructuredArguments.kv;
 
 @Slf4j
 @RestController
@@ -44,9 +45,7 @@ public class PaymentController implements PaymentsApi {
         mapper.put("PaymentId", String.valueOf(savedPayment.getId()));
         mapper.put("BeneficiaryIfscCode", savedPayment.getBeneficiaryIfscCode());
         mapper.put("PayeeIfscCode", savedPayment.getPayeeIfscCode());
-        MDC.put("event_code", "success");
-        log.info("{\"eventCode\":{},\"description\":{},\"details\":{}}", v("eventCode", "\"PAYMENT_SUCCESSFUL\""), v("description", "\"payment successful\""), v("details", mapper.toString()));
-        MDC.remove("event_code");
+        log.info("payment successful", kv("eventCode", "PAYMENT_SUCCESSFUL"), kv("details", mapper.toString()));
         PaymentSuccessResponse response = new PaymentSuccessResponse();
         response.setStatusMessage("Payment done successfully");
         response.setPaymentId(savedPayment.getId());

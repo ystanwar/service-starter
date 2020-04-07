@@ -163,15 +163,9 @@ public class BankClientTest {
     @Test
     public void testCheckBankDetailsSuccess() throws Exception {
 
-        String requestID = String.valueOf(UUID.randomUUID());
-        MDC.put("request.id", requestID);
         when(bankInfoService.fetchBankByBankCode(anyString())).thenReturn(new BankInfo("HDFC", "http://localhost:8082"));
         when(bankDetailsApi.getApiClient()).thenReturn(new ApiClient());
         doNothing().when(bankDetailsApi).checkDetails(any(), any());
-//        stubFor(
-//                get(urlEqualTo("/checkDetails?accountNumber=12345&ifscCode=HDFC1234"))
-//                        .withHeader("PARENT_REQ_ID", matching("[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"))
-//                        .willReturn(aResponse().withStatus(200)));
 
         assertEquals(true, bankClient.checkBankDetails(12345, "HDFC1234"));
 
@@ -219,7 +213,7 @@ public class BankClientTest {
         doThrow(new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR)).when(bankDetailsApi).checkDetails(any(), any());
         DependencyException exception = assertThrows(DependencyException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
         assertEquals("BANKSERVICE_HDFC1234_FAILURE", exception.getErrorCode());
-        assertEquals("received 500", exception.getErrorMessage());
+        assertTrue(exception.getErrorMessage().endsWith("received 500"));
     }
 
     @Test
@@ -230,6 +224,6 @@ public class BankClientTest {
 
         DependencyException dex = assertThrows(DependencyException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
         assertEquals("BANKSERVICE_HDFC1234_FAILURE", dex.getErrorCode());
-        assertEquals("UNAVAILABLE", dex.getErrorMessage());
+        assertEquals(0, dex.getErrorMessage().indexOf("UNAVAILABLE"));
     }
 }

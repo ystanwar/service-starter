@@ -59,7 +59,7 @@ public class Payment {
         this.payeeAccountNumber = payee.getAccountNumber();
         this.payeeIfscCode = payee.getIfscCode();
         this.status = "success";
-        this.requestId = MDC.get("request.id");
+        this.requestId = MDC.get("X-Request-ID");
     }
 
     public int getId() {

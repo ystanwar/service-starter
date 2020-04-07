@@ -36,3 +36,7 @@ bin/
 
 ### logs ###
 logs/
+*.log
+
+### jvm ###
+*.hprof

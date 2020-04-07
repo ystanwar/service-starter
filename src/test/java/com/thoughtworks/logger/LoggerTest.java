@@ -93,56 +93,56 @@ public class LoggerTest {
     }
 
 
+    // @Test
+    // void checkInfoLogMessageHasAllFields() throws Exception {
+    //     Logger fooLogger = (Logger) LoggerFactory.getLogger(PaymentController.class);
+    //     ListAppender<ILoggingEvent> listAppender = new ListAppender<>();
+    //     listAppender.start();
+    //     fooLogger.addAppender(listAppender);
+    //     ObjectMapper mapper = new ObjectMapper();
+    //     when(bankClient.checkBankDetails(anyLong(), anyString())).thenReturn(true);
+    //     when(fraudClient.checkFraud(any())).thenReturn(true);
+    //     BankDetails beneficiary = new BankDetails().name("user1").accountNumber(12L).ifscCode("HDFC1");
+    //     BankDetails payee = new BankDetails().name("user2").accountNumber(12346L).ifscCode("HDFC1234");
+
+    //     Payment payment = new Payment(500, beneficiary, payee);
+    //     payment.setId(1);
+    //     when(paymentService.create(any(PaymentRequest.class))).thenReturn(payment);
+    //     paymentController.create1(getPaymentRequest());
+    //     for (ILoggingEvent logEvent : listAppender.list) {
+    //         JsonNode actualLogMessage = mapper.readTree(logEvent.getFormattedMessage());
+    //         assertTrue(actualLogMessage.has("details"));
+    //         assertTrue(actualLogMessage.has("description"));
+    //         assertTrue(actualLogMessage.has("eventCode"));
+    //         assertEquals(3, actualLogMessage.size());
+    //         assertEquals(Level.INFO, logEvent.getLevel());
+    //     }
+    // }
+
+    // @Test
+    // public void checkIfErrorLogMessageHasAllFields() throws IOException {
+    //     Logger fooLogger = (Logger) LoggerFactory.getLogger(ExceptionMessageHandler.class);
+    //     ListAppender<ILoggingEvent> listAppender = new ListAppender<>();
+    //     listAppender.start();
+    //     fooLogger.addAppender(listAppender);
+    //     ObjectMapper mapper = new ObjectMapper();
+
+    //     exceptionHandler.handleResourceNotFoundException(new ResourceNotFoundException("exception", "test logging message"));
+    //     for (ILoggingEvent logEvent : listAppender.list) {
+    //         JsonNode actualLogMessage = mapper.readTree(logEvent.getFormattedMessage());
+    //         assertTrue(actualLogMessage.has("exception"));
+    //         assertTrue(actualLogMessage.has("stackTrace"));
+    //         assertTrue(actualLogMessage.has("details"));
+    //         assertTrue(actualLogMessage.has("description"));
+    //         assertTrue(actualLogMessage.has("eventCode"));
+    //         assertEquals(5, actualLogMessage.size());
+    //         assertEquals(Level.ERROR, logEvent.getLevel());
+    //     }
+
+    // }
+
     @Test
-    void checkInfoLogMessageHasAllFields() throws Exception {
-        Logger fooLogger = (Logger) LoggerFactory.getLogger(PaymentController.class);
-        ListAppender<ILoggingEvent> listAppender = new ListAppender<>();
-        listAppender.start();
-        fooLogger.addAppender(listAppender);
-        ObjectMapper mapper = new ObjectMapper();
-        when(bankClient.checkBankDetails(anyLong(), anyString())).thenReturn(true);
-        when(fraudClient.checkFraud(any())).thenReturn(true);
-        BankDetails beneficiary = new BankDetails().name("user1").accountNumber(12L).ifscCode("HDFC1");
-        BankDetails payee = new BankDetails().name("user2").accountNumber(12346L).ifscCode("HDFC1234");
-
-        Payment payment = new Payment(500, beneficiary, payee);
-        payment.setId(1);
-        when(paymentService.create(any(PaymentRequest.class))).thenReturn(payment);
-        paymentController.create1(getPaymentRequest());
-        for (ILoggingEvent logEvent : listAppender.list) {
-            JsonNode actualLogMessage = mapper.readTree(logEvent.getFormattedMessage());
-            assertTrue(actualLogMessage.has("details"));
-            assertTrue(actualLogMessage.has("description"));
-            assertTrue(actualLogMessage.has("eventCode"));
-            assertEquals(3, actualLogMessage.size());
-            assertEquals(Level.INFO, logEvent.getLevel());
-        }
-    }
-
-    @Test
-    public void checkIfErrorLogMessageHasAllFields() throws IOException {
-        Logger fooLogger = (Logger) LoggerFactory.getLogger(ExceptionMessageHandler.class);
-        ListAppender<ILoggingEvent> listAppender = new ListAppender<>();
-        listAppender.start();
-        fooLogger.addAppender(listAppender);
-        ObjectMapper mapper = new ObjectMapper();
-
-        exceptionHandler.handleResourceNotFoundException(new ResourceNotFoundException("exception", "test logging message"));
-        for (ILoggingEvent logEvent : listAppender.list) {
-            JsonNode actualLogMessage = mapper.readTree(logEvent.getFormattedMessage());
-            assertTrue(actualLogMessage.has("exception"));
-            assertTrue(actualLogMessage.has("stackTrace"));
-            assertTrue(actualLogMessage.has("details"));
-            assertTrue(actualLogMessage.has("description"));
-            assertTrue(actualLogMessage.has("eventCode"));
-            assertEquals(5, actualLogMessage.size());
-            assertEquals(Level.ERROR, logEvent.getLevel());
-        }
-
-    }
-
-    @Test
-    void checkFilterRequest() throws Exception {
+    void checkLogsFromFilterForSuccessfulPayment() throws Exception {
         Logger fooLogger = (Logger) LoggerFactory.getLogger(CustomRequestLoggingFilter.class);
         ListAppender<ILoggingEvent> listAppender = new ListAppender<>();
         listAppender.start();
@@ -167,17 +167,14 @@ public class LoggerTest {
                 .andExpect(status().isCreated())
                 .andExpect(content().string(objectMapper.writeValueAsString(response)));
 
-        ObjectMapper mapper = new ObjectMapper();
-
+     
+        int reqResponseLogCount = 0;
 
         for (ILoggingEvent logEvent : listAppender.list) {
-            JsonNode actualLogMessage = mapper.readTree(logEvent.getFormattedMessage());
-            assertTrue(actualLogMessage.has("details"));
-            assertTrue(actualLogMessage.has("description"));
-            assertTrue(actualLogMessage.has("eventCode"));
-            assertEquals(3, actualLogMessage.size());
-            assertEquals(Level.INFO, logEvent.getLevel());
+            if (logEvent.getFormattedMessage().trim().equals("POST")) reqResponseLogCount++;
         }
+       
+        assertEquals(2, reqResponseLogCount);
 
     }
 

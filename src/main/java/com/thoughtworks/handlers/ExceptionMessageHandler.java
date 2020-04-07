@@ -1,11 +1,13 @@
 package com.thoughtworks.handlers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.thoughtworks.api.api.model.PaymentFailureResponse;
 import com.thoughtworks.exceptions.*;
+
+
 import io.github.resilience4j.circuitbreaker.CallNotPermittedException;
 import lombok.extern.slf4j.Slf4j;
+
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
@@ -15,23 +17,23 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import java.util.Arrays;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import static net.logstash.logback.argument.StructuredArguments.kv;
 
 //@Hidden
 @Slf4j
 @ControllerAdvice
 public class ExceptionMessageHandler {
     private void logException(Exception ex) {
-        ObjectNode mapperOne = new ObjectMapper().createObjectNode();
-
-        String eventCode;
-        String descriptionString;
+        String eventCode = "";
+        String descriptionString = "";
         String detailsString = "";
-        String exceptionString;
+        String exceptionString = "";
 
         if (ServiceException.class.isAssignableFrom(ex.getClass())) {
             ServiceException serviceException = (ServiceException) ex;
@@ -46,22 +48,15 @@ public class ExceptionMessageHandler {
         } else {
             eventCode = "SYSTEM_ERROR";
             descriptionString = ex.getMessage();
-            exceptionString = ex.toString();
+            exceptionString = ex.getClass().toString();
         }
-
         Throwable causedByException = ex.getCause();
         if ((causedByException) != null) {
-
-            descriptionString = causedByException.getMessage();
-            detailsString = "";
-            exceptionString = causedByException.toString();
+            descriptionString = descriptionString + "=>" + causedByException.getMessage();
+            exceptionString = exceptionString + "=>" + causedByException.getClass().toString();
         }
-        mapperOne.put("eventCode", eventCode);
-        mapperOne.put("description", descriptionString);
-        mapperOne.put("details", detailsString);
-        mapperOne.put("exception", exceptionString);
-        mapperOne.put("stackTrace", Arrays.toString(ex.getStackTrace()));
-        log.error(mapperOne.toString());
+        
+        log.error(descriptionString, kv("eventCode", eventCode), kv("exception", exceptionString), kv("details", detailsString), kv("stackTraceElement", ex.getStackTrace()[0].toString()));       
     }
 
 

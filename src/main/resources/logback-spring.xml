@@ -8,28 +8,25 @@
         </layout>
     </appender>
 
+
     <appender name="json" class="ch.qos.logback.core.ConsoleAppender">
-        <layout class="com.thoughtworks.logger.CustomJsonLayout">
-            <jsonFormatter
-                    class="ch.qos.logback.contrib.jackson.JacksonJsonFormatter">
-                <prettyPrint>true</prettyPrint>
-            </jsonFormatter>
-            <timestampFormat>yyyy-MM-dd' 'HH:mm:ss.SSS</timestampFormat>
-        </layout>
+    <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+    </encoder>
+    </appender>
+   
+     <appender name="STASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+    <destination>localhost:9999</destination>
+    <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+    </encoder>
+    <keepAliveDuration>5 minutes</keepAliveDuration>
     </appender>
 
 
     <appender name="RollingFile"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>logs/logs.log</file>
-        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
-            <layout class="com.thoughtworks.logger.CustomJsonLayout">
-                <jsonFormatter class="ch.qos.logback.contrib.jackson.JacksonJsonFormatter">
-                    <prettyPrint>true</prettyPrint>
-                </jsonFormatter>
-                <timestampFormat>yyyy-MM-dd' 'HH:mm:ss.SSS</timestampFormat>
-
-            </layout>
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+       
         </encoder>
 
         <rollingPolicy
@@ -44,6 +41,8 @@
         </rollingPolicy>
     </appender>
 
+   
+
     <!-- LOG everything at INFO level -->
     <root level="info">
         <appender-ref ref="RollingFile"/>
@@ -54,11 +53,13 @@
     <logger name="com.thoughtworks" level="trace" additivity="false">
         <appender-ref ref="RollingFile"/>
         <appender-ref ref="json"/>
+        <appender-ref ref="STASH"/>
     </logger>
 
     <logger name="org.apache" level="info" additivity="false">
         <appender-ref ref="RollingFile"/>
         <appender-ref ref="json"/>
+        <appender-ref ref="STASH"/>
     </logger>
 
 </configuration>
