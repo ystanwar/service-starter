@@ -29,7 +29,41 @@ jacocoTestReport {
         html.enabled false
     }
 }
+
+jacocoTestCoverageVerification {
+    violationRules {
+
+        rule {
+            element = 'CLASS'
+            limit {
+                counter = 'LINE'
+                value = 'COVEREDRATIO'
+                minimum = 0.9
+            }
+            excludes = [
+                    'com.thoughtworks.exceptions.*',
+                    'com.thoughtworks.api.api.*',
+                    'com.thoughtworks.logger.LogHelper',
+                    'com.thoughtworks.logger.ErrorEvent',
+                    'com.thoughtworks.PaymentApplication',
+                    'com.thoughtworks.RestTemplateConfig',
+                    'com.thoughtworks.handlers.ExceptionMessageHandler'
+            ]
+        }
+//        rule {
+//            element = 'CLASS'
+//            limit {
+//                counter = 'LINE'
+//                value = 'COVEREDRATIO'
+//                minimum = 0.2
+//            }
+//        }
+    }
+
+}
+
 test.finalizedBy jacocoTestReport
+check.dependsOn jacocoTestCoverageVerification
 
 
 group = 'com.thoughtworks'
