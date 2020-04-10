@@ -7,7 +7,7 @@ plugins {
     id "org.sonarqube" version "2.7"
     id 'jacoco'
     id "org.owasp.dependencycheck" version "5.3.2.1"
-
+    id 'au.com.dius.pact' version '4.0.2'
 }
 
 checkstyle {
@@ -22,6 +22,12 @@ sonarqube {
     }
 }
 
+pact {
+    publish {
+        pactBrokerUrl = 'http://localhost:9292'
+    }
+}
+
 jacocoTestReport {
     reports {
         xml.enabled true
@@ -29,7 +35,41 @@ jacocoTestReport {
         html.enabled false
     }
 }
+
+jacocoTestCoverageVerification {
+    violationRules {
+
+        rule {
+            element = 'CLASS'
+            limit {
+                counter = 'LINE'
+                value = 'COVEREDRATIO'
+                minimum = 0.9
+            }
+            excludes = [
+                    'com.thoughtworks.exceptions.*',
+                    'com.thoughtworks.api.api.*',
+                    'com.thoughtworks.logger.LogHelper',
+                    'com.thoughtworks.logger.ErrorEvent',
+                    'com.thoughtworks.PaymentApplication',
+                    'com.thoughtworks.RestTemplateConfig',
+                    'com.thoughtworks.handlers.ExceptionMessageHandler'
+            ]
+        }
+//        rule {
+//            element = 'CLASS'
+//            limit {
+//                counter = 'LINE'
+//                value = 'COVEREDRATIO'
+//                minimum = 0.2
+//            }
+//        }
+    }
+
+}
+
 test.finalizedBy jacocoTestReport
+check.dependsOn jacocoTestCoverageVerification
 
 
 group = 'com.thoughtworks'
@@ -72,6 +112,7 @@ bootRun {
 test {
     systemProperty 'spring.profiles.active', 'test'
     useJUnitPlatform()
+//    systemProperties['pact.rootDir'] = "$buildDir/custom-pacts-directory"
 }
 
 ext {
@@ -109,6 +150,7 @@ dependencies {
     //compile group: 'org.openapitools', name: 'jackson-databind-nullable', version: '0.2.1'
     //compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
 //    classpath("org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.2.1")
+    compile group: 'au.com.dius', name: 'pact-jvm-consumer-junit5', version: '4.0.9'
 }
 
 openApiGenerate {
