@@ -1,0 +1,44 @@
+version: '3.7'
+
+services:
+  paymentservice:
+    container_name: paymentservice_con
+    image: paymentservice:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - "spring_datasource_url=jdbc:postgresql://host.docker.internal:5432/paymentdb"
+      - "spring_datasource_username=paymentuser"
+      - "spring_datasource_password=password"
+      - "spring_jpa_hibernate_ddl-auto=validate"
+      - "spring_flyway_url=jdbc:postgresql://host.docker.internal:5432/paymentdb"
+      - "spring_flyway_user=paymentuser"
+      - "spring_flyway_password=password"
+      - "spring_flyway_enabled=true"
+      - "spring_flyway_locations=classpath:/db/migration"
+      - fraudService=${fraudService}
+    networks:
+      - paymentnetwork
+
+  bankservice:
+    container_name: bankservice
+    image: docker.pkg.github.com/cd-jump-start/service-dep-bankservice/bankservice:latest
+    ports:
+      - 8082:8082
+    environment:
+      - server.port=8082
+    networks:
+      - paymentnetwork
+
+  fraudservice:
+    container_name: fraudservice
+    image: docker.pkg.github.com/cd-jump-start/service-dep-fraudservice/fraudservice:latest
+    ports:
+      - 8085:8083
+    environment:
+      - server.port=8083
+    networks:
+      - paymentnetwork
