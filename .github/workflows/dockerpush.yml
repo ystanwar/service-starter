@@ -18,6 +18,9 @@ env:
   IMAGE_NAME: paymentservice
   ORG_GRADLE_PROJECT_gdusername: ${{ github.actor }}
   ORG_GRADLE_PROJECT_gdtoken: ${{ secrets.GITHUB_TOKEN }}
+  ORG_GRADLE_PROJECT_sonarprojectkey: ${{secrets.SONAR_PROJECT_KEY}}
+  ORG_GRADLE_PROJECT_sonarhosturl: ${{secrets.SONAR_HOST}}
+  ORG_GRADLE_PROJECT_sonarlogin: ${{secrets.SONAR_TOKEN}}
 
 jobs:
   build:
@@ -39,6 +42,11 @@ jobs:
         uses: eskatos/gradle-command-action@v1
         with:
           arguments: clean build
+      
+      - name: sonarqube scan
+        uses: eskatos/gradle-command-action@v1
+        with:
+          arguments: sonarqube
 
       - name: Upload jar artifact
         uses: actions/upload-artifact@v1
