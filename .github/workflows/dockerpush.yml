@@ -45,7 +45,7 @@ jobs:
         env:
          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --severity-threshold=high
+          args: --file=build.gradle
 
       - name: Upload jar artifact
         uses: actions/upload-artifact@v1
