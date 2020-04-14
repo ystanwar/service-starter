@@ -10,15 +10,15 @@
 
 
     <appender name="json" class="ch.qos.logback.core.ConsoleAppender">
-    <encoder class="net.logstash.logback.encoder.LogstashEncoder">
-    </encoder>
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+        </encoder>
     </appender>
-   
-     <appender name="STASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-    <destination>localhost:9999</destination>
-    <encoder class="net.logstash.logback.encoder.LogstashEncoder">
-    </encoder>
-    <keepAliveDuration>5 minutes</keepAliveDuration>
+
+    <appender name="STASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <destination>localhost:9999</destination>
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+        </encoder>
+        <keepAliveDuration>5 minutes</keepAliveDuration>
     </appender>
 
 
@@ -26,7 +26,6 @@
               class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>logs/logs.log</file>
         <encoder class="net.logstash.logback.encoder.LogstashEncoder">
-       
         </encoder>
 
         <rollingPolicy
@@ -41,7 +40,6 @@
         </rollingPolicy>
     </appender>
 
-   
 
     <!-- LOG everything at INFO level -->
     <root level="info">

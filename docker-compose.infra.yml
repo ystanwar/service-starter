@@ -11,6 +11,8 @@ services:
       - xpack.watcher.enabled=false
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
       - discovery.type=single-node
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
     networks:
       - paymentnetwork
   logstash:
@@ -38,11 +40,9 @@ services:
     depends_on:
       - elasticsearch
     environment:
-      - ELASTICSEARCH_URL=http://localhost:9200
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
     networks:
       - paymentnetwork
-networks:
-  paymentnetwork:
-    driver: bridge
 
-
+volumes:
+  elasticsearch-data:
