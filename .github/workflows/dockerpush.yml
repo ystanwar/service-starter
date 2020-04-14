@@ -15,6 +15,7 @@ on:
 
 env:
   # TODO: Change variable to your image's name.
+  GITHUB_WORKFLOW: payment-service
   IMAGE_NAME: paymentservice
   ORG_GRADLE_PROJECT_gdusername: ${{ github.actor }}
   ORG_GRADLE_PROJECT_gdtoken: ${{ secrets.GITHUB_TOKEN }}
