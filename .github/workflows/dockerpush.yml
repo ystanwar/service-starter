@@ -40,6 +40,14 @@ jobs:
         with:
           arguments: clean build
       
+      - name: Run Snyk to monitor for vulnerabilities
+        uses: snyk/actions/gradle@master
+        env:
+         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          command: monitor
+          args: --file=build.gradle --severity-threshold=high
+      
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/gradle@master
         env:
@@ -47,7 +55,7 @@ jobs:
         with:
           command: monitor test
           args: --file=build.gradle --severity-threshold=high
-
+    
       - name: Upload jar artifact
         uses: actions/upload-artifact@v1
         with:
