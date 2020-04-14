@@ -45,7 +45,7 @@ jobs:
         env:
          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          command: monitor
+          command: monitor test
           args: --file=build.gradle --severity-threshold=high
 
       - name: Upload jar artifact
