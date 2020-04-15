@@ -43,6 +43,11 @@ jobs:
         with:
           arguments: clean build
       
+      - name: sonarqube analysis
+        uses: eskatos/gradle-command-action@v1
+        with:
+          arguments: sonarqube
+      
       - name: Run Snyk to monitor for vulnerabilities
         uses: snyk/actions/gradle@master
         env:
