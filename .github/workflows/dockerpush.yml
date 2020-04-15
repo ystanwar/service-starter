@@ -15,9 +15,12 @@ on:
 
 env:
   # TODO: Change variable to your image's name.
+  GITHUB_WORKFLOW: payment-service
   IMAGE_NAME: paymentservice
   ORG_GRADLE_PROJECT_gdusername: ${{ github.actor }}
   ORG_GRADLE_PROJECT_gdtoken: ${{ secrets.GITHUB_TOKEN }}
+  ORG_GRADLE_PROJECT_sonarlogin: ${{ secrets.SONAR_LOGIN }}
+
 
 jobs:
   build:
@@ -39,7 +42,28 @@ jobs:
         uses: eskatos/gradle-command-action@v1
         with:
           arguments: clean build
-
+      
+      - name: sonarqube analysis
+        uses: eskatos/gradle-command-action@v1
+        with:
+          arguments: sonarqube
+      
+      - name: Run Snyk to monitor for vulnerabilities
+        uses: snyk/actions/gradle@master
+        env:
+         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          command: monitor
+          args: --file=build.gradle --severity-threshold=high
+      
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/gradle@master
+        env:
+         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          command: test
+          args: --file=build.gradle --severity-threshold=high
+    
       - name: Upload jar artifact
         uses: actions/upload-artifact@v1
         with:
