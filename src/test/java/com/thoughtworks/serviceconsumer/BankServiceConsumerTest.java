@@ -57,7 +57,6 @@ public class BankServiceConsumerTest {
     void test(MockServer mockServer) throws IOException {
         bankDetailsApi.getApiClient().setBasePath(mockServer.getUrl());
         bankDetailsApi.checkDetails(12345L, "HDFC1234");
-
     }
 
 }

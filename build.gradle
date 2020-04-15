@@ -16,15 +16,18 @@ checkstyle {
 
 sonarqube {
     properties {
-        property "sonar.projectKey", getProjectProperty('sonarprojectkey')
-        property "sonar.host.url", getProjectProperty('sonarhosturl')
+        property "sonar.projectKey", "java-catalyst"
+        property "sonar.organization", "service-starter"
+        property "sonar.host.url", "https://sonarcloud.io"
         property "sonar.login", getProjectProperty('sonarlogin')
     }
 }
 
 pact {
     publish {
-        pactBrokerUrl = 'http://localhost:9292'
+        pactDirectory = 'build/pacts'
+        pactBrokerUrl =getProjectProperty('pactBrokerUrl')
+        pactBrokerToken = getProjectProperty('pactBrokerToken')
     }
 }
 
@@ -121,7 +124,13 @@ ext {
 dependencies {
     implementation 'com.google.code.gson:gson:2.8.0'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-web:2.2.2.RELEASE'
+    implementation ('org.springframework.boot:spring-boot-starter-web:2.2.6.RELEASE'){
+        exclude group: 'org.apache.tomcat.embed', module: 'tomcat-embed-core'
+        exclude group: 'org.springframework', module: 'spring-web'
+    }
+    compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-core', version: '9.0.30'
+    compile group: 'org.springframework', name: 'spring-web', version: '5.2.4.RELEASE'
+
     testCompile group: 'com.github.tomakehurst', name: 'wiremock', version: '2.25.1'
     implementation 'org.apache.httpcomponents:httpclient:4.5.10'
     implementation 'net.logstash.logback:logstash-logback-encoder:6.3'
@@ -140,17 +149,25 @@ dependencies {
     compile 'org.flywaydb:flyway-core:5.2.3'
     compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1'
     runtimeOnly 'org.postgresql:postgresql:42.2.5'
-    testCompile group: 'com.h2database', name: 'h2', version: '1.4.200'
+    testCompile group: 'com.h2database', name: 'h2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.2.1.RELEASE'
     // compile 'org.springdoc:springdoc-openapi-core:1.1.49'
     // compile 'org.springdoc:springdoc-openapi-core:1.2.19'
     // compile group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.1.49'
-    compile 'com.thoughtworks:BankServiceClient:1.1-SNAPSHOT'
-    compile 'com.thoughtworks:FraudServiceClient:1.1-SNAPSHOT'
+    compile( 'com.thoughtworks:BankServiceClient:1.1-SNAPSHOT'){
+        exclude group: 'org.springframework', module: 'spring-web'
+    }
+    compile('com.thoughtworks:FraudServiceClient:1.1-SNAPSHOT'){
+        exclude group: 'org.springframework', module: 'spring-web'
+    }
     //compile group: 'org.openapitools', name: 'jackson-databind-nullable', version: '0.2.1'
     //compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
 //    classpath("org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.2.1")
-    compile group: 'au.com.dius', name: 'pact-jvm-consumer-junit5', version: '4.0.9'
+    compile (group: 'au.com.dius', name: 'pact-jvm-consumer-junit5', version: '4.0.9'){
+        exclude group: 'io.netty', module: 'netty-codec-http'
+    }
+    compile group: 'io.netty', name: 'netty-codec', version: '4.1.48.Final'
+
 }
 
 openApiGenerate {
