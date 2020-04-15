@@ -16,15 +16,18 @@ checkstyle {
 
 sonarqube {
     properties {
-        property "sonar.projectKey", getProjectProperty('sonarprojectkey')
-        property "sonar.host.url", getProjectProperty('sonarhosturl')
+        property "sonar.projectKey", "java-catalyst"
+        property "sonar.organization", "service-starter"
+        property "sonar.host.url", "https://sonarcloud.io"
         property "sonar.login", getProjectProperty('sonarlogin')
     }
 }
 
 pact {
     publish {
-        pactBrokerUrl = 'http://localhost:9292'
+        pactDirectory = 'build/pacts'
+        pactBrokerUrl =getProjectProperty('pactBrokerUrl')
+        pactBrokerToken = getProjectProperty('pactBrokerToken')
     }
 }
 
