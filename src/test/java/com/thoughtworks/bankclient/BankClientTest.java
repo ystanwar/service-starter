@@ -2,6 +2,7 @@ package com.thoughtworks.bankclient;
 
 import com.thoughtworks.BankClient.api.BankDetailsApi;
 import com.thoughtworks.BankClient.invoker.ApiClient;
+import com.thoughtworks.ErrorCodes.InternalErrorCodes;
 import com.thoughtworks.bankInfo.BankInfo;
 import com.thoughtworks.bankInfo.BankInfoService;
 import com.thoughtworks.exceptions.DependencyException;
@@ -24,7 +25,6 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -53,16 +53,6 @@ public class BankClientTest {
     @MockBean
     BankDetailsApi bankDetailsApi;
 
-    //   private static WireMockServer wireMockServer;
-
-//    @BeforeAll
-//    static void setup() {
-//        wireMockServer = new WireMockServer(8082);
-//        wireMockServer.start();
-//        configureFor("localhost", 8082);
-//
-//    }
-
     @BeforeEach
     void circuitBreakerSetup() {
         circuitBreakerRegistry.circuitBreaker("bankservice").reset();
@@ -72,11 +62,6 @@ public class BankClientTest {
     void clearMDC() {
         MDC.clear();
     }
-
-//    @AfterAll
-//    static void tearDown() {
-//        wireMockServer.stop();
-//    }
 
     @Test
     public void circuitBreakerOpensAfterFiftyPercentThresholdFailureLimitAndDoesNotAllowRequests() throws Exception {
@@ -128,10 +113,10 @@ public class BankClientTest {
 
 
         TimeUnit.SECONDS.sleep(5);
-        assertEquals(true, bankClient.checkBankDetails(12345, "HDFC1234"));
+        assertTrue(bankClient.checkBankDetails(12345, "HDFC1234"));
         assertEquals("HALF_OPEN", circuitBreaker.getState().name());
 
-        assertEquals(true, bankClient.checkBankDetails(12345, "HDFC1234"));
+        assertTrue(bankClient.checkBankDetails(12345, "HDFC1234"));
         assertThrows(CallNotPermittedException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
         verify(bankInfoService, times(12)).fetchBankByBankCode(any(String.class));
         assertEquals("OPEN", circuitBreaker.getState().name());
@@ -167,7 +152,7 @@ public class BankClientTest {
         when(bankDetailsApi.getApiClient()).thenReturn(new ApiClient());
         doNothing().when(bankDetailsApi).checkDetails(any(), any());
 
-        assertEquals(true, bankClient.checkBankDetails(12345, "HDFC1234"));
+        assertTrue(bankClient.checkBankDetails(12345, "HDFC1234"));
 
     }
 
@@ -190,8 +175,8 @@ public class BankClientTest {
     @Test
     public void testCheckBankDetailsForInvalidAccount() throws Exception {
         when(bankInfoService.fetchBankByBankCode(anyString())).thenReturn(new BankInfo("HDFC", "http://localhost:8082"));
-//        stubFor(get(urlEqualTo("/checkDetails?accountNumber=0&ifscCode=HDFC1234")).willReturn(aResponse().withStatus(404)));
         when(bankDetailsApi.getApiClient()).thenReturn(new ApiClient());
+
         doThrow(new HttpClientErrorException(HttpStatus.NOT_FOUND)).when(bankDetailsApi).checkDetails(any(), any());
         assertEquals(false, bankClient.checkBankDetails(0, "HDFC1234"));
     }
@@ -208,11 +193,11 @@ public class BankClientTest {
     @Test
     public void testCheckBankDetailsForBankServiceErrors() {
         when(bankInfoService.fetchBankByBankCode(anyString())).thenReturn(new BankInfo("HDFC", "http://localhost:8082"));
-//        stubFor(get(urlEqualTo("/checkDetails?accountNumber=12345&ifscCode=HDFC1234")).willReturn(aResponse().withStatus(500)));
         when(bankDetailsApi.getApiClient()).thenReturn(new ApiClient());
         doThrow(new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR)).when(bankDetailsApi).checkDetails(any(), any());
+
         DependencyException exception = assertThrows(DependencyException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
-        assertEquals("BANKSERVICE_HDFC1234_FAILURE", exception.getErrorCode());
+        assertEquals(InternalErrorCodes.SERVER_ERROR, exception.getErrorCode());
         assertTrue(exception.getErrorMessage().endsWith("received 500"));
     }
 
@@ -223,7 +208,7 @@ public class BankClientTest {
         doThrow(RestClientException.class).when(bankDetailsApi).checkDetails(any(), any());
 
         DependencyException dex = assertThrows(DependencyException.class, () -> bankClient.checkBankDetails(12345, "HDFC1234"));
-        assertEquals("BANKSERVICE_HDFC1234_FAILURE", dex.getErrorCode());
+        assertEquals(InternalErrorCodes.SERVER_ERROR, dex.getErrorCode());
         assertEquals(0, dex.getErrorMessage().indexOf("UNAVAILABLE"));
     }
 }

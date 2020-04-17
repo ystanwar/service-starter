@@ -2,6 +2,7 @@ package com.thoughtworks.filter;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.thoughtworks.ErrorCodes.EventCodes;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
 import org.springframework.core.annotation.Order;
@@ -60,9 +61,9 @@ public class CustomRequestLoggingFilter implements Filter {
         String responseBody = new String(responseWrapper.getContentAsByteArray());
         ObjectMapper objectMapper = new ObjectMapper();
 
-        log.info(httpServletRequest.getMethod() + " " + httpServletRequest.getServletPath(), kv("eventCode", "REQUEST_RECEIVED"), kv("headers", objectMapper.writeValueAsString(getHeaders(httpServletRequest))), kv("params", objectMapper.writeValueAsString(httpServletRequest.getParameterMap())), kv("body", requestBody));
+        log.info(httpServletRequest.getMethod() + " " + httpServletRequest.getServletPath(), kv("eventCode", EventCodes.REQUEST_RECEIVED), kv("headers", objectMapper.writeValueAsString(getHeaders(httpServletRequest))), kv("params", objectMapper.writeValueAsString(httpServletRequest.getParameterMap())), kv("body", requestBody));
        
-        log.info(httpServletRequest.getMethod() + " " + httpServletRequest.getServletPath(), kv("eventCode", "RESPONSE_SENT"), kv("statusCode", httpServletResponse.getStatus()), kv("headers", objectMapper.writeValueAsString(getHeaders(httpServletRequest))), kv("body", getResponseContent(responseBody)));
+        log.info(httpServletRequest.getMethod() + " " + httpServletRequest.getServletPath(), kv("eventCode", EventCodes.RESPONSE_SENT), kv("statusCode", httpServletResponse.getStatus()), kv("headers", objectMapper.writeValueAsString(getHeaders(httpServletRequest))), kv("body", getResponseContent(responseBody)));
      }
 
     private Map<String, String> getHeaders(HttpServletRequest httpServletRequest) {

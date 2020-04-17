@@ -1,21 +1,22 @@
 package com.thoughtworks.exceptions;
 
 import com.google.gson.JsonObject;
+import com.thoughtworks.ErrorCodes.InternalErrorCodes;
 
 public class ResourceNotFoundException extends ServiceException {
-    public ResourceNotFoundException(String errorCode, String errorMessage) {
+    public ResourceNotFoundException(InternalErrorCodes errorCode, String errorMessage) {
         super(errorCode, errorMessage);
     }
 
-    public ResourceNotFoundException(String errorCode, String errorMessage, Exception causedByException) {
+    public ResourceNotFoundException(InternalErrorCodes errorCode, String errorMessage, Exception causedByException) {
         super(errorCode, errorMessage, causedByException);
     }
 
-    public ResourceNotFoundException(String errorCode, String errorMessage, JsonObject details) {
+    public ResourceNotFoundException(InternalErrorCodes errorCode, String errorMessage, JsonObject details) {
         super(errorCode, errorMessage, details);
     }
 
-    public ResourceNotFoundException(String errorCode, String errorMessage, JsonObject details, Exception causedByException) {
+    public ResourceNotFoundException(InternalErrorCodes errorCode, String errorMessage, JsonObject details, Exception causedByException) {
         super(errorCode, errorMessage, details, causedByException);
     }
 

@@ -1,5 +1,6 @@
 package com.thoughtworks.handlers;
 
+import com.thoughtworks.ErrorCodes.InternalErrorCodes;
 import com.thoughtworks.api.api.model.PaymentFailureResponse;
 import com.thoughtworks.exceptions.*;
 
@@ -30,7 +31,7 @@ import static net.logstash.logback.argument.StructuredArguments.kv;
 @ControllerAdvice
 public class ExceptionMessageHandler {
     private void logException(Exception ex) {
-        String eventCode = "";
+        InternalErrorCodes eventCode;
         String descriptionString = "";
         String detailsString = "";
         String exceptionString = "";
@@ -46,7 +47,7 @@ public class ExceptionMessageHandler {
             exceptionString = serviceException.getClass().toString();
 
         } else {
-            eventCode = "SYSTEM_ERROR";
+            eventCode = InternalErrorCodes.SYSTEM_ERROR;
             descriptionString = ex.getMessage();
             exceptionString = ex.getClass().toString();
         }
@@ -65,7 +66,7 @@ public class ExceptionMessageHandler {
     @ResponseBody
     public PaymentFailureResponse handleResourceNotFoundException(ResourceNotFoundException ex) {
         Map<String, String> errors = new HashMap<>();
-        errors.put(ex.getErrorCode(), ex.getErrorMessage());
+        errors.put(ex.getErrorCode().toString(), ex.getErrorMessage());
         logException(ex);
         return new PaymentFailureResponse().message("MISSING_INFO").reasons(errors);
 
@@ -76,7 +77,7 @@ public class ExceptionMessageHandler {
     @ResponseBody
     protected PaymentFailureResponse handleConflictException(ResourceConflictException ex) {
         Map<String, String> errors = new HashMap<>();
-        errors.put(ex.getErrorCode(), ex.getErrorMessage());
+        errors.put(ex.getErrorCode().toString(), ex.getErrorMessage());
         logException(ex);
         return new PaymentFailureResponse().message("REQUEST_CONFLICT").reasons(errors);
     }
@@ -86,7 +87,7 @@ public class ExceptionMessageHandler {
     @ResponseBody
     protected PaymentFailureResponse handleCircuitBreakException(CallNotPermittedException callNotPermittedException) {
         Map<String, String> errors = new HashMap<>();
-        errors.put("message", "Could not process the request");
+        errors.put(InternalErrorCodes.SERVER_ERROR.toString(), "Could not process the request");
         logException(callNotPermittedException);
         return new PaymentFailureResponse().message("SERVER_ERROR").reasons(errors);
     }
@@ -103,7 +104,7 @@ public class ExceptionMessageHandler {
 
         for (Map.Entry<String, String> errorMessage : fieldErrorMessages) {
             if (errors.containsKey(errorMessage.getKey())) {
-                String updatedMsg = errors.get(errorMessage.getKey()) + "; " + errorMessage.getValue();
+                String updatedMsg = errorMessage.getKey() + "; " + errorMessage.getValue();
                 errors.put(errorMessage.getKey(), updatedMsg);
             } else {
                 errors.put(errorMessage.getKey(), errorMessage.getValue());
@@ -123,7 +124,7 @@ public class ExceptionMessageHandler {
     @ResponseBody
     protected PaymentFailureResponse handleValidationException(ValidationException ex) {
         Map<String, String> errors = new HashMap<>();
-        errors.put(ex.getErrorCode(), ex.getErrorMessage());
+        errors.put(ex.getErrorCode().toString(), ex.getErrorMessage());
         logException(ex);
         return new PaymentFailureResponse().message("INVALID_INPUT").reasons(errors);
     }
@@ -133,7 +134,7 @@ public class ExceptionMessageHandler {
     @ResponseBody
     protected PaymentFailureResponse handleRequestNotReadableException(HttpMessageNotReadableException ex) {
         Map<String, String> errors = new HashMap<>();
-        errors.put("message", "Request body missing or incorrect format");
+        errors.put(InternalErrorCodes.PAYMENT_REQUEST_NOT_READABLE.toString(), "Request body missing or incorrect format");
         logException(ex);
         return new PaymentFailureResponse().message("INVALID_INPUT").reasons(errors);
     }
@@ -143,7 +144,7 @@ public class ExceptionMessageHandler {
     @ResponseBody
     protected PaymentFailureResponse handleProcessingException(BusinessException ex) {
         Map<String, String> errors = new HashMap<>();
-        errors.put(ex.getErrorCode(), ex.getErrorMessage());
+        errors.put(ex.getErrorCode().toString(), ex.getErrorMessage());
         logException(ex);
         return new PaymentFailureResponse().message("REQUEST_UNPROCESSABLE").reasons(errors);
     }
@@ -153,7 +154,17 @@ public class ExceptionMessageHandler {
     @ResponseBody
     protected PaymentFailureResponse handleGeneralException(Exception ex) {
         Map<String, String> errors = new HashMap<>();
-        errors.put("message", "Could not process the request");
+        errors.put(InternalErrorCodes.SERVER_ERROR.toString(), "Could not process the request");
+        logException(ex);
+        return new PaymentFailureResponse().message("SERVER_ERROR").reasons(errors);
+    }
+
+    @ExceptionHandler(DependencyException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    protected PaymentFailureResponse handleDependencyException(DependencyException ex) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put(InternalErrorCodes.SERVER_ERROR.toString(), "Could not process the request");
         logException(ex);
         return new PaymentFailureResponse().message("SERVER_ERROR").reasons(errors);
     }

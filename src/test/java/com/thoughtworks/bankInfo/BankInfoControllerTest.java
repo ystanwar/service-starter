@@ -1,6 +1,7 @@
 package com.thoughtworks.bankInfo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.thoughtworks.ErrorCodes.InternalErrorCodes;
 import com.thoughtworks.api.api.model.PaymentFailureResponse;
 import com.thoughtworks.exceptions.ResourceConflictException;
 import com.thoughtworks.filter.PrometheusFilterConfig;
@@ -12,7 +13,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -55,9 +55,9 @@ public class BankInfoControllerTest {
 
     @Test
     public void cannotCreateBankWhenBankInfoAlreadyExists() throws Exception {
-        when(bankInfoService.create(any(BankInfo.class))).thenThrow(new ResourceConflictException("message", "Bank info already exists"));
+        when(bankInfoService.create(any(BankInfo.class))).thenThrow(new ResourceConflictException(InternalErrorCodes.BANK_INFO_EXIST, "Bank info already exists"));
         Map<String, String> errors = new HashMap<>();
-        errors.put("message", "Bank info already exists");
+        errors.put(InternalErrorCodes.BANK_INFO_EXIST.toString(), "Bank info already exists");
         ObjectMapper objectMapper = new ObjectMapper();
         mockMvc.perform(post("/bankinfo")
                 .content("{\"bankCode\":\"HDFC\"," +

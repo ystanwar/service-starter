@@ -53,21 +53,17 @@ Set this in VM Options of "Run Configuration" in your IDE
 * Check the database you have configured. There will be 2 new empty tables – bankInfo and payment. Check and confirm the same
 
 ## Setting up seed data
-- Do a POST to http://localhost:8080/bankinfo with the following json
-
-{
-	"bankCode": "HDFC",
-	"url": "http://localhost:8082"
-}
-
-- You should get a 201 response with following body
-
-{
-    "id": 1,
-    "bankCode": "HDFC",
-    "url": "http://localhost:8082"
-}
-
+- Download the jar file from gitPackages -> BankInfoSeed-1.1-20200415.074232-1.jar
+- run the Service starter- ./gradlew bootRun
+- run jar file (by going to the jar file path)-> java -jar BankInfoSeed-1.1-20200415.074232-1.jar java -jar BankInfoSeed-1.1-20200415.074232-1.jar jsonFilePathContainingBankData http://localhost:8080/bankinfo
+- json File Data should be :->
+ [
+   {
+     "bankCode": "HDFC",
+     "url": "http://localhost:8082"
+   }
+ ]  
+  
 ## Running dependencies
 ### The payment service will require to connect to "BankService"
 Follow below steps to get "BankService" running on your local machine 

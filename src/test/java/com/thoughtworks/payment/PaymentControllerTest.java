@@ -1,6 +1,7 @@
 package com.thoughtworks.payment;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.thoughtworks.ErrorCodes.InternalErrorCodes;
 import com.thoughtworks.api.api.model.PaymentFailureResponse;
 import com.thoughtworks.api.api.model.PaymentRequest;
 import com.thoughtworks.api.api.model.PaymentSuccessResponse;
@@ -142,10 +143,10 @@ public class PaymentControllerTest {
 
     @Test
     public void createPaymentWithBeneficiaryDetailsNotExists() throws Exception {
-        when(paymentService.create(any(PaymentRequest.class))).thenThrow(new ResourceNotFoundException("message", "Beneficiary AccountDetails Not Found"));
+        when(paymentService.create(any(PaymentRequest.class))).thenThrow(new ResourceNotFoundException(InternalErrorCodes.ACCOUNT_NOT_FOUND, "Beneficiary AccountDetails Not Found"));
 
         Map<String, String> errors = new HashMap<>();
-        errors.put("message", "Beneficiary AccountDetails Not Found");
+        errors.put(InternalErrorCodes.ACCOUNT_NOT_FOUND.toString(), "Beneficiary AccountDetails Not Found");
         ObjectMapper objectMapper = new ObjectMapper();
 
         mockMvc.perform(post("/payments")
@@ -163,10 +164,10 @@ public class PaymentControllerTest {
     @Test
     public void createPaymentWithPayeeDetailsNotExists() throws Exception {
         Map<String, String> errors = new HashMap<>();
-        errors.put("message", "Payee AccountDetails Not Found");
+        errors.put(InternalErrorCodes.ACCOUNT_NOT_FOUND.toString(), "Payee AccountDetails Not Found");
         ObjectMapper objectMapper = new ObjectMapper();
 
-        when(paymentService.create(any(PaymentRequest.class))).thenThrow(new ResourceNotFoundException("message", "Payee AccountDetails Not Found"));
+        when(paymentService.create(any(PaymentRequest.class))).thenThrow(new ResourceNotFoundException(InternalErrorCodes.ACCOUNT_NOT_FOUND, "Payee AccountDetails Not Found"));
 
         mockMvc.perform(post("/payments")
                 .content("{\"amount\":500," +
@@ -245,10 +246,10 @@ public class PaymentControllerTest {
     @Test
     public void createPaymentWithBeneficiaryBankInfoMissing() throws Exception {
         Map<String, String> errors = new HashMap<>();
-        errors.put("message", "Bank info not found for ABCD234");
+        errors.put(InternalErrorCodes.BANK_INFO_NOT_FOUND.toString(), "Bank info not found for ABCD234");
         ObjectMapper objectMapper = new ObjectMapper();
 
-        when(paymentService.create(any(PaymentRequest.class))).thenThrow(new ResourceNotFoundException("message", "Bank info not found for ABCD234"));
+        when(paymentService.create(any(PaymentRequest.class))).thenThrow(new ResourceNotFoundException(InternalErrorCodes.BANK_INFO_NOT_FOUND, "Bank info not found for ABCD234"));
 
         mockMvc.perform(post("/payments")
                 .content("{\"amount\":500," +
@@ -266,10 +267,10 @@ public class PaymentControllerTest {
     @Test
     public void createPaymentWithInvalidIfscCodeFormat() throws Exception {
         Map<String, String> errors = new HashMap<>();
-        errors.put("message", "Invalid ifscCode format ->ABCD");
+        errors.put(InternalErrorCodes.INVALID_IFSC_FORMAT.toString(), "Invalid ifscCode format ->ABCD");
         ObjectMapper objectMapper = new ObjectMapper();
 
-        when(paymentService.create(any(PaymentRequest.class))).thenThrow(new ValidationException("message", "Invalid ifscCode format ->ABCD"));
+        when(paymentService.create(any(PaymentRequest.class))).thenThrow(new ValidationException(InternalErrorCodes.INVALID_IFSC_FORMAT, "Invalid ifscCode format ->ABCD"));
 
         mockMvc.perform(post("/payments")
                 .content("{\"amount\":500," +
@@ -287,7 +288,7 @@ public class PaymentControllerTest {
     @Test
     public void createPaymentWithGeneralException() throws Exception {
         Map<String, String> errors = new HashMap<>();
-        errors.put("message", "Could not process the request");
+        errors.put(InternalErrorCodes.SERVER_ERROR.toString(), "Could not process the request");
         ObjectMapper objectMapper = new ObjectMapper();
 
         when(paymentService.create(any(PaymentRequest.class))).thenThrow(new Exception("Could not process the request"));
@@ -307,7 +308,7 @@ public class PaymentControllerTest {
     @Test
     public void createPaymentWithInvalidRequestFormat() throws Exception {
         Map<String, String> errors = new HashMap<>();
-        errors.put("message", "Request body missing or incorrect format");
+        errors.put(InternalErrorCodes.PAYMENT_REQUEST_NOT_READABLE.toString(), "Request body missing or incorrect format");
         ObjectMapper objectMapper = new ObjectMapper();
 
         when(paymentService.create(any(PaymentRequest.class))).thenThrow(new Exception("paymentService.create() not expected to be called for this test case"));
@@ -326,10 +327,10 @@ public class PaymentControllerTest {
 
     @Test
     public void testCannotCreatePaymentDueToSuspectedFraud() throws Exception {
-        when(paymentService.create(any(PaymentRequest.class))).thenThrow(new PaymentRefusedException("SUSPECTED_FRAUD", "Suspected fraudulent transaction"));
+        when(paymentService.create(any(PaymentRequest.class))).thenThrow(new PaymentRefusedException(InternalErrorCodes.SUSPECTED_ACCOUNT, "Suspected fraudulent transaction"));
 
         Map<String, String> errors = new HashMap<>();
-        errors.put("SUSPECTED_FRAUD", "Suspected fraudulent transaction");
+        errors.put(InternalErrorCodes.SUSPECTED_ACCOUNT.toString(), "Suspected fraudulent transaction");
         ObjectMapper objectMapper = new ObjectMapper();
 
         mockMvc.perform(post("/payments")
@@ -347,10 +348,10 @@ public class PaymentControllerTest {
 
     @Test
     public void testCannotCreatePaymentDueToDependencyError() throws Exception {
-        when(paymentService.create(any(PaymentRequest.class))).thenThrow(new DependencyException("ExternalService", "BankService - HDFC1234", "/checkFraud", "UNAVAILABLE", new Exception()));
+        when(paymentService.create(any(PaymentRequest.class))).thenThrow(new DependencyException("ExternalService", InternalErrorCodes.SERVER_ERROR, "/checkFraud", "UNAVAILABLE", new Exception()));
 
         Map<String, String> errors = new HashMap<>();
-        errors.put("message", "Could not process the request");
+        errors.put(InternalErrorCodes.SERVER_ERROR.toString(), "Could not process the request");
         ObjectMapper objectMapper = new ObjectMapper();
 
         mockMvc.perform(post("/payments")
@@ -367,10 +368,10 @@ public class PaymentControllerTest {
 
     @Test
     public void testCannotCreatePaymentDueToBusinessError() throws Exception {
-        when(paymentService.create(any(PaymentRequest.class))).thenThrow(new BusinessException("SUSPECTED_FRAUD", "Suspected fraudulent transaction"));
+        when(paymentService.create(any(PaymentRequest.class))).thenThrow(new BusinessException(InternalErrorCodes.SUSPECTED_ACCOUNT, "Suspected fraudulent transaction"));
 
         Map<String, String> errors = new HashMap<>();
-        errors.put("SUSPECTED_FRAUD", "Suspected fraudulent transaction");
+        errors.put(InternalErrorCodes.SUSPECTED_ACCOUNT.toString(), "Suspected fraudulent transaction");
         ObjectMapper objectMapper = new ObjectMapper();
 
         mockMvc.perform(post("/payments")

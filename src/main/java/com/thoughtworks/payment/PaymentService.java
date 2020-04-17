@@ -1,10 +1,10 @@
 package com.thoughtworks.payment;
 
 import com.google.gson.JsonObject;
+import com.thoughtworks.ErrorCodes.InternalErrorCodes;
 import com.thoughtworks.api.api.model.PaymentRequest;
 import com.thoughtworks.exceptions.PaymentRefusedException;
 import com.thoughtworks.exceptions.ResourceNotFoundException;
-import com.thoughtworks.api.api.model.BankDetails;
 import com.thoughtworks.payment.model.Payment;
 import com.thoughtworks.prometheus.Prometheus;
 import com.thoughtworks.serviceclients.BankClient;
@@ -13,9 +13,8 @@ import io.micrometer.core.instrument.Counter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 import javax.validation.Valid;
+import java.util.List;
 
 @Service
 public class PaymentService {
@@ -48,7 +47,7 @@ public class PaymentService {
             jsonObject.addProperty("BeneficiaryIfscCode", payment.getBeneficiaryIfscCode());
             jsonObject.addProperty("PayeeIfscCode", payment.getPayeeIfscCode());
 
-            throw new ResourceNotFoundException("ACCOUNT_INVALID", payment.getBeneficiaryName() + "'s AccountDetails Not Found At " + payment.getBeneficiaryIfscCode(), jsonObject);
+            throw new ResourceNotFoundException(InternalErrorCodes.ACCOUNT_NOT_FOUND, payment.getBeneficiaryName() + "'s AccountDetails Not Found At " + payment.getBeneficiaryIfscCode(), jsonObject);
         }
         boolean isValidPayeeAccount = bankClient.checkBankDetails(payment.getPayeeAccountNumber(), payment.getPayeeIfscCode());
         if (!isValidPayeeAccount) {
@@ -60,14 +59,14 @@ public class PaymentService {
             jsonObject.addProperty("BeneficiaryIfscCode", payment.getBeneficiaryIfscCode());
             jsonObject.addProperty("PayeeIfscCode", payment.getPayeeIfscCode());
 
-            throw new ResourceNotFoundException("ACCOUNT_INVALID", payment.getPayeeName() + "'s AccountDetails Not Found At " + payment.getPayeeIfscCode(), jsonObject);
+            throw new ResourceNotFoundException(InternalErrorCodes.ACCOUNT_NOT_FOUND, payment.getPayeeName() + "'s AccountDetails Not Found At " + payment.getPayeeIfscCode(), jsonObject);
         }
 
         boolean isValidPayment = fraudClient.checkFraud(payment);
         if (!isValidPayment) {
             payment.setStatus("failed");
             paymentRepository.save(payment);
-            throw new PaymentRefusedException("SUSPECTED_FRAUD", "Suspected fraudulent transaction");
+            throw new PaymentRefusedException(InternalErrorCodes.SUSPECTED_ACCOUNT, "Suspected fraudulent transaction");
         }
 
         bankCounter = prometheus.getBankInfoCounter(payment.getBeneficiaryIfscCode().substring(0, 4));

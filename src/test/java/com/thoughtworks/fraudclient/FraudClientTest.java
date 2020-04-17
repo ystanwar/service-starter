@@ -1,5 +1,6 @@
 package com.thoughtworks.fraudclient;
 
+import com.thoughtworks.ErrorCodes.InternalErrorCodes;
 import com.thoughtworks.FraudClient.api.CheckFraudApi;
 import com.thoughtworks.FraudClient.invoker.ApiClient;
 import com.thoughtworks.exceptions.DependencyException;
@@ -34,28 +35,18 @@ public class FraudClientTest {
 
     @Test
     public void checkClientWhenNoFraudReturned() throws Exception {
-//        WireMockServer wireMockServer = new WireMockServer(8083);
-//        wireMockServer.start();
-//        configureFor("localhost", 8083);
-//        stubFor(post(urlEqualTo("/checkFraud")).willReturn(aResponse().withStatus(200)));
         when(checkFraudApi.getApiClient()).thenReturn(new ApiClient());
         doNothing().when(checkFraudApi).checkFraud(any());
-
 
         BankDetails beneficiary = new BankDetails().name("user1").accountNumber(12345L).ifscCode("HDFC1234");
         BankDetails payee = new BankDetails().name("user2").accountNumber(67890L).ifscCode("HDFC1234");
         Payment payment = new Payment(100, beneficiary, payee);
 
         assertTrue(fraudClient.checkFraud(payment));
-        //wireMockServer.stop();
     }
 
     @Test
     public void checkClientWhenFraudReturned() throws Exception {
-//        WireMockServer wireMockServer = new WireMockServer(8083);
-//        wireMockServer.start();
-//        configureFor("localhost", 8083);
-        //stubFor(post(urlEqualTo("/checkFraud")).willReturn(aResponse().withStatus(422)));
         when(checkFraudApi.getApiClient()).thenReturn(new ApiClient());
         doThrow(new HttpClientErrorException(HttpStatus.UNPROCESSABLE_ENTITY)).when(checkFraudApi).checkFraud(any());
 
@@ -64,16 +55,10 @@ public class FraudClientTest {
         Payment payment = new Payment(100, beneficiary, payee);
 
         assertFalse(fraudClient.checkFraud(payment));
-        //wireMockServer.stop();
     }
 
     @Test
     public void checkClientWhenServerErrorReturned() throws Exception {
-//        WireMockServer wireMockServer = new WireMockServer(8083);
-//        wireMockServer.start();
-//        configureFor("localhost", 8083);
-//        stubFor(post(urlEqualTo("/checkFraud")).willReturn(aResponse().withStatus(500)));
-
         when(checkFraudApi.getApiClient()).thenReturn(new ApiClient());
         doThrow(new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR)).when(checkFraudApi).checkFraud(any());
         BankDetails beneficiary = new BankDetails().name("user1").accountNumber(12345L).ifscCode("HDFC1234");
@@ -81,9 +66,8 @@ public class FraudClientTest {
         Payment payment = new Payment(100, beneficiary, payee);
 
         DependencyException dex = assertThrows(DependencyException.class, () -> fraudClient.checkFraud(payment));
-        assertEquals("FRAUDSERVICE_FAILURE", dex.getErrorCode());
+        assertEquals(InternalErrorCodes.SERVER_ERROR, dex.getErrorCode());
         assertEquals("received 500", dex.getErrorMessage());
-        // wireMockServer.stop();
     }
 
     @Test
@@ -96,7 +80,7 @@ public class FraudClientTest {
         Payment payment = new Payment(100, beneficiary, payee);
 
         DependencyException dex = assertThrows(DependencyException.class, () -> fraudClient.checkFraud(payment));
-        assertEquals("FRAUDSERVICE_FAILURE", dex.getErrorCode());
+        assertEquals(InternalErrorCodes.SERVER_ERROR, dex.getErrorCode());
         assertEquals("UNAVAILABLE", dex.getErrorMessage());
     }
 }

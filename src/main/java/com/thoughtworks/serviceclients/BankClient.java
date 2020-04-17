@@ -1,6 +1,7 @@
 package com.thoughtworks.serviceclients;
 
 import com.thoughtworks.BankClient.api.BankDetailsApi;
+import com.thoughtworks.ErrorCodes.InternalErrorCodes;
 import com.thoughtworks.bankInfo.BankInfo;
 import com.thoughtworks.bankInfo.BankInfoService;
 import com.thoughtworks.exceptions.DependencyException;
@@ -31,13 +32,13 @@ public class BankClient {
         if (ifscCode != null && ifscCode.length() >= 5) {
             return ifscCode.substring(0, 4);
         } else {
-            throw new ValidationException("message", "Invalid ifscCode format ->" + ifscCode);
+            throw new ValidationException(InternalErrorCodes.INVALID_IFSC_FORMAT, "Invalid ifscCode format ->" + ifscCode);
         }
     }
 
     public boolean checkBankDetails(long accountNumber, String ifscCode) throws Exception {
         BankInfo bankInfo = bankService.fetchBankByBankCode(getBankCode(ifscCode));
-        if (bankInfo == null) throw new ResourceNotFoundException("message", "Bank info not found for " + ifscCode);
+        if (bankInfo == null) throw new ResourceNotFoundException(InternalErrorCodes.BANK_INFO_NOT_FOUND, "Bank info not found for " + ifscCode);
         baseUrl = bankInfo.getUrl();
         String xoutGoingRequestId = "";
         try {
@@ -51,10 +52,10 @@ public class BankClient {
             if (ex.getStatusCode().value() == 404) {
                 return false;
             } else {
-                throw new DependencyException("ExternalService", "BANKSERVICE_" + ifscCode, baseUrl + "/checkDetails", "outgoing x-request-id : " + xoutGoingRequestId + " received " + ex.getStatusCode().value());
+                throw new DependencyException("ExternalService", InternalErrorCodes.SERVER_ERROR, baseUrl + "/checkDetails", "outgoing x-request-id : " + xoutGoingRequestId + " received " + ex.getStatusCode().value());
             }
         } catch (Exception ex) {
-            throw new DependencyException("ExternalService", "BANKSERVICE_" + ifscCode, baseUrl + "/checkDetails", "UNAVAILABLE" + " for outgoing x-request-id : " + xoutGoingRequestId , ex);
+            throw new DependencyException("ExternalService", InternalErrorCodes.SERVER_ERROR, baseUrl + "/checkDetails", "UNAVAILABLE" + " for outgoing x-request-id : " + xoutGoingRequestId , ex);
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.thoughtworks.bankInfo;
 
+import com.thoughtworks.ErrorCodes.InternalErrorCodes;
 import com.thoughtworks.exceptions.ResourceConflictException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ public class BankInfoService {
         }
         BankInfo fetchedBankInfo = fetchBankByBankCode(bank.getBankCode());
         if (fetchedBankInfo != null) {
-            throw new ResourceConflictException("message", "Bank info already exists");
+            throw new ResourceConflictException(InternalErrorCodes.BANK_INFO_EXIST, "Bank info already exists");
         }
         return bankInfoRepository.save(bank);
     }

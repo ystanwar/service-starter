@@ -1,21 +1,22 @@
 package com.thoughtworks.exceptions;
 
 import com.google.gson.JsonObject;
+import com.thoughtworks.ErrorCodes.InternalErrorCodes;
 
 public class ServiceException extends Exception {
-    private final String errorCode;
+    private final InternalErrorCodes errorCode;
     private final String errorMessage;
     private JsonObject details;
 
 
-    public ServiceException(String errorCode, String errorMessage) {
+    public ServiceException(InternalErrorCodes errorCode, String errorMessage) {
         super(errorMessage);
         this.errorCode = errorCode;
         this.errorMessage = errorMessage;
 
     }
 
-    public ServiceException(String errorCode, String errorMessage, JsonObject details) {
+    public ServiceException(InternalErrorCodes errorCode, String errorMessage, JsonObject details) {
         super(errorMessage);
         this.errorCode = errorCode;
         this.errorMessage = errorMessage;
@@ -23,7 +24,7 @@ public class ServiceException extends Exception {
 
     }
 
-    public ServiceException(String errorCode, String errorMessage, JsonObject details, Exception causedByException) {
+    public ServiceException(InternalErrorCodes errorCode, String errorMessage, JsonObject details, Exception causedByException) {
         super(errorMessage, causedByException);
         this.errorCode = errorCode;
         this.errorMessage = errorMessage;
@@ -31,14 +32,14 @@ public class ServiceException extends Exception {
 
     }
 
-    public ServiceException(String errorCode, String errorMessage, Exception causedByException) {
+    public ServiceException(InternalErrorCodes errorCode, String errorMessage, Exception causedByException) {
         super(errorMessage, causedByException);
         this.errorCode = errorCode;
         this.errorMessage = errorMessage;
 
     }
 
-    public String getErrorCode() {
+    public InternalErrorCodes getErrorCode() {
         return errorCode;
     }
 

@@ -1,5 +1,6 @@
 package com.thoughtworks.serviceclients;
 
+import com.thoughtworks.ErrorCodes.InternalErrorCodes;
 import com.thoughtworks.FraudClient.api.CheckFraudApi;
 import com.thoughtworks.FraudClient.model.PaymentDetailsRequest;
 import com.thoughtworks.exceptions.DependencyException;
@@ -38,10 +39,10 @@ public class FraudClient {
             if (ex.getStatusCode().value() == 422) {
                 return false;
             } else {
-                throw new DependencyException("ExternalService", "FRAUDSERVICE", baseUrl + "/checkFraud", "received " + ex.getStatusCode().value());
+                throw new DependencyException("ExternalService", InternalErrorCodes.SERVER_ERROR, baseUrl + "/checkFraud", "received " + ex.getStatusCode().value());
             }
         } catch (Exception ex) {
-            throw new DependencyException("ExternalService", "FRAUDSERVICE", baseUrl + "/checkFraud", "UNAVAILABLE", ex);
+            throw new DependencyException("ExternalService", InternalErrorCodes.SERVER_ERROR, baseUrl + "/checkFraud", "UNAVAILABLE", ex);
         }
     }
 }

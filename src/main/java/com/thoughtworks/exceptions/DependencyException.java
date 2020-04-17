@@ -1,13 +1,15 @@
 package com.thoughtworks.exceptions;
 
+import com.thoughtworks.ErrorCodes.InternalErrorCodes;
+
 public class DependencyException extends ServiceException {
 
     String dependencyType;
-    String dependencyName;
+    InternalErrorCodes dependencyName;
     String dependencyURI;
     String dependencyError;
 
-    public DependencyException(String dependencyType, String dependencyName, String dependencyURI, String dependencyError) {
+    public DependencyException(String dependencyType, InternalErrorCodes dependencyName, String dependencyURI, String dependencyError) {
         super(dependencyName, dependencyError);
         this.dependencyType = dependencyType;
         this.dependencyName = dependencyName;
@@ -15,7 +17,7 @@ public class DependencyException extends ServiceException {
         this.dependencyError = dependencyError;
     }
 
-    public DependencyException(String dependencyType, String dependencyName, String dependencyURI, String dependencyError, Exception causedByException) {
+    public DependencyException(String dependencyType, InternalErrorCodes dependencyName, String dependencyURI, String dependencyError, Exception causedByException) {
         super(dependencyName, dependencyError, causedByException);
         this.dependencyType = dependencyType;
         this.dependencyName = dependencyName;
@@ -24,8 +26,8 @@ public class DependencyException extends ServiceException {
     }
 
     @Override
-    public String getErrorCode() {
-        return dependencyName +"_FAILURE";
+    public InternalErrorCodes getErrorCode() {
+        return dependencyName;
     }
 
     @Override
