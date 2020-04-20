@@ -2,11 +2,11 @@ package com.thoughtworks.payment;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thoughtworks.ErrorCodes.InternalErrorCodes;
+import com.thoughtworks.api.api.model.BankDetails;
 import com.thoughtworks.api.api.model.PaymentFailureResponse;
 import com.thoughtworks.api.api.model.PaymentRequest;
 import com.thoughtworks.api.api.model.PaymentSuccessResponse;
 import com.thoughtworks.exceptions.*;
-import com.thoughtworks.api.api.model.BankDetails;
 import com.thoughtworks.payment.model.Payment;
 import com.thoughtworks.prometheus.Prometheus;
 import io.micrometer.core.instrument.Counter;
@@ -83,7 +83,6 @@ public class PaymentControllerTest {
 
         List<Payment> paymentList = new ArrayList<>();
 
-       
 
         BankDetails beneficiary = new BankDetails().name("user1").accountNumber(12L).ifscCode("HDFC1");
         BankDetails payee = new BankDetails().name("user2").accountNumber(12346L).ifscCode("HDFC1234");
@@ -306,26 +305,6 @@ public class PaymentControllerTest {
     }
 
     @Test
-    public void createPaymentWithInvalidRequestFormat() throws Exception {
-        Map<String, String> errors = new HashMap<>();
-        errors.put(InternalErrorCodes.PAYMENT_REQUEST_NOT_READABLE.toString(), "Request body missing or incorrect format");
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        when(paymentService.create(any(PaymentRequest.class))).thenThrow(new Exception("paymentService.create() not expected to be called for this test case"));
-
-        mockMvc.perform(post("/payments")
-                .content("{\"amount\":500" +
-                        "\"beneficiary\":{\"name\":\"user1\",\"accountNumber\":12345,\"ifscCode\":\"ABCD\"}" +
-                        ",\"payee\":{\"name\":\"user2\",\"accountNumber\":12,\"ifscCode\":\"HDFC1234\"}" +
-                        "}")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest())
-                .andExpect(content().string(objectMapper.writeValueAsString(new PaymentFailureResponse().message("INVALID_INPUT").reasons(errors))));
-
-        verify(paymentService, times(0)).create(any(PaymentRequest.class));
-    }
-
-    @Test
     public void testCannotCreatePaymentDueToSuspectedFraud() throws Exception {
         when(paymentService.create(any(PaymentRequest.class))).thenThrow(new PaymentRefusedException(InternalErrorCodes.SUSPECTED_ACCOUNT, "Suspected fraudulent transaction"));
 
@@ -344,7 +323,6 @@ public class PaymentControllerTest {
 
         verify(paymentService).create(any(PaymentRequest.class));
     }
-
 
     @Test
     public void testCannotCreatePaymentDueToDependencyError() throws Exception {
@@ -384,6 +362,35 @@ public class PaymentControllerTest {
                 .andExpect(content().string(objectMapper.writeValueAsString(new PaymentFailureResponse().message("REQUEST_UNPROCESSABLE").reasons(errors))));
 
         verify(paymentService).create(any(PaymentRequest.class));
+    }
+
+    @Test
+    public void createPaymentWithRequestBodyMissing() throws Exception {
+        Map<String, String> errors = new HashMap<>();
+        errors.put(InternalErrorCodes.PAYMENT_REQUEST_NOT_READABLE.toString(), "Request body missing or incorrect format");
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        mockMvc.perform(post("/payments")
+                .content("")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string(objectMapper.writeValueAsString(new PaymentFailureResponse().message("INVALID_INPUT").reasons(errors))));
+    }
+
+    @Test
+    public void createPaymentWithRequestBodyIsInIncorrectFormat() throws Exception {
+        Map<String, String> errors = new HashMap<>();
+        errors.put(InternalErrorCodes.PAYMENT_REQUEST_NOT_READABLE.toString(), "Request body missing or incorrect format");
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        mockMvc.perform(post("/payments")
+                .content("{\"amount\":500," +
+                        "\"beneficiary\":{\"name\":\"user1\"\"accountNumber\":12345ifscCode\":\"HDFC1\"}" +
+                        ",\"payee\":{\"name\":\"user2\",\"accountNumber\":12345,\"ifscCode\":\"HDFC1234\"}" +
+                        "}")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string(objectMapper.writeValueAsString(new PaymentFailureResponse().message("INVALID_INPUT").reasons(errors))));
     }
 }
 

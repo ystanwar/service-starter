@@ -3,21 +3,16 @@ package com.thoughtworks.handlers;
 import com.thoughtworks.ErrorCodes.InternalErrorCodes;
 import com.thoughtworks.api.api.model.PaymentFailureResponse;
 import com.thoughtworks.exceptions.*;
-
-
 import io.github.resilience4j.circuitbreaker.CallNotPermittedException;
 import lombok.extern.slf4j.Slf4j;
-
-
 import org.springframework.http.HttpStatus;
-import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-
 
 import java.util.HashMap;
 import java.util.List;
@@ -129,16 +124,6 @@ public class ExceptionMessageHandler {
         return new PaymentFailureResponse().message("INVALID_INPUT").reasons(errors);
     }
 
-    @ExceptionHandler(HttpMessageNotReadableException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ResponseBody
-    protected PaymentFailureResponse handleRequestNotReadableException(HttpMessageNotReadableException ex) {
-        Map<String, String> errors = new HashMap<>();
-        errors.put(InternalErrorCodes.PAYMENT_REQUEST_NOT_READABLE.toString(), "Request body missing or incorrect format");
-        logException(ex);
-        return new PaymentFailureResponse().message("INVALID_INPUT").reasons(errors);
-    }
-
     @ExceptionHandler(BusinessException.class)
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     @ResponseBody
@@ -154,6 +139,7 @@ public class ExceptionMessageHandler {
     @ResponseBody
     protected PaymentFailureResponse handleGeneralException(Exception ex) {
         Map<String, String> errors = new HashMap<>();
+        System.out.println("Sever error found"+ex.getClass());
         errors.put(InternalErrorCodes.SERVER_ERROR.toString(), "Could not process the request");
         logException(ex);
         return new PaymentFailureResponse().message("SERVER_ERROR").reasons(errors);
@@ -167,5 +153,15 @@ public class ExceptionMessageHandler {
         errors.put(InternalErrorCodes.SERVER_ERROR.toString(), "Could not process the request");
         logException(ex);
         return new PaymentFailureResponse().message("SERVER_ERROR").reasons(errors);
+    }
+
+    @ExceptionHandler(HttpMessageConversionException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    protected PaymentFailureResponse handleRequestWithInvalidJson(HttpMessageConversionException ex) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put(InternalErrorCodes.PAYMENT_REQUEST_NOT_READABLE.toString(), "Request body missing or incorrect format");
+        logException(ex);
+        return new PaymentFailureResponse().message("INVALID_INPUT").reasons(errors);
     }
 }
