@@ -13,6 +13,21 @@ services:
       - spring_security_user_password=admin
     networks:
       - paymentnetwork
+  postgres:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: paymentuser
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: paymentdb
+  sonarqube:
+    container_name: sonarqube
+    image: sonarqube
+    ports:
+      - "9000:9000"
+    networks:
+      - paymentnetwork
   elasticsearch:
     container_name: elasticsearch
     hostname: elasticsearch
