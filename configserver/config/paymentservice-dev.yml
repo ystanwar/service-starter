@@ -1,0 +1,6 @@
+LogstashConfiguration:
+  Enabled: false
+  Uri: tcp://logstash:9999
+ElasticConfiguration:
+  Enabled: false
+  Uri: http://elasticsearch:9200

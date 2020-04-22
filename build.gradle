@@ -160,6 +160,7 @@ dependencies {
     compile('com.thoughtworks:FraudServiceClient:1.1-SNAPSHOT'){
         exclude group: 'org.springframework', module: 'spring-web'
     }
+    compile 'org.springframework.cloud:spring-cloud-starter-config:2.2.0.RELEASE'
     //compile group: 'org.openapitools', name: 'jackson-databind-nullable', version: '0.2.1'
     //compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
 //    classpath("org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.2.1")

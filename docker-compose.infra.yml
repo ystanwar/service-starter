@@ -1,5 +1,18 @@
 version: '3.7'
 services:
+  configserver:
+    container_name: configserver
+    image: docker.pkg.github.com/cd-jump-start/configserver/com.thoughtworks.configserver:1.0.0
+    ports:
+      - "8888:8888"
+    volumes:
+      - /Users/dipaliprakashkelkar/Desktop/payment/config:/config
+    environment:
+      - SPRING_PROFILES_ACTIVE=native
+      - spring_security_user_name=admin
+      - spring_security_user_password=admin
+    networks:
+      - paymentnetwork
   elasticsearch:
     container_name: elasticsearch
     hostname: elasticsearch
