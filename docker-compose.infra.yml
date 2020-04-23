@@ -6,7 +6,7 @@ services:
     ports:
       - "8888:8888"
     volumes:
-      - /Users/dipaliprakashkelkar/Desktop/payment/config:/config
+      - ./config:/config
     environment:
       - SPRING_PROFILES_ACTIVE=native
       - spring_security_user_name=admin

@@ -37,7 +37,7 @@ services:
     container_name: fraudservice
     image: docker.pkg.github.com/cd-jump-start/service-dep-fraudservice/fraudservice:latest
     ports:
-      - 8085:8083
+      - 8083:8083
     environment:
       - server.port=8083
     networks:

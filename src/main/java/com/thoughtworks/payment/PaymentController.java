@@ -11,10 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.NativeWebRequest;
 
 import javax.validation.Valid;
@@ -27,7 +24,6 @@ import static net.logstash.logback.argument.StructuredArguments.kv;
 @RestController
 @RequestMapping("/payments")
 public class PaymentController implements PaymentsApi {
-
     @Autowired
     private PaymentService paymentService;
 
@@ -38,7 +34,7 @@ public class PaymentController implements PaymentsApi {
 
     @PostMapping(consumes = {"application/json"})
     @Override
-    public ResponseEntity<PaymentSuccessResponse> create1(@Valid PaymentRequest paymentRequest) throws Exception {
+    public ResponseEntity<PaymentSuccessResponse> create1(@Valid @RequestBody PaymentRequest paymentRequest) throws Exception {
         com.thoughtworks.payment.model.Payment savedPayment = paymentService.create(paymentRequest);
         ObjectNode mapper = new ObjectMapper().createObjectNode();
         mapper.put("PaymentId", String.valueOf(savedPayment.getId()));
