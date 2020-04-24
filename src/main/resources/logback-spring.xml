@@ -1,4 +1,5 @@
-<configuration>
+<configuration debug="true" scan="true" scanPeriod="30 seconds">
+ <property resource="application.properties" />
     <appender name="Console"
               class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
@@ -15,7 +16,7 @@
     </appender>
 
     <appender name="STASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-        <destination>localhost:9999</destination>
+        <destination>${logstash.url}</destination>
         <encoder class="net.logstash.logback.encoder.LogstashEncoder">
         </encoder>
         <keepAliveDuration>5 minutes</keepAliveDuration>

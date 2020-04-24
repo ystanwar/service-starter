@@ -4,3 +4,5 @@ LogstashConfiguration:
 ElasticConfiguration:
   Enabled: false
   Uri: http://elasticsearch:9200
+LOGSTSH:
+  HOST: localhost:9999
