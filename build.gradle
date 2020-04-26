@@ -23,14 +23,6 @@ sonarqube {
     }
 }
 
-pact {
-    publish {
-        pactDirectory = 'build/pacts'
-        pactBrokerUrl =getProjectProperty('pactBrokerUrl')
-        pactBrokerToken = getProjectProperty('pactBrokerToken')
-    }
-}
-
 jacocoTestReport {
     reports {
         xml.enabled true

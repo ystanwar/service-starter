@@ -31,7 +31,7 @@ public class BankServiceConsumerTest {
     public RequestResponsePact createAPactForValidCheckDetails(PactDslWithProvider builder) {
 
         return builder
-                .given("test checkdetails")
+                .given("test checkdetails with valid bank details")
                 .uponReceiving("check details of the account")
                 .path("/checkDetails")
                 .matchQuery("accountNumber", "^[0-9]+$", "12345")
@@ -54,7 +54,7 @@ public class BankServiceConsumerTest {
     public RequestResponsePact createPactForInvalidCheckDetails(PactDslWithProvider builder) {
 
         return builder
-                .given("test checkdetails")
+                .given("test checkdetails with invalid bank details")
                 .uponReceiving("check details of the account")
                 .path("/checkDetails")
                 .matchQuery("accountNumber", "^[0-9]+$", "123456789")
@@ -77,7 +77,7 @@ public class BankServiceConsumerTest {
     public RequestResponsePact createPactForCheckingDetailsForInternalServerError(PactDslWithProvider builder) {
 
         return builder
-                .given("test checkdetails")
+                .given("test checkdetails responds with internal server error")
                 .uponReceiving("check details of the account")
                 .path("/checkDetails")
                 .matchQuery("accountNumber", "^[0-9]+$", "123455555")
