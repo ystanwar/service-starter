@@ -15,7 +15,7 @@ Consider an instance when the system return a response with “401 Unauthorized 
 - Error response must have a code and description. 
    - The code serves as a specific indicator of the error.
    - Example of the ‘error’ object with multiple properties included:
-     ![Error](documentationImages/ErrorObject.png)
+     ![Error](images/ErrorObject.png)
      
 ### Best way to Handle response codes and error codes :
  - Separate general and domain errors.
