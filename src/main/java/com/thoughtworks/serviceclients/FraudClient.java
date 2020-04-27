@@ -5,23 +5,22 @@ import com.thoughtworks.FraudClient.api.CheckFraudApi;
 import com.thoughtworks.FraudClient.model.PaymentDetailsRequest;
 import com.thoughtworks.exceptions.DependencyException;
 import com.thoughtworks.payment.model.Payment;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
+import static net.logstash.logback.argument.StructuredArguments.kv;
+
+@Slf4j
 @Service
 public class FraudClient {
+    @Value("${FraudService.Url}")
     private String baseUrl;
 
     @Autowired
-    FraudClient(Environment env) {
-        this.baseUrl = env.getProperty("fraudService");
-    }
-
-    @Autowired
     CheckFraudApi checkFraudApi;
-
 
     public boolean checkFraud(Payment payment) throws Exception {
         PaymentDetailsRequest paymentDetailsRequest = new PaymentDetailsRequest();
@@ -34,6 +33,7 @@ public class FraudClient {
         try {
             checkFraudApi.getApiClient().setBasePath(baseUrl);
             checkFraudApi.checkFraud(paymentDetailsRequest);
+            log.info("FraudService url from config server", kv("eventCode", "FRAUDERVICE_URL_FROM_CONFIG_SERVER"), kv("url", baseUrl));
             return true;
         } catch (HttpClientErrorException ex) {
             if (ex.getStatusCode().value() == 422) {

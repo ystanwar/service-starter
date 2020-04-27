@@ -1,8 +1,6 @@
-LogstashConfiguration:
-  Enabled: false
-  Uri: tcp://logstash:9999
-ElasticConfiguration:
-  Enabled: false
-  Uri: http://elasticsearch:9200
-LOGSTSH:
-  HOST: localhost:9999
+FraudService:
+  Url: http://localhost:8083
+Flyway:
+  Url: jdbc:postgresql://localhost:5432/paymentdb
+DataSource:
+  Url: jdbc:postgresql://localhost:5432/paymentdb

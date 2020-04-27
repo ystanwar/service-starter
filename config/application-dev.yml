@@ -2,14 +2,14 @@
 #Refer the link: https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-external-config-application-property-files
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/paymentdb
+    url: ${DataSource.Url}
     username: paymentuser
     password: password
   jpa:
     hibernate:
       ddl-auto: validate
   flyway:
-    url: jdbc:postgresql://localhost:5432/paymentdb
+    url: ${Flyway.Url}
     user: paymentuser
     password: password
     enabled: true
