@@ -16,8 +16,12 @@ import static net.logstash.logback.argument.StructuredArguments.kv;
 @Slf4j
 @Service
 public class FraudClient {
-    @Value("${FraudService.Url}")
+    @Value("${Fraud.Url}")
     private String baseUrl;
+//    @Autowired
+//    FraudClient(Environment env){
+//        this.baseUrl = env.getProperty("Service.Url");
+//    }
 
     @Autowired
     CheckFraudApi checkFraudApi;

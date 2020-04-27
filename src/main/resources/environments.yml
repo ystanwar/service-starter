@@ -1,0 +1,3 @@
+Fraud.Url: http://localhost:8083
+Flyway.Url: jdbc:postgresql://localhost:5432/paymentdb
+DataSource.Url: jdbc:postgresql://localhost:5432/paymentdb

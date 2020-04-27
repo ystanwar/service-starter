@@ -37,6 +37,7 @@ public class PaymentController implements PaymentsApi {
     public ResponseEntity<PaymentSuccessResponse> create1(@Valid @RequestBody PaymentRequest paymentRequest) throws Exception {
         com.thoughtworks.payment.model.Payment savedPayment = paymentService.create(paymentRequest);
         ObjectNode mapper = new ObjectMapper().createObjectNode();
+        System.out.println("");
         mapper.put("PaymentId", String.valueOf(savedPayment.getId()));
         mapper.put("BeneficiaryIfscCode", savedPayment.getBeneficiaryIfscCode());
         mapper.put("PayeeIfscCode", savedPayment.getPayeeIfscCode());
