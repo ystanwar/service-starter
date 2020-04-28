@@ -1,6 +1,7 @@
 <configuration debug="true" scan="true" scanPeriod="30 seconds">
- <property resource="application.properties" />
-    <appender name="Console"
+    <variable name="LOG_LOCATION" value="${LOG_LOCATION:-logs/app.log}" />
+
+    <appender name="console"
               class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
             <Pattern>
@@ -9,26 +10,10 @@
         </layout>
     </appender>
 
-
-    <appender name="json" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
-        </encoder>
-    </appender>
-
-    <appender name="STASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-        <destination>${logstash.url}</destination>
-        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
-        </encoder>
-        <keepAliveDuration>5 minutes</keepAliveDuration>
-    </appender>
-
-
-    <appender name="RollingFile"
+    <appender name="file-appender"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>logs/logs.log</file>
-        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
-        </encoder>
-
+        <file>${LOG_LOCATION}</file>
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
         <rollingPolicy
                 class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             rollover daily and when the file reaches 10 MegaBytes
@@ -41,24 +26,16 @@
         </rollingPolicy>
     </appender>
 
-
     <!-- LOG everything at INFO level -->
     <root level="info">
-        <appender-ref ref="RollingFile"/>
-        <appender-ref ref="Console"/>
+        <appender-ref ref="file-appender"/>
+        <appender-ref ref="console"/>
     </root>
 
     <!-- LOG "com.thoughtworks*" at TRACE level -->
     <logger name="com.thoughtworks" level="trace" additivity="false">
-        <appender-ref ref="RollingFile"/>
-        <appender-ref ref="json"/>
-        <appender-ref ref="STASH"/>
-    </logger>
-
-    <logger name="org.apache" level="info" additivity="false">
-        <appender-ref ref="RollingFile"/>
-        <appender-ref ref="json"/>
-        <appender-ref ref="STASH"/>
+        <appender-ref ref="file-appender"/>
+        <appender-ref ref="console"/>
     </logger>
 
 </configuration>

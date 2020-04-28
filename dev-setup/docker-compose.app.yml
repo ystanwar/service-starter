@@ -3,23 +3,36 @@ version: '3.7'
 services:
   paymentservice:
     container_name: paymentservice_con
-    image: paymentservice:latest
     build:
-      context: .
+      context: ../
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
     environment:
-      - "spring_datasource_url=jdbc:postgresql://host.docker.internal:5432/paymentdb"
-      - "spring_datasource_username=paymentuser"
-      - "spring_datasource_password=password"
-      - "spring_jpa_hibernate_ddl-auto=validate"
-      - "spring_flyway_url=jdbc:postgresql://host.docker.internal:5432/paymentdb"
-      - "spring_flyway_user=paymentuser"
-      - "spring_flyway_password=password"
-      - "spring_flyway_enabled=true"
-      - "spring_flyway_locations=classpath:/db/migration"
-      - fraudService=${fraudService}
+      spring_datasource_url: "jdbc:postgresql://host.docker.internal:5432/paymentdb"
+      spring_datasource_username: "paymentuser"
+      spring_datasource_password: "password"
+      spring_jpa_hibernate_ddl-auto: "validate"
+      spring_flyway_url: "jdbc:postgresql://host.docker.internal:5432/paymentdb"
+      spring_flyway_user: "paymentuser"
+      spring_flyway_password: "password"
+      spring_flyway_enabled: "true"
+      spring_flyway_locations: "classpath:/db/migration"
+      LOG_LOCATION: "/applogs/app.log"
+      fraudService: "${fraudService}"
+
+    volumes:
+      - payment_logs:/applogs
+    networks:
+      - paymentnetwork
+
+  filebeat:
+    container_name: filebeat
+    image: docker.elastic.co/beats/filebeat:7.6.2
+    hostname: filebeat
+    volumes:
+      - ./elk/config/filebeat.yml:/usr/share/filebeat/filebeat.yml
+      - payment_logs:/applogs
     networks:
       - paymentnetwork
 
@@ -42,3 +55,7 @@ services:
       - server.port=8083
     networks:
       - paymentnetwork
+
+volumes:
+  payment_logs:
+    driver: local
